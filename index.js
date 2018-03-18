@@ -30,10 +30,10 @@ app.get('/',(req,res) => {
 });	
 
 app.get('/products/add', (req, res) =>{
-	const { piggy, pig, piggyback, pi} = req.query;
+	const { name, price} = req.query;
 	console.log(req.query);
-	console.log(piggy);
-	const INSERT_PRODUCTS_QUERY = 'INSERT INTO products (piggy, pig, piggyback, pi) VALUES('+piggy+', '+pig+', '+piggyback+', '+pi+')';
+	console.log(name);
+	const INSERT_PRODUCTS_QUERY = 'INSERT INTO products (name, price) VALUES('+name+', '+price+')';
 	connection.query(INSERT_PRODUCTS_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
