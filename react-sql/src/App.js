@@ -31,7 +31,7 @@ class App extends Component {
       .catch(err => console.error(err))
   }
 
-  renderProduct = ({ product_id, name}) => <div key={product_id}>{name}</div>
+  renderProduct = ({ product_id, name, price}) => <div key={product_id}>{name}, {price}</div>
 
   render() {
     const { products, product } = this.state;
