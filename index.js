@@ -5,7 +5,7 @@ const mysql = require('mysql');
 const app = express();
 
 const SELECT_ALL_PRODUCTS_QUERY = 'SELECT * FROM products';
-const SELECT_ALL_PENCOUNT_QUERY = 'SELECT * FROM pen_count';
+const SELECT_ALL_PENCOUNT_QUERY = 'SELECT * FROM transfer';
 
 const connection = mysql.createConnection({
 	host: 'localhost',
@@ -44,7 +44,7 @@ app.get('/products', (req, res) =>{
 	});
 });
 
-app.get('/pencount', (req, res) =>{
+app.get('/transfer', (req, res) =>{
 	connection.query(SELECT_ALL_PENCOUNT_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
@@ -72,16 +72,18 @@ app.get('/products/add', (req, res) =>{
 	});
 });
 
-app.get('/pencount/update', (req, res) =>{
-	const { added, date} = req.query;
-	console.log(req.query);
-	const UPDATE_PIGCOUNT_QUERY = "UPDATE Pen_count SET added = "+added+" WHERE date = '"+date+"'";
-	connection.query(UPDATE_PIGCOUNT_QUERY, (err,results) =>{
+app.get('/transfer/add/', (req, res) =>{
+	var type = 'add';
+	var pen_id = 1;
+	var user_id = 2;
+	var value = 3;
+	const INSERT_PRODUCTS_QUERY = 'INSERT INTO transfer (type, pen_id, user_id, value) VALUES("'+type+'", '+pen_id+', '+user_id+', '+value+')';
+	connection.query(INSERT_PRODUCTS_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
 		}
 		else{
-			return res.send('UPDATED')
+			return res.send('ADDED')
 		}
 	});
 });
