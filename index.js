@@ -5,7 +5,9 @@ const mysql = require('mysql');
 const app = express();
 
 const SELECT_ALL_PRODUCTS_QUERY = 'SELECT * FROM products';
+
 const SELECT_ALL_PENCOUNT_QUERY = 'SELECT * FROM transfer';
+
 const SELECT_ALL_FOOD_QUERY = 'SELECT * FROM food';
 
 const connection = mysql.createConnection({
