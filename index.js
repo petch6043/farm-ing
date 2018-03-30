@@ -7,6 +7,7 @@ const app = express();
 const SELECT_ALL_PRODUCTS_QUERY = 'SELECT * FROM products';
 const SELECT_ALL_VACCINE_QUERY = 'SELECT * FROM vaccine';
 const SELECT_ALL_VACCINEPEN_QUERY = 'SELECT * FROM vaccine_pen';
+const SELECT_ALL_REPORT_QUERY = 'SELECT * FROM report';
 
 
 const SELECT_ALL_PENCOUNT_QUERY = 'SELECT * FROM transfer';
@@ -65,6 +66,19 @@ app.get('/transfer', (req, res) =>{
 });
 app.get('/food', (req, res) =>{
 	connection.query(SELECT_ALL_FOOD_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			return res.json({
+				data: results
+			})
+		}
+	});
+});
+
+app.get('/report', (req, res) =>{
+	connection.query(SELECT_ALL_REPORT_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
 		}
@@ -146,6 +160,28 @@ app.get('/transfer/add/', (req, res) =>{
 		}
 		else{
 			return res.send('ADDED')
+		}
+	});
+});
+
+app.get('/report/generate/', (req, res) =>{
+	var barn_id = 1;
+	var pig_current = 50;
+	var pig_sold = 20;
+	var pig_sick = 5;
+	var pig_died = 3;
+	var food_amount = 100;
+	var fpp = food_amount/pig_current;
+	var report_type = 'monthly';
+	console.log(fpp)
+	const INSERT_PRODUCTS_QUERY = 'INSERT INTO report (barn_id, pig_current, pig_sold, pig_sick, pig_died, food_amount, fpp, report_type) VALUES("'+
+	barn_id+'", '+pig_current+', '+pig_sold+', '+pig_sick+', '+pig_died+', '+food_amount+', '+fpp+', '+report_type')';
+	connection.query(INSERT_PRODUCTS_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			return res.send('Generated')
 		}
 	});
 });
