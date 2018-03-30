@@ -1,17 +1,17 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 4.7.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Mar 30, 2018 at 04:30 PM
--- Server version: 5.6.38
--- PHP Version: 7.1.12
+-- Generation Time: Mar 30, 2018 at 05:23 PM
+-- Server version: 5.6.35
+-- PHP Version: 7.1.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 --
--- Database: `farming`
+-- Database: `react_sql`
 --
 
 -- --------------------------------------------------------
@@ -23,6 +23,13 @@ SET time_zone = "+00:00";
 CREATE TABLE `barn` (
   `barn_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `barn`
+--
+
+INSERT INTO `barn` (`barn_id`) VALUES
+(1);
 
 -- --------------------------------------------------------
 
@@ -39,6 +46,14 @@ CREATE TABLE `food` (
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `food`
+--
+
+INSERT INTO `food` (`food_id`, `pen_id`, `amount`, `food_type`, `user_id`, `timestamp`) VALUES
+(5, 1, 2, 3, 4, '2018-03-30 15:10:43'),
+(6, 1, 2, 3, 4, '2018-03-30 15:10:44');
+
 -- --------------------------------------------------------
 
 --
@@ -49,6 +64,14 @@ CREATE TABLE `pen` (
   `pen_id` int(11) NOT NULL,
   `barn_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `pen`
+--
+
+INSERT INTO `pen` (`pen_id`, `barn_id`) VALUES
+(1, 1),
+(2, 1);
 
 -- --------------------------------------------------------
 
@@ -68,6 +91,14 @@ CREATE TABLE `report` (
   `report_type` text NOT NULL,
   `stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `report`
+--
+
+INSERT INTO `report` (`report_id`, `barn_id`, `pig_sold`, `pig_sick`, `pig_die`, `pig_current`, `food_amount`, `fpp`, `report_type`, `stamp`) VALUES
+(1, 1, 20, 5, 3, 50, 100, 2, 'monthly', '2018-03-30 14:55:44'),
+(2, 1, 20, 5, 3, 50, 100, 2, 'monthly', '2018-03-30 14:56:03');
 
 -- --------------------------------------------------------
 
@@ -112,18 +143,15 @@ CREATE TABLE `vaccine` (
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `vaccinetype`
+-- Dumping data for table `vaccine`
 --
 
-CREATE TABLE `vaccinetype` (
-  `type_id` int(11) NOT NULL,
-  `type_name` text NOT NULL,
-  `age` int(11) NOT NULL,
-  `isRequired` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `vaccine` (`vac_id`, `vac_name`, `type_id`, `timestamp`) VALUES
+(1, '5', 0, '2018-03-30 14:58:41'),
+(2, '5', 0, '2018-03-30 14:58:45'),
+(3, '5', 0, '2018-03-30 15:16:12'),
+(4, '5', 0, '2018-03-30 15:16:43');
 
 -- --------------------------------------------------------
 
@@ -135,6 +163,36 @@ CREATE TABLE `vaccine_pen` (
   `vac_id` int(11) NOT NULL,
   `pen_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `vaccine_pen`
+--
+
+INSERT INTO `vaccine_pen` (`vac_id`, `pen_id`) VALUES
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vaccine_type`
+--
+
+CREATE TABLE `vaccine_type` (
+  `type_id` int(11) NOT NULL,
+  `type_name` text NOT NULL,
+  `age` int(11) NOT NULL,
+  `isRequired` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `vaccine_type`
+--
+
+INSERT INTO `vaccine_type` (`type_id`, `type_name`, `age`, `isRequired`) VALUES
+(7, 'yolo', 8, 1);
 
 --
 -- Indexes for dumped tables
@@ -188,17 +246,17 @@ ALTER TABLE `vaccine`
   ADD PRIMARY KEY (`vac_id`);
 
 --
--- Indexes for table `vaccinetype`
---
-ALTER TABLE `vaccinetype`
-  ADD PRIMARY KEY (`type_id`);
-
---
 -- Indexes for table `vaccine_pen`
 --
 ALTER TABLE `vaccine_pen`
   ADD PRIMARY KEY (`vac_id`,`pen_id`),
   ADD KEY `pen_id` (`pen_id`);
+
+--
+-- Indexes for table `vaccine_type`
+--
+ALTER TABLE `vaccine_type`
+  ADD PRIMARY KEY (`type_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -208,38 +266,32 @@ ALTER TABLE `vaccine_pen`
 -- AUTO_INCREMENT for table `food`
 --
 ALTER TABLE `food`
-  MODIFY `food_id` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `food_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `pen`
 --
 ALTER TABLE `pen`
-  MODIFY `pen_id` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `pen_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `report`
 --
 ALTER TABLE `report`
-  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `transfer`
 --
 ALTER TABLE `transfer`
-  MODIFY `tran_id` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `tran_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `vaccine`
 --
 ALTER TABLE `vaccine`
-  MODIFY `vac_id` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `vac_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT for table `vaccinetype`
+-- AUTO_INCREMENT for table `vaccine_type`
 --
-ALTER TABLE `vaccinetype`
-  MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT;
-
+ALTER TABLE `vaccine_type`
+  MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- Constraints for dumped tables
 --
@@ -248,13 +300,13 @@ ALTER TABLE `vaccinetype`
 -- Constraints for table `food`
 --
 ALTER TABLE `food`
-  ADD CONSTRAINT `food_ibfk_1` FOREIGN KEY (`pen_id`) REFERENCES `pen` (`pen_id`);
+  ADD CONSTRAINT `food_ibfk_1` FOREIGN KEY (`pen_id`) REFERENCES `pen` (`pen_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `pen`
 --
 ALTER TABLE `pen`
-  ADD CONSTRAINT `pen_ibfk_1` FOREIGN KEY (`barn_id`) REFERENCES `barn` (`barn_id`);
+  ADD CONSTRAINT `pen_ibfk_1` FOREIGN KEY (`barn_id`) REFERENCES `barn` (`barn_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `report`
@@ -266,12 +318,12 @@ ALTER TABLE `report`
 -- Constraints for table `transfer`
 --
 ALTER TABLE `transfer`
-  ADD CONSTRAINT `transfer_ibfk_1` FOREIGN KEY (`pen_id`) REFERENCES `pen` (`pen_id`),
+  ADD CONSTRAINT `transfer_ibfk_1` FOREIGN KEY (`pen_id`) REFERENCES `pen` (`pen_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `transfer_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
 
 --
 -- Constraints for table `vaccine_pen`
 --
 ALTER TABLE `vaccine_pen`
-  ADD CONSTRAINT `vaccine_pen_ibfk_1` FOREIGN KEY (`vac_id`) REFERENCES `vaccine` (`vac_id`),
+  ADD CONSTRAINT `vaccine_pen_ibfk_1` FOREIGN KEY (`vac_id`) REFERENCES `vaccine` (`vac_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `vaccine_pen_ibfk_2` FOREIGN KEY (`pen_id`) REFERENCES `pen` (`pen_id`);

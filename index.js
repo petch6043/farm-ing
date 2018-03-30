@@ -4,7 +4,7 @@ const mysql = require('mysql');
 
 const app = express();
 
-const SELECT_ALL_PRODUCTS_QUERY = 'SELECT * FROM products';
+const SELECT_ALL_PEN_QUERY = 'SELECT * FROM pen';
 const SELECT_ALL_VACCINE_QUERY = 'SELECT * FROM vaccine';
 const SELECT_ALL_VACCINEPEN_QUERY = 'SELECT * FROM vaccine_pen';
 const SELECT_ALL_REPORT_QUERY = 'SELECT * FROM report';
@@ -37,8 +37,8 @@ app.get('/',(req,res) => {
 });	
 
 
-app.get('/products', (req, res) =>{
-	connection.query(SELECT_ALL_PRODUCTS_QUERY, (err,results) =>{
+app.get('/pen', (req, res) =>{
+	connection.query(SELECT_ALL_PEN_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
 		}
@@ -158,11 +158,11 @@ app.get('/vaccine_type', (req, res) =>{
  });
 });
 
-app.get('/products/add', (req, res) =>{
-	var name = '0';
-	var price = 0;
-	const INSERT_PRODUCTS_QUERY = 'INSERT INTO products (name, price) VALUES('+name+', '+price+')';
-	connection.query(INSERT_PRODUCTS_QUERY, (err,results) =>{
+app.get('/pen/add', (req, res) =>{
+	var pen_id = 2;
+	var barn_id = 1;
+	const INSERT_PEN_QUERY = 'INSERT INTO pen (pen_id, barn_id) VALUES('+pen_id+', '+barn_id+')';
+	connection.query(INSERT_PEN_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
 		}
@@ -226,8 +226,8 @@ app.get('/vaccine/add', (req, res) =>{
 });
 
 app.get('/vaccine_pen/add', (req, res) =>{
-	var vac_id = 7;
-	var pen_id = 8;
+	var vac_id = 4;
+	var pen_id = 1;
 	
 	const INSERT_VACCINEPEN_QUERY = 'INSERT INTO vaccine_pen (vac_id, pen_id) VALUES('+vac_id+', '+pen_id+')';
 	connection.query(INSERT_VACCINEPEN_QUERY, (err,results) =>{
