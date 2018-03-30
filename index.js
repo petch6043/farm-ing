@@ -8,11 +8,9 @@ const SELECT_ALL_PRODUCTS_QUERY = 'SELECT * FROM products';
 const SELECT_ALL_VACCINE_QUERY = 'SELECT * FROM vaccine';
 const SELECT_ALL_VACCINEPEN_QUERY = 'SELECT * FROM vaccine_pen';
 const SELECT_ALL_REPORT_QUERY = 'SELECT * FROM report';
-
-
+const SELECT_ALL_VACCINETYPE_QUERY = 'SELECT * FROM vaccine_type';
+const SELECT_ALL_BARN_QUERY = 'SELECT * FROM barn';
 const SELECT_ALL_PENCOUNT_QUERY = 'SELECT * FROM transfer';
-
-
 const SELECT_ALL_FOOD_QUERY = 'SELECT * FROM food';
 
 const connection = mysql.createConnection({
@@ -90,6 +88,19 @@ app.get('/report', (req, res) =>{
 	});
 });
 
+app.get('/barn', (req, res) =>{
+ connection.query(SELECT_ALL_BARN_QUERY, (err,results) =>{
+  if (err) {
+   return res.send(err)
+  }
+  else{
+   return res.json({
+    data: results
+   })
+  }
+ });
+});
+
 app.get('/food/add', (req, res) =>{
 	var pen_id = 1;
 	var amount = 2;
@@ -134,6 +145,19 @@ app.get('/vaccine_pen', (req, res) =>{
 	});
 });
 
+app.get('/vaccine_type', (req, res) =>{
+ connection.query(SELECT_ALL_VACCINETYPE_QUERY, (err,results) =>{
+  if (err) {
+   return res.send(err)
+  }
+  else{
+   return res.json({
+    data: results
+   })
+  }
+ });
+});
+
 app.get('/products/add', (req, res) =>{
 	var name = '0';
 	var price = 0;
@@ -169,13 +193,13 @@ app.get('/report/generate/', (req, res) =>{
 	var pig_current = 50;
 	var pig_sold = 20;
 	var pig_sick = 5;
-	var pig_died = 3;
+	var pig_die = 3;
 	var food_amount = 100;
 	var fpp = food_amount/pig_current;
 	var report_type = 'monthly';
 	console.log(fpp)
-	const INSERT_PRODUCTS_QUERY = 'INSERT INTO report (barn_id, pig_current, pig_sold, pig_sick, pig_died, food_amount, fpp, report_type) VALUES("'+
-	barn_id+'", '+pig_current+', '+pig_sold+', '+pig_sick+', '+pig_died+', '+food_amount+', '+fpp+', '+report_type')';
+	const INSERT_PRODUCTS_QUERY = 'INSERT INTO report (barn_id, pig_current, pig_sold, pig_sick, pig_die, food_amount, fpp, report_type) VALUES("'+
+	barn_id+'", '+pig_current+', '+pig_sold+', '+pig_sick+', '+pig_die+', '+food_amount+', '+fpp+', "'+report_type+'")';
 	connection.query(INSERT_PRODUCTS_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
@@ -216,7 +240,36 @@ app.get('/vaccine_pen/add', (req, res) =>{
 	});
 });
 
+app.get('/vaccine_type/add', (req, res) =>{
+ var type_id = 7;
+ var type_name = 'yolo';
+ var age = 8;
+ var isRequired = true;
+ 
+ const INSERT_VACCINETYPE_QUERY = 'INSERT INTO vaccine_type (type_id, type_name,age,isRequired) VALUES('+type_id+', "'+type_name+'",'+age+', '+isRequired+')';
+ connection.query(INSERT_VACCINETYPE_QUERY, (err,results) =>{
+  if (err) {
+   return res.send(err)
+  }
+  else{
+   return res.send('VACCINETYPE ADDED')
+  }
+ });
+});
 
+app.get('/barn/add', (req, res) =>{
+ var barn_id = '1';
+ 
+ const INSERT_BARN_QUERY = 'INSERT INTO barn (barn_id) VALUES('+barn_id+')';
+ connection.query(INSERT_BARN_QUERY, (err,results) =>{
+  if (err) {
+   return res.send(err)
+  }
+  else{
+   return res.send('BARN ADDED')
+  }
+ });
+});
 
 app.listen(4000, () => {
 	console.log('Products server listening on port 4000')
