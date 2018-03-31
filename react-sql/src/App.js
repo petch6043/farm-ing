@@ -31,6 +31,24 @@ class App extends Component {
       .catch(err => console.error(err))
   }
 
+  addTransfer = _ => {
+    const { product } = this.state;
+    fetch('http://localhost:4000/transfer/add', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        type: product.name,
+        pen_id: 1,
+        user_id: 1,
+        value: 1
+      }),
+    });
+    console.log('addTransfer')
+  }
+
   renderProduct = ({ product_id, name, price}) => <div key={product_id}>{name}, {price}</div>
 
   render() {
@@ -47,7 +65,7 @@ class App extends Component {
           value={product.price}
           onChange={e => this.setState({ product: { ...product, price: e.target.value }})}
           />
-          <button onClick={this.addProduct}>Add product</button>
+          <button onClick={this.addTransfer}>Add product</button>
         </div>
       </div>
     );

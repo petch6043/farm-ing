@@ -13,6 +13,10 @@ const SELECT_ALL_BARN_QUERY = 'SELECT * FROM barn';
 const SELECT_ALL_PENCOUNT_QUERY = 'SELECT * FROM transfer';
 const SELECT_ALL_FOOD_QUERY = 'SELECT * FROM food';
 
+var bodyParser = require('body-parser');
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
 const connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
@@ -175,8 +179,25 @@ app.get('/pen/add', (req, res) =>{
 app.get('/transfer/add/', (req, res) =>{
 	var type = 'add';
 	var pen_id = 1;
-	var user_id = 2;
+	var user_id = 1;
 	var value = 3;
+	const INSERT_PRODUCTS_QUERY = 'INSERT INTO transfer (type, pen_id, user_id, value) VALUES("'+type+'", '+pen_id+', '+user_id+', '+value+')';
+	connection.query(INSERT_PRODUCTS_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			return res.send('ADDED')
+		}
+	});
+});
+
+app.post('/transfer/add', function(req, res) {
+    var type = req.body.type;
+	var pen_id = req.body.pen_id;
+	var user_id = req.body.user_id;
+	var value = req.body.value;
+	console.log("body.type is "+req.body.type+' '+req.body.userID);
 	const INSERT_PRODUCTS_QUERY = 'INSERT INTO transfer (type, pen_id, user_id, value) VALUES("'+type+'", '+pen_id+', '+user_id+', '+value+')';
 	connection.query(INSERT_PRODUCTS_QUERY, (err,results) =>{
 		if (err) {
