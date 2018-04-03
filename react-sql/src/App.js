@@ -56,23 +56,26 @@ const Topics = ({ match }) => (
 class App extends Component {
 
   state = {
-    products: [],
-    product: {
-      name: 'Sample product',
-      price: '100'
-    },
     transfers: [],
     transfer: {
       pen_id: 1,
       type: 'add',
       value: 5,
       user_id: 1
+    },
+    foodList: [],
+    food: {
+      pen_id: 1,
+      amount: 5,
+      food_type: 3,
+      user_id:1
     }
   }
 
   componentDidMount(){
   //this.getProducts();
     this.getTransfers();
+    this.getFoodList();
   }
 
   // getProducts = _ => {
@@ -86,6 +89,13 @@ class App extends Component {
     fetch("http://localhost:4000/transfer")
       .then(response => response.json())
       .then(response => this.setState({ transfers: response.data}))
+      .catch(err => console.error(err))
+  }
+
+  getFoodList = _ => {
+    fetch("http://localhost:4000/food")
+      .then(response => response.json())
+      .then(response => this.setState({ foodList: response.data}))
       .catch(err => console.error(err))
   }
 
@@ -114,16 +124,38 @@ class App extends Component {
     })
     .then(this.getTransfers)
     .catch(err => console.error(err))
-    console.log('addTransfer')
+    console.log('added transfer')
+  }
+
+  addFood = _ => {
+    const { food } = this.state;
+    fetch('http://localhost:4000/food/add', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        pen_id: food.pen_id,
+        amount: food.amount,
+        food_type: food.food_type,
+        user_id: food.user_id
+      }),
+    })
+    .then(this.getFoodList)
+    .catch(err => console.error(err))
+    console.log('added food')
   }
 
   //renderProduct = ({ product_id, name, price}) => <div key={product_id}>{name}, {price}</div>
   renderTransfer = ({ tran_id, pen_id, type, value, user_id}) => <div key={tran_id}>{pen_id}, {type}, {value}, {user_id}</div>
+  renderFoodList = ({ food_id, pen_id, amount, food_type, user_id}) => <div key={food_id}>{pen_id}, {amount}, {food_type}, {user_id}</div>
 
   render() {
-    const { transfers, transfer } = this.state;
+    const { transfers, transfer, foodList, food } = this.state;
     return (
       <div className="App">
+        <h2>Transfer</h2>
         {transfers.map(this.renderTransfer)}
         <div>
           <input
@@ -142,9 +174,34 @@ class App extends Component {
           value={transfer.user_id}
           onChange={e => this.setState({ transfer: { ...transfer, user_id: e.target.value }})}
           />
-          <button onClick={this.addTransfer}>Add product</button>
+          <button onClick={this.addTransfer}>Add transfer</button>
         </div>
+        <hr/>
+
+        <h2>Food</h2>
+        {foodList.map(this.renderFoodList)}
+        <div>
+          <input
+          value={food.pen_id}
+          onChange={e => this.setState({ food: { ...food, pen_id: e.target.value }})}
+          />
+          <input
+          value={food.food_type}
+          onChange={e => this.setState({ food: { ...food, food_type: e.target.value }})}
+          />
+          <input
+          value={food.amount}
+          onChange={e => this.setState({ food: { ...food, amount: e.target.value }})}
+          />
+          <input
+          value={food.user_id}
+          onChange={e => this.setState({ food: { ...food, user_id: e.target.value }})}
+          />
+          <button onClick={this.addFood}>Add food</button>
+        </div>
+        <hr/>
         <Router>
+
         <div>
           <ul>
             <li><Link to="/">Home</Link></li>
