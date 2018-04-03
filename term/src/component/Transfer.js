@@ -25,30 +25,29 @@ class Transfer extends Component {
 	}
 
 	onAdd(transfer) {
-		console.log("A" + transfer);
-		    fetch('http://localhost:4000/transfer/add', {
-		    	method: 'POST',
-		    	headers: {
-		    		Accept: 'application/json',
-		    		'Content-Type': 'application/json',
-		    	},
-		    	body: JSON.stringify({
-		    		type: transfer.type,
-		    		pen_id: transfer.pen_id,
-		    		user_id: transfer.value,
-		    		value: transfer.user_id
-		    	}),
-		    })
-		    .then(this.getTransfers)
-		    .catch(err => console.error(err))
-		    console.log('addTransfer');
+	    fetch('http://localhost:4000/transfer/add', {
+	    	method: 'POST',
+	    	headers: {
+	    		Accept: 'application/json',
+	    		'Content-Type': 'application/json',
+	    	},
+	    	body: JSON.stringify({
+	    		type: transfer.type,
+	    		pen_id: transfer.pen_id,
+	    		user_id: transfer.value,
+	    		value: transfer.user_id
+	    	}),
+	    })
+	    .then(this.getTransfers)
+	    .catch(err => console.error(err))
+	    console.log('addTransfer');
 	}
 
 	render() {
 		let {transferList} = this.state;
 		return(
 			<div>
-				<Header/>
+				<Header thisPage="Transfer"/>
 				<div>Transfer</div>
 				<Add onAdd={this.onAdd}/>
 				<Show transferList={transferList}/>
