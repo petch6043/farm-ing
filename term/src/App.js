@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Home from './component/Home';
 import Transfer from './component/Transfer';
 import Food from './component/Food';
-import Health from './component/Health';
+import Vaccine from './component/Vaccine';
 import Report from './component/Report';
 import {
 	BrowserRouter as Router,
@@ -20,7 +20,7 @@ class App extends Component {
 	    			<Route exact path="/" component={Home} />
 	    			<Route path="/transfer" component={Transfer} />
 	    			<Route path="/food" component={Food} />
-	    			<Route path="/health" component={Health} />
+	    			<Route path="/vaccine" component={Vaccine} />
 	    			<Route path="/report" component={Report} />
         		</Switch>
 	         </Router>
