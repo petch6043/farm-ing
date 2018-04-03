@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
+import { Affix, Menu, Icon, Button, Badge } from 'antd';
 import 'antd/dist/antd.css';
 import { Row, Col } from 'antd';
 import { Card } from 'antd';
-import { Badge,Icon,Affix } from 'antd';
 
 class Footer extends Component {
 	render() {
 		return(
-			<Affix>
+			
+          
 			<Row className="myNav">
 				<Col span={6} align="center">
 					<Badge count={0} className="myTab">
@@ -30,7 +31,7 @@ class Footer extends Component {
 				    </Badge>
 				</Col>
 			</Row>
-			</Affix>
+			
 		);
 	}
 }
