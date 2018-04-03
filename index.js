@@ -23,6 +23,8 @@ const connection = mysql.createConnection({
 	password: 'root',
 	database: 'react_sql',
 	socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock"
+	password: 'nenaneno',
+	database: 'react_sql'
 });
 
 connection.connect(function(err) {
