@@ -8,7 +8,6 @@ class Home extends Component {
 	render() {
 		return(
 			<div>
-				<Header thisPage="Home"/>
 				<Row>
 					<Col span={24} align="center" className="myUser">
 						<Icon type="user" style={{ fontSize: 100 }} />
