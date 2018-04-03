@@ -31,7 +31,7 @@ class Show extends Component {
 		return(
 			
 			<div>
-				<div>Transfer list:</div>
+				<h2>&nbsp;&nbsp;&nbsp;Transfer list </h2>
 				<Table columns={columns} dataSource={data}/>
 			</div>
 		);

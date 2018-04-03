@@ -48,7 +48,7 @@ class Transfer extends Component {
 		return(
 			<div>
 				<Header thisPage="Transfer"/>
-				<div>Transfer</div>
+				<h2>&nbsp;&nbsp;&nbsp; Add transfer </h2>
 				<Add onAdd={this.onAdd}/>
 				<Show transferList={transferList}/>
 				<Footer/>
