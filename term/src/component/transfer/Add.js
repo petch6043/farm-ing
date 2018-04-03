@@ -33,7 +33,7 @@ class Add extends Component {
 		return(
 			<div>
           <Col span={10} offset={1} >
-          <Input addonBefore="Pen ID :" 
+          <Input addonBefore="Pen ID : " 
           value={transfer.pen_id}
           onChange={e => this.setState({ transfer: { ...transfer, pen_id: e.target.value }})}
           /></Col>
@@ -42,7 +42,7 @@ class Add extends Component {
 
    
 
-          <Col span={10} offset={1}><Input addonBefore="Type :"
+          <Col span={10} offset={1}><Input addonBefore="Type : "
           value={transfer.type}
           onChange={e => this.setState({ transfer: { ...transfer, type: e.target.value }})}
           /></Col>
