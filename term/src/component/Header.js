@@ -5,6 +5,7 @@ import {
 	Route,
 	Switch,
 } from 'react-router-dom';
+import 'antd/dist/antd.css';
 
 class Header extends Component {
 	render() {
