@@ -21,7 +21,8 @@ const connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
 	password: 'root',
-	database: 'react_sql'
+	database: 'react_sql',
+	socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock"
 });
 
 connection.connect(function(err) {
@@ -222,12 +223,7 @@ app.get('/report/generate/', (req, res) =>{
 
 app.post('/report/generate/', (req, res) =>{
 	var barn_id = req.body.barn_id;
-	var pig_current = 20;
-	var pig_sold = 20;
-	var pig_sick = 5;
-	var pig_die = 3;
-	var food_amount = 100;
-	var fpp = 0;
+	var pig_current, pig_sold, pig_sick, pig_die, food_amount, fpp;
 	var report_type = 'monthly';
 	const SUM_SOLD_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE pen_id='+barn_id+' AND type="sold";'; //change pen to barn
 	const SUM_SICK_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE pen_id='+barn_id+' AND type="sick";';
