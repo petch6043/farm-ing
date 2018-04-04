@@ -3,31 +3,30 @@ import { Affix, Menu, Icon, Button, Badge } from 'antd';
 import 'antd/dist/antd.css';
 import { Row, Col } from 'antd';
 import { Card } from 'antd';
+import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 
 class Footer extends Component {
 	render() {
 		return(
-			
-          
 			<Row className="myNav">
 				<Col span={6} align="center">
 					<Badge count={0} className="myTab">
-						<a href="/"><Icon type="home" style={{ fontSize: 20, color: '#000'}} /></a>
+						<Link to="/"><Icon type="home" style={{ fontSize: 20, color: '#000'}} /></Link>
 				    </Badge>
 				</Col>
 				<Col span={6} align="center">
 					<Badge count={0} className="myTab">
-				      	<a href="/calendar"><Icon type="calendar" style={{ fontSize: 20, color: '#000'}} /></a>
+				      	<Link to="/calendar"><Icon type="calendar" style={{ fontSize: 20, color: '#000'}} /></Link>
 				    </Badge>
 				</Col>
 				<Col span={6} align="center">
 					<Badge count={2} className="myTab">
-				      	<a href="/notification"><Icon type="bell" style={{ fontSize: 20, color: '#000'}} /></a>
+				      	<Link to="/notification"><Icon type="bell" style={{ fontSize: 20, color: '#000'}} /></Link>
 				    </Badge>
 				</Col>
 				<Col span={6} align="center">
 					<Badge count={0} className="myTab">
-				      	<a href="/account"><Icon type="user" style={{ fontSize: 20, color: '#000'}} /></a>
+				      	<Link to="/account"><Icon type="user" style={{ fontSize: 20, color: '#000'}} /></Link>
 				    </Badge>
 				</Col>
 			</Row>

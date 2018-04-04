@@ -3,11 +3,11 @@ import ShowItem from './ShowItem';
 
 class Show extends Component {
 	render() {
-		let {foodList} = this.props;
+		let {vaccineList} = this.props;
 		return(
 			<div>
-				<div>Food list:</div>
-				{foodList.map(item => <div id={"item" + item.food_id}><ShowItem item={item}/></div>)}
+				<div>Vaccine list:</div>
+				{vaccineList.map(item => <div id={"item" + item.vac_id}><ShowItem item={item}/></div>)}
 			</div>
 		);
 	}

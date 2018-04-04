@@ -5,7 +5,7 @@ class ShowItem extends Component {
 		let {item} = this.props;
 		return(
 			<div>
-				ID: {item.food_id}	Pen ID: {item.pen_id},	Amount: {item.amount},	Food Type: {item.food_type},	User: {item.user_id}
+				 TYPE NAME: {item.type_name}, AGE: {item.age}, IS REQUIRED:{item.isRequired}
 			</div>
 		);
 	}

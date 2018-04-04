@@ -1,17 +1,10 @@
 import React, { Component } from 'react';
-import daily from './daily';
-import weekly from './weekly';
-import monthly from './monthly';
-import yearly from './yearly';
-import {
-	BrowserRouter as Router,
-	Link,
-	Route,
-	Switch,
-} from 'react-router-dom';
+import Header from './Header';
+import Footer from './Footer';
+import Add from './weekly/Add';
+import Show from './weekly/Show';
 
-<<<<<<< HEAD
-class Transfer extends Component {
+class weekly extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -54,28 +47,15 @@ class Transfer extends Component {
 	render() {
 		let {transferList} = this.state;
 		return(
-			<div className="myBody">
+			<div>
 				<Header/>
 				<div>Transfer</div>
 				<Add onAdd={this.onAdd}/>
 				<Show transferList={transferList}/>
 				<Footer/>
-=======
-class Report extends Component {
-  render() {
-    return (
-    	
-    		<div>
-				<Link to="/daily">daily</Link>
-				<Link to="/weekly">weekly</Link>
-				<Link to="/monthly">monthly</Link>
-				<Link to="/yearly">yearly</Link>
->>>>>>> 902329a84839d9ddd6a79f1499ea6f4b9555269c
 			</div>
-	
-    );
-  }
+		);
+	}
 }
 
-export default Report;
- 
+export default weekly;

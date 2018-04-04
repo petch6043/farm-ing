@@ -8,7 +8,7 @@ import {
 import 'antd/dist/antd.css';
 import { Row, Col } from 'antd';
 import { Card } from 'antd';
-import { Menu, Icon } from 'antd';
+import { Menu, Icon, Button } from 'antd';
 import './myStyle.css';
 
 class Header extends Component {
@@ -17,10 +17,11 @@ class Header extends Component {
 		return(
 			<Row>
 				<Col span={24} className="myTop">
-					<a href="/"><Icon type="left-circle" style={{ fontSize: 20 }} className="myBack" /></a>
-					<div align="center">{thisPage}</div>
+					<Link to="/"><Icon type="left" style={{ fontSize: 25 }} className="myBack" /></Link>
+					<div className="myTopLabel">{thisPage}</div>
 				</Col>
 			</Row>
+
 		);
 	}
 }
