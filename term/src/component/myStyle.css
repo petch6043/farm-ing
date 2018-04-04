@@ -1,0 +1,36 @@
+a {
+	color: black;
+}
+
+.myTop {
+	padding: 15px;
+	background: linear-gradient(to right, #f2cca5, #e09587);
+}
+
+.myBack {
+	float: left;
+}
+
+.myNav {
+	border-top: 1px solid black;
+	margin-top: 20px;
+}
+
+.myTab {
+	width: 100%;
+	padding: 15px;
+  	background: white;
+}
+
+.myButton {
+	width: 150px;
+	height: 150px;
+	border-radius: 18px;
+	margin: 10px;
+}
+
+.myUser {
+	padding:35px;
+	margin-bottom: 20px;
+	background: linear-gradient(to bottom right, #f2cca5, #e09587);
+}

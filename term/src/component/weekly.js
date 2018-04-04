@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import Add from './transfer/Add';
-import Show from './transfer/Show';
+import Add from './weekly/Add';
+import Show from './weekly/Show';
 
-class Transfer extends Component {
+class weekly extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -25,30 +25,31 @@ class Transfer extends Component {
 	}
 
 	onAdd(transfer) {
-	    fetch('http://localhost:4000/transfer/add', {
-	    	method: 'POST',
-	    	headers: {
-	    		Accept: 'application/json',
-	    		'Content-Type': 'application/json',
-	    	},
-	    	body: JSON.stringify({
-	    		type: transfer.type,
-	    		pen_id: transfer.pen_id,
-	    		user_id: transfer.value,
-	    		value: transfer.user_id
-	    	}),
-	    })
-	    .then(this.getTransfers)
-	    .catch(err => console.error(err))
-	    console.log('addTransfer');
+		console.log("A" + transfer);
+		    fetch('http://localhost:4000/transfer/add', {
+		    	method: 'POST',
+		    	headers: {
+		    		Accept: 'application/json',
+		    		'Content-Type': 'application/json',
+		    	},
+		    	body: JSON.stringify({
+		    		type: transfer.type,
+		    		pen_id: transfer.pen_id,
+		    		user_id: transfer.value,
+		    		value: transfer.user_id
+		    	}),
+		    })
+		    .then(this.getTransfers)
+		    .catch(err => console.error(err))
+		    console.log('addTransfer');
 	}
 
 	render() {
 		let {transferList} = this.state;
 		return(
 			<div>
-				<Header thisPage="Transfer"/>
-				<h2>&nbsp;&nbsp;&nbsp; Add transfer </h2>
+				<Header/>
+				<div>Transfer</div>
 				<Add onAdd={this.onAdd}/>
 				<Show transferList={transferList}/>
 				<Footer/>
@@ -57,4 +58,4 @@ class Transfer extends Component {
 	}
 }
 
-export default Transfer;
+export default weekly;

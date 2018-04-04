@@ -4,9 +4,17 @@ import Transfer from './component/Transfer';
 import Food from './component/Food';
 import Vaccine from './component/Vaccine';
 import Report from './component/Report';
+
 import vaccine_menu from './component/vaccine_menu';
 import vaccine_pen from './component/vaccine_pen';
 import vaccine_type from './component/vaccine_type';
+
+
+
+import daily from './component/daily';
+import weekly from './component/weekly';
+import monthly from './component/monthly';
+import yearly from './component/yearly';
 
 
 import {
@@ -33,6 +41,12 @@ class App extends Component {
 	    			
 
 	    			<Route path="/report" component={Report} />
+	    			
+	    			<Route path="/daily" component={daily} />
+	    			<Route path="/weekly" component={weekly} />
+	    			<Route path="/monthly" component={monthly} />
+	    			<Route path="/yearly" component={yearly} />
+
         		</Switch>
 	         </Router>
 	    </div>
