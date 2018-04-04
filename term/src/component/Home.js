@@ -18,7 +18,7 @@ class Home extends Component {
 						<a href="/food"><Button  icon="search" className="myButton">Food</Button></a>
 					</Col>
 					<Col span={12} align="left">
-						<a href="/health"><Button  icon="search" className="myButton">Health</Button></a>
+						<a href="/vaccine_menu"><Button  icon="search" className="myButton">Health</Button></a>
 					</Col>
 					<Col span={12} align="right">
 						<a href="/transfer"><Button  icon="search" className="myButton">Transfer</Button></a>
