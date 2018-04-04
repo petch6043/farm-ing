@@ -3,6 +3,7 @@ import Header from './Header';
 import Footer from './Footer';
 import { Row, Col } from 'antd';
 import { Button, Icon } from 'antd';
+import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 
 class Home extends Component {
 	render() {
@@ -15,16 +16,16 @@ class Home extends Component {
 						<div>Position</div>
 					</Col>
 					<Col span={12} align="right">
-						<a href="/food"><Button  icon="search" className="myButton">Food</Button></a>
+						<Link to="/food"><Button  icon="search" className="myButton">Food</Button></Link>
 					</Col>
 					<Col span={12} align="left">
-						<a href="/vaccine_menu"><Button  icon="search" className="myButton">Health</Button></a>
+						<Link to="/vaccine_menu"><Button  icon="search" className="myButton">Health</Button></Link>
 					</Col>
 					<Col span={12} align="right">
-						<a href="/transfer"><Button  icon="search" className="myButton">Transfer</Button></a>
+						<Link to="/transfer"><Button  icon="search" className="myButton">Transfer</Button></Link>
 					</Col>
 					<Col span={12} align="left">
-						<a href="/report"><Button  icon="search" className="myButton">Report</Button></a>
+						<Link to="/report"><Button  icon="search" className="myButton">Report</Button></Link>
 					</Col>
 				</Row>
 				<Footer/>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Vaccine from './Vaccine';
 import vaccine_pen from './vaccine_pen';
 import vaccine_type from './vaccine_type';
+import { Button, Icon } from 'antd';
 
 import {
 	BrowserRouter as Router,
@@ -15,9 +16,9 @@ class vaccine_menu extends Component {
     return (
 
     	<div>
-				<Link to="/vaccine">Vaccine</Link>
-				<Link to="/vaccine_pen">Vaccine_pen</Link>
-				<Link to="/vaccine_type">Vaccine_type</Link>
+				<Link to="/vaccine"><Button>Vaccine</Button></Link>
+				<Link to="/vaccine_pen"><Button>Vaccine_pen</Button></Link>
+				<Link to="/vaccine_type"><Button>Vaccine_type</Button></Link>
 		</div>
 
     	
