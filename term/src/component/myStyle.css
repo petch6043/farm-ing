@@ -2,8 +2,13 @@ a {
 	color: black;
 }
 
+h2 {
+	margin-top: 10px;
+}
+
 .myTop {
 	padding: 15px;
+	width: 100%;
 	background: linear-gradient(to right, #f2cca5, #e09587);
 }
 
@@ -11,15 +16,29 @@ a {
 	float: left;
 }
 
+.myBody {
+	padding:10px 10px 55px 10px;
+}
+
+.myHome {
+	margin-bottom: 20px;
+}
+
 .myNav {
 	border-top: 1px solid black;
-	margin-top: 20px;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
 }
 
 .myTab {
 	width: 100%;
 	padding: 15px;
   	background: white;
+}
+
+.myTab:hover {
+	background: #eaeaea;
 }
 
 .myButton {

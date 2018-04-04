@@ -4,6 +4,7 @@ import Transfer from './component/Transfer';
 import Food from './component/Food';
 import Health from './component/Health';
 import Report from './component/Report';
+import Login from './component/Login';
 import {
 	BrowserRouter as Router,
 	Link,
@@ -22,6 +23,7 @@ class App extends Component {
 	    			<Route path="/food" component={Food} />
 	    			<Route path="/health" component={Health} />
 	    			<Route path="/report" component={Report} />
+	    			<Route path="/login" component={Login} />
         		</Switch>
 	         </Router>
 	    </div>

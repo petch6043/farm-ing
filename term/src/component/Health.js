@@ -47,7 +47,7 @@ class Transfer extends Component {
 	render() {
 		let {transferList} = this.state;
 		return(
-			<div>
+			<div className="myBody">
 				<Header thisPage="Health"/>
 				<div>Transfer</div>
 				<Add onAdd={this.onAdd}/>
