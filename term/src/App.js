@@ -4,6 +4,12 @@ import Transfer from './component/Transfer';
 import Food from './component/Food';
 import Health from './component/Health';
 import Report from './component/Report';
+
+import daily from './component/daily';
+import weekly from './component/weekly';
+import monthly from './component/monthly';
+import yearly from './component/yearly';
+
 import {
 	BrowserRouter as Router,
 	Link,
@@ -22,6 +28,12 @@ class App extends Component {
 	    			<Route path="/food" component={Food} />
 	    			<Route path="/health" component={Health} />
 	    			<Route path="/report" component={Report} />
+	    			
+	    			<Route path="/daily" component={daily} />
+	    			<Route path="/weekly" component={weekly} />
+	    			<Route path="/monthly" component={monthly} />
+	    			<Route path="/yearly" component={yearly} />
+
         		</Switch>
 	         </Router>
 	    </div>
