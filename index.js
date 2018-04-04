@@ -22,7 +22,7 @@ const connection = mysql.createConnection({
 	user: 'root',
 	password: 'root',
 	database: 'react_sql',
-	
+	database: 'react_sql'
 });
 
 connection.connect(function(err) {
@@ -127,7 +127,6 @@ app.post('/transfer/add', function(req, res) {
 	var pen_id = req.body.pen_id;
 	var user_id = req.body.user_id;
 	var value = req.body.value;
-	console.log("body.type is "+req.body.type+' '+req.body.userID);
 	const INSERT_PRODUCTS_QUERY = 'INSERT INTO transfer (type, pen_id, user_id, value) VALUES("'+type+'", '+pen_id+', '+user_id+', '+value+')';
 	connection.query(INSERT_PRODUCTS_QUERY, (err,results) =>{
 		if (err) {

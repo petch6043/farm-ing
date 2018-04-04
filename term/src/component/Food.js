@@ -51,6 +51,8 @@ class Food extends Component {
 			<div>
 				<Header/>
 				<div>food</div>
+				<Header thisPage="Food"/>
+				<div>Transfer</div>
 				<Add onAdd={this.onAdd}/>
 				<Show foodList={foodList}/>
 				<Footer/>
