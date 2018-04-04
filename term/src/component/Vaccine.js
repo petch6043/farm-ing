@@ -33,7 +33,7 @@ class Vaccine extends Component {
 		    		'Content-Type': 'application/json',
 		    	},
 		    	body: JSON.stringify({
-		    		vac_id: vaccine.vac_id,
+		    		
 		    		vac_name: vaccine.vac_name,
 		    		type_id: vaccine.type_id,
 		    		
@@ -52,6 +52,7 @@ class Vaccine extends Component {
 				<div>Vaccine</div>
 				<Add onAdd={this.onAdd}/>
 				<Show vaccineList={vaccineList}/>
+			
 				<Footer/>
 			</div>
 		);

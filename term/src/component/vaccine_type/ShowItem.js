@@ -5,7 +5,7 @@ class ShowItem extends Component {
 		let {item} = this.props;
 		return(
 			<div>
-				 VAC NAME: {item.vac_name}, VAC Type: {item.type_id}
+				 TYPE NAME: {item.type_name}, AGE: {item.age}, IS REQUIRED:{item.isRequired}
 			</div>
 		);
 	}

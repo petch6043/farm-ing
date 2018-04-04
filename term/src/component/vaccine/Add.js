@@ -5,7 +5,7 @@ class Add extends Component {
 		super(props);
 		this.state = {
 			vaccine: {
-				vac_id: 0,
+				
 				vac_name: "",
 				type_id: 0,
 			}
@@ -19,7 +19,7 @@ class Add extends Component {
 		onAdd(this.state.vaccine);
 		this.setState({
 			vaccine: {
-				vac_id: 0,
+				
 				vac_name: "",
 				type_id: 0,
 			}
@@ -30,10 +30,7 @@ class Add extends Component {
 		let {vaccine} = this.state;
 		return(
 			<div>
-          		<input
-          value={vaccine.vac_id}
-          onChange={e => this.setState({ vaccine: { ...vaccine, vac_id: e.target.value }})}
-          />
+          		
           <input
           value={vaccine.vac_name}
           onChange={e => this.setState({ vaccine: { ...vaccine, vac_name: e.target.value }})}

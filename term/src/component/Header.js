@@ -14,8 +14,10 @@ class Header extends Component {
 				<Link to="/">Home</Link>
 				<Link to="/transfer">Transfer</Link>
 				<Link to="/food">Food</Link>
-				<Link to="/vaccine">Vaccine</Link>
+				<Link to="/vaccine_menu">Health</Link>
 				<Link to="/report">Report</Link>
+
+
 			</div>
 		);
 	}

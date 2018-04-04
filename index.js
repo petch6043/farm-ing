@@ -23,8 +23,7 @@ const connection = mysql.createConnection({
 	password: 'root',
 	database: 'react_sql',
 	socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock"
-	password: 'nenaneno',
-	database: 'react_sql'
+	
 });
 
 connection.connect(function(err) {
@@ -238,11 +237,28 @@ app.get('/vaccine', (req, res) =>{
 	});
 });
 
-app.get('/vaccine/add', (req, res) =>{
+/*app.get('/vaccine/add', (req, res) =>{
 	var vac_id = 0;
 	var vac_name = '5';
 	var type_id = 0;
 	const INSERT_VACCINE_QUERY = 'INSERT INTO vaccine (vac_id, vac_name, type_id) VALUES('+vac_id+', '+vac_name+', '+type_id+')';
+	connection.query(INSERT_VACCINE_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			return res.send('VACCINE ADDED')
+		}
+	});
+});
+*/
+
+app.post('/vaccine/add', function(req, res) {
+    
+	var vac_name = req.body.vac_name;
+	var type_id = req.body.type_id;
+	
+	const INSERT_VACCINE_QUERY = 'INSERT INTO vaccine ( vac_name, type_id) VALUES("'+vac_name+'", '+type_id+')';
 	connection.query(INSERT_VACCINE_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
@@ -266,10 +282,26 @@ app.get('/vaccine_pen', (req, res) =>{
 	});
 });
 
-app.get('/vaccine_pen/add', (req, res) =>{
+/*app.get('/vaccine_pen/add', (req, res) =>{
 	var vac_id = 4;
 	var pen_id = 1;
 	const INSERT_VACCINEPEN_QUERY = 'INSERT INTO vaccine_pen (vac_id, pen_id) VALUES('+vac_id+', '+pen_id+')';
+	connection.query(INSERT_VACCINEPEN_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			return res.send('VACCINEPEN ADDED')
+		}
+	});
+}); */
+
+app.post('/vaccine_pen/add', function(req, res) {
+    
+	var vac_id = req.body.vac_id;
+	var pen_id = req.body.pen_id;
+	
+	const INSERT_VACCINEPEN_QUERY = 'INSERT INTO vaccine_pen ( vac_id, pen_id) VALUES('+vac_id+', '+pen_id+')';
 	connection.query(INSERT_VACCINEPEN_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
@@ -293,7 +325,7 @@ app.get('/vaccine_type', (req, res) =>{
 	});
 });
 
-app.get('/vaccine_type/add', (req, res) =>{
+/*app.get('/vaccine_type/add', (req, res) =>{
 	var type_id = 7;
 	var type_name = 'yolo';
 	var age = 8;
@@ -307,7 +339,26 @@ app.get('/vaccine_type/add', (req, res) =>{
 			return res.send('VACCINETYPE ADDED')
 		}
 	});
+}); */
+
+app.post('/vaccine_type/add', function(req, res) {
+    
+	var type_name = req.body.type_name;
+	var age = req.body.age;
+	var isRequired = req.body.isRequired;
+	                                                                       
+	
+	const INSERT_VACCINETYPE_QUERY = 'INSERT INTO vaccine_type ( type_name, age, isRequired) VALUES("'+type_name+'", '+age+','+isRequired+')';
+	connection.query(INSERT_VACCINETYPE_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			return res.send('VACCINETYPE ADDED')
+		}
+	});
 });
+
 
 app.listen(4000, () => {
 	console.log('Products server listening on port 4000')
