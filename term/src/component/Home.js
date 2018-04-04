@@ -10,27 +10,6 @@ class Home extends Component {
 		return(
 			<div>
 				<div className="myHome">
-					<Row>
-						<Col span={24} align="center" className="myUser">
-							<Icon type="user" style={{ fontSize: 100 }} />
-							<div>Firstname Lastname</div>
-							<div>Position</div>
-						</Col>
-						<Col span={12} align="right">
-							<a href="/food"><Button  icon="search" className="myButton">Food</Button></a>
-						</Col>
-						<Col span={12} align="left">
-							<a href="/health"><Button  icon="search" className="myButton">Health</Button></a>
-						</Col>
-						<Col span={12} align="right">
-							<a href="/transfer"><Button  icon="search" className="myButton">Transfer</Button></a>
-						</Col>
-						<Col span={12} align="left">
-							<a href="/report"><Button  icon="search" className="myButton">Report</Button></a>
-						</Col>
-					</Row>
-				</div>
-=======
 				<Row>
 					<Col span={24} align="center" className="myUser">
 						<Icon type="user" style={{ fontSize: 100 }} />
@@ -50,7 +29,7 @@ class Home extends Component {
 						<Link to="/report"><Button  icon="search" className="myButton">Report</Button></Link>
 					</Col>
 				</Row>
->>>>>>> 902329a84839d9ddd6a79f1499ea6f4b9555269c
+				</div>
 				<Footer/>
 			</div>
 		);
