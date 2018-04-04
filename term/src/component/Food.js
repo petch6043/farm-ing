@@ -49,8 +49,6 @@ class Food extends Component {
 		let {foodList} = this.state;
 		return(
 			<div>
-				<Header/>
-				<div>food</div>
 				<Header thisPage="Food"/>
 				<div>Transfer</div>
 				<Add onAdd={this.onAdd}/>
