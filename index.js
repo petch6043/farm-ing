@@ -221,6 +221,75 @@ app.get('/report/generate/', (req, res) =>{
 	});
 });
 
+app.post('/report/generate/', (req, res) =>{
+	var barn_id = req.body.barn_id;
+	var pig_current = 20;
+	var pig_sold = 20;
+	var pig_sick = 5;
+	var pig_die = 3;
+	var food_amount = 100;
+	var fpp = 0;
+	var report_type = 'monthly';
+	const SUM_SOLD_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE pen_id='+barn_id+' AND type="sold";'; //change pen to barn
+	const SUM_SICK_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE pen_id='+barn_id+' AND type="sick";';
+	const SUM_DIED_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE pen_id='+barn_id+' AND type="died";';
+	const SUM_FOOD_QUERY = 'SELECT IFNULL(SUM(amount),0) AS sum FROM food WHERE pen_id='+barn_id+';';
+	const SUM_ADDED_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE pen_id='+barn_id+' AND type="add";';
+	connection.query(SUM_SOLD_QUERY, (err,results) =>{
+		if (err) {
+			console.log('pig sold err')
+			return res.send("err sold: "+err)
+		}
+		else{
+			pig_sold = results[0].sum
+			connection.query(SUM_SICK_QUERY, (err,results) =>{
+				if (err) {
+					return res.send("err sick: "+err)
+				}
+				else{
+					pig_sick = results[0].sum
+					connection.query(SUM_DIED_QUERY, (err,results) =>{
+						if (err) {
+							return res.send("err died: "+err)
+						}
+						else{
+							pig_die = results[0].sum
+							connection.query(SUM_ADDED_QUERY, (err,results) =>{
+								if (err) {
+									return res.send("err added: "+err)
+								}
+								else{
+									pig_current = results[0].sum
+									connection.query(SUM_FOOD_QUERY, (err,results) =>{
+										if (err) {
+											return res.send("err food: "+err)
+										}
+										else{
+											food_amount = results[0].sum
+											fpp = food_amount/pig_current;
+											const INSERT_REPORT_QUERY = 'INSERT INTO report (barn_id, pig_current, pig_sold, pig_sick, pig_die, food_amount, fpp, report_type) VALUES('+
+											barn_id+', '+pig_current+', '+pig_sold+', '+pig_sick+', '+pig_die+', '+food_amount+', '+fpp+', "'+report_type+'")';
+											connection.query(INSERT_REPORT_QUERY, (err,results) =>{
+												if (err) {
+													return res.send("err insert: "+err)
+												}
+												else{
+													return res.send('Added report: barn_id '+
+											barn_id+'",pig_current '+pig_current+',pig_sold '+pig_sold+',pig_sick '+pig_sick+',pig_die '+pig_die+'food_amount '+food_amount+',fpp '+fpp+',report_type '+report_type+')')
+												}
+											});
+										}
+									});
+								}
+							});
+						}
+					});
+				}
+			});
+		}
+	});
+});
+
 /*-------------------------- VACCINE --------------------------*/
 app.get('/vaccine', (req, res) =>{
 	connection.query(SELECT_ALL_VACCINE_QUERY, (err,results) =>{
