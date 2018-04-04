@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import {Button, Input, Col} from 'antd';
+
 class Add extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			transfer: {
-				pen_id: null,
+				pen_id: 0,
 				type: "",
-				value: null,
-				user_id: null
+				value: 0,
+				user_id: 0
 			}
 		}
 		this.addClick = this.addClick.bind(this);
@@ -20,10 +20,10 @@ class Add extends Component {
 		onAdd(this.state.transfer);
 		this.setState({
 			transfer: {
-				pen_id: null,
+				pen_id: 0,
 				type: "",
-				value: null,
-				user_id: null
+				value: 0,
+				user_id: 0
 			}
 		});
 	}
@@ -32,46 +32,23 @@ class Add extends Component {
 		let {transfer} = this.state;
 		return(
 			<div>
-          <Col span={10} offset={1} >
-          <Input addonBefore="Pen ID : " 
+          		<input
           value={transfer.pen_id}
           onChange={e => this.setState({ transfer: { ...transfer, pen_id: e.target.value }})}
-          /></Col>
-          <br/>
-          <br/>
-
-   
-
-          <Col span={10} offset={1}><Input addonBefore="Type : "
+          />
+          <input
           value={transfer.type}
           onChange={e => this.setState({ transfer: { ...transfer, type: e.target.value }})}
-          /></Col>
-          <br/>
-          <br/>
-
-  
-
-
-          <Col span={10} offset={1}><Input addonBefore="Value :"
+          />
+          <input
           value={transfer.value}
           onChange={e => this.setState({ transfer: { ...transfer, value: e.target.value }})}
-          /></Col>
-          <br/>
-          <br/>
-
-      
-
-          <Col span={10} offset={1}><Input addonBefore="User ID :"
+          />
+          <input
           value={transfer.user_id}
           onChange={e => this.setState({ transfer: { ...transfer, user_id: e.target.value }})}
-          /></Col>
-         <br/>
-         <br/>
-         <Col offset={1}>
-          <Button type="primary" size='medium' ghost onClick={this.addClick}>Add product</Button>
-          </Col>
-          <br/>
-          <br/>
+          />
+          <button onClick={this.addClick}>Add product</button>
         </div>
 		);
 	}
