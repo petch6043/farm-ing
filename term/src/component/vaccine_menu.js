@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Vaccine from './Vaccine';
 import vaccine_pen from './vaccine_pen';
 import vaccine_type from './vaccine_type';
+import vaccine_program from './vaccine_program';
+import vaccine_urgent from './vaccine_urgent';
 import { Button, Icon } from 'antd';
 import { Row, Col } from 'antd';
 import Header from './Header';
@@ -21,17 +23,13 @@ class vaccine_menu extends Component {
     		<Header thisPage="Health"/>
 			<Row>
 				<Col span={12} align="right">
-				<Link to="/vaccine"><Button icon="search" className="myButton">Vaccine</Button></Link>
+				<Link to="/vaccine_program"><Button icon="search" className="myButton">Vaccine Program</Button></Link>
 				</Col>
 
 				<Col span={12} align="left">
-				<Link to="/vaccine_pen"><Button icon="search" className="myButton">Vaccine_pen</Button></Link>
+				<Link to="/vaccine_urgent"><Button icon="search" className="myButton">Urgent Vaccine</Button></Link>
 				</Col>
-
-				<Col span={12} align="right">
-				<Link to="/vaccine_type"><Button icon="search" className="myButton">Vaccine_type</Button></Link>
-				</Col>
-			</Row>
+			</Row> 
 			<Footer/>
 		</div>	
     );

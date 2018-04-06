@@ -9,17 +9,6 @@ import { DatePicker } from 'antd';
 
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 
-function onChange(date, dateString) {
-	console.log(date, dateString);
-}
-
-const noti = (type, msg, desc) => {
-	notification[type]({
-		message: msg,
-		description: desc,
-	});
-};
-
 const Panel = Collapse.Panel;
 const customPanelStyle = {
 	background: '#f7f7f7',
@@ -28,7 +17,6 @@ const customPanelStyle = {
 	border: 0,
 	overflow: 'hidden',
 };
-
 
 class Transfer extends Component {
 	constructor(props) {

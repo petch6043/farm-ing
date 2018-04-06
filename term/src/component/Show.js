@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import Add from './vaccine_type/Add';
-import Show from './vaccine_type/Show';
+import Add from './daily/Add';
+import Show from './daily/Show';
 import { DatePicker } from 'antd';
 import { Collapse } from 'antd';
 import { Button, notification } from 'antd';
@@ -28,64 +28,44 @@ const customPanelStyle = {
 	overflow: 'hidden',
 };
 
-class vaccine_type extends Component {
+
+class daily extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			vaccinetypeList: []
+			reportList: []
 		}
-		this.onAdd = this.onAdd.bind(this);
 	}
 
 	componentDidMount(){
-		this.getVaccinestype();
+		this.getReport();
 	}
 
-	getVaccinestype = _ => {
-	    fetch("http://localhost:4000/vaccine_type")
+	getReport = _ => {
+	    fetch("http://localhost:4000/report")
 	      .then(response => response.json())
-	      .then(response => this.setState({ vaccinetypeList: response.data}))
+	      .then(response => this.setState({ reportList: response.data}))
 	      .catch(err => console.error(err))
 	}
 
-	onAdd(vaccinetype) {
-		console.log("A" + vaccinetype);
-		    fetch('http://localhost:4000/vaccine_type/add', {
-		    	method: 'POST',
-		    	headers: {
-		    		Accept: 'application/json',
-		    		'Content-Type': 'application/json',
-		    	},
-		    	body: JSON.stringify({
-		    		
-		    		type_name: vaccinetype.type_name,
-		    		age: vaccinetype.age,
-		    		isRequired:vaccinetype.isRequired
-		    		
-		    	}),
-		    })
-		    .then(this.getVaccinestype)
-		    .catch(err => console.error(err))
-		    console.log('addVaccinestype');
-	}
 
 	render() {
-		let {vaccinetypeList} = this.state;
+		let {reportList} = this.state;
 		return(
 			<div>
-				<Header thisPage="Vaccine Type"/>
+				<Header thisPage="Daily report"/>
 				
 				<div className="myBody">
 					<Collapse bordered={false} style={{marginBottom:20}}>
 						<Panel header="Select date" key="1" style={customPanelStyle}>
 							<DatePicker onChange={onChange} />
 						</Panel>
-						<Panel header="Add vaccine type" key="2" style={customPanelStyle}>
+						<Panel header="generate report" key="2" style={customPanelStyle}>
 							<Add onAdd={this.onAdd}/>
 						</Panel>
 					</Collapse>	
 				
-				<Show vaccinetypeList={vaccinetypeList}/>
+				<Show reportList={reportList}/>
 				</div>
 			
 				<Footer/>
@@ -94,4 +74,4 @@ class vaccine_type extends Component {
 	}
 }
 
-export default vaccine_type;
+export default daily;

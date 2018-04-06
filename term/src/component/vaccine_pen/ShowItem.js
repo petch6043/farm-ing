@@ -5,7 +5,7 @@ class ShowItem extends Component {
 		let {item} = this.props;
 		return(
 			<div>
-				 VAC ID: {item.vac_id}, PEN ID: {item.pen_id}
+				 VAC ID: {item.vac_id}, PEN ID :{item.pen_id}
 			</div>
 		);
 	}

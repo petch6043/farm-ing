@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import Add from './vaccine/Add';
-import Show from './vaccine/Show';
+import Add from './vaccine_urgent/Add';
+import Show from './vaccine_urgent/Show';
 import { DatePicker } from 'antd';
 import { Collapse } from 'antd';
 import { Button, notification } from 'antd';
@@ -27,69 +27,53 @@ const customPanelStyle = {
 	border: 0,
 	overflow: 'hidden',
 };
-class Vaccine extends Component {
+
+
+class vaccine_urgent extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			vaccineList: []
+			vaccineurgentList: []
 		}
-		this.onAdd = this.onAdd.bind(this);
 	}
 
 	componentDidMount(){
-		this.getVaccines();
+		this.getVaccineUrgent();
 	}
 
-	getVaccines = _ => {
-	    fetch("http://localhost:4000/vaccine")
+	getVaccineUrgent = _ => {
+	    fetch("http://localhost:4000/vaccine_urgent")
 	      .then(response => response.json())
-	      .then(response => this.setState({ vaccineList: response.data}))
+	      .then(response => this.setState({ vaccineurgentList: response.data}))
 	      .catch(err => console.error(err))
 	}
 
-	onAdd(vaccine) {
-		console.log("A" + vaccine);
-		    fetch('http://localhost:4000/vaccine/add', {
-		    	method: 'POST',
-		    	headers: {
-		    		Accept: 'application/json',
-		    		'Content-Type': 'application/json',
-		    	},
-		    	body: JSON.stringify({
-		    		
-		    		vac_name: vaccine.vac_name,
-		    		type_id: vaccine.type_id,
-		    		
-		    	}),
-		    })
-		    .then(this.getVaccines)
-		    .catch(err => console.error(err))
-		    console.log('addVaccines');
-	}
 
 	render() {
-		let {vaccineList} = this.state;
+		let {vaccineurgentList} = this.state;
 		return(
 			<div>
-				<Header thisPage="Vaccine"/>
-				
+				<Header thisPage="Vaccine Urgent"/>
 				<div className="myBody">
 					<Collapse bordered={false} style={{marginBottom:20}}>
 						<Panel header="Select date" key="1" style={customPanelStyle}>
 							<DatePicker onChange={onChange} />
 						</Panel>
-						<Panel header="Add vaccine" key="2" style={customPanelStyle}>
-							<Add onAdd={this.onAdd}/>
-						</Panel>
+						
 					</Collapse>	
+				<Show vaccineurgentList={vaccineurgentList}/>	
+					
+					
+					
 				
-				<Show vaccineList={vaccineList}/>
+				
 				</div>
 			
 				<Footer/>
 			</div>
+			
 		);
 	}
 }
 
-export default Vaccine;
+export default vaccine_urgent;
