@@ -79,7 +79,7 @@ class vaccine_pen extends Component {
 						<Panel header="Select date" key="1" style={customPanelStyle}>
 							<DatePicker onChange={onChange} />
 						</Panel>
-						<Panel header="Add vaccine" key="2" style={customPanelStyle}>
+						<Panel header="Add vaccine pen" key="2" style={customPanelStyle}>
 							<Add onAdd={this.onAdd}/>
 						</Panel>
 					</Collapse>	

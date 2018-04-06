@@ -73,14 +73,14 @@ class vaccine_type extends Component {
 		let {vaccinetypeList} = this.state;
 		return(
 			<div>
-				<Header thisPage="Vaccine Pen"/>
+				<Header thisPage="Vaccine Type"/>
 				
 				<div className="myBody">
 					<Collapse bordered={false} style={{marginBottom:20}}>
 						<Panel header="Select date" key="1" style={customPanelStyle}>
 							<DatePicker onChange={onChange} />
 						</Panel>
-						<Panel header="Add vaccine" key="2" style={customPanelStyle}>
+						<Panel header="Add vaccine type" key="2" style={customPanelStyle}>
 							<Add onAdd={this.onAdd}/>
 						</Panel>
 					</Collapse>	
