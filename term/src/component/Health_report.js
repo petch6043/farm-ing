@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import Add from './daily/Add';
-import Show from './daily/Show';
-import { DatePicker } from 'antd';
+import Show from './Health_report/Show';
 import { Collapse } from 'antd';
 import { Button, notification } from 'antd';
-
+import { DatePicker } from 'antd';
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
+
 function onChange(date, dateString) {
 	console.log(date, dateString);
 }
+
+
 
 const noti = (type, msg, desc) => {
 	notification[type]({
@@ -28,8 +29,7 @@ const customPanelStyle = {
 	overflow: 'hidden',
 };
 
-
-class daily extends Component {
+class Health_report extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -53,25 +53,22 @@ class daily extends Component {
 		let {reportList} = this.state;
 		return(
 			<div>
-				<Header thisPage="Monthly report"/>
-				
+				<div>
+				<Header thisPage="Report"/>
 				<div className="myBody">
-					<Collapse bordered={false} style={{marginBottom:20}}>
+				<Collapse bordered={false} style={{marginBottom:20}}>
 						<Panel header="Select date" key="1" style={customPanelStyle}>
 							<DatePicker onChange={onChange} />
 						</Panel>
-						<Panel header="generate report" key="2" style={customPanelStyle}>
-							<Add onAdd={this.onAdd}/>
-						</Panel>
-					</Collapse>	
-				
-				<Show reportList={reportList}/>
+					</Collapse>
+					<Show reportList={reportList}/>
 				</div>
-			
 				<Footer/>
+			</div>
+				
 			</div>
 		);
 	}
 }
 
-export default daily;
+export default Health_report;
