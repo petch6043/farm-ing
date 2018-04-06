@@ -81,19 +81,19 @@ app.get('/pen', (req, res) =>{
 	});
 });
 
-app.get('/pen/add', (req, res) =>{
-	var pen_id = 2;
-	var barn_id = 1;
-	const INSERT_PEN_QUERY = 'INSERT INTO pen (pen_id, barn_id) VALUES('+pen_id+', '+barn_id+')';
-	connection.query(INSERT_PEN_QUERY, (err,results) =>{
-		if (err) {
-			return res.send(err)
-		}
-		else{
-			return res.send('ADDED')
-		}
-	});
-});
+// app.get('/pen/add', (req, res) =>{
+// 	var pen_id = 2;
+// 	var barn_id = 1;
+// 	const INSERT_PEN_QUERY = 'INSERT INTO pen (pen_id, barn_id) VALUES('+pen_id+', '+barn_id+')';
+// 	connection.query(INSERT_PEN_QUERY, (err,results) =>{
+// 		if (err) {
+// 			return res.send(err)
+// 		}
+// 		else{
+// 			return res.send('ADDED')
+// 		}
+// 	});
+// });
 
 /*-------------------------- TRANSFER --------------------------*/
 app.get('/transfer', (req, res) =>{
@@ -127,10 +127,10 @@ app.get('/transfer', (req, res) =>{
 
 app.post('/transfer/add', function(req, res) {
     var type = req.body.type;
-	var pen_id = req.body.pen_id;
+	var barn_id = req.body.barn_id;
 	var user_id = req.body.user_id;
 	var value = req.body.value;
-	const INSERT_PRODUCTS_QUERY = 'INSERT INTO transfer (pen_id, type, value, user_id) VALUES('+pen_id+', "'+type+'", '+value+', '+user_id+')';
+	const INSERT_PRODUCTS_QUERY = 'INSERT INTO transfer (barn_id, type, value, user_id) VALUES('+barn_id+', "'+type+'", '+value+', '+user_id+')';
 	connection.query(INSERT_PRODUCTS_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err);
@@ -172,11 +172,11 @@ app.get('/food', (req, res) =>{
 // });
 
 app.post('/food/add', function(req, res) {
-    var pen_id = req.body.pen_id;
+    var barn_id = req.body.barn_id;
 	var amount = req.body.amount;
 	var food_type = req.body.food_type;
 	var user_id = req.body.user_id;
-	const INSERT_FOOD_QUERY = 'INSERT INTO food (pen_id, amount, food_type, user_id) VALUES('+pen_id+', '+amount+', '+food_type+', '+user_id+')';
+	const INSERT_FOOD_QUERY = 'INSERT INTO food (barn_id, amount, food_type, user_id) VALUES('+barn_id+', '+amount+', '+food_type+', '+user_id+')';
 	connection.query(INSERT_FOOD_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
@@ -227,11 +227,11 @@ app.post('/report/generate/', (req, res) =>{
 	var barn_id = req.body.barn_id;
 	var pig_current, pig_sold, pig_sick, pig_die, food_amount, fpp;
 	var report_type = 'monthly';
-	const SUM_SOLD_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE pen_id='+barn_id+' AND type="sold";'; //change pen to barn
-	const SUM_SICK_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE pen_id='+barn_id+' AND type="sick";';
-	const SUM_DIED_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE pen_id='+barn_id+' AND type="died";';
-	const SUM_FOOD_QUERY = 'SELECT IFNULL(SUM(amount),0) AS sum FROM food WHERE pen_id='+barn_id+';';
-	const SUM_ADDED_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE pen_id='+barn_id+' AND type="add";';
+	const SUM_SOLD_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE barn_id='+barn_id+' AND type="sold";'; //change pen to barn
+	const SUM_SICK_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE barn_id='+barn_id+' AND type="sick";';
+	const SUM_DIED_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE barn_id='+barn_id+' AND type="died";';
+	const SUM_FOOD_QUERY = 'SELECT IFNULL(SUM(amount),0) AS sum FROM food WHERE barn_id='+barn_id+';';
+	const SUM_ADDED_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE barn_id='+barn_id+' AND type="add";';
 	connection.query(SUM_SOLD_QUERY, (err,results) =>{
 		if (err) {
 			console.log('pig sold err')
