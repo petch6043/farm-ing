@@ -59,7 +59,7 @@ class Transfer extends Component {
 	    	},
 	    	body: JSON.stringify({
 	    		type: transfer.type,
-	    		pen_id: transfer.pen_id,
+	    		barn_id: transfer.barn_id,
 	    		user_id: transfer.user_id,
 	    		value: transfer.value
 	    	}),
