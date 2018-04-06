@@ -3,6 +3,32 @@ import Header from './Header';
 import Footer from './Footer';
 import Add from './transfer/Add';
 import Show from './transfer/Show';
+import { Collapse } from 'antd';
+import { Button, notification } from 'antd';
+import { DatePicker } from 'antd';
+
+const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
+
+function onChange(date, dateString) {
+	console.log(date, dateString);
+}
+
+const noti = (type, msg, desc) => {
+	notification[type]({
+		message: msg,
+		description: desc,
+	});
+};
+
+const Panel = Collapse.Panel;
+const customPanelStyle = {
+	background: '#f7f7f7',
+	borderRadius: 4,
+	marginBottom: 5,
+	border: 0,
+	overflow: 'hidden',
+};
+
 
 class Transfer extends Component {
 	constructor(props) {
@@ -17,11 +43,11 @@ class Transfer extends Component {
 		this.getTransfers();
 	}
 
-	getTransfers = _ => {
+	getTransfers() {
 	    fetch("http://localhost:4000/transfer")
-	      .then(response => response.json())
-	      .then(response => this.setState({ transferList: response.data}))
-	      .catch(err => console.error(err))
+	    .then(response => response.json())
+	    .then(response => this.setState({ transferList: response.data}))
+	    .catch(err => console.error(err))
 	}
 
 	onAdd(transfer) {
@@ -34,13 +60,23 @@ class Transfer extends Component {
 	    	body: JSON.stringify({
 	    		type: transfer.type,
 	    		pen_id: transfer.pen_id,
-	    		user_id: transfer.value,
-	    		value: transfer.user_id
+	    		user_id: transfer.user_id,
+	    		value: transfer.value
 	    	}),
 	    })
-	    .then(this.getTransfers)
-	    .catch(err => console.error(err))
-	    console.log('addTransfer');
+	    .then((response) => {
+	    	response.json().then((data) => {
+	    		if(data == 1) {
+	    			this.getTransfers();
+	    			noti('success','Add transfer','Sucessfully saved data.');
+	    		} else {
+	    			noti('error','Add transfer','Unable to save data.');
+	    		}
+           	});
+	    })
+	    .catch(err => {
+	    	noti('error','Add transfer','Failed to connect to database.');
+	    })
 	}
 
 	render() {
@@ -49,8 +85,14 @@ class Transfer extends Component {
 			<div>
 				<Header thisPage="Transfer"/>
 				<div className="myBody">
-					<h2>Add transfer </h2>
-					<Add onAdd={this.onAdd}/>
+					<Collapse bordered={false} style={{marginBottom:20}}>
+						<Panel header="Select date" key="1" style={customPanelStyle}>
+							<DatePicker onChange={onChange} />
+						</Panel>
+						<Panel header="Add transfer" key="2" style={customPanelStyle}>
+							<Add onAdd={this.onAdd}/>
+						</Panel>
+					</Collapse>
 					<Show transferList={transferList}/>
 				</div>
 				<Footer/>

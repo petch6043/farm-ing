@@ -48,11 +48,13 @@ class Food extends Component {
 	render() {
 		let {foodList} = this.state;
 		return(
-			<div className="myBody">
+			<div>
 				<Header thisPage="Food"/>
-				<div>Transfer</div>
-				<Add onAdd={this.onAdd}/>
-				<Show foodList={foodList}/>
+				<div className="myBody">
+					<div>Transfer</div>
+					<Add onAdd={this.onAdd}/>
+					<Show foodList={foodList}/>
+				</div>
 				<Footer/>
 			</div>
 		);

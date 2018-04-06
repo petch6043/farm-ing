@@ -17,18 +17,9 @@ import {
 class vaccine_menu extends Component {
   render() {
     return (
-
     	<div>
-
-
-    		<div className="myHome">
+    		<Header thisPage="Health"/>
 			<Row>
-					<Col span={24} align="center" className="myUser">
-						<Icon type="user" style={{ fontSize: 100 }} />
-						<div>Health</div>
-						
-					</Col>	
-
 				<Col span={12} align="right">
 				<Link to="/vaccine"><Button icon="search" className="myButton">Vaccine</Button></Link>
 				</Col>
@@ -40,14 +31,9 @@ class vaccine_menu extends Component {
 				<Col span={12} align="right">
 				<Link to="/vaccine_type"><Button icon="search" className="myButton">Vaccine_type</Button></Link>
 				</Col>
-
 			</Row>
-			</div>
 			<Footer/>
-
-		</div>
-
-    	
+		</div>	
     );
   }
 }

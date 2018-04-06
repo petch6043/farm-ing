@@ -12,21 +12,41 @@ class Home extends Component {
 				<div className="myHome">
 				<Row>
 					<Col span={24} align="center" className="myUser">
-						<Icon type="user" style={{ fontSize: 100 }} />
-						<div>Firstname Lastname</div>
-						<div>Position</div>
+						<img  style={{width: 80, height: 80,borderRadius:100}} src='https://st.depositphotos.com/2075685/3076/v/950/depositphotos_30768193-stock-illustration-business-pig.jpg'/>
+						<div style={{fontSize: 20}}><b>Bacon Frankfurter</b></div>
+						<div>CEO of Chikadow Farm</div>
 					</Col>
 					<Col span={12} align="right">
-						<Link to="/food"><Button  icon="search" className="myButton">Food</Button></Link>
+						<Link to="/transfer">
+							<Button className="myButton">
+								<Icon type="swap" style={{fontSize: 72}}/>
+								<div>Transfer</div>
+							</Button>
+						</Link>
 					</Col>
 					<Col span={12} align="left">
-						<Link to="/vaccine_menu"><Button  icon="search" className="myButton">Health</Button></Link>
+						<Link to="/food">
+							<Button className="myButton">
+								<Icon type="inbox" style={{fontSize: 72}}/>
+								<div>Food</div>
+							</Button>
+						</Link>
 					</Col>
 					<Col span={12} align="right">
-						<Link to="/transfer"><Button  icon="search" className="myButton">Transfer</Button></Link>
+						<Link to="/vaccine_menu">
+							<Button className="myButton">
+								<Icon type="medicine-box" style={{fontSize: 72}}/>
+								<div>Health</div>
+							</Button>
+						</Link>
 					</Col>
 					<Col span={12} align="left">
-						<Link to="/report"><Button  icon="search" className="myButton">Report</Button></Link>
+						<Link to="/report">
+							<Button className="myButton">
+								<Icon type="file-text" style={{fontSize: 72}}/>
+								<div>Report</div>
+							</Button>
+						</Link>
 					</Col>
 				</Row>
 				</div>
