@@ -214,7 +214,7 @@ app.get('/report/generate/', (req, res) =>{
 	var fpp = food_amount/pig_current;
 	var report_type = 'monthly';
 	console.log(fpp)
-	const INSERT_PRODUCTS_QUERY = 'INSERT INTO report (barn_id, pig_current, pig_sold, pig_sick, pig_die, food_amount, fpp, report_type) VALUES("'+
+	const INSERT_REPORT_QUERY = 'INSERT INTO report (barn_id, pig_current, pig_sold, pig_sick, pig_die, food_amount, fpp, report_type) VALUES("'+
 	barn_id+'", '+pig_current+', '+pig_sold+', '+pig_sick+', '+pig_die+', '+food_amount+', '+fpp+', "'+report_type+'")';
 	connection.query(INSERT_PRODUCTS_QUERY, (err,results) =>{
 		if (err) {
