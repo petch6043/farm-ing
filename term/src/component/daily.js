@@ -29,7 +29,9 @@ class daily extends Component {
 		let {reportList} = this.state;
 		return(
 			<div>
+				<Header/>
 				<Show reportList={reportList}/>
+				<Footer/>
 				
 			</div>
 		);
