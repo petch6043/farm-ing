@@ -3,30 +3,53 @@ import Header from './Header';
 import Footer from './Footer';
 import { Row, Col } from 'antd';
 import { Button, Icon } from 'antd';
+import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 
 class Home extends Component {
 	render() {
 		return(
 			<div>
+				<div className="myHome">
 				<Row>
 					<Col span={24} align="center" className="myUser">
-						<Icon type="user" style={{ fontSize: 100 }} />
-						<div>Firstname Lastname</div>
-						<div>Position</div>
+						<img  style={{width: 80, height: 80,borderRadius:100}} src='https://st.depositphotos.com/2075685/3076/v/950/depositphotos_30768193-stock-illustration-business-pig.jpg'/>
+						<div style={{fontSize: 20}}><b>Bacon Frankfurter</b></div>
+						<div>CEO of Chikadow Farm</div>
 					</Col>
 					<Col span={12} align="right">
-						<a href="/food"><Button  icon="search" className="myButton">Food</Button></a>
+						<Link to="/food">
+							<Button className="myButton">
+								<Icon type="inbox" style={{fontSize: 72}}/>
+								<div>Food</div>
+							</Button>
+						</Link>
 					</Col>
 					<Col span={12} align="left">
-						<a href="/health"><Button  icon="search" className="myButton">Health</Button></a>
+						<Link to="/vaccine_menu">
+							<Button className="myButton">
+								<Icon type="medicine-box" style={{fontSize: 72}}/>
+								<div>{'\n'}Health</div>
+							</Button>
+						</Link>
 					</Col>
 					<Col span={12} align="right">
-						<a href="/transfer"><Button  icon="search" className="myButton">Transfer</Button></a>
+						<Link to="/transfer">
+							<Button className="myButton">
+								<Icon type="swap" style={{fontSize: 72}}/>
+								<div>Transfer</div>
+							</Button>
+						</Link>
 					</Col>
 					<Col span={12} align="left">
-						<a href="/report"><Button  icon="search" className="myButton">Report</Button></a>
+						<Link to="/report">
+							<Button className="myButton">
+								<Icon type="file-text" style={{fontSize: 72}}/>
+								<div>Report</div>
+							</Button>
+						</Link>
 					</Col>
 				</Row>
+				</div>
 				<Footer/>
 			</div>
 		);

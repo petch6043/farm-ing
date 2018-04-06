@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import Add from './transfer/Add';
-import Show from './transfer/Show';
+import Add from './monthly/Add';
+import Show from './monthly/Show';
 
-class Transfer extends Component {
+class monthly extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -47,8 +47,8 @@ class Transfer extends Component {
 	render() {
 		let {transferList} = this.state;
 		return(
-			<div className="myBody">
-				<Header thisPage="Health"/>
+			<div>
+				<Header/>
 				<div>Transfer</div>
 				<Add onAdd={this.onAdd}/>
 				<Show transferList={transferList}/>
@@ -58,4 +58,4 @@ class Transfer extends Component {
 	}
 }
 
-export default Transfer;
+export default monthly;

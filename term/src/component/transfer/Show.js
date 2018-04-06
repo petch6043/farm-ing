@@ -7,32 +7,33 @@ class Show extends Component {
 		let {transferList} = this.props;
 		const data = transferList;
 			const columns = [{
-  title: 'Transfer ID',
-  dataIndex: 'tran_id',
-  key: 'tran_id',
-}, {
-  title: 'Pen ID',
-  dataIndex: 'pen_id',
-  key: 'pen_id',
-}, {
-  title: 'Type',
-  dataIndex: 'type',
-  key: 'type',
-}, {
-	title: 'Value',
-  dataIndex: 'value',
-  key: 'value',
-}, {
-	title: 'User ID',
-  dataIndex: 'user_id',
-  key: 'user_id',
-}];
-		
+				title: 'ID',
+				dataIndex: 'tran_id',
+				key: 'tran_id',
+			}, {
+				title: 'Pen',
+				dataIndex: 'pen_id',
+				key: 'pen_id',
+			}, {
+				title: 'Type',
+				dataIndex: 'type',
+				key: 'type',
+			}, {
+				title: 'Value',
+				dataIndex: 'value',
+				key: 'value',
+			}, {
+				title: 'User',
+				dataIndex: 'user_id',
+				key: 'user_id',
+			}];
+		const expandedRowRender = record => <label>{record.type}</label>;
+
 		return(
 			
 			<div>
-				<h2>&nbsp;&nbsp;&nbsp;Transfer list </h2>
-				<Table columns={columns} dataSource={data}/>
+				<h2>Transfer list </h2>
+				<Table expandedRowRender={expandedRowRender} columns={columns} dataSource={data}/>
 			</div>
 		);
 	}

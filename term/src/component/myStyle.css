@@ -2,24 +2,48 @@ a {
 	color: black;
 }
 
+h2 {
+	margin-bottom: 10px;
+}
+
 .myTop {
 	padding: 15px;
+	width: 100%;
 	background: linear-gradient(to right, #f2cca5, #e09587);
+}
+
+.myTopLabel {
+	text-align: center; 
+	margin-right: 25px;
 }
 
 .myBack {
 	float: left;
 }
 
+.myBody {
+	padding:10px 10px 55px 10px;
+}
+
+.myHome {
+	margin-bottom: 20px;
+}
+
 .myNav {
 	border-top: 1px solid black;
-	margin-top: 20px;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
 }
 
 .myTab {
 	width: 100%;
 	padding: 15px;
   	background: white;
+}
+
+.myTab:hover {
+	background: #eaeaea;
 }
 
 .myButton {
@@ -33,4 +57,13 @@ a {
 	padding:35px;
 	margin-bottom: 20px;
 	background: linear-gradient(to bottom right, #f2cca5, #e09587);
+}
+
+.myFormItem {
+	width: 80%;
+	margin-bottom: 0;
+}
+
+.ant-form-item {
+	margin-bottom: 0;
 }

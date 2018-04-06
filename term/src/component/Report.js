@@ -1,61 +1,49 @@
 import React, { Component } from 'react';
+import daily from './daily';
+import weekly from './weekly';
+import monthly from './monthly';
+import yearly from './yearly';
+import { Button, Icon } from 'antd';
+import { Row, Col } from 'antd';
 import Header from './Header';
 import Footer from './Footer';
-import Add from './transfer/Add';
-import Show from './transfer/Show';
 
-class Transfer extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			transferList: []
-		}
-		this.onAdd = this.onAdd.bind(this);
-	}
+import {
+	BrowserRouter as Router,
+	Link,
+	Route,
+	Switch,
+} from 'react-router-dom';
 
-	componentDidMount(){
-		this.getTransfers();
-	}
-
-	getTransfers = _ => {
-	    fetch("http://localhost:4000/transfer")
-	      .then(response => response.json())
-	      .then(response => this.setState({ transferList: response.data}))
-	      .catch(err => console.error(err))
-	}
-
-	onAdd(transfer) {
-		console.log("A" + transfer);
-		    fetch('http://localhost:4000/transfer/add', {
-		    	method: 'POST',
-		    	headers: {
-		    		Accept: 'application/json',
-		    		'Content-Type': 'application/json',
-		    	},
-		    	body: JSON.stringify({
-		    		type: transfer.type,
-		    		pen_id: transfer.pen_id,
-		    		user_id: transfer.value,
-		    		value: transfer.user_id
-		    	}),
-		    })
-		    .then(this.getTransfers)
-		    .catch(err => console.error(err))
-		    console.log('addTransfer');
-	}
-
+class Report extends Component {
 	render() {
-		let {transferList} = this.state;
-		return(
+		return (
 			<div>
-				<Header/>
-				<div>Transfer</div>
-				<Add onAdd={this.onAdd}/>
-				<Show transferList={transferList}/>
-				<Footer/>
+				<Header thisPage="Health"/>
+				<Row>	
+				<Col span={12} align="right">	
+				<Link to="/daily"><Button icon="search" className="myButton">daily</Button></Link>
+				</Col>
+
+				<Col span={12} align="left">
+				<Link to="/weekly"><Button icon="search" className="myButton">weekly</Button></Link>
+				</Col>
+
+				<Col span={12} align="right">
+				<Link to="/monthly"><Button icon="search" className="myButton">monthly</Button></Link>
+				</Col>
+
+				<Col span={12} align="left">
+				<Link to="/yearly"><Button icon="search" className="myButton">yearly</Button></Link>
+				</Col>
+
+				</Row>
+			<Footer/>
+
 			</div>
 		);
 	}
 }
 
-export default Transfer;
+export default Report;
+ 
