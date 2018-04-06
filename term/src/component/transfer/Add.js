@@ -58,7 +58,7 @@ class Add extends Component {
 				<br/><br/>
 
 				<Col span={24}>
-				<Button type="primary" size='medium' ghost onClick={this.addClick}>Submit</Button>
+				<Button type="primary" ghost onClick={this.addClick}>Submit</Button>
 				</Col>
         	</div>
 		);
