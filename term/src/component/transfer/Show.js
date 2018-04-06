@@ -7,11 +7,11 @@ class Show extends Component {
 		let {transferList} = this.props;
 		const data = transferList;
 			const columns = [{
-				title: 'Transfer ID',
+				title: 'ID',
 				dataIndex: 'tran_id',
 				key: 'tran_id',
 			}, {
-				title: 'Pen ID',
+				title: 'Pen',
 				dataIndex: 'pen_id',
 				key: 'pen_id',
 			}, {
@@ -23,7 +23,7 @@ class Show extends Component {
 				dataIndex: 'value',
 				key: 'value',
 			}, {
-				title: 'User ID',
+				title: 'User',
 				dataIndex: 'user_id',
 				key: 'user_id',
 			}];

@@ -61,14 +61,11 @@ class Add extends Component {
 		onAdd(transfer);
 	}
 
-<<<<<<< HEAD
+
 	render() {
 		return(
 			<div>
 				<AddForm send={this.send}/>
-				<Col span={24}>
-				<Button type="primary" ghost onClick={this.addClick}>Submit</Button>
-				</Col>
         	</div>
 		);
 	}

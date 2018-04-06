@@ -12,9 +12,9 @@ class Home extends Component {
 				<div className="myHome">
 				<Row>
 					<Col span={24} align="center" className="myUser">
-						<Icon type="user" style={{ fontSize: 100 }} />
-						<div>Firstname Lastname</div>
-						<div>Position</div>
+						<img  style={{width: 80, height: 80,borderRadius:100}} src='https://st.depositphotos.com/2075685/3076/v/950/depositphotos_30768193-stock-illustration-business-pig.jpg'/>
+						<div style={{fontSize: 20}}><b>Bacon Frankfurter</b></div>
+						<div>CEO of Chikadow Farm</div>
 					</Col>
 					<Col span={12} align="right">
 						<Link to="/food">
