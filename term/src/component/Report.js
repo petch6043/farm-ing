@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import Transfer_report from './Transfer_report';
-import Health_report from './Health_report';
+import daily from './daily';
+import weekly from './weekly';
+import monthly from './monthly';
+import yearly from './yearly';
 import { Button, Icon } from 'antd';
 import { Row, Col } from 'antd';
 import Header from './Header';
@@ -17,17 +19,23 @@ class Report extends Component {
 	render() {
 		return (
 			<div>
-				<Header thisPage="Report"/>
+				<Header thisPage="Health"/>
 				<Row>	
 				<Col span={12} align="right">	
-				<Link to="/Transfer_report"><Button icon="search" className="myButton2">Transfer & Food Report</Button></Link>
+				<Link to="/daily"><Button icon="search" className="myButton">daily</Button></Link>
 				</Col>
 
 				<Col span={12} align="left">
-				<Link to="/Health_report"><Button icon="search" className="myButton2">Healt Report</Button></Link>
+				<Link to="/weekly"><Button icon="search" className="myButton">weekly</Button></Link>
 				</Col>
 
-				
+				<Col span={12} align="right">
+				<Link to="/monthly"><Button icon="search" className="myButton">monthly</Button></Link>
+				</Col>
+
+				<Col span={12} align="left">
+				<Link to="/yearly"><Button icon="search" className="myButton">yearly</Button></Link>
+				</Col>
 
 				</Row>
 			<Footer/>

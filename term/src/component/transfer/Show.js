@@ -12,8 +12,8 @@ class Show extends Component {
 				key: 'tran_id',
 			}, {
 				title: 'Pen',
-				dataIndex: 'barn_id',
-				key: 'barn_id',
+				dataIndex: 'pen_id',
+				key: 'pen_id',
 			}, {
 				title: 'Type',
 				dataIndex: 'type',

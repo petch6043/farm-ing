@@ -9,11 +9,11 @@ import Login from './component/Login';
 import vaccine_menu from './component/vaccine_menu';
 import vaccine_pen from './component/vaccine_pen';
 import vaccine_type from './component/vaccine_type';
-import vaccine_program from './component/vaccine_program';
-import vaccine_urgent from './component/vaccine_urgent';
 
-import Transfer_report from './component/Transfer_report';
-import Health_report from './component/Health_report';
+import daily from './component/daily';
+import weekly from './component/weekly';
+import monthly from './component/monthly';
+import yearly from './component/yearly';
 import {
 	BrowserRouter as Router,
 	Link,
@@ -34,12 +34,12 @@ class App extends Component {
 	    			<Route exact path="/vaccine" component={Vaccine} />
 	    			<Route path="/vaccine_pen" component={vaccine_pen} />
 	    			<Route path="/vaccine_type" component={vaccine_type} />
-	    			<Route path="/vaccine_program" component={vaccine_program} />
-	    			<Route path="/vaccine_urgent" component={vaccine_urgent} />
 	    			<Route path="/report" component={Report} />
 	    			<Route path="/login" component={Login} />
-	    			<Route path="/Transfer_report" component={Transfer_report} />
-	    			<Route path="/Health_report" component={Health_report} />
+	    			<Route path="/daily" component={daily} />
+	    			<Route path="/weekly" component={weekly} />
+	    			<Route path="/monthly" component={monthly} />
+	    			<Route path="/yearly" component={yearly} />
         		</Switch>
 	         </Router>
 	    </div>

@@ -17,14 +17,6 @@ class Home extends Component {
 						<div>CEO of Chikadow Farm</div>
 					</Col>
 					<Col span={12} align="right">
-						<Link to="/transfer">
-							<Button className="myButton">
-								<Icon type="swap" style={{fontSize: 72}}/>
-								<div>Transfer</div>
-							</Button>
-						</Link>
-					</Col>
-					<Col span={12} align="left">
 						<Link to="/food">
 							<Button className="myButton">
 								<Icon type="inbox" style={{fontSize: 72}}/>
@@ -32,11 +24,19 @@ class Home extends Component {
 							</Button>
 						</Link>
 					</Col>
-					<Col span={12} align="right">
+					<Col span={12} align="left">
 						<Link to="/vaccine_menu">
 							<Button className="myButton">
 								<Icon type="medicine-box" style={{fontSize: 72}}/>
-								<div>Health</div>
+								<div>{'\n'}Health</div>
+							</Button>
+						</Link>
+					</Col>
+					<Col span={12} align="right">
+						<Link to="/transfer">
+							<Button className="myButton">
+								<Icon type="swap" style={{fontSize: 72}}/>
+								<div>Transfer</div>
 							</Button>
 						</Link>
 					</Col>
