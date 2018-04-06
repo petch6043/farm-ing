@@ -18,7 +18,6 @@ class Home extends Component {
 					</Col>
 					<Col span={12} align="right">
 						<Link to="/transfer">
-
 							<Button className="myButton">
 								<Icon type="swap" style={{fontSize: 72}}/>
 								<div>Transfer</div>
