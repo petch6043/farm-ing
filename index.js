@@ -11,6 +11,9 @@ const SELECT_ALL_VACCINETYPE_QUERY = 'SELECT * FROM vaccine_type';
 const SELECT_ALL_BARN_QUERY = 'SELECT * FROM barn';
 const SELECT_ALL_PENCOUNT_QUERY = 'SELECT * FROM transfer';
 const SELECT_ALL_FOOD_QUERY = 'SELECT * FROM food';
+const SELECT_ALL_VACCINEPROGRAM_QUERY ='SELECT age, vac_name, isRequired, timestamp FROM vaccine, vaccine_type'
+const SELECT_ALL_VACCINEURGENT_QUERY ='SELECT age, vac_name,timestamp FROM vaccine, vaccine_type'
+
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
@@ -436,6 +439,33 @@ app.post('/vaccine_type/add', function(req, res) {
 		}
 		else{
 			return res.send('VACCINETYPE ADDED')
+		}
+	});
+});
+
+
+app.get('/vaccine_program', (req, res) =>{
+	connection.query(SELECT_ALL_VACCINEPROGRAM_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			return res.json({
+				data: results
+			})
+		}
+	});
+});
+
+app.get('/vaccine_urgent', (req, res) =>{
+	connection.query(SELECT_ALL_VACCINEURGENT_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			return res.json({
+				data: results
+			})
 		}
 	});
 });
