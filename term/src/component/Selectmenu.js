@@ -1,35 +1,62 @@
 import React, { Component } from 'react';
 import { Menu, Icon } from 'antd';
 import { Row, Col } from 'antd';
+import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 const SubMenu = Menu.SubMenu;
 class Selectmenu extends Component {
-	state = {
-    openKeys: ['sub1'],
-  };
-	render(){
-		return(
-			
-			 <div align="center">
-				<Menu
-        		mode="inline"
-        		openKeys={this.state.openKeys}
-        		style={{ width: 200 }}>
+ constructor(props){
+    super(props);
+    this.state = 
+    {current: 0}
+  }
+
+   
+    handleClick = (e) => {
+        console.log('clicking'+e.key, e)
+        
+        this.setState({
+          current: e.key
+        });
+        console.log('current:'+this.state.current)
+      };
+    
+ render(){
+  return(
+    
+    <div align="center">
+    <Menu
+            onClick={this.handleClick}
+          mode="inline"
+          //openKeys={this.state.openKeys}
+          style={{ width: 300 }}>
               
-        			<SubMenu key="sub1" title={<span><Icon type="bars" /><span>Select Barn</span></span>}>
+           
                   
-          				<Menu.Item key="1">Barn 1</Menu.Item>
-          				<Menu.Item key="2">Barn 2</Menu.Item>
-          				<Menu.Item key="3">Barn 3</Menu.Item>
-          				<Menu.Item key="4">Barn 4</Menu.Item>
-          				<Menu.Item key="5">Barn 5</Menu.Item>
+                <Menu.Item key="1">
+                   Barn 1
+                   </Menu.Item>
+
+              <Menu.Item key="2">
+                  Barn 2
+                  </Menu.Item>
+
+              <Menu.Item key="3">
+                  <Link to="/transfer">Barn 3</Link>
+                  </Menu.Item>
+
+              <Menu.Item key="4">
+                  <Link to="/transfer">Barn 4</Link>
+                  </Menu.Item>
+              <Menu.Item key="5">
+                  <Link to="/transfer">Barn 5</Link>
+                  </Menu.Item>
                   
-       			 	</SubMenu>
               
-        		</Menu>
+          </Menu>
         </div>
 
-        		
-			)
-	}
+          
+   )
+ }
 }
 export default Selectmenu;
