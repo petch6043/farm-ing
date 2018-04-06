@@ -20,10 +20,9 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 const connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password: 'nenaneno',
-	//password: 'root',
+	password:'root',
 	database: 'react_sql',
-	//socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock"
+	socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock"
 });
 
 connection.connect(function(err) {
@@ -209,7 +208,7 @@ app.get('/report/generate/', (req, res) =>{
 	var fpp = food_amount/pig_current;
 	var report_type = 'monthly';
 	console.log(fpp)
-	const INSERT_PRODUCTS_QUERY = 'INSERT INTO report (barn_id, pig_current, pig_sold, pig_sick, pig_die, food_amount, fpp, report_type) VALUES("'+
+	const INSERT_REPORT_QUERY = 'INSERT INTO report (barn_id, pig_current, pig_sold, pig_sick, pig_die, food_amount, fpp, report_type) VALUES("'+
 	barn_id+'", '+pig_current+', '+pig_sold+', '+pig_sick+', '+pig_die+', '+food_amount+', '+fpp+', "'+report_type+'")';
 	connection.query(INSERT_PRODUCTS_QUERY, (err,results) =>{
 		if (err) {
