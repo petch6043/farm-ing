@@ -9,6 +9,8 @@ import Login from './component/Login';
 import vaccine_menu from './component/vaccine_menu';
 import vaccine_pen from './component/vaccine_pen';
 import vaccine_type from './component/vaccine_type';
+import vaccine_program from './component/vaccine_program';
+import vaccine_urgent from './component/vaccine_urgent';
 
 import daily from './component/daily';
 import weekly from './component/weekly';
@@ -34,6 +36,8 @@ class App extends Component {
 	    			<Route exact path="/vaccine" component={Vaccine} />
 	    			<Route path="/vaccine_pen" component={vaccine_pen} />
 	    			<Route path="/vaccine_type" component={vaccine_type} />
+	    			<Route path="/vaccine_program" component={vaccine_program} />
+	    			<Route path="/vaccine_urgent" component={vaccine_urgent} />
 	    			<Route path="/report" component={Report} />
 	    			<Route path="/login" component={Login} />
 	    			<Route path="/daily" component={daily} />
