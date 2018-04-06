@@ -51,15 +51,35 @@ app.get('/barn', (req, res) =>{
 	});
 });
 
-app.get('/barn/add', (req, res) =>{
-	var barn_id = '1';
-	const INSERT_BARN_QUERY = 'INSERT INTO barn (barn_id) VALUES('+barn_id+')';
+//add new barn and add 5 pens to it
+app.post('/barn/open', function(req, res) {
+	var name = req.body.name;
+	var open_date = req.body.open_date;
+	var user_id = req.body.user_id;
+	var barn_id;
+	const INSERT_BARN_QUERY = 'INSERT INTO barn (name, open_date, user_id) VALUES("'+name+'", "'+open_date+'", '+user_id+')';
+	const GET_CURRENT_ID = 'SELECT AUTO_INCREMENT as barn_id FROM information_schema.TABLES WHERE TABLE_SCHEMA = "react_sql" AND TABLE_NAME = "barn"';
 	connection.query(INSERT_BARN_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
-		}
-		else{
-			return res.send('BARN ADDED')
+		} else {	
+			res.send('BARN '+name+' OPENED')
+			connection.query(GET_CURRENT_ID, (err,results) =>{
+				if (err) {
+					return res.send(err)
+				} else {
+					barn_id = results[0].barn_id - 1
+					console.log(barn_id)
+					const INSERT_PEN_QUERY = 'INSERT INTO pen (pen_id, barn_id) VALUES(1, '+barn_id+'),(2, '+barn_id+'),(3, '+barn_id+'),(4, '+barn_id+'),(5, '+barn_id+')'
+					connection.query(INSERT_PEN_QUERY, (err,results) =>{
+						if (err) {
+							return res.send(err)
+						} else {	
+							return res.send('5 pens added to'+barn_id)
+						}
+					});
+				}
+			});
 		}
 	});
 });
@@ -253,7 +273,7 @@ app.post('/report/generate/', (req, res) =>{
 									return res.send("err added: "+err)
 								}
 								else{
-									pig_current = results[0].sum
+									pig_current = results[0].sum - pig_die - pig_sick - pig_sold
 									connection.query(SUM_FOOD_QUERY, (err,results) =>{
 										if (err) {
 											return res.send("err food: "+err)
@@ -269,7 +289,7 @@ app.post('/report/generate/', (req, res) =>{
 												}
 												else{
 													return res.send('Added report: barn_id '+
-											barn_id+'",pig_current '+pig_current+',pig_sold '+pig_sold+',pig_sick '+pig_sick+',pig_die '+pig_die+'food_amount '+food_amount+',fpp '+fpp+',report_type '+report_type+')')
+											barn_id+',pig_current '+pig_current+',pig_sold '+pig_sold+',pig_sick '+pig_sick+',pig_die '+pig_die+'food_amount '+food_amount+',fpp '+fpp+',report_type '+report_type+')')
 												}
 											});
 										}
