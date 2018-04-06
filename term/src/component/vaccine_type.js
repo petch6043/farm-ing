@@ -3,6 +3,30 @@ import Header from './Header';
 import Footer from './Footer';
 import Add from './vaccine_type/Add';
 import Show from './vaccine_type/Show';
+import { DatePicker } from 'antd';
+import { Collapse } from 'antd';
+import { Button, notification } from 'antd';
+
+const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
+function onChange(date, dateString) {
+	console.log(date, dateString);
+}
+
+const noti = (type, msg, desc) => {
+	notification[type]({
+		message: msg,
+		description: desc,
+	});
+};
+
+const Panel = Collapse.Panel;
+const customPanelStyle = {
+	background: '#f7f7f7',
+	borderRadius: 4,
+	marginBottom: 5,
+	border: 0,
+	overflow: 'hidden',
+};
 
 class vaccine_type extends Component {
 	constructor(props) {
@@ -49,10 +73,20 @@ class vaccine_type extends Component {
 		let {vaccinetypeList} = this.state;
 		return(
 			<div>
-				<Header/>
-				<div>Vaccine type</div>
-				<Add onAdd={this.onAdd}/>
+				<Header thisPage="Vaccine Type"/>
+				
+				<div className="myBody">
+					<Collapse bordered={false} style={{marginBottom:20}}>
+						<Panel header="Select date" key="1" style={customPanelStyle}>
+							<DatePicker onChange={onChange} />
+						</Panel>
+						<Panel header="Add vaccine type" key="2" style={customPanelStyle}>
+							<Add onAdd={this.onAdd}/>
+						</Panel>
+					</Collapse>	
+				
 				<Show vaccinetypeList={vaccinetypeList}/>
+				</div>
 			
 				<Footer/>
 			</div>

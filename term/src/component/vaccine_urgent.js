@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import Add from './daily/Add';
-import Show from './daily/Show';
+import Add from './vaccine_urgent/Add';
+import Show from './vaccine_urgent/Show';
 import { DatePicker } from 'antd';
 import { Collapse } from 'antd';
 import { Button, notification } from 'antd';
@@ -29,49 +29,51 @@ const customPanelStyle = {
 };
 
 
-class daily extends Component {
+class vaccine_urgent extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			reportList: []
+			vaccineurgentList: []
 		}
 	}
 
 	componentDidMount(){
-		this.getReport();
+		this.getVaccineUrgent();
 	}
 
-	getReport = _ => {
-	    fetch("http://localhost:4000/report")
+	getVaccineUrgent = _ => {
+	    fetch("http://localhost:4000/vaccine_urgent")
 	      .then(response => response.json())
-	      .then(response => this.setState({ reportList: response.data}))
+	      .then(response => this.setState({ vaccineurgentList: response.data}))
 	      .catch(err => console.error(err))
 	}
 
 
 	render() {
-		let {reportList} = this.state;
+		let {vaccineurgentList} = this.state;
 		return(
 			<div>
-				<Header thisPage="Daily report"/>
-				
+				<Header thisPage="Vaccine Urgent"/>
 				<div className="myBody">
 					<Collapse bordered={false} style={{marginBottom:20}}>
 						<Panel header="Select date" key="1" style={customPanelStyle}>
 							<DatePicker onChange={onChange} />
 						</Panel>
-						<Panel header="generate report" key="2" style={customPanelStyle}>
-							<Add onAdd={this.onAdd}/>
-						</Panel>
+						
 					</Collapse>	
+				<Show vaccineurgentList={vaccineurgentList}/>	
+					
+					
+					
 				
-				<Show reportList={reportList}/>
+				
 				</div>
 			
 				<Footer/>
 			</div>
+			
 		);
 	}
 }
 
-export default daily;
+export default vaccine_urgent;

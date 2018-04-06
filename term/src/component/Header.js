@@ -21,7 +21,7 @@ class Header extends Component {
 		return(
 			<Row>
 				<Col span={24} className="myTop">
-					<Button type="primary" ghost onClick={this.context.router.history.goBack}><Icon type="left" style={{ fontSize: 25 }} className="myBack"/></Button>
+					<Icon onClick={this.context.router.history.goBack} type="left" style={{ fontSize: 25 }} className="myBack"/>
 					<div className="myTopLabel">{thisPage}</div>
 				</Col>
 			</Row>

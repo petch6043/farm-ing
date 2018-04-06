@@ -11,6 +11,9 @@ const SELECT_ALL_VACCINETYPE_QUERY = 'SELECT * FROM vaccine_type';
 const SELECT_ALL_BARN_QUERY = 'SELECT * FROM barn';
 const SELECT_ALL_PENCOUNT_QUERY = 'SELECT * FROM transfer';
 const SELECT_ALL_FOOD_QUERY = 'SELECT * FROM food';
+const SELECT_ALL_VACCINEPROGRAM_QUERY ='SELECT age, vac_name, isRequired, timestamp FROM vaccine, vaccine_type'
+const SELECT_ALL_VACCINEURGENT_QUERY ='SELECT age, vac_name,timestamp FROM vaccine, vaccine_type'
+
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
@@ -20,8 +23,9 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 const connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
+	password:'root',
 	database: 'react_sql',
-	//socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock"
+	socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock"
 });
 
 connection.connect(function(err) {
@@ -77,19 +81,19 @@ app.get('/pen', (req, res) =>{
 	});
 });
 
-app.get('/pen/add', (req, res) =>{
-	var pen_id = 2;
-	var barn_id = 1;
-	const INSERT_PEN_QUERY = 'INSERT INTO pen (pen_id, barn_id) VALUES('+pen_id+', '+barn_id+')';
-	connection.query(INSERT_PEN_QUERY, (err,results) =>{
-		if (err) {
-			return res.send(err)
-		}
-		else{
-			return res.send('ADDED')
-		}
-	});
-});
+// app.get('/pen/add', (req, res) =>{
+// 	var pen_id = 2;
+// 	var barn_id = 1;
+// 	const INSERT_PEN_QUERY = 'INSERT INTO pen (pen_id, barn_id) VALUES('+pen_id+', '+barn_id+')';
+// 	connection.query(INSERT_PEN_QUERY, (err,results) =>{
+// 		if (err) {
+// 			return res.send(err)
+// 		}
+// 		else{
+// 			return res.send('ADDED')
+// 		}
+// 	});
+// });
 
 /*-------------------------- TRANSFER --------------------------*/
 app.get('/transfer', (req, res) =>{
@@ -123,10 +127,10 @@ app.get('/transfer', (req, res) =>{
 
 app.post('/transfer/add', function(req, res) {
     var type = req.body.type;
-	var pen_id = req.body.pen_id;
+	var barn_id = req.body.barn_id;
 	var user_id = req.body.user_id;
 	var value = req.body.value;
-	const INSERT_PRODUCTS_QUERY = 'INSERT INTO transfer (pen_id, type, value, user_id) VALUES('+pen_id+', "'+type+'", '+value+', '+user_id+')';
+	const INSERT_PRODUCTS_QUERY = 'INSERT INTO transfer (barn_id, type, value, user_id) VALUES('+barn_id+', "'+type+'", '+value+', '+user_id+')';
 	connection.query(INSERT_PRODUCTS_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err);
@@ -168,11 +172,11 @@ app.get('/food', (req, res) =>{
 // });
 
 app.post('/food/add', function(req, res) {
-    var pen_id = req.body.pen_id;
+    var barn_id = req.body.barn_id;
 	var amount = req.body.amount;
 	var food_type = req.body.food_type;
 	var user_id = req.body.user_id;
-	const INSERT_FOOD_QUERY = 'INSERT INTO food (pen_id, amount, food_type, user_id) VALUES('+pen_id+', '+amount+', '+food_type+', '+user_id+')';
+	const INSERT_FOOD_QUERY = 'INSERT INTO food (barn_id, amount, food_type, user_id) VALUES('+barn_id+', '+amount+', '+food_type+', '+user_id+')';
 	connection.query(INSERT_FOOD_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
@@ -207,7 +211,7 @@ app.get('/report/generate/', (req, res) =>{
 	var fpp = food_amount/pig_current;
 	var report_type = 'monthly';
 	console.log(fpp)
-	const INSERT_PRODUCTS_QUERY = 'INSERT INTO report (barn_id, pig_current, pig_sold, pig_sick, pig_die, food_amount, fpp, report_type) VALUES("'+
+	const INSERT_REPORT_QUERY = 'INSERT INTO report (barn_id, pig_current, pig_sold, pig_sick, pig_die, food_amount, fpp, report_type) VALUES("'+
 	barn_id+'", '+pig_current+', '+pig_sold+', '+pig_sick+', '+pig_die+', '+food_amount+', '+fpp+', "'+report_type+'")';
 	connection.query(INSERT_PRODUCTS_QUERY, (err,results) =>{
 		if (err) {
@@ -223,11 +227,11 @@ app.post('/report/generate/', (req, res) =>{
 	var barn_id = req.body.barn_id;
 	var pig_current, pig_sold, pig_sick, pig_die, food_amount, fpp;
 	var report_type = 'monthly';
-	const SUM_SOLD_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE pen_id='+barn_id+' AND type="sold";'; //change pen to barn
-	const SUM_SICK_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE pen_id='+barn_id+' AND type="sick";';
-	const SUM_DIED_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE pen_id='+barn_id+' AND type="died";';
-	const SUM_FOOD_QUERY = 'SELECT IFNULL(SUM(amount),0) AS sum FROM food WHERE pen_id='+barn_id+';';
-	const SUM_ADDED_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE pen_id='+barn_id+' AND type="add";';
+	const SUM_SOLD_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE barn_id='+barn_id+' AND type="sold";'; //change pen to barn
+	const SUM_SICK_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE barn_id='+barn_id+' AND type="sick";';
+	const SUM_DIED_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE barn_id='+barn_id+' AND type="died";';
+	const SUM_FOOD_QUERY = 'SELECT IFNULL(SUM(amount),0) AS sum FROM food WHERE barn_id='+barn_id+';';
+	const SUM_ADDED_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE barn_id='+barn_id+' AND type="add";';
 	connection.query(SUM_SOLD_QUERY, (err,results) =>{
 		if (err) {
 			console.log('pig sold err')
@@ -415,6 +419,33 @@ app.post('/vaccine_type/add', function(req, res) {
 		}
 		else{
 			return res.send('VACCINETYPE ADDED')
+		}
+	});
+});
+
+
+app.get('/vaccine_program', (req, res) =>{
+	connection.query(SELECT_ALL_VACCINEPROGRAM_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			return res.json({
+				data: results
+			})
+		}
+	});
+});
+
+app.get('/vaccine_urgent', (req, res) =>{
+	connection.query(SELECT_ALL_VACCINEURGENT_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			return res.json({
+				data: results
+			})
 		}
 	});
 });

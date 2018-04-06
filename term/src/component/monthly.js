@@ -1,61 +1,77 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import Add from './monthly/Add';
-import Show from './monthly/Show';
+import Add from './daily/Add';
+import Show from './daily/Show';
+import { DatePicker } from 'antd';
+import { Collapse } from 'antd';
+import { Button, notification } from 'antd';
 
-class monthly extends Component {
+const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
+function onChange(date, dateString) {
+	console.log(date, dateString);
+}
+
+const noti = (type, msg, desc) => {
+	notification[type]({
+		message: msg,
+		description: desc,
+	});
+};
+
+const Panel = Collapse.Panel;
+const customPanelStyle = {
+	background: '#f7f7f7',
+	borderRadius: 4,
+	marginBottom: 5,
+	border: 0,
+	overflow: 'hidden',
+};
+
+
+class daily extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			transferList: []
+			reportList: []
 		}
-		this.onAdd = this.onAdd.bind(this);
 	}
 
 	componentDidMount(){
-		this.getTransfers();
+		this.getReport();
 	}
 
-	getTransfers = _ => {
-	    fetch("http://localhost:4000/transfer")
+	getReport = _ => {
+	    fetch("http://localhost:4000/report")
 	      .then(response => response.json())
-	      .then(response => this.setState({ transferList: response.data}))
+	      .then(response => this.setState({ reportList: response.data}))
 	      .catch(err => console.error(err))
 	}
 
-	onAdd(transfer) {
-		console.log("A" + transfer);
-		    fetch('http://localhost:4000/transfer/add', {
-		    	method: 'POST',
-		    	headers: {
-		    		Accept: 'application/json',
-		    		'Content-Type': 'application/json',
-		    	},
-		    	body: JSON.stringify({
-		    		type: transfer.type,
-		    		pen_id: transfer.pen_id,
-		    		user_id: transfer.value,
-		    		value: transfer.user_id
-		    	}),
-		    })
-		    .then(this.getTransfers)
-		    .catch(err => console.error(err))
-		    console.log('addTransfer');
-	}
 
 	render() {
-		let {transferList} = this.state;
+		let {reportList} = this.state;
 		return(
 			<div>
-				<Header/>
-				<div>Transfer</div>
-				<Add onAdd={this.onAdd}/>
-				<Show transferList={transferList}/>
+				<Header thisPage="Monthly report"/>
+				
+				<div className="myBody">
+					<Collapse bordered={false} style={{marginBottom:20}}>
+						<Panel header="Select date" key="1" style={customPanelStyle}>
+							<DatePicker onChange={onChange} />
+						</Panel>
+						<Panel header="generate report" key="2" style={customPanelStyle}>
+							<Add onAdd={this.onAdd}/>
+						</Panel>
+					</Collapse>	
+				
+				<Show reportList={reportList}/>
+				</div>
+			
 				<Footer/>
 			</div>
 		);
 	}
 }
 
-export default monthly;
+export default daily;
