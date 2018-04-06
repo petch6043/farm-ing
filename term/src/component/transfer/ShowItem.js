@@ -8,7 +8,6 @@ class ShowItem extends Component {
 		return(
 			<div>
 				ID: {item.tran_id} Pen ID: {item.pen_id}, Type: {item.type}, Value: {item.value}, By: {item.user_id}
-				
 			</div>
 		);
 	}

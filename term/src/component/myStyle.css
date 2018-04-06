@@ -3,7 +3,7 @@ a {
 }
 
 h2 {
-	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 .myTop {
@@ -57,4 +57,13 @@ h2 {
 	padding:35px;
 	margin-bottom: 20px;
 	background: linear-gradient(to bottom right, #f2cca5, #e09587);
+}
+
+.myFormItem {
+	width: 80%;
+	margin-bottom: 0;
+}
+
+.ant-form-item {
+	margin-bottom: 0;
 }

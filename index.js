@@ -21,7 +21,6 @@ const connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
 	password: 'nenaneno',
-	database: 'react_sql'
 	//password: 'root',
 	database: 'react_sql',
 	//socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock"
@@ -129,13 +128,12 @@ app.post('/transfer/add', function(req, res) {
 	var pen_id = req.body.pen_id;
 	var user_id = req.body.user_id;
 	var value = req.body.value;
-	const INSERT_PRODUCTS_QUERY = 'INSERT INTO transfer (type, pen_id, user_id, value) VALUES("'+type+'", '+pen_id+', '+user_id+', '+value+')';
+	const INSERT_PRODUCTS_QUERY = 'INSERT INTO transfer (pen_id, type, value, user_id) VALUES('+pen_id+', "'+type+'", '+value+', '+user_id+')';
 	connection.query(INSERT_PRODUCTS_QUERY, (err,results) =>{
 		if (err) {
-			return res.send(err)
-		}
-		else{
-			return res.send('ADDED')
+			return res.send(err);
+		} else {
+			return res.send('1')
 		}
 	});
 });
