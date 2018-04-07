@@ -17,7 +17,7 @@ class Home extends Component {
 						<div>CEO of Chikadow Farm</div>
 					</Col>
 					<Col span={12} align="right">
-						<Link to="/transfer">
+						<Link to="/transfer_barn_select">
 							<Button className="myButton">
 								<Icon type="swap" style={{fontSize: 72}}/>
 								<div>Transfer</div>
