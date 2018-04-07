@@ -11,21 +11,21 @@ const SELECT_ALL_VACCINETYPE_QUERY = 'SELECT * FROM vaccine_type';
 const SELECT_ALL_BARN_QUERY = 'SELECT * FROM barn';
 const SELECT_ALL_PENCOUNT_QUERY = 'SELECT * FROM transfer';
 const SELECT_ALL_FOOD_QUERY = 'SELECT * FROM food';
-const SELECT_ALL_VACCINEPROGRAM_QUERY ='SELECT age, vac_name, isRequired, timestamp FROM vaccine, vaccine_type'
-const SELECT_ALL_VACCINEURGENT_QUERY ='SELECT age, vac_name,timestamp FROM vaccine, vaccine_type'
+const SELECT_ALL_VACCINEPROGRAM_QUERY ='SELECT age, vac_name FROM vaccine WHERE required=1';
+const SELECT_ALL_VACCINEURGENT_QUERY ='SELECT vac_name FROM vaccine WHERE required=0';
 
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-//connect to SQL server
+//connect to SQL server 
 const connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
 	password:'root',
 	database: 'react_sql',
-	socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock"
+	socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock" //for Mac
 });
 
 connection.connect(function(err) {
@@ -341,8 +341,10 @@ app.post('/vaccine/add', function(req, res) {
     
 	var vac_name = req.body.vac_name;
 	var type_id = req.body.type_id;
+	var age = req.body.age;
+	var required = req.body.required;
 	
-	const INSERT_VACCINE_QUERY = 'INSERT INTO vaccine ( vac_name, type_id) VALUES("'+vac_name+'", '+type_id+')';
+	const INSERT_VACCINE_QUERY = 'INSERT INTO vaccine ( vac_name, type_id, age, required) VALUES("'+vac_name+'", '+type_id+', '+age+', '+required+')';
 	connection.query(INSERT_VACCINE_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
@@ -396,19 +398,6 @@ app.post('/vaccine_pen/add', function(req, res) {
 	});
 });
 
-app.get('/vaccine_type', (req, res) =>{
-	connection.query(SELECT_ALL_VACCINETYPE_QUERY, (err,results) =>{
-		if (err) {
-			return res.send(err)
-		}
-		else{
-			return res.json({
-				data: results
-			})
-		}
-	});
-});
-
 /*app.get('/vaccine_type/add', (req, res) =>{
 	var type_id = 7;
 	var type_name = 'yolo';
@@ -424,25 +413,6 @@ app.get('/vaccine_type', (req, res) =>{
 		}
 	});
 }); */
-
-app.post('/vaccine_type/add', function(req, res) {
-    
-	var type_name = req.body.type_name;
-	var age = req.body.age;
-	var isRequired = req.body.isRequired;
-	                                                                       
-	
-	const INSERT_VACCINETYPE_QUERY = 'INSERT INTO vaccine_type ( type_name, age, isRequired) VALUES("'+type_name+'", '+age+','+isRequired+')';
-	connection.query(INSERT_VACCINETYPE_QUERY, (err,results) =>{
-		if (err) {
-			return res.send(err)
-		}
-		else{
-			return res.send('VACCINETYPE ADDED')
-		}
-	});
-});
-
 
 app.get('/vaccine_program', (req, res) =>{
 	connection.query(SELECT_ALL_VACCINEPROGRAM_QUERY, (err,results) =>{
