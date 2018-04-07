@@ -16,11 +16,7 @@ class Show extends Component {
 				title: 'Vaccine name',
 				dataIndex: 'vac_name',
 				key: 'vac_name',
-			},  {
-				title: 'time',
-				dataIndex: 'timestamp',
-				key: 'timestamp',
-			}
+			}	
 			];
 		const expandedRowRender = record => <label>{record.type}</label>;
 		const rowSelection = {
