@@ -10,7 +10,7 @@ const SELECT_ALL_REPORT_QUERY = 'SELECT * FROM report';
 const SELECT_ALL_VACCINETYPE_QUERY = 'SELECT * FROM vaccine_type';
 const SELECT_ALL_BARN_QUERY = 'SELECT * FROM barn';
 const SELECT_ALL_PENCOUNT_QUERY = 'SELECT * FROM transfer';
-const SELECT_ALL_FOOD_QUERY = 'SELECT * FROM food';
+const SELECT_ALL_FOOD_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%k:%i') AS time FROM food";
 const SELECT_ALL_VACCINEPROGRAM_QUERY ='SELECT age, vac_name FROM vaccine WHERE required=1';
 const SELECT_ALL_VACCINEURGENT_QUERY ='SELECT vac_name FROM vaccine WHERE required=0';
 
@@ -23,9 +23,9 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 const connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password:'root',
+	password:'nenaneno',
 	database: 'react_sql',
-	socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock" //for Mac
+	//socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock" //for Mac
 });
 
 connection.connect(function(err) {
