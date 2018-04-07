@@ -7,6 +7,8 @@ import Selectmenu from './Selectmenu';
 import { Collapse } from 'antd';
 import { Button, notification } from 'antd';
 import { DatePicker } from 'antd';
+import { Checkbox } from 'antd';
+import checkboxlist from './checkboxlist';
 
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 
@@ -80,6 +82,8 @@ class Transfer extends Component {
 	    })
 	}
 
+	
+
 	render() {
 		let {transferList} = this.state;
 		return(
@@ -98,7 +102,16 @@ class Transfer extends Component {
 						</Panel>
 					</Collapse>
 					{/*<Show transferList={transferList}/>*/}
+				
+
 				</div>
+
+
+				
+				<checkboxlist>check</checkboxlist>
+
+				
+
 				<Footer/>
 			</div>
 		);

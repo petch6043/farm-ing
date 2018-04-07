@@ -6,6 +6,7 @@ import Show from './vaccine_urgent/Show';
 import { DatePicker } from 'antd';
 import { Collapse } from 'antd';
 import { Button, notification } from 'antd';
+import Selectmenu from './Selectmenu';
 
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 function onChange(date, dateString) {
@@ -59,7 +60,9 @@ class vaccine_urgent extends Component {
 						<Panel header="Select date" key="1" style={customPanelStyle}>
 							<DatePicker onChange={onChange} />
 						</Panel>
-						
+						<Panel header="Select Barn" key="1" style={customPanelStyle}>
+							<Selectmenu/>
+						</Panel>
 					</Collapse>	
 				<Show vaccineurgentList={vaccineurgentList}/>	
 					

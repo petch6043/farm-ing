@@ -23,10 +23,19 @@ class Show extends Component {
 			}
 			];
 		const expandedRowRender = record => <label>{record.type}</label>;
+		const rowSelection = {
+ 		 		onChange: (selectedRowKeys, selectedRows) => {
+   		 			console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+  			},
+  				getCheckboxProps: record => ({
+    				disabled: record.type === 'Disabled User', // Column configuration not to be checked
+    				name: record.type,
+  				}),
+			};
 		return(
 			<div>
 				<div>Vaccineurgent list:</div>
-				<Table expandedRowRender={expandedRowRender} columns={columns} dataSource={data}/>
+				<Table rowSelection={rowSelection} columns={columns} dataSource={data}/>
 				
 			</div>
 		);
