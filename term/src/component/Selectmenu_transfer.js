@@ -33,11 +33,11 @@ class Selectmenu_transfer extends Component {
            
                   
                 <Menu.Item key="1">
-                   <Link to="/Create_Barn">Barn 1</Link>
+                   <Link to={{pathname:'/Create_Barn', barnNumber:'1'}}>Barn 1</Link>
                    </Menu.Item>
 
               <Menu.Item key="2">
-                  <Link to="/Create_Barn">Barn 2</Link>
+                  <Link to={{pathname:'/Create_Barn', barnNumber:'2'}}>Barn 2</Link>
                   </Menu.Item>
 
               <Menu.Item key="3">
