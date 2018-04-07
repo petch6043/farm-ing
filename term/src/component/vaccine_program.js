@@ -6,6 +6,10 @@ import Show from './vaccine_program/Show';
 import { DatePicker } from 'antd';
 import { Collapse } from 'antd';
 import { Button, notification } from 'antd';
+import Selectmenu from './Selectmenu';
+import { Row, Col } from 'antd';
+import 'antd/dist/antd.css';
+import { Checkbox } from 'antd';
 
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 function onChange(date, dateString) {
@@ -59,6 +63,9 @@ class vaccine_program extends Component {
 						<Panel header="Select date" key="1" style={customPanelStyle}>
 							<DatePicker onChange={onChange} />
 						</Panel>
+						<Panel header="Select Barn" key="1" style={customPanelStyle}>
+							<Selectmenu/>
+						</Panel>
 						
 					</Collapse>	
 					<Show vaccineprogramList={vaccineprogramList}/>
@@ -67,6 +74,10 @@ class vaccine_program extends Component {
 				
 				
 				</div>
+
+			
+				
+			
 			
 				<Footer/>
 			</div>

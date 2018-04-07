@@ -88,8 +88,9 @@ class Transfer extends Component {
 				<Header thisPage="Barn 1 Transfer"/>
 				<div className="myBody">
 					<Collapse bordered={false} style={{marginBottom:20}}>
-
+						<Panel header="Select date" key="1" style={customPanelStyle}>
 							<DatePicker onChange={onChange} />
+						</Panel>
 						<Panel header="Add transfer" key="2" style={customPanelStyle}>
 							<Add onAdd={this.onAdd}/>
 						</Panel>
