@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Apr 06, 2018 at 08:06 PM
+-- Generation Time: Apr 07, 2018 at 09:57 AM
 -- Server version: 5.6.35
 -- PHP Version: 7.1.8
 
@@ -64,7 +64,8 @@ CREATE TABLE `food` (
 --
 
 INSERT INTO `food` (`food_id`, `barn_id`, `amount`, `food_type`, `timestamp`, `user_id`) VALUES
-(12, 4, 100, 1, '2018-04-06 16:09:14', 1);
+(12, 4, 100, 1, '2018-04-06 16:09:14', 1),
+(13, 15, 250, 2, '2018-04-07 07:55:16', 1);
 
 -- --------------------------------------------------------
 
@@ -190,7 +191,8 @@ INSERT INTO `user` (`user_id`, `firstname`, `lastname`, `position`, `register_da
 CREATE TABLE `vaccine` (
   `vac_id` int(11) NOT NULL,
   `vac_name` text NOT NULL,
-  `type_id` int(11) NOT NULL,
+  `required` tinyint(1) NOT NULL,
+  `age` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -198,20 +200,13 @@ CREATE TABLE `vaccine` (
 -- Dumping data for table `vaccine`
 --
 
-INSERT INTO `vaccine` (`vac_id`, `vac_name`, `type_id`, `timestamp`) VALUES
-(1, '5', 0, '2018-03-30 14:58:41'),
-(2, '5', 0, '2018-03-30 14:58:45'),
-(3, '5', 0, '2018-03-30 15:16:12'),
-(4, '5', 0, '2018-03-30 15:16:43'),
-(5, '', 0, '2018-04-06 11:27:47'),
-(6, '', 0, '2018-04-06 11:27:48'),
-(7, '', 0, '2018-04-06 11:27:49'),
-(8, '', 0, '2018-04-06 11:27:49'),
-(9, '', 0, '2018-04-06 11:27:49'),
-(10, '', 0, '2018-04-06 11:27:49'),
-(11, '', 0, '2018-04-06 11:27:50'),
-(12, '', 0, '2018-04-06 11:27:50'),
-(13, '', 0, '2018-04-06 11:27:50');
+INSERT INTO `vaccine` (`vac_id`, `vac_name`, `required`, `age`, `timestamp`) VALUES
+(1, 'Program 1', 1, 20, '2018-04-07 07:52:25'),
+(2, 'Program 2', 1, 40, '2018-04-07 07:52:31'),
+(3, 'Program 3', 1, 70, '2018-04-07 07:52:38'),
+(4, 'Actinobacillus', 0, 0, '2018-04-07 07:52:16'),
+(5, 'E. coli', 0, 0, '2018-04-07 07:52:48'),
+(6, 'Salmonella', 0, 0, '2018-04-07 07:53:06');
 
 -- --------------------------------------------------------
 
@@ -230,27 +225,9 @@ CREATE TABLE `vaccine_pen` (
 --
 
 INSERT INTO `vaccine_pen` (`vac_id`, `pen_id`, `timestamp`) VALUES
+(1, 1, '2018-04-07 07:53:37'),
+(2, 1, '2018-04-07 07:53:46'),
 (5, 1, '2018-04-06 18:05:46');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `vaccine_type`
---
-
-CREATE TABLE `vaccine_type` (
-  `type_id` int(11) NOT NULL,
-  `type_name` text NOT NULL,
-  `age` int(11) NOT NULL,
-  `isRequired` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `vaccine_type`
---
-
-INSERT INTO `vaccine_type` (`type_id`, `type_name`, `age`, `isRequired`) VALUES
-(7, 'yolo', 8, 1);
 
 --
 -- Indexes for dumped tables
@@ -313,12 +290,6 @@ ALTER TABLE `vaccine_pen`
   ADD KEY `pen_id` (`pen_id`);
 
 --
--- Indexes for table `vaccine_type`
---
-ALTER TABLE `vaccine_type`
-  ADD PRIMARY KEY (`type_id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -331,7 +302,7 @@ ALTER TABLE `barn`
 -- AUTO_INCREMENT for table `food`
 --
 ALTER TABLE `food`
-  MODIFY `food_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `food_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `report`
 --
@@ -347,11 +318,6 @@ ALTER TABLE `transfer`
 --
 ALTER TABLE `vaccine`
   MODIFY `vac_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
---
--- AUTO_INCREMENT for table `vaccine_type`
---
-ALTER TABLE `vaccine_type`
-  MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- Constraints for dumped tables
 --
