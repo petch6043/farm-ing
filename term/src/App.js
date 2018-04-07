@@ -14,6 +14,9 @@ import vaccine_urgent from './component/vaccine_urgent';
 
 import Transfer_report from './component/Transfer_report';
 import Health_report from './component/Health_report';
+
+import Transfer_barn_select from './component/Transfer_barn_select';
+import Create_barn from './component/Create_barn';
 import {
 	BrowserRouter as Router,
 	Link,
@@ -29,6 +32,7 @@ class App extends Component {
     			<Switch>
 	    			<Route exact path="/" component={Home} />
 	    			<Route path="/transfer" component={Transfer} />
+	    			<Route path="/transfer_barn_select" component={Transfer_barn_select} />
 	    			<Route path="/food" component={Food} />
 	    			<Route path="/vaccine_menu" component={vaccine_menu} />
 	    			<Route exact path="/vaccine" component={Vaccine} />
@@ -40,6 +44,7 @@ class App extends Component {
 	    			<Route path="/login" component={Login} />
 	    			<Route path="/Transfer_report" component={Transfer_report} />
 	    			<Route path="/Health_report" component={Health_report} />
+	    			<Route path="/Create_barn" component={Create_barn} />
         		</Switch>
 	         </Router>
 	    </div>
