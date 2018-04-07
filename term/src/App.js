@@ -5,7 +5,7 @@ import Food from './component/Food';
 import Vaccine from './component/Vaccine';
 import Report from './component/Report';
 import Login from './component/Login';
-
+import Calendar from './component/Calendar';
 import vaccine_menu from './component/vaccine_menu';
 import vaccine_pen from './component/vaccine_pen';
 import vaccine_type from './component/vaccine_type';
@@ -45,6 +45,7 @@ class App extends Component {
 	    			<Route path="/Transfer_report" component={Transfer_report} />
 	    			<Route path="/Health_report" component={Health_report} />
 	    			<Route path="/Create_barn" component={Create_barn} />
+	    			<Route path="/calendar" component={Calendar}/>
         		</Switch>
 	         </Router>
 	    </div>
