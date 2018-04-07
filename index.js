@@ -10,7 +10,7 @@ const SELECT_ALL_REPORT_QUERY = 'SELECT * FROM report';
 const SELECT_ALL_VACCINETYPE_QUERY = 'SELECT * FROM vaccine_type';
 const SELECT_ALL_BARN_QUERY = 'SELECT * FROM barn';
 const SELECT_ALL_PENCOUNT_QUERY = 'SELECT * FROM transfer';
-const SELECT_ALL_FOOD_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%k:%i') AS time FROM food";
+const SELECT_ALL_FOOD_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM food";
 const SELECT_ALL_VACCINEPROGRAM_QUERY ='SELECT age, vac_name FROM vaccine WHERE required=1';
 const SELECT_ALL_VACCINEURGENT_QUERY ='SELECT vac_name FROM vaccine WHERE required=0';
 
@@ -173,6 +173,23 @@ app.get('/food', (req, res) =>{
 		}
 	});
 });
+
+//select food by barn id
+app.get('/food/:barn_id', (req, res) =>{
+	var barn_id = req.params.barn_id;
+	const SELECT_FOOD_BY_BARN_QUERY = 'SELECT * FROM food WHERE barn_id='+barn_id;
+	connection.query(SELECT_FOOD_BY_BARN_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			return res.json({
+				data: results
+			})
+		}
+	});
+});
+
 
 // app.get('/food/add', (req, res) =>{
 // 	var pen_id = 1;
