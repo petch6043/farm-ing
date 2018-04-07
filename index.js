@@ -427,6 +427,22 @@ app.get('/vaccine_program', (req, res) =>{
 	});
 });
 
+app.post('/vaccine_program/add', function(req, res) {
+    
+	var vac_id = req.body.vac_id;
+	var pen_id = req.body.pen_id;
+	
+	const INSERT_VACCINEPEN_QUERY = 'INSERT INTO vaccine_pen ( vac_id, pen_id) VALUES('+vac_id+', '+pen_id+')';
+	connection.query(INSERT_VACCINEPEN_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			return res.send('VACCINE ADDED')
+		}
+	});
+});
+
 app.get('/vaccine_urgent', (req, res) =>{
 	connection.query(SELECT_ALL_VACCINEURGENT_QUERY, (err,results) =>{
 		if (err) {
@@ -440,6 +456,21 @@ app.get('/vaccine_urgent', (req, res) =>{
 	});
 });
 
+app.post('/vaccine_urgent/add', function(req, res) {
+    
+	var vac_id = req.body.vac_id;
+	var pen_id = req.body.pen_id;
+	
+	const INSERT_VACCINEPEN_QUERY = 'INSERT INTO vaccine_pen ( vac_id, pen_id) VALUES('+vac_id+', '+pen_id+')';
+	connection.query(INSERT_VACCINEPEN_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			return res.send('VACCINE ADDED')
+		}
+	});
+});
 
 app.listen(4000, () => {
 	console.log('Products server listening on port 4000')

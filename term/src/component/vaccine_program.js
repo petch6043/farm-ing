@@ -51,7 +51,25 @@ class vaccine_program extends Component {
 	      .then(response => this.setState({ vaccineprogramList: response.data}))
 	      .catch(err => console.error(err))
 	}
-
+	onAdd(vaccineprogram) {
+		console.log("A" + vaccineprogram);
+		    fetch('http://localhost:4000/vaccine_program/add', {
+		    	method: 'POST',
+		    	headers: {
+		    		Accept: 'application/json',
+		    		'Content-Type': 'application/json',
+		    	},
+		    	body: JSON.stringify({
+		    		
+		    		vac_id: vaccineprogram.vac_id,
+		    		pen_id: vaccineprogram.pen_id,
+		    		
+		    	}),
+		    })
+		    .then(this.getVaccineProgram)
+		    .catch(err => console.error(err))
+		    console.log('addVaccine');
+	}
 
 	render() {
 		let {vaccineprogramList} = this.state;
@@ -65,9 +83,15 @@ class vaccine_program extends Component {
 						</Panel>
 						<Panel header="Select Barn" key="1" style={customPanelStyle}>
 							<Selectmenu/>
+						</Panel>	
+
+						<Panel header="submit" key="2" style={customPanelStyle}>
+							<Add onAdd={this.onAdd}/>
 						</Panel>
-						
 					</Collapse>	
+
+				
+
 					<Show vaccineprogramList={vaccineprogramList}/>
 
 					
@@ -76,7 +100,7 @@ class vaccine_program extends Component {
 				</div>
 
 			
-				
+
 			
 			
 				<Footer/>

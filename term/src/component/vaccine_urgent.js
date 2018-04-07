@@ -49,6 +49,25 @@ class vaccine_urgent extends Component {
 	      .catch(err => console.error(err))
 	}
 
+	onAdd(vaccineurgent) {
+		console.log("A" + vaccineurgent);
+		    fetch('http://localhost:4000/vaccine_urgent/add', {
+		    	method: 'POST',
+		    	headers: {
+		    		Accept: 'application/json',
+		    		'Content-Type': 'application/json',
+		    	},
+		    	body: JSON.stringify({
+		    		
+		    		vac_id: vaccineurgent.vac_id,
+		    		pen_id: vaccineurgent.pen_id,
+		    		
+		    	}),
+		    })
+		    .then(this.getVaccineUrgent)	
+		    .catch(err => console.error(err))
+		    console.log('addVaccine');
+	}
 
 	render() {
 		let {vaccineurgentList} = this.state;
@@ -63,6 +82,11 @@ class vaccine_urgent extends Component {
 						<Panel header="Select Barn" key="1" style={customPanelStyle}>
 							<Selectmenu/>
 						</Panel>
+
+						<Panel header="submit" key="2" style={customPanelStyle}>
+							<Add onAdd={this.onAdd}/>
+						</Panel>
+						
 					</Collapse>	
 				<Show vaccineurgentList={vaccineurgentList}/>	
 					

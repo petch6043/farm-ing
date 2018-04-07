@@ -32,15 +32,7 @@ class Show extends Component {
 				title: 'Vaccine name',
 				dataIndex: 'vac_name',
 				key: 'vac_name',
-			}, {
-				title: 'Require',
-				dataIndex: 'isRequired',
-				key: 'isRequired',
-			}, {
-				title: 'time',
-				dataIndex: 'timestamp',
-				key: 'timestamp',
-			} 
+			}
 			];
 
 
@@ -48,6 +40,7 @@ class Show extends Component {
 		const rowSelection = {
  		 		onChange: (selectedRowKeys, selectedRows) => {
    		 			console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+   		 			
   			},
   				getCheckboxProps: record => ({
     				disabled: record.type === 'Disabled User', // Column configuration not to be checked
