@@ -190,6 +190,22 @@ app.get('/food/:barn_id', (req, res) =>{
 	});
 });
 
+//select food by barn id and date
+app.get('/food/:barn_id/:date', (req, res) =>{
+	var barn_id = req.params.barn_id;
+	var date = req.params.date;
+	const SELECT_FOOD_BY_BARN_DATE_QUERY = 'SELECT * FROM food WHERE barn_id='+barn_id+' AND DATE(timestamp) = "'+date+'"';
+	connection.query(SELECT_FOOD_BY_BARN_DATE_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			return res.json({
+				data: results
+			})
+		}
+	});
+});
 
 // app.get('/food/add', (req, res) =>{
 // 	var pen_id = 1;
