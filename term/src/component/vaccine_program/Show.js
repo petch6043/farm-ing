@@ -1,8 +1,41 @@
 import React, { Component } from 'react';
 import ShowItem from './ShowItem';
 import { Table, Icon, Divider } from 'antd';
+import { Row, Col } from 'antd';
+import 'antd/dist/antd.css';
+import { Checkbox } from 'antd';
 
 class Show extends Component {
+
+	constructor (props){
+		super(props)
+		this.state = {
+			done:false,
+			vac_id:0
+		}
+		this.toggle = this.toggle.bind(this)
+		this.addClick = this.addClick.bind(this);
+	}
+
+	addClick() {
+		let {onAdd} = this.props;
+		console.log("addclick "+this.state.vac_id);
+		onAdd(this.state.vac_id);
+		this.setState({
+			vaccineprogram: {
+				
+				vac_id: "",
+				pen_id: 0,
+			}
+		});
+	}
+
+	toggle(){
+		this.setState({
+			done: !this.state.done
+		})
+	}
+
 	render() {
 		let {vaccineprogramList} = this.props;
 		const data = vaccineprogramList;
@@ -14,16 +47,15 @@ class Show extends Component {
 				title: 'Vaccine name',
 				dataIndex: 'vac_name',
 				key: 'vac_name',
-
 			} , {
 				title: 'Vaccine id',
 				dataIndex: 'vac_id',
 				key: 'vac_id',
-
 			}
 			];
-		const expandedRowRender = record => <label>{record.type}</label>;
 
+
+		const expandedRowRender = record => <label>{record.type}</label>;
 		const rowSelection = {	
  		 		onChange: (selectedRowKeys, selectedRows) => {
  		 			
@@ -48,8 +80,17 @@ class Show extends Component {
 		return(
 			<div>
 				<div> Vaccine Program:</div>
-				<Table expandedRowRender={expandedRowRender} columns={columns} dataSource={data}/>
+				<Col span={24} align="center">
+				<Table rowSelection={rowSelection} columns={columns} dataSource={data}/>
+				</Col>
+				<button onClick={this.addClick}>Add vaccine</button>
+
+				
+
 			</div>
+			
+				
+			
 		);
 	}
 }

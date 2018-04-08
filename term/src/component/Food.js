@@ -8,13 +8,6 @@ import { Collapse } from 'antd';
 import { Button, notification } from 'antd';
 import { DatePicker } from 'antd';
 
-const noti = (type, msg, desc) => {
-	notification[type]({
-		message: msg,
-		description: desc,
-	});
-};
-
 const Panel = Collapse.Panel;
 
 const customPanelStyle = {
@@ -26,88 +19,61 @@ const customPanelStyle = {
 };
 
 class Food extends Component {
-
  constructor(props) {
   super(props);
   this.state = {
-   foodList: [],
-   barnNo: 0
+   foodList: []
   }
   this.onAdd = this.onAdd.bind(this);
  }
 
-
  componentDidMount(){
   this.getFood();
-  
  }
- 
 
- getFood() {
-
- 	console.log(this.state.barnNo);
-     fetch("http://localhost:4000/food/"+this.state.barnNo)
+ getFood = _ => {
+     fetch("http://localhost:4000/food")
        .then(response => response.json())
        .then(response => this.setState({ foodList: response.data}))
        .catch(err => console.error(err))
  }
 
  onAdd(food) {
-	    fetch('http://localhost:4000/food/add', {
-	    	method: 'POST',
-	    	headers: {
-	    		Accept: 'application/json',
-	    		'Content-Type': 'application/json',
-	    	},
-	    	body: JSON.stringify({
-	    		barn_id: this.state.barnNo,
-	    		amount: food.amount,
-	    		food_type: food.food_type,
-	    		
-	    	}),
-	    })
-	    .then((response) => {
-	    	response.json().then((data) => {
-	    		if(data == 1) {
-	    			this.getTransfers();
-	    			noti('success','Add food','Sucessfully saved data.');
-	    		} else {
-	    			noti('error','Add food','Unable to save data.');
-	    		}
-           	});
-	    })
-	    .catch(err => {
-	    	noti('error','Add food','Failed to connect to database.');
-	    })
-	    console.log(JSON.stringify({
-	    		barn_id: this.state.barnNo,
-	    		amount: food.amount,
-	    		food_type: food.food_type,
-	    		
-	    	}));
-	}
+  console.log("A" + food);
+      fetch('http://localhost:4000/food/add', {
+          method: 'POST',
+         headers: {
+           Accept: 'application/json',
+           'Content-Type': 'application/json',
+         },
+         body: JSON.stringify({
+           pen_id: food.pen_id,
+           amount: food.amount,
+           food_type: food.food_type,
+           user_id: food.user_id
+         }),
+       })
+       .then(this.getFoodList)
+       .catch(err => console.error(err))
+       console.log('added food')
+ }
+
+
  render() {
-
   let {foodList} = this.state;
- 	let {barnNumber} = this.props.location;
- 	console.log(barnNumber);
- 	let {barnNo} = this.state;
   return(
-
    <div>
     <Header thisPage="Food"/>
     <div className="myBody">
      <Collapse bordered={false} style={{marginBottom:20}}>
-      <Panel header="Add food" style={customPanelStyle}>
-      	<Add onAdd={this.onAdd}/>
+      <Panel header="Select barn" key="1" style={customPanelStyle}>
+       <Selectmenu/>
       </Panel>
-
      </Collapse>
      <Show foodList={foodList}/>
     </div>
     <Footer/>
    </div>
-
   );
  }
 }

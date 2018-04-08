@@ -6,6 +6,10 @@ import Show from './vaccine_program/Show';
 import { DatePicker } from 'antd';
 import { Collapse } from 'antd';
 import { Button, notification } from 'antd';
+import Selectmenu from './Selectmenu';
+import { Row, Col } from 'antd';
+import 'antd/dist/antd.css';
+import { Checkbox } from 'antd';
 
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 function onChange(date, dateString) {
@@ -35,6 +39,7 @@ class vaccine_program extends Component {
 		this.state = {
 			vaccineprogramList: []
 		}
+		this.onAdd = this.onAdd.bind(this);
 	}
 
 	componentDidMount(){
@@ -47,7 +52,24 @@ class vaccine_program extends Component {
 	      .then(response => this.setState({ vaccineprogramList: response.data}))
 	      .catch(err => console.error(err))
 	}
-
+	onAdd(vac_id) {
+		console.log("A" + vac_id);
+		    fetch('http://localhost:4000/vaccine_program/add', {
+		    	method: 'POST',
+		    	headers: {
+		    		Accept: 'application/json',
+		    		'Content-Type': 'application/json',
+		    	},
+		    	body: JSON.stringify({
+		    		vac_id: vac_id,
+		    		pen_id: 2
+		    		
+		    	}),
+		    })
+		    .then(this.getVaccineProgram)
+		    .catch(err => console.error(err))
+		    console.log('addVaccine');
+	}
 
 	render() {
 		let {vaccineprogramList} = this.state;
@@ -59,21 +81,25 @@ class vaccine_program extends Component {
 						<Panel header="Select date" key="1" style={customPanelStyle}>
 							<DatePicker onChange={onChange} />
 						</Panel>
-<<<<<<< HEAD
 						<Panel header="Select Barn" key="2" style={customPanelStyle}>
 							<Selectmenu/>
 						</Panel>	
 
-=======
->>>>>>> e05dcdb88782e584194085ec592f59483b589428
 						
 					</Collapse>	
-					<Show vaccineprogramList={vaccineprogramList}/>
+
+				
+
+					<Show onAdd={this.onAdd} vaccineprogramList={vaccineprogramList}/>
 
 					
 				
 				
 				</div>
+
+			
+
+			
 			
 				<Footer/>
 			</div>
