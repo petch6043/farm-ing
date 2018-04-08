@@ -12,11 +12,11 @@ const SELECT_ALL_BARN_QUERY = 'SELECT * FROM barn';
 const SELECT_ALL_PENCOUNT_QUERY = 'SELECT * FROM transfer';
 const SELECT_ALL_FOOD_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM food";
 const SELECT_ALL_VACCINEPROGRAM_QUERY ='SELECT age, vac_name, vac_id FROM vaccine WHERE required=1';
-const SELECT_ALL_VACCINEURGENT_QUERY ='SELECT vac_name, vac_id FROM vaccine WHERE required=0';
+const SELECT_ALL_VACCINEURGENT_QUERY ='SELECT vac_name ,vac_id FROM vaccine WHERE required=0';
 
 
-var bodyParser = require('body-parser'), vac_id;
-app.use(bodyParser.json()); // su, vac_idpport json encoded bodies
+var bodyParser = require('body-parser');
+app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 //connect to SQL server 
@@ -57,10 +57,9 @@ app.get('/barn', (req, res) =>{
 //add new barn and add 5 pens to it
 app.post('/barn/open', function(req, res) {
 	var name = req.body.name;
-	var open_date = req.body.open_date;
 	var user_id = req.body.user_id;
-	var barn_id;
-	const INSERT_BARN_QUERY = 'INSERT INTO barn (name, open_date, user_id) VALUES("'+name+'", "'+open_date+'", '+user_id+')';
+	var open_date = 'CURDATE()';
+	const INSERT_BARN_QUERY = 'INSERT INTO barn (name, open_date, user_id) VALUES("'+name+'",'+open_date+', '+user_id+')';
 	const GET_CURRENT_ID = 'SELECT AUTO_INCREMENT as barn_id FROM information_schema.TABLES WHERE TABLE_SCHEMA = "react_sql" AND TABLE_NAME = "barn"';
 	connection.query(INSERT_BARN_QUERY, (err,results) =>{
 		if (err) {

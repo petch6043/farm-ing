@@ -52,6 +52,7 @@ class vaccine_urgent extends Component {
 	      .catch(err => console.error(err))
 	}
 
+	
 	onAdd(vac_id) {
 		console.log("A" + vac_id);
 		    fetch('http://localhost:4000/vaccine_urgent/add', {
@@ -61,6 +62,7 @@ class vaccine_urgent extends Component {
 		    		'Content-Type': 'application/json',
 		    	},
 		    	body: JSON.stringify({
+		    		
 		    		
 		    		vac_id: vac_id,
 		    		pen_id: 2
@@ -108,10 +110,9 @@ class vaccine_urgent extends Component {
 						</Panel>
 
 						<Panel header="submit" key="2" style={customPanelStyle}>
+
 							<Add onAdd2={this.onAdd2}/>
 						</Panel>
-
-						
 						
 					</Collapse>	
 				<Show onAdd={this.onAdd} vaccineurgentList={vaccineurgentList}/>	

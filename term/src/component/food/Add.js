@@ -1,56 +1,61 @@
 import React, { Component } from 'react';
+import { Row, Col } from 'antd';
+import { Button, Icon } from 'antd';
+import { Form, Input, Checkbox } from 'antd';
+const FormItem = Form.Item;
 
-class Add extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			foodList: [],
-		    food: {
-		    pen_id: 0,
-		    amount: 0,
-		    food_type: 0,
-		    user_id:0
-			}
-		}
-		this.addClick = this.addClick.bind(this);
-	}
-
-	addClick() {
-		let {onAdd} = this.props;
-		console.log(this.state.food);
-		onAdd(this.state.food);
-		this.setState({
-			foodList: [],
-		    food: {
-		    pen_id: 0,
-		    amount: 0,
-		    food_type: 0,
-		    user_id:0
+class myForm extends Component {
+	handleSubmit = (e) => {
+		let {send} = this.props;
+		e.preventDefault();
+		this.props.form.validateFields((err, values) => {
+			if (!err) {
+				send(values);
+				this.props.form.resetFields();
 			}
 		});
 	}
 
 	render() {
-		let {food} = this.state;
+		const { getFieldDecorator } = this.props.form;
+		return(
+			<Form onSubmit={this.handleSubmit} className="login-form">
+				<FormItem className="myFormItem">
+					{getFieldDecorator('food_type', {
+					rules: [{ required: true, message: 'Please input Pen ID!' }],
+					})(<Input placeholder="Food type" />)}
+				</FormItem>
+				<FormItem className="myFormItem">
+					{getFieldDecorator('amount', {
+					rules: [{ required: true, message: 'Please input Type!' }],
+					})(<Input placeholder="Amount" />)}
+				</FormItem>
+				<FormItem>
+					<Button type="primary" ghost htmlType="submit" className="login-form-button">Submit</Button>
+				</FormItem>
+			</Form>
+		)
+	}
+}
+
+const AddForm = Form.create()(myForm);
+
+class Add extends Component {
+	constructor(props) {
+		super(props);
+		this.send = this.send.bind(this);
+	}
+
+	send(food) {
+		let {onAdd} = this.props;
+		onAdd(food);
+	}
+
+
+	render() {
 		return(
 			<div>
-	          <input
-	          value={food.pen_id}
-	          onChange={e => this.setState({ food: { ...food, pen_id: e.target.value }})}
-	          />
-	          <input
-	          value={food.food_type}
-	          onChange={e => this.setState({ food: { ...food, food_type: e.target.value }})}
-	          />
-	          <input
-	          value={food.amount}
-	          onChange={e => this.setState({ food: { ...food, amount: e.target.value }})}
-	          />
-	          <input
-	          value={food.user_id}
-	          onChange={e => this.setState({ food: { ...food, user_id: e.target.value }})}
-	          />
-	          <button onClick={this.addClick}>Add food</button>
+				<AddForm send={this.send}/>
         	</div>
 		);
 	}

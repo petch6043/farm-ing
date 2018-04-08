@@ -58,6 +58,9 @@ class Show extends Component {
 		const expandedRowRender = record => <label>{record.type}</label>;
 		const rowSelection = {	
  		 		onChange: (selectedRowKeys, selectedRows) => {
+ 		 			this.setState({vac_id:selectedRowKeys[0]})
+ 		 			console.log(this.state)
+   		 			console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
  		 			
  		 			
  		 			if (typeof selectedRows[0].vac_id !=='undefined' && selectedRows[0].vac_id){

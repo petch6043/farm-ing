@@ -48,7 +48,8 @@ constructor (props){
 				title: 'Vaccine name',
 				dataIndex: 'vac_name',
 				key: 'vac_name',
-			}	, {
+			}	
+				, {
 				title: 'Vaccine id',
 				dataIndex: 'vac_id',
 				key: 'vac_id',
@@ -57,6 +58,7 @@ constructor (props){
 		const expandedRowRender = record => <label>{record.type}</label>;
 		const rowSelection = {
  		 		onChange: (selectedRowKeys, selectedRows) => {
+   		 			
  		 			this.setState({vac_id:selectedRows[0].vac_id})
  		 			console.log(this.state)
    		 			console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows[0].vac_id);

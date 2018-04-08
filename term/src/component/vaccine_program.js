@@ -86,6 +86,7 @@ class vaccine_program extends Component {
 						</Panel>	
 
 						
+						
 					</Collapse>	
 
 				
