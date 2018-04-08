@@ -31,7 +31,7 @@ class Food extends Component {
   super(props);
   this.state = {
    foodList: [],
-   barnNo: 0
+   barnNo: props.location.barnNumber
   }
   this.onAdd = this.onAdd.bind(this);
  }
@@ -60,9 +60,10 @@ class Food extends Component {
 	    		'Content-Type': 'application/json',
 	    	},
 	    	body: JSON.stringify({
-	    		barn_id: this.state.barnNo,
-	    		amount: food.amount,
-	    		food_type: food.food_type,
+          user_id: 1,
+          barn_id: this.state.barnNo,
+          amount: food.amount,
+          food_type: food.food_type,
 	    		
 	    	}),
 	    })
