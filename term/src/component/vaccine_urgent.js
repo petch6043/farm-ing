@@ -6,7 +6,6 @@ import Show from './vaccine_urgent/Show';
 import { DatePicker } from 'antd';
 import { Collapse } from 'antd';
 import { Button, notification } from 'antd';
-import Selectmenu from './Selectmenu';
 
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 function onChange(date, dateString) {
@@ -50,6 +49,7 @@ class vaccine_urgent extends Component {
 	      .catch(err => console.error(err))
 	}
 
+<<<<<<< HEAD
 	onAdd(vac_id) {
 		console.log("A" + vac_id);
 		    fetch('http://localhost:4000/vaccine_urgent/add', {
@@ -69,6 +69,8 @@ class vaccine_urgent extends Component {
 		    .catch(err => console.error(err))
 		    console.log('addVaccine');
 	}
+=======
+>>>>>>> e05dcdb88782e584194085ec592f59483b589428
 
 	render() {
 		let {vaccineurgentList} = this.state;
@@ -80,11 +82,14 @@ class vaccine_urgent extends Component {
 						<Panel header="Select date" key="1" style={customPanelStyle}>
 							<DatePicker onChange={onChange} />
 						</Panel>
+<<<<<<< HEAD
 						<Panel header="Select Barn" key="1" style={customPanelStyle}>
 							<Selectmenu/>
 						</Panel>
 
 						
+=======
+>>>>>>> e05dcdb88782e584194085ec592f59483b589428
 						
 					</Collapse>	
 				<Show onAdd={this.onAdd} vaccineurgentList={vaccineurgentList}/>	

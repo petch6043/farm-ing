@@ -52,6 +52,7 @@ constructor (props){
 				title: 'Vaccine name',
 				dataIndex: 'vac_name',
 				key: 'vac_name',
+<<<<<<< HEAD
 			}	, {
 				title: 'Vaccine id',
 				dataIndex: 'vac_id',
@@ -77,6 +78,19 @@ constructor (props){
 				<Table rowSelection={rowSelection} columns={columns} dataSource={data}/>
 				</Col>
 				<button onClick={this.addClick}>Add vaccine</button>
+=======
+			},  {
+				title: 'time',
+				dataIndex: 'timestamp',
+				key: 'timestamp',
+			}
+			];
+		const expandedRowRender = record => <label>{record.type}</label>;
+		return(
+			<div>
+				<div>Vaccineurgent list:</div>
+				<Table expandedRowRender={expandedRowRender} columns={columns} dataSource={data}/>
+>>>>>>> e05dcdb88782e584194085ec592f59483b589428
 				
 			</div>
 		);
