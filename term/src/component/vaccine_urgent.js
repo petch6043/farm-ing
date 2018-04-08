@@ -36,6 +36,9 @@ class vaccine_urgent extends Component {
 		this.state = {
 			vaccineurgentList: []
 		}
+		this.onAdd2 = this.onAdd2.bind(this);
+		this.onAdd = this.onAdd.bind(this);
+
 	}
 
 	componentDidMount(){
@@ -49,6 +52,48 @@ class vaccine_urgent extends Component {
 	      .catch(err => console.error(err))
 	}
 
+	
+	onAdd(vac_id) {
+		console.log("A" + vac_id);
+		    fetch('http://localhost:4000/vaccine_urgent/add', {
+		    	method: 'POST',
+		    	headers: {
+		    		Accept: 'application/json',
+		    		'Content-Type': 'application/json',
+		    	},
+		    	body: JSON.stringify({
+		    		
+		    		
+		    		vac_id: vac_id,
+		    		pen_id: 2
+		    		
+		    	}),
+		    })
+		    .then(this.getVaccineUrgent)	
+		    .catch(err => console.error(err))
+		    console.log('addVaccine');
+	}
+
+
+	onAdd2(vaccineurgent) {
+		console.log("B");
+		    fetch('http://localhost:4000/vaccine_urgent/addurgent', {
+		    	method: 'POST',
+		    	headers: {
+		    		Accept: 'application/json',
+		    		'Content-Type': 'application/json',
+		    	},
+		    	body: JSON.stringify({
+		    		
+		    		vac_name: vaccineurgent.vac_name,
+		    		required: 0,
+		    		
+		    	}),
+		    })
+		    .then(this.getVaccineUrgent)	
+		    .catch(err => console.error(err))
+		    console.log('addVaccine');
+	}
 
 	render() {
 		let {vaccineurgentList} = this.state;
@@ -63,8 +108,14 @@ class vaccine_urgent extends Component {
 						<Panel header="Select Barn" key="1" style={customPanelStyle}>
 							<Selectmenu/>
 						</Panel>
+
+						<Panel header="submit" key="2" style={customPanelStyle}>
+
+							<Add onAdd2={this.onAdd2}/>
+						</Panel>
+						
 					</Collapse>	
-				<Show vaccineurgentList={vaccineurgentList}/>	
+				<Show onAdd={this.onAdd} vaccineurgentList={vaccineurgentList}/>	
 					
 					
 					

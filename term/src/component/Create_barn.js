@@ -50,11 +50,9 @@ class Create_barn extends Component {
 					<center><DatePicker onChange={onChange} /></center>
 				<Row>	
 
-				<Col span={14} align="right">	
+				<Col span={14} align="right">			
 				<Link to="/transfer_barn_select"><Button icon="search" className="myButton">Create Barn {Barn_no}</Button></Link>
 				</Col>
-					
-
 				</Row>
 
 			<Footer/>
