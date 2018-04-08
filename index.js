@@ -57,10 +57,9 @@ app.get('/barn', (req, res) =>{
 //add new barn and add 5 pens to it
 app.post('/barn/open', function(req, res) {
 	var name = req.body.name;
-	var open_date = req.body.open_date;
 	var user_id = req.body.user_id;
-	var barn_id;
-	const INSERT_BARN_QUERY = 'INSERT INTO barn (name, open_date, user_id) VALUES("'+name+'", "'+open_date+'", '+user_id+')';
+	var open_date = 'CURDATE()';
+	const INSERT_BARN_QUERY = 'INSERT INTO barn (name, open_date, user_id) VALUES("'+name+'",'+open_date+', '+user_id+')';
 	const GET_CURRENT_ID = 'SELECT AUTO_INCREMENT as barn_id FROM information_schema.TABLES WHERE TABLE_SCHEMA = "react_sql" AND TABLE_NAME = "barn"';
 	connection.query(INSERT_BARN_QUERY, (err,results) =>{
 		if (err) {
