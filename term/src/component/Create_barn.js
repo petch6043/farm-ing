@@ -39,16 +39,19 @@ const customPanelStyle = {
 
 class Create_barn extends Component {
 	render() {
+
+		let {Barn_no} = this.props.location
+		console.log(Barn_no);
 		return (
 			<div>
-				<Header thisPage="Barn 1"/>
-				
+				<Header thisPage= "Create Barn"/>
+					
 							
 					<center><DatePicker onChange={onChange} /></center>
 				<Row>	
 
 				<Col span={14} align="right">	
-				<Link to="/transfer"><Button icon="search" className="myButton">Create Barn</Button></Link>
+				<Link to="/transfer_barn_select"><Button icon="search" className="myButton">Create Barn {Barn_no}</Button></Link>
 				</Col>
 					
 
