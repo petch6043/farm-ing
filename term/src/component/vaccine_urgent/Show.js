@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ShowItem from './ShowItem';
 import { Table, Icon, Divider } from 'antd';
-import { Row, Col } from 'antd';
+import { Row, Col, Button } from 'antd';
 import 'antd/dist/antd.css';
 import { Checkbox } from 'antd';
 
@@ -74,7 +74,10 @@ constructor (props){
 				<Col span={24} align="center">
 				<Table rowSelection={rowSelection} columns={columns} dataSource={data}/>
 				</Col>
-				<button onClick={this.addClick}>Add vaccine</button>
+
+				<Col span={12} align="left" style={{padding:10}}>
+				<Button type="primary" onClick={this.addClick}>Submit</Button>
+				</Col>
 				
 			</div>
 		);
