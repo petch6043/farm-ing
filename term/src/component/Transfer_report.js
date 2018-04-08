@@ -5,6 +5,8 @@ import Show from './Transfer_report/Show';
 import { Collapse } from 'antd';
 import { Button, notification } from 'antd';
 import { DatePicker } from 'antd';
+import { Select } from 'antd';
+const Option = Select.Option;
 
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 
@@ -12,6 +14,9 @@ function onChange(date, dateString) {
 	console.log(date, dateString);
 }
 
+function handleChange(value) {
+  console.log(`selected ${value}`);
+}
 
 const noti = (type, msg, desc) => {
 	notification[type]({
@@ -43,9 +48,9 @@ class Transfer_report extends Component {
 
 	getReport = _ => {
 	    fetch("http://localhost:4000/report")
-	      .then(response => response.json())
-	      .then(response => this.setState({ reportList: response.data}))
-	      .catch(err => console.error(err))
+		.then(response => response.json())
+		.then(response => this.setState({ reportList: response.data}))
+		.catch(err => console.error(err))
 	}
 
 
@@ -53,19 +58,31 @@ class Transfer_report extends Component {
 		let {reportList} = this.state;
 		return(
 			<div>
-				<div>
-				<Header thisPage="Report"/>
+				<Header thisPage="Transfer & Food Report"/>
 				<div className="myBody">
-				<Collapse bordered={false} style={{marginBottom:20}}>
-						<Panel header="Select date" key="1" style={customPanelStyle}>
-							<DatePicker onChange={onChange} />
+					<Collapse bordered={false} style={{marginBottom:20}}>
+						<Panel header="Select option" key="1" style={customPanelStyle}>
+							<DatePicker onChange={onChange} /> 
+							<Select defaultValue="all" style={{ width: 120, marginLeft: 10}} onChange={handleChange}>
+								<Option value="all">All</Option>
+								<Option value="daily">Daily</Option>
+								<Option value="weekly">Weekly</Option>
+								<Option value="monthly">Monthly</Option>
+								<Option value="yearly">Yearly</Option>
+							</Select>
 						</Panel>
 					</Collapse>
-					<Show reportList={reportList}/>
+
+					<div>
+						<h2>Transfer & Food Report: </h2>
+						<div style={{marginBottom:10}}>28-12-60(Daily report)</div>
+						<div style={{marginBottom:10}}>29-12-60(Daily report)</div>
+						<div style={{marginBottom:10}}>30-12-60(Daily report)</div>
+						<div style={{marginBottom:10}}>31-12-60(Daily report)</div>
+						<div style={{marginBottom:10}}>31-12-60(Monthly report)</div>
+					</div>
 				</div>
 				<Footer/>
-			</div>
-				
 			</div>
 		);
 	}
