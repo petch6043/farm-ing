@@ -25,7 +25,7 @@ class Home extends Component {
 						</Link>
 					</Col>
 					<Col span={12} align="left">
-						<Link to="/food">
+						<Link to="/selectbarnfood">
 							<Button className="myButton">
 								<Icon type="inbox" style={{fontSize: 72}}/>
 								<div>Food</div>

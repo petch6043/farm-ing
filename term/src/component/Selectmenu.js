@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Menu, Icon } from 'antd';
 import { Row, Col } from 'antd';
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
+import Food from './Food';
 const SubMenu = Menu.SubMenu;
 class Selectmenu extends Component {
  constructor(props){
@@ -9,21 +10,21 @@ class Selectmenu extends Component {
     this.state = 
     {current: 0}
   }
-
    
     handleClick = (e) => {
-        console.log('clicking'+e.key, e)
+        console.log('clicking'+e.key+this.state.current, e)
         
         this.setState({
           current: e.key
         });
-        console.log('current:'+this.state.current)
       };
     
  render(){
+
   return(
-    
+     
     <div align="center">
+    
     <Menu
             onClick={this.handleClick}
           mode="inline"
@@ -31,7 +32,7 @@ class Selectmenu extends Component {
           style={{ width: 300 }}>
               
            
-                  
+                
                 <Menu.Item key="1">
                    Barn 1
                    </Menu.Item>
@@ -41,16 +42,16 @@ class Selectmenu extends Component {
                   </Menu.Item>
 
               <Menu.Item key="3">
-                  <Link to="/transfer">Barn 3</Link>
+                  Barn 3
                   </Menu.Item>
 
               <Menu.Item key="4">
-                  <Link to="/transfer">Barn 4</Link>
+                 Barn 4
                   </Menu.Item>
               <Menu.Item key="5">
-                  <Link to="/transfer">Barn 5</Link>
+                  Barn 5
                   </Menu.Item>
-                  
+                 
               
           </Menu>
         </div>

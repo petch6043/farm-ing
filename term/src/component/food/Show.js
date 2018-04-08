@@ -7,7 +7,7 @@ class Show extends Component {
   const data = foodList;
   const columns = [{
     
-    title: 'Food type',
+    title: 'Type',
     dataIndex: 'food_type',
     key: 'food_type',
    }, {
@@ -15,18 +15,15 @@ class Show extends Component {
     dataIndex: 'amount',
     key: 'amount',
    }, {
-    title: 'User',
-    dataIndex: 'user_id',
-    key: 'user_id',
-   }, {
-    title: 'Time',
-    dataIndex: 'timestamp',
-    key: 'timestamp',
+    title: 'Date - Time',
+    dataIndex: 'time',
+    key: 'time'
    }];
    const expandedRowRender = record => <label>{record.type}</label>;
   return(
    <div>
     <div>Food list:</div>
+    {console.log(foodList)}
     <Table expandedRowRender={expandedRowRender} columns={columns} dataSource={data}/>
    </div>
   );

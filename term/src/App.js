@@ -11,7 +11,7 @@ import vaccine_pen from './component/vaccine_pen';
 import vaccine_type from './component/vaccine_type';
 import vaccine_program from './component/vaccine_program';
 import vaccine_urgent from './component/vaccine_urgent';
-
+import Selectbarnfood from './component/Selectbarnfood';
 import Transfer_report from './component/Transfer_report';
 import Health_report from './component/Health_report';
 import {
@@ -41,6 +41,7 @@ class App extends Component {
 	    			<Route path="/Transfer_report" component={Transfer_report} />
 	    			<Route path="/Health_report" component={Health_report} />
 	    			<Route path="/calendar" component={CalendarPage} />
+	    			<Route path="/selectbarnfood" component={Selectbarnfood} />
         		</Switch>
 	         </Router>
 	    </div>
