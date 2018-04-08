@@ -6,6 +6,7 @@ import Show from './vaccine_urgent/Show';
 import { DatePicker } from 'antd';
 import { Collapse } from 'antd';
 import { Button, notification } from 'antd';
+import Selectmenu from './Selectmenu';
 
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 function onChange(date, dateString) {
@@ -48,6 +49,25 @@ class vaccine_urgent extends Component {
 	      .catch(err => console.error(err))
 	}
 
+	onAdd(vaccineurgent) {
+		console.log("A" + vaccineurgent);
+		    fetch('http://localhost:4000/vaccine_urgent/add', {
+		    	method: 'POST',
+		    	headers: {
+		    		Accept: 'application/json',
+		    		'Content-Type': 'application/json',
+		    	},
+		    	body: JSON.stringify({
+		    		
+		    		vac_id: vaccineurgent.vac_id,
+		    		pen_id: vaccineurgent.pen_id,
+		    		
+		    	}),
+		    })
+		    .then(this.getVaccineUrgent)	
+		    .catch(err => console.error(err))
+		    console.log('addVaccine');
+	}
 
 	render() {
 		let {vaccineurgentList} = this.state;
@@ -58,6 +78,13 @@ class vaccine_urgent extends Component {
 					<Collapse bordered={false} style={{marginBottom:20}}>
 						<Panel header="Select date" key="1" style={customPanelStyle}>
 							<DatePicker onChange={onChange} />
+						</Panel>
+						<Panel header="Select Barn" key="1" style={customPanelStyle}>
+							<Selectmenu/>
+						</Panel>
+
+						<Panel header="submit" key="2" style={customPanelStyle}>
+							<Add onAdd={this.onAdd}/>
 						</Panel>
 						
 					</Collapse>	
