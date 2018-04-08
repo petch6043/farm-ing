@@ -18,7 +18,7 @@ class Report extends Component {
 		return (
 			<div>
 				<Header thisPage="Report"/>
-<<<<<<< HEAD
+
 				<Row>	
 
 				<Col span={12} align="right">	
@@ -37,35 +37,16 @@ class Report extends Component {
 						</Button>
 					</Link>
 				</Col>
-=======
-				<Row>
-
-				
-
-				<Col span={12} align="right">
-						<Link to="/Transfer_report">
-							<Button className="myButton">
-								<Icon type="line-chart" style={{fontSize: 72}}/>
-								<div>Transfer & Food <div>Report</div></div>
-							</Button>
-						</Link>
-					</Col>
-
-				
-				<Col span={12} align="right">
-						<Link to="/Health_report">
-							<Button className="myButton">
-								<Icon type="bar-chart" style={{fontSize: 72}}/>
-								<div>Health Report</div>
-							</Button>
-						</Link>
-					</Col>
->>>>>>> cea4bbe3b346f86494969783a910a9caea5fb572
 
 				</Row>
+
+				
+				
+
+				
 			<Footer/>
 
-			</div>
+		</div>
 		);
 	}
 }
