@@ -45,10 +45,6 @@ constructor (props){
 		const data = vaccineurgentList;
 			
 			const columns = [{
-				title: 'age',
-				dataIndex: 'age',
-				key: 'age',
-			}, {
 				title: 'Vaccine name',
 				dataIndex: 'vac_name',
 				key: 'vac_name',
