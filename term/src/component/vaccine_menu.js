@@ -22,12 +22,22 @@ class vaccine_menu extends Component {
     	<div>
     		<Header thisPage="Health"/>
 			<Row>
+				
 				<Col span={12} align="right">
-				<Link to="/vaccine_program"><Button icon="search" className="myButton">Vaccine Program</Button></Link>
+						<Link to="/vaccine_program">
+							<Button className="myButton">
+								<Icon type="check-square-o" style={{fontSize: 72}}/>
+								<div>Vaccine Program</div>
+							</Button>
+						</Link>
 				</Col>
-
 				<Col span={12} align="left">
-				<Link to="/vaccine_urgent"><Button icon="search" className="myButton">Urgent Vaccine</Button></Link>
+						<Link to="/vaccine_urgent">
+							<Button className="myButton">
+								<Icon type="exclamation-circle-o" style={{fontSize: 72}}/>
+								<div>Vaccine Urgent</div>
+							</Button>
+						</Link>
 				</Col>
 			</Row> 
 			<Footer/>

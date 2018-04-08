@@ -4,42 +4,45 @@ class Add extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			vaccinepen: {
-				vac_id: "",
-				pen_id: 0,
+			vaccineurgent: {
+				vac_name: "",
+				vac_id: 0,
+				required: 0,
+				age: 0
 			}
 		}
-		this.addClick = this.addClick.bind(this);
+		this.addClick2 = this.addClick2.bind(this);
 	}
 
-	addClick() {
-		let {onAdd} = this.props;
-		console.log(this.state.vaccinepen);
-		onAdd(this.state.vaccinepen);
+	addClick2() {
+		let {onAdd2} = this.props;
+		console.log(this.state.vaccineurgent);
+		onAdd2(this.state.vaccineurgent);
 		this.setState({
-			vaccinepen: {
+			vaccineurgent: {
 				
-				vac_id: "",
-				pen_id: 0,
+				vac_name: "",
+				vac_id: 0,
+				required: 0,
+				age: 0
 			}
 		});
 	}
 
 	render() {
-		let {vaccinepen} = this.state;
+		let {vaccineurgent} = this.state;
 		return(
 			<div>
           		
           <input
-          value={vaccinepen.vac_id}
-          onChange={e => this.setState({ vaccinepen: { ...vaccinepen, vac_id: e.target.value }})}
-          />
-          <input
-          value={vaccinepen.pen_id}
-          onChange={e => this.setState({ vaccinepen: { ...vaccinepen, pen_id: e.target.value }})}
+          value={vaccineurgent.vac_name}
+          onChange={e => this.setState({ vaccineurgent: { ...vaccineurgent, vac_name: e.target.value }})}
           />
           
-          <button onClick={this.addClick}>Add vaccinepen</button>
+
+          
+          
+          <button onClick={this.addClick2}>Add vaccine name</button>
         </div>
 		);
 	}

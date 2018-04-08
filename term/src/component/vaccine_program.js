@@ -39,6 +39,7 @@ class vaccine_program extends Component {
 		this.state = {
 			vaccineprogramList: []
 		}
+		this.onAdd = this.onAdd.bind(this);
 	}
 
 	componentDidMount(){
@@ -51,8 +52,8 @@ class vaccine_program extends Component {
 	      .then(response => this.setState({ vaccineprogramList: response.data}))
 	      .catch(err => console.error(err))
 	}
-	onAdd(vaccineprogram) {
-		console.log("A" + vaccineprogram);
+	onAdd(vac_id) {
+		console.log("A" + vac_id);
 		    fetch('http://localhost:4000/vaccine_program/add', {
 		    	method: 'POST',
 		    	headers: {
@@ -60,9 +61,8 @@ class vaccine_program extends Component {
 		    		'Content-Type': 'application/json',
 		    	},
 		    	body: JSON.stringify({
-		    		
-		    		vac_id: vaccineprogram.vac_id,
-		    		pen_id: vaccineprogram.pen_id,
+		    		vac_id: vac_id,
+		    		pen_id: 2
 		    		
 		    	}),
 		    })
@@ -85,14 +85,13 @@ class vaccine_program extends Component {
 							<Selectmenu/>
 						</Panel>	
 
-						<Panel header="submit" key="3" style={customPanelStyle}>
-							<Add onAdd={this.onAdd}/>
-						</Panel>
+						
+						
 					</Collapse>	
 
 				
 
-					<Show vaccineprogramList={vaccineprogramList}/>
+					<Show onAdd={this.onAdd} vaccineprogramList={vaccineprogramList}/>
 
 					
 				

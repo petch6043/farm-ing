@@ -39,7 +39,7 @@ class Add extends Component {
           onChange={e => this.setState({ vaccineprogram: { ...vaccineprogram, pen_id: e.target.value }})}
           />
           
-          <button onClick={this.addClick}>Add vaccine</button>
+          <button onClick={this.addClick}>Add vaccine program</button>
         </div>
 		);
 	}

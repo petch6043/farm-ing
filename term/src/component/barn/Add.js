@@ -21,15 +21,16 @@ class myForm extends Component {
 		return(
 			<Form onSubmit={this.handleSubmit} className="login-form">
 				<FormItem className="myFormItem">
-					{getFieldDecorator('food_type', {
-					rules: [{ required: true, message: 'Please input Pen ID!' }],
-					})(<Input placeholder="Food type" />)}
+					{getFieldDecorator('name', {
+					rules: [{ required: true, message: 'Please input Barn ID!' }],
+					})(<Input placeholder="Barn ID" />)}
 				</FormItem>
 				<FormItem className="myFormItem">
-					{getFieldDecorator('amount', {
-					rules: [{ required: true, message: 'Please input Type!' }],
-					})(<Input placeholder="Amount" />)}
+					{getFieldDecorator('user_id', {
+					rules: [{ required: true, message: 'Please input User ID!' }],
+					})(<Input placeholder="User ID" />)}
 				</FormItem>
+				
 				<FormItem>
 					<Button type="primary" ghost htmlType="submit" className="login-form-button">Submit</Button>
 				</FormItem>
@@ -46,9 +47,9 @@ class Add extends Component {
 		this.send = this.send.bind(this);
 	}
 
-	send(food) {
+	send(barn) {
 		let {onAdd} = this.props;
-		onAdd(food);
+		onAdd(barn);
 	}
 
 

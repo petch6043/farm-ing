@@ -13,8 +13,8 @@ const SELECT_ALL_VACCINETYPE_QUERY = 'SELECT * FROM vaccine_type';
 const SELECT_ALL_BARN_QUERY = 'SELECT * FROM barn';
 const SELECT_ALL_PENCOUNT_QUERY = 'SELECT * FROM transfer';
 const SELECT_ALL_FOOD_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM food";
-const SELECT_ALL_VACCINEPROGRAM_QUERY ='SELECT age, vac_name FROM vaccine WHERE required=1';
-const SELECT_ALL_VACCINEURGENT_QUERY ='SELECT vac_name FROM vaccine WHERE required=0';
+const SELECT_ALL_VACCINEPROGRAM_QUERY ='SELECT age, vac_name, vac_id FROM vaccine WHERE required=1';
+const SELECT_ALL_VACCINEURGENT_QUERY ='SELECT vac_name ,vac_id FROM vaccine WHERE required=0';
 
 
 var bodyParser = require('body-parser');
@@ -26,9 +26,7 @@ app.set('view engine', 'hbs');
 const connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password:'nenaneno',
 	database: 'react_sql',
-	//socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock" //for Mac
 });
 
 connection.connect(function(err) {
@@ -60,10 +58,9 @@ app.get('/barn', (req, res) =>{
 //add new barn and add 5 pens to it
 app.post('/barn/open', function(req, res) {
 	var name = req.body.name;
-	var open_date = req.body.open_date;
 	var user_id = req.body.user_id;
-	var barn_id;
-	const INSERT_BARN_QUERY = 'INSERT INTO barn (name, open_date, user_id) VALUES("'+name+'", "'+open_date+'", '+user_id+')';
+	var open_date = 'CURDATE()';
+	const INSERT_BARN_QUERY = 'INSERT INTO barn (name, open_date, user_id) VALUES("'+name+'",'+open_date+', '+user_id+')';
 	const GET_CURRENT_ID = 'SELECT AUTO_INCREMENT as barn_id FROM information_schema.TABLES WHERE TABLE_SCHEMA = "react_sql" AND TABLE_NAME = "barn"';
 	connection.query(INSERT_BARN_QUERY, (err,results) =>{
 		if (err) {
@@ -508,20 +505,34 @@ app.post('/vaccine_urgent/add', function(req, res) {
 	});
 });
 
+<<<<<<< HEAD
 app.get('/test', function(req, res) {
 	connection.query(SELECT_ALL_REPORT_QUERY, (err,results) =>{
+=======
+app.post('/vaccine_urgent/addurgent', function(req, res) {
+    
+	var vac_name = req.body.vac_name;
+	
+	const INSERT_VACCINEPEN_QUERY = 'INSERT INTO vaccine ( vac_name, required) VALUES("'+vac_name+'",0)';
+	connection.query(INSERT_VACCINEPEN_QUERY, (err,results) =>{
+>>>>>>> cea4bbe3b346f86494969783a910a9caea5fb572
 		if (err) {
 			return res.send(err)
 		}
 		else{
+<<<<<<< HEAD
 			console.log(results);
 			res.render('test',{
 				results: results,
 			});
+=======
+			return res.send('VACCINE ADDED')
+>>>>>>> cea4bbe3b346f86494969783a910a9caea5fb572
 		}
 	});
 });
 
+<<<<<<< HEAD
 
 app.get('/report/test', function(req, res) {
 	phantom.create().then(function(ph) {
@@ -536,6 +547,8 @@ app.get('/report/test', function(req, res) {
 	});
 });
 
+=======
+>>>>>>> cea4bbe3b346f86494969783a910a9caea5fb572
 app.listen(4000, () => {
 	console.log('Products server listening on port 4000')
 });
