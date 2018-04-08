@@ -87,7 +87,7 @@ class Transfer extends Component {
 		console.log(Barn_no);
 		return(
 			<div>
-				<Header thisPage={Barn_no}/>
+				<Header thisPage="Transfer"/>
 				<div className="myBody">
 					<Collapse bordered={false} style={{marginBottom:20}}>
 						<Panel header="Select date" key="1" style={customPanelStyle}>

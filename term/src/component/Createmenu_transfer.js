@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Menu, Icon } from 'antd';
+import { Menu } from 'antd';
 import { Row, Col } from 'antd';
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
+import { Table, Icon, Divider } from 'antd';
+
 const SubMenu = Menu.SubMenu;
 class Createmenu_transfer extends Component {
  constructor(props){
@@ -21,39 +23,46 @@ class Createmenu_transfer extends Component {
       };
     
  render(){
+  // let {BarnList} = this.props;
+  //   const data = BarnList;
+  //     const columns = [{
+
+  //       dataIndex: 'name',
+  //     }];
+     //const expandedRowRender = record => <label>{record.type}</label>;
   return(
     
     <div align="center">
     <Menu
             onClick={this.handleClick}
           mode="inline"
-          //openKeys={this.state.openKeys}
           style={{ width: 300 }}>
               
            
                   
-                <Menu.Item key="1">
-                   <Link to={{pathname:'/Create_Barn', barnNumber:'1'}}>Barn 1</Link>
+               <Menu.Item>
+                   <Link to={{pathname : '/transfer' , Barn_no:'1' }}>Barn 1</Link>
                    </Menu.Item>
 
-              <Menu.Item key="2">
-                  <Link to={{pathname:'/Create_Barn', barnNumber:'2'}}>Barn 2</Link>
-                  </Menu.Item>
-
-              <Menu.Item key="3">
-                  <Link to={{pathname : '/Create_Barn' , Barn_no:'8' }}>Barn 8</Link>
+              <Menu.Item >
+                  <Link to={{pathname : '/transfer' , Barn_no:'2' }}>Barn 2</Link>
                    </Menu.Item>
 
-              <Menu.Item key="4">
-                  <Link to={{pathname : '/Create_Barn' , Barn_no:'9' }}>Barn 9</Link>
+              <Menu.Item>
+                  <Link to={{pathname : '/transfer' , Barn_no:'3' }}>Barn 3</Link>
+                   </Menu.Item>
+
+              <Menu.Item >
+                  <Link to={{pathname : '/transfer' , Barn_no:'4' }}>Barn 4</Link>
                    </Menu.Item>
                   
-              <Menu.Item key="5">
-                  <Link to={{pathname : '/Create_Barn' , Barn_no:'10' }}>Barn 10</Link>
+              <Menu.Item>
+                  <Link to={{pathname : '/transfer' , Barn_no:'5' }}>Barn 5</Link>
                    </Menu.Item>
                   
               
           </Menu>
+          {/*<Table expandedRowRender={expandedRowRender} columns={columns} dataSource={data}/>*/}
         </div>
 
           

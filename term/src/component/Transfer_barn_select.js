@@ -38,74 +38,62 @@ const customPanelStyle = {
 
 
 class Transfer_barn_select extends Component {
-	getTransfers() {
-	    fetch("http://localhost:4000/transfer")
+	constructor(props) {
+		super(props);
+		this.state = {
+			BarnList: []
+		}
+		this.onAdd = this.onAdd.bind(this);
+	}
+
+	componentDidMount(){
+		this.getBarn();
+	}
+	getBarn() {
+	    fetch("http://localhost:4000/barn")
 	    .then(response => response.json())
-	    .then(response => this.setState({ transferList: response.data}))
+	    .then(response => this.setState({ BarnList: response.data}))
 	    .catch(err => console.error(err))
 	}
 
-onAdd(transfer) {
-	    fetch('http://localhost:4000/transfer/add', {
+onAdd(barn) {
+	    fetch('http://localhost:4000/barn/open', {
 	    	method: 'POST',
 	    	headers: {
 	    		Accept: 'application/json',
 	    		'Content-Type': 'application/json',
 	    	},
 	    	body: JSON.stringify({
-	    		barn_id: transfer.barn_id,
+	    		name: barn.name,
+	    		user_id: barn.user_id
 	    	}),
 	    })
 	    .then((response) => {
 	    	response.json().then((data) => {
 	    		if(data == 1) {
-	    			this.getTransfers();
-	    			noti('success','Add transfer','Sucessfully saved data.');
+	    			this.getBarn();
+	    			noti('success','Add Barn','Sucessfully saved data.');
 	    		} else {
-	    			noti('error','Add transfer','Unable to save data.');
+	    			noti('error','Add Barn','Unable to save data.');
 	    		}
            	});
 	    })
 	    .catch(err => {
-	    	noti('error','Add transfer','Failed to connect to database.');
+	    	noti('error','Add Barn','Failed to connect to database.');
 	    })
 	}
 	
 
 	render() {
+		let {BarnList} = this.state;
 		return(
 			<div>
 
 				<Header thisPage="Barn Select"/>
 				<div className="myBody">
-				<div align="center">
-				<Menu
-            	onClick={this.handleClick}
-          		mode="inline"
-                   style={{ width: 300 }}>
-				 <Menu.Item>
-                   <Link to={{pathname : '/transfer' , Barn_no:'1' }}>Barn 1</Link>
-                   </Menu.Item>
+				{/*<Createmenu_transfer BarnList={BarnList}/>*/}
+				<Createmenu_transfer/>
 
-              <Menu.Item >
-                  <Link to={{pathname : '/transfer' , Barn_no:'2' }}>Barn 2</Link>
-                   </Menu.Item>
-
-              <Menu.Item>
-                  <Link to={{pathname : '/transfer' , Barn_no:'3' }}>Barn 3</Link>
-                   </Menu.Item>
-
-              <Menu.Item >
-                  <Link to={{customPanelStylehname : '/transfer' , Barn_no:'4' }}>Barn 4</Link>
-                   </Menu.Item>
-                  
-              <Menu.Item>
-                  <Link to={{pathname : '/transfer' , Barn_no:'5' }}>Barn 5</Link>
-                   </Menu.Item>
-                  
-              
-          </Menu>
-          </div>
 					<Collapse bordered={false} style={{marginBottom:20}}>
 						
 							<Panel header="Create Barn" key="2" style={customPanelStyle}>
