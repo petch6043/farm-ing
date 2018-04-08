@@ -10,7 +10,7 @@ const SELECT_ALL_REPORT_QUERY = 'SELECT * FROM report';
 const SELECT_ALL_VACCINETYPE_QUERY = 'SELECT * FROM vaccine_type';
 const SELECT_ALL_BARN_QUERY = 'SELECT * FROM barn';
 const SELECT_ALL_PENCOUNT_QUERY = 'SELECT * FROM transfer';
-const SELECT_ALL_FOOD_QUERY = 'SELECT * FROM food';
+const SELECT_ALL_FOOD_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM food";
 const SELECT_ALL_VACCINEPROGRAM_QUERY ='SELECT age, vac_name FROM vaccine WHERE required=1';
 const SELECT_ALL_VACCINEURGENT_QUERY ='SELECT vac_name FROM vaccine WHERE required=0';
 
@@ -163,6 +163,39 @@ app.post('/transfer/add', function(req, res) {
 /*-------------------------- FOOD --------------------------*/
 app.get('/food', (req, res) =>{
 	connection.query(SELECT_ALL_FOOD_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			return res.json({
+				data: results
+			})
+		}
+	});
+});
+
+//select food by barn id
+app.get('/food/:barn_id', (req, res) =>{
+	var barn_id = req.params.barn_id;
+	const SELECT_FOOD_BY_BARN_QUERY = 'SELECT * FROM food WHERE barn_id='+barn_id;
+	connection.query(SELECT_FOOD_BY_BARN_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			return res.json({
+				data: results
+			})
+		}
+	});
+});
+
+//select food by barn id and date
+app.get('/food/:barn_id/:date', (req, res) =>{
+	var barn_id = req.params.barn_id;
+	var date = req.params.date;
+	const SELECT_FOOD_BY_BARN_DATE_QUERY = 'SELECT * FROM food WHERE barn_id='+barn_id+' AND DATE(timestamp) = "'+date+'"';
+	connection.query(SELECT_FOOD_BY_BARN_DATE_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
 		}
@@ -427,6 +460,22 @@ app.get('/vaccine_program', (req, res) =>{
 	});
 });
 
+app.post('/vaccine_program/add', function(req, res) {
+    
+	var vac_id = req.body.vac_id;
+	var pen_id = req.body.pen_id;
+	
+	const INSERT_VACCINEPEN_QUERY = 'INSERT INTO vaccine_pen ( vac_id, pen_id) VALUES('+vac_id+', '+pen_id+')';
+	connection.query(INSERT_VACCINEPEN_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			return res.send('VACCINE ADDED')
+		}
+	});
+});
+
 app.get('/vaccine_urgent', (req, res) =>{
 	connection.query(SELECT_ALL_VACCINEURGENT_QUERY, (err,results) =>{
 		if (err) {
@@ -440,6 +489,21 @@ app.get('/vaccine_urgent', (req, res) =>{
 	});
 });
 
+app.post('/vaccine_urgent/add', function(req, res) {
+    
+	var vac_id = req.body.vac_id;
+	var pen_id = req.body.pen_id;
+	
+	const INSERT_VACCINEPEN_QUERY = 'INSERT INTO vaccine_pen ( vac_id, pen_id) VALUES('+vac_id+', '+pen_id+')';
+	connection.query(INSERT_VACCINEPEN_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			return res.send('VACCINE ADDED')
+		}
+	});
+});
 
 app.listen(4000, () => {
 	console.log('Products server listening on port 4000')
