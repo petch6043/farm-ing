@@ -3,8 +3,7 @@ import Header from './Header';
 import Footer from './Footer';
 import Add from './transfer/Add';
 import Show from './transfer/Show';
-import Selectmenu_transfer from './Selectmenu_transfer';
-import Create_barn from './Create_barn';
+import Selectmenu from './Selectmenu';
 import { Collapse } from 'antd';
 import { Button, notification } from 'antd';
 import { DatePicker } from 'antd';
@@ -85,18 +84,20 @@ class Transfer extends Component {
 		let {transferList} = this.state;
 		return(
 			<div>
-				<Header thisPage="Barn 1 Transfer"/>
+				<Header thisPage="Transfer"/>
 				<div className="myBody">
 					<Collapse bordered={false} style={{marginBottom:20}}>
-						<Panel header="Select date" key="1" style={customPanelStyle}>
+						{/*<Panel header="Select date" key="1" style={customPanelStyle}>
 							<DatePicker onChange={onChange} />
 						</Panel>
 						<Panel header="Add transfer" key="2" style={customPanelStyle}>
 							<Add onAdd={this.onAdd}/>
+						</Panel>*/}
+						<Panel header="Select Barn" key="1" style={customPanelStyle}>
+							<Selectmenu/>
 						</Panel>
-						
 					</Collapse>
-					<Show transferList={transferList}/>
+					{/*<Show transferList={transferList}/>*/}
 				</div>
 				<Footer/>
 			</div>
