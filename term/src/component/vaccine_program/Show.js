@@ -47,6 +47,10 @@ class Show extends Component {
 				title: 'Vaccine name',
 				dataIndex: 'vac_name',
 				key: 'vac_name',
+			} , {
+				title: 'Vaccine id',
+				dataIndex: 'vac_id',
+				key: 'vac_id',
 			}
 			];
 
@@ -54,9 +58,16 @@ class Show extends Component {
 		const expandedRowRender = record => <label>{record.type}</label>;
 		const rowSelection = {	
  		 		onChange: (selectedRowKeys, selectedRows) => {
- 		 			this.setState({vac_id:selectedRowKeys[0]})
+ 		 			
+ 		 			
+ 		 			if (typeof selectedRows[0].vac_id !=='undefined' && selectedRows[0].vac_id){
+ 		 			this.setState({vac_id:selectedRows[0].vac_id})
+
  		 			console.log(this.state)
-   		 			console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+ 		 		}
+ 		 			
+
+   		 			console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows[0].vac_id);
    		 			
   			},
   				getCheckboxProps: record => ({
