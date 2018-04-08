@@ -30,7 +30,6 @@ class Show extends Component {
   return(
    <div>
     <div>Food list:</div>
-    {console.log(foodList)}
     <Table expandedRowRender={expandedRowRender} columns={columns} dataSource={data}/>
    </div>
   );

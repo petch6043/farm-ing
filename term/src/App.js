@@ -6,6 +6,7 @@ import Vaccine from './component/Vaccine';
 import Report from './component/Report';
 import Login from './component/Login';
 import Calendar from './component/Calendar';
+import CalendarPage from './component/Calendar';
 import vaccine_menu from './component/vaccine_menu';
 import vaccine_pen from './component/vaccine_pen';
 import vaccine_type from './component/vaccine_type';

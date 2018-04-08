@@ -36,6 +36,7 @@ class vaccine_urgent extends Component {
 		this.state = {
 			vaccineurgentList: []
 		}
+		this.onAdd = this.onAdd.bind(this);
 	}
 
 	componentDidMount(){
@@ -51,6 +52,8 @@ class vaccine_urgent extends Component {
 
 	onAdd(vaccineurgent) {
 		console.log("A" + vaccineurgent);
+	onAdd(vac_id) {
+		console.log("A" + vac_id);
 		    fetch('http://localhost:4000/vaccine_urgent/add', {
 		    	method: 'POST',
 		    	headers: {
@@ -61,6 +64,8 @@ class vaccine_urgent extends Component {
 		    		
 		    		vac_id: vaccineurgent.vac_id,
 		    		pen_id: vaccineurgent.pen_id,
+		    		vac_id: vac_id,
+		    		pen_id: 2
 		    		
 		    	}),
 		    })
@@ -87,8 +92,9 @@ class vaccine_urgent extends Component {
 							<Add onAdd={this.onAdd}/>
 						</Panel>
 						
+						
 					</Collapse>	
-				<Show vaccineurgentList={vaccineurgentList}/>	
+				<Show onAdd={this.onAdd} vaccineurgentList={vaccineurgentList}/>	
 					
 					
 					

@@ -47,6 +47,10 @@ class Show extends Component {
 				title: 'Vaccine name',
 				dataIndex: 'vac_name',
 				key: 'vac_name',
+			} , {
+				title: 'Vaccine id',
+				dataIndex: 'vac_id',
+				key: 'vac_id',
 			}
 			];
 
@@ -57,6 +61,16 @@ class Show extends Component {
  		 			this.setState({vac_id:selectedRowKeys[0]})
  		 			console.log(this.state)
    		 			console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+ 		 			
+ 		 			
+ 		 			if (typeof selectedRows[0].vac_id !=='undefined' && selectedRows[0].vac_id){
+ 		 			this.setState({vac_id:selectedRows[0].vac_id})
+
+ 		 			console.log(this.state)
+ 		 		}
+ 		 			
+
+   		 			console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows[0].vac_id);
    		 			
   			},
   				getCheckboxProps: record => ({

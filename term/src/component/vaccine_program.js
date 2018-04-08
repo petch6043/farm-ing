@@ -88,6 +88,7 @@ class vaccine_program extends Component {
 						<Panel header="submit" key="3" style={customPanelStyle}>
 							<Add onAdd={this.onAdd}/>
 						</Panel>
+						
 					</Collapse>	
 
 				
