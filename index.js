@@ -505,6 +505,21 @@ app.post('/vaccine_urgent/add', function(req, res) {
 	});
 });
 
+app.post('/vaccine_urgent/addurgent', function(req, res) {
+    
+	var vac_name = req.body.vac_name;
+	
+	const INSERT_VACCINEPEN_QUERY = 'INSERT INTO vaccine ( vac_name, required) VALUES("'+vac_name+'",0)';
+	connection.query(INSERT_VACCINEPEN_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			return res.send('VACCINE ADDED')
+		}
+	});
+});
+
 app.listen(4000, () => {
 	console.log('Products server listening on port 4000')
 });
