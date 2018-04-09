@@ -26,7 +26,9 @@ app.set('view engine', 'hbs');
 const connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
+	password:'root',
 	database: 'react_sql',
+	socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock"
 });
 
 connection.connect(function(err) {
@@ -505,34 +507,34 @@ app.post('/vaccine_urgent/add', function(req, res) {
 	});
 });
 
-<<<<<<< HEAD
-app.get('/test', function(req, res) {
-	connection.query(SELECT_ALL_REPORT_QUERY, (err,results) =>{
-=======
+
+//app.get('/test', function(req, res) {
+//	connection.query(SELECT_ALL_REPORT_QUERY, (err,results) =>{
+
 app.post('/vaccine_urgent/addurgent', function(req, res) {
     
 	var vac_name = req.body.vac_name;
 	
 	const INSERT_VACCINEPEN_QUERY = 'INSERT INTO vaccine ( vac_name, required) VALUES("'+vac_name+'",0)';
 	connection.query(INSERT_VACCINEPEN_QUERY, (err,results) =>{
->>>>>>> cea4bbe3b346f86494969783a910a9caea5fb572
+
 		if (err) {
 			return res.send(err)
 		}
 		else{
-<<<<<<< HEAD
+
 			console.log(results);
 			res.render('test',{
 				results: results,
 			});
-=======
+
 			return res.send('VACCINE ADDED')
->>>>>>> cea4bbe3b346f86494969783a910a9caea5fb572
+
 		}
 	});
 });
 
-<<<<<<< HEAD
+
 
 app.get('/report/test', function(req, res) {
 	phantom.create().then(function(ph) {
@@ -547,8 +549,6 @@ app.get('/report/test', function(req, res) {
 	});
 });
 
-=======
->>>>>>> cea4bbe3b346f86494969783a910a9caea5fb572
 app.listen(4000, () => {
 	console.log('Products server listening on port 4000')
 });
