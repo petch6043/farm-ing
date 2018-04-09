@@ -176,7 +176,7 @@ app.get('/food', (req, res) =>{
 //select food by barn id
 app.get('/food/:barn_id', (req, res) =>{
 	var barn_id = req.params.barn_id;
-	const SELECT_FOOD_BY_BARN_QUERY = 'SELECT * FROM food WHERE barn_id='+barn_id;
+	const SELECT_FOOD_BY_BARN_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM food WHERE barn_id="+barn_id;
 	connection.query(SELECT_FOOD_BY_BARN_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
