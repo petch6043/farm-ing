@@ -26,9 +26,7 @@ app.set('view engine', 'hbs');
 const connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password:'root',
 	database: 'react_sql',
-	socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock"
 });
 
 connection.connect(function(err) {
@@ -534,6 +532,14 @@ app.post('/vaccine_urgent/addurgent', function(req, res) {
 	});
 });
 
+
+
+app.get('/test', function(req, res) {
+	res.render('test',{
+			stores: result
+		});
+	res.render('test2');
+});
 
 
 app.get('/report/test', function(req, res) {
