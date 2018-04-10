@@ -18,13 +18,6 @@ class Show extends Component {
     title: 'Date - Time',
     dataIndex: 'time',
     key: 'time'
-    title: 'User',
-    dataIndex: 'user_id',
-    key: 'user_id',
-   }, {
-    title: 'Time',
-    dataIndex: 'time',
-    key: 'time',
    }];
    const expandedRowRender = record => <label>{record.type}</label>;
   return(
