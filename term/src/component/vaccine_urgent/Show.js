@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ShowItem from './ShowItem';
 import { Table, Icon, Divider } from 'antd';
-import { Row, Col } from 'antd';
+import { Row, Col, Button } from 'antd';
 import 'antd/dist/antd.css';
 import { Checkbox } from 'antd';
 
@@ -12,7 +12,8 @@ constructor (props){
 		super(props)
 		this.state = {
 			done:false,
-			vac_id:0
+			vac_id:0,
+			
 		}
 		this.toggle = this.toggle.bind(this)
 		this.addClick = this.addClick.bind(this);
@@ -41,7 +42,6 @@ constructor (props){
 
 	render() {
 		let {vaccineurgentList} = this.props;
-
 		const data = vaccineurgentList;
 			
 			const columns = [{
@@ -57,10 +57,13 @@ constructor (props){
 			];
 		const expandedRowRender = record => <label>{record.type}</label>;
 		const rowSelection = {
+
  		 		onChange: (selectedRowKeys, selectedRows) => {
    		 			
+ 		 		
  		 			this.setState({vac_id:selectedRows[0].vac_id})
  		 			console.log(this.state)
+ 		 			console.log(selectedRows)
    		 			console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows[0].vac_id);
   			},
   				getCheckboxProps: record => ({
@@ -68,13 +71,17 @@ constructor (props){
     				name: record.type,
   				}),
 			};
+
 		return(
 			<div>
 				<div>Vaccineurgent list:</div>
 				<Col span={24} align="center">
 				<Table rowSelection={rowSelection} columns={columns} dataSource={data}/>
 				</Col>
-				<button onClick={this.addClick}>Add vaccine</button>
+
+				<Col span={12} align="left" style={{padding:10}}>
+				<Button type="primary" onClick={this.addClick}>Submit</Button>
+				</Col>
 				
 			</div>
 		);

@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql');
+const hbs = require('hbs');
+const phantom = require('phantom');
 const app = express();
 
 const SELECT_ALL_PEN_QUERY = 'SELECT * FROM pen';
@@ -18,6 +20,7 @@ const SELECT_ALL_VACCINEURGENT_QUERY ='SELECT vac_name ,vac_id FROM vaccine WHER
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+app.set('view engine', 'hbs');
 
 //connect to SQL server 
 const connection = mysql.createConnection({
@@ -584,18 +587,53 @@ app.post('/vaccine_urgent/add', function(req, res) {
 	});
 });
 
+
+//app.get('/test', function(req, res) {
+//	connection.query(SELECT_ALL_REPORT_QUERY, (err,results) =>{
+
 app.post('/vaccine_urgent/addurgent', function(req, res) {
     
 	var vac_name = req.body.vac_name;
 	
 	const INSERT_VACCINEPEN_QUERY = 'INSERT INTO vaccine ( vac_name, required) VALUES("'+vac_name+'",0)';
 	connection.query(INSERT_VACCINEPEN_QUERY, (err,results) =>{
+
 		if (err) {
 			return res.send(err)
 		}
 		else{
+
+			console.log(results);
+			res.render('test',{
+				results: results,
+			});
+
 			return res.send('VACCINE ADDED')
+
 		}
+	});
+});
+
+
+
+app.get('/test', function(req, res) {
+	res.render('test',{
+			stores: result
+		});
+	res.render('test2');
+});
+
+
+app.get('/report/test', function(req, res) {
+	phantom.create().then(function(ph) {
+	    ph.createPage().then(function(page) {
+	        page.open("http://localhost:4000/test").then(function(status) {
+	            page.render('test.pdf').then(function() {
+	               	res.send("DONE");
+	                ph.exit();
+	            });
+	        });
+	    });
 	});
 });
 

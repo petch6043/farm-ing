@@ -67,7 +67,9 @@ class Food extends Component {
 	    		
 	    	}),
 	    })
-	    .then((response) => {
+	    noti('success','Add food','Sucessfully saved data.');
+	    /*.then((response) => {
+	    	console(response)
 	    	response.json().then((data) => {
 	    		if(data == 1) {
 	    			this.getTransfers();
@@ -79,7 +81,7 @@ class Food extends Component {
 	    })
 	    .catch(err => {
 	    	noti('error','Add food','Failed to connect to database.');
-	    })
+	    })*/
 	    console.log(JSON.stringify({
 	    		barn_id: this.state.barnNo,
 	    		amount: food.amount,
