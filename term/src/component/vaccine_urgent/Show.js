@@ -63,12 +63,16 @@ constructor (props){
  		 		onChange: (selectedRowKeys, selectedRows) => {
    		 			
  		 		
- 		 		
+ 		 		if(x%2==0){
  		 			this.setState({vac_id:selectedRows[0].vac_id})
  		 			console.log(this.state)
  		 			console.log(selectedRows)
    		 			console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows[0].vac_id);
+   		 			this.setState({x:x+1})
+   		 		}else{
+   		 			this.setState({x:x+1})
    		 		
+   		 		}
   			},
   				getCheckboxProps: record => ({
     				disabled: record.type === 'Disabled User', // Column configuration not to be checked
