@@ -6,6 +6,7 @@ import { Collapse } from 'antd';
 import { Button, notification } from 'antd';
 import { DatePicker } from 'antd';
 import { Select } from 'antd';
+import { Select,Icon } from 'antd';
 const Option = Select.Option;
 
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
@@ -68,7 +69,6 @@ class Transfer_report extends Component {
 								<Option value="daily">Daily</Option>
 								<Option value="weekly">Weekly</Option>
 								<Option value="monthly">Monthly</Option>
-								<Option value="yearly">Yearly</Option>
 							</Select>
 						</Panel>
 					</Collapse>
@@ -80,6 +80,11 @@ class Transfer_report extends Component {
 						<div style={{marginBottom:10}}>30-12-60(Daily report)</div>
 						<div style={{marginBottom:10}}>31-12-60(Daily report)</div>
 						<div style={{marginBottom:10}}>31-12-60(Monthly report)</div>
+						<Button icon="file-pdf" style={{marginBottom:10}}>28-12-60 (Daily report)</Button>
+						<Button icon="file-pdf" style={{marginBottom:10}}>29-12-60 (Daily report)</Button>
+						<Button icon="file-pdf" style={{marginBottom:10}}>30-12-60 (Daily report)</Button>
+						<Button icon="file-pdf" style={{marginBottom:10}}>31-12-60 (Daily report)</Button>
+						<Button icon="file-pdf" style={{marginBottom:10}}>31-12-60 (Monthly report)</Button>
 					</div>
 				</div>
 				<Footer/>

@@ -534,6 +534,13 @@ app.post('/vaccine_urgent/addurgent', function(req, res) {
 
 <<<<<<< HEAD
 
+app.get('/test', function(req, res) {
+	res.render('test',{
+			stores: result
+		});
+});
+
+
 app.get('/report/test', function(req, res) {
 	phantom.create().then(function(ph) {
 	    ph.createPage().then(function(page) {
