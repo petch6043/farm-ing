@@ -1,6 +1,6 @@
 This project use node.js as the backend sever, mySQL as the database, and react.js as the front end.
 
-##Guide to run the project
+## Guide to run the project
 1.install node.js, you also need to have MySQL server and Apache server (we use MAMP)
 2.create the database name `react_sql` in the MySQL server
 3.import file `./farm_ing/farm_ing_database.sql` into the database `react_sql`
