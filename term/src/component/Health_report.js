@@ -5,7 +5,6 @@ import Show from './Transfer_report/Show';
 import { Collapse } from 'antd';
 import { Button, notification } from 'antd';
 import { DatePicker } from 'antd';
-import { Select } from 'antd';
 import { Select,Icon } from 'antd';
 const Option = Select.Option;
 
