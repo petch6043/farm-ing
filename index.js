@@ -538,6 +538,7 @@ app.get('/test', function(req, res) {
 	res.render('test',{
 			stores: result
 		});
+	res.render('test2');
 });
 
 
