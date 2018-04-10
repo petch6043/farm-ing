@@ -13,6 +13,7 @@ constructor (props){
 		this.state = {
 			done:false,
 			vac_id:0,
+			x:0
 			
 		}
 		this.toggle = this.toggle.bind(this)
@@ -42,6 +43,7 @@ constructor (props){
 
 	render() {
 		let {vaccineurgentList} = this.props;
+		let {x} = this.props;
 		const data = vaccineurgentList;
 			
 			const columns = [{
@@ -61,10 +63,12 @@ constructor (props){
  		 		onChange: (selectedRowKeys, selectedRows) => {
    		 			
  		 		
+ 		 		
  		 			this.setState({vac_id:selectedRows[0].vac_id})
  		 			console.log(this.state)
  		 			console.log(selectedRows)
    		 			console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows[0].vac_id);
+   		 		
   			},
   				getCheckboxProps: record => ({
     				disabled: record.type === 'Disabled User', // Column configuration not to be checked
