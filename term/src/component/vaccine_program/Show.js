@@ -11,7 +11,8 @@ class Show extends Component {
 		super(props)
 		this.state = {
 			done:false,
-			vac_id:0
+			vac_id:0,
+			x:0,
 		}
 		this.toggle = this.toggle.bind(this)
 		this.addClick = this.addClick.bind(this);
@@ -38,6 +39,7 @@ class Show extends Component {
 
 	render() {
 		let {vaccineprogramList} = this.props;
+		let {x} = this.props;
 		const data = vaccineprogramList;
 			const columns = [{
 				title: 'age',
@@ -57,21 +59,20 @@ class Show extends Component {
 
 		const expandedRowRender = record => <label>{record.type}</label>;
 		const rowSelection = {	
+
  		 		onChange: (selectedRowKeys, selectedRows) => {
- 		 			this.setState({vac_id:selectedRowKeys[0]})
- 		 			console.log(this.state)
-   		 			console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
- 		 			
- 		 			
- 		 			if (typeof selectedRows[0].vac_id !=='undefined' && selectedRows[0].vac_id){
+
+ 		 		if(x%2==0){
  		 			this.setState({vac_id:selectedRows[0].vac_id})
-
  		 			console.log(this.state)
- 		 		}
- 		 			
-
+ 		 			console.log(selectedRows)
    		 			console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows[0].vac_id);
-   		 			
+   		 			this.setState({x:x+1})
+   		 		}else{
+   		 			this.setState({x:x+1})
+   		 		
+   		 		}
+	   		 			
   			},
   				getCheckboxProps: record => ({
     				disabled: record.type === 'Disabled User', // Column configuration not to be checked

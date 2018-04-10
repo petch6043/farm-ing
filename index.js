@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql');
+const hbs = require('hbs');
+const phantom = require('phantom');
 const app = express();
 
 const SELECT_ALL_PEN_QUERY = 'SELECT * FROM pen';
@@ -18,6 +20,7 @@ const SELECT_ALL_VACCINEURGENT_QUERY ='SELECT vac_name ,vac_id FROM vaccine WHER
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+app.set('view engine', 'hbs');
 
 //connect to SQL server 
 const connection = mysql.createConnection({
@@ -129,6 +132,33 @@ app.get('/transfer', (req, res) =>{
 	});
 });
 
+//select transfer by barn name
+app.get('/transfer/:barn_name', (req, res) =>{
+	var barn_name = req.params.barn_name;
+	var barn_id;
+	const GET_BARN_ID_QUERY = 'SELECT barn_id FROM barn WHERE name='+barn_name+' AND active=1'
+	connection.query(GET_BARN_ID_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			barn_id = results[0].barn_id
+			console.log(barn_id)
+			const SELECT_TRANSFER_BY_BARN_QUERY = 'SELECT * FROM transfer WHERE barn_id='+barn_id;
+			connection.query(SELECT_TRANSFER_BY_BARN_QUERY, (err,results) =>{
+				if (err) {
+					return res.send(err)
+				}
+				else{
+					return res.json({
+						data: results
+					})
+				}
+			});
+		}
+	});
+});
+
 // app.get('/transfer/add/', (req, res) =>{
 // 	var type = 'add';
 // 	var pen_id = 1;
@@ -177,7 +207,7 @@ app.get('/food', (req, res) =>{
 //select food by barn id
 app.get('/food/:barn_id', (req, res) =>{
 	var barn_id = req.params.barn_id;
-	const SELECT_FOOD_BY_BARN_QUERY = 'SELECT * FROM food WHERE barn_id='+barn_id;
+	const SELECT_FOOD_BY_BARN_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM food WHERE barn_id="+barn_id;
 	connection.query(SELECT_FOOD_BY_BARN_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
@@ -336,6 +366,86 @@ app.post('/report/generate/', (req, res) =>{
 					});
 				}
 			});
+		}
+	});
+});
+
+//new report (GET from transfer) all barn
+app.get('/report2', (req, res) =>{
+	var barn_id;
+	var pig_current, pig_sold, pig_sick, pig_die, food_amount, fpp;
+	var report_type = 'monthly';
+	var report = []
+	var reportList = []
+	const BARN_ID_QUERY = 'SELECT DISTINCT barn_id FROM transfer'
+	connection.query(BARN_ID_QUERY, (err,results)=>{
+		if (err) {
+			console.log('barn id err')
+			return res.send("err barn id: "+err)
+		}else{
+			console.log('gotBarnIDs :')
+			console.log(results)
+			results.forEach(async function(barn,i){
+				console.log('for barn '+barn.barn_id+' i = '+i)
+				var barn_id = barn.barn_id
+				const SUM_SOLD_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE barn_id='+barn_id+' AND type="sold";';
+				connection.query(SUM_SOLD_QUERY, (err,results) =>{
+					if (err) {
+						console.log('pig sold err')
+						return res.send("err sold: "+err)
+					}
+					else{
+						pig_sold = results[0].sum
+						console.log(barn_id+' pig_sold = '+pig_sold)
+						reportList.push({barn_id:pig_sold,pig_current:pig_sold})
+						const SUM_SICK_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE barn_id='+barn_id+' AND type="sick";';
+						connection.query(SUM_SICK_QUERY, (err,results) =>{
+							if (err) {
+								return res.send("err sick: "+err)
+							}
+							else{
+								pig_sick = results[0].sum
+								console.log(barn_id+' pig_sick = '+pig_sick)
+								reportList.push({barn_id:barn_id,pig_sick:pig_sick})
+								const SUM_DIED_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE barn_id='+barn_id+' AND type="died";';
+								connection.query(SUM_DIED_QUERY, (err,results) =>{
+									if (err) {
+										return res.send("err died: "+err)
+									}
+									else{
+										pig_died = results[0].sum
+										console.log(barn_id+' pig_died = '+pig_died)
+										reportList.push({barn_id:barn_id,pig_died:pig_died})
+										const SUM_ADDED_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE barn_id='+barn_id+' AND type="add";';
+										connection.query(SUM_ADDED_QUERY, (err,results) =>{
+											if (err) {
+												return res.send("err added: "+err)
+											}
+											else{
+												pig_current = results[0].sum - pig_died - pig_sick - pig_sold
+												console.log(barn_id+' pig_current = '+pig_current)
+												reportList.push({barn_id:barn_id,pig_current:pig_current})
+												const SUM_FOOD_QUERY = 'SELECT IFNULL(SUM(amount),0) AS sum FROM food WHERE barn_id='+barn_id+';';
+												connection.query(SUM_FOOD_QUERY, (err,results) =>{
+													if (err) {
+														return res.send("err food: "+err)
+													}
+													else{
+														food_amount = results[0].sum
+														fpp = food_amount/pig_current;
+														reportList.push({barn_id:barn_id,food_amount:pig_current,fpp:fpp})
+														return res.json(reportList)
+													}
+												});
+											}
+										});
+									}
+								});
+							}
+						});
+					}
+				});
+			})
 		}
 	});
 });
@@ -505,18 +615,53 @@ app.post('/vaccine_urgent/add', function(req, res) {
 	});
 });
 
+
+//app.get('/test', function(req, res) {
+//	connection.query(SELECT_ALL_REPORT_QUERY, (err,results) =>{
+
 app.post('/vaccine_urgent/addurgent', function(req, res) {
     
 	var vac_name = req.body.vac_name;
 	
 	const INSERT_VACCINEPEN_QUERY = 'INSERT INTO vaccine ( vac_name, required) VALUES("'+vac_name+'",0)';
 	connection.query(INSERT_VACCINEPEN_QUERY, (err,results) =>{
+
 		if (err) {
 			return res.send(err)
 		}
 		else{
+
+			console.log(results);
+			res.render('test',{
+				results: results,
+			});
+
 			return res.send('VACCINE ADDED')
+
 		}
+	});
+});
+
+
+
+app.get('/test', function(req, res) {
+	res.render('test',{
+			stores: result
+		});
+	res.render('test2');
+});
+
+
+app.get('/report/test', function(req, res) {
+	phantom.create().then(function(ph) {
+	    ph.createPage().then(function(page) {
+	        page.open("http://localhost:4000/test").then(function(status) {
+	            page.render('test.pdf').then(function() {
+	               	res.send("DONE");
+	                ph.exit();
+	            });
+	        });
+	    });
 	});
 });
 

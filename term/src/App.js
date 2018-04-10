@@ -15,9 +15,10 @@ import vaccine_urgent from './component/vaccine_urgent';
 import Selectbarnfood from './component/Selectbarnfood';
 import Transfer_report from './component/Transfer_report';
 import Health_report from './component/Health_report';
-
+import Notification from './component/Notification';
 import Transfer_barn_select from './component/Transfer_barn_select';
 import Create_barn from './component/Create_barn';
+import User from './component/User';
 import {
 	BrowserRouter as Router,
 	Link,
@@ -49,6 +50,8 @@ class App extends Component {
 	    			<Route path="/selectbarnfood" component={Selectbarnfood} />
 	    			<Route path="/Create_barn" component={Create_barn} />
 	    			<Route path="/calendar" component={Calendar}/>
+	    			<Route path="/notification" component={Notification}/>
+	    			<Route path="/user" component={User}/>
         		</Switch>
 	         </Router>
 	    </div>

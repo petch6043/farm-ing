@@ -26,7 +26,7 @@ class Footer extends Component {
 				</Col>
 				<Col span={6} align="center">
 					<Badge count={0} className="myTab">
-				      	<Link to="/account"><Icon type="user" style={{ fontSize: 20, color: '#000'}} /></Link>
+				      	<Link to="/user"><Icon type="user" style={{ fontSize: 20, color: '#000'}} /></Link>
 				    </Badge>
 				</Col>
 			</Row>
