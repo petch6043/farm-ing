@@ -12,7 +12,8 @@ constructor (props){
 		super(props)
 		this.state = {
 			done:false,
-			vac_id:0
+			vac_id:0,
+			
 		}
 		this.toggle = this.toggle.bind(this)
 		this.addClick = this.addClick.bind(this);
@@ -41,7 +42,6 @@ constructor (props){
 
 	render() {
 		let {vaccineurgentList} = this.props;
-
 		const data = vaccineurgentList;
 			
 			const columns = [{
@@ -57,10 +57,13 @@ constructor (props){
 			];
 		const expandedRowRender = record => <label>{record.type}</label>;
 		const rowSelection = {
+
  		 		onChange: (selectedRowKeys, selectedRows) => {
    		 			
+ 		 		
  		 			this.setState({vac_id:selectedRows[0].vac_id})
  		 			console.log(this.state)
+ 		 			console.log(selectedRows)
    		 			console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows[0].vac_id);
   			},
   				getCheckboxProps: record => ({
@@ -68,6 +71,7 @@ constructor (props){
     				name: record.type,
   				}),
 			};
+
 		return(
 			<div>
 				<div>Vaccineurgent list:</div>
