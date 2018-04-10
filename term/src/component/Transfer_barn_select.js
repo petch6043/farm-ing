@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import Add from './transfer/Add';
+import Add from './barn/Add';
 import Show from './transfer/Show';
-import Selectmenu_transfer from './Selectmenu_transfer';
+import Createmenu_transfer from './Createmenu_transfer';
 import Create_barn from './Create_barn';
+import { Row, Col } from 'antd';
 import { Collapse } from 'antd';
-import { Button, notification } from 'antd';
+import { Menu, Button, notification, Icon } from 'antd';
 import { DatePicker } from 'antd';
+import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
+
+const SubMenu = Menu.SubMenu;
 
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 
@@ -32,26 +36,72 @@ const customPanelStyle = {
 };
 
 
+
 class Transfer_barn_select extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			BarnList: []
+		}
+		this.onAdd = this.onAdd.bind(this);
+	}
+
+	componentDidMount(){
+		this.getBarn();
+	}
+	getBarn() {
+	    fetch("http://localhost:4000/barn")
+	    .then(response => response.json())
+	    .then(response => this.setState({ BarnList: response.data}))
+	    .catch(err => console.error(err))
+	}
+
+onAdd(barn) {
+	    fetch('http://localhost:4000/barn/open', {
+	    	method: 'POST',
+	    	headers: {
+	    		Accept: 'application/json',
+	    		'Content-Type': 'application/json',
+	    	},
+	    	body: JSON.stringify({
+	    		name: barn.name,
+	    		user_id: barn.user_id
+	    	}),
+	    })
+	    .then((response) => {
+	    	response.json().then((data) => {
+	    		if(data == 1) {
+	    			this.getBarn();
+	    			noti('success','Add Barn','Sucessfully saved data.');
+	    		} else {
+	    			noti('error','Add Barn','Unable to save data.');
+	    		}
+           	});
+	    })
+	    .catch(err => {
+	    	noti('error','Add Barn','Failed to connect to database.');
+	    })
+	}
 	
 
 	render() {
+		let {BarnList} = this.state;
 		return(
 			<div>
+
 				<Header thisPage="Barn Select"/>
 				<div className="myBody">
+				{/*<Createmenu_transfer BarnList={BarnList}/>*/}
+				<Createmenu_transfer/>
+
 					<Collapse bordered={false} style={{marginBottom:20}}>
-						{/*<Panel header="Select date" key="1" style={customPanelStyle}>
-							<DatePicker onChange={onChange} />
-						</Panel>
-						<Panel header="Add transfer" key="2" style={customPanelStyle}>
+						
+							<Panel header="Create Barn" key="2" style={customPanelStyle}>
 							<Add onAdd={this.onAdd}/>
-						</Panel>*/}
-						<Panel header="Select Barn" key="1" style={customPanelStyle}>
-							<Selectmenu_transfer/>
 						</Panel>
 					</Collapse>
-					{/*<Show transferList={transferList}/>*/}
+
+					
 				</div>
 				<Footer/>
 			</div>

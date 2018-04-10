@@ -36,7 +36,9 @@ class vaccine_urgent extends Component {
 		this.state = {
 			vaccineurgentList: []
 		}
+		this.onAdd2 = this.onAdd2.bind(this);
 		this.onAdd = this.onAdd.bind(this);
+
 	}
 
 	componentDidMount(){
@@ -50,8 +52,7 @@ class vaccine_urgent extends Component {
 	      .catch(err => console.error(err))
 	}
 
-	onAdd(vaccineurgent) {
-		console.log("A" + vaccineurgent);
+	
 	onAdd(vac_id) {
 		console.log("A" + vac_id);
 		    fetch('http://localhost:4000/vaccine_urgent/add', {
@@ -62,10 +63,30 @@ class vaccine_urgent extends Component {
 		    	},
 		    	body: JSON.stringify({
 		    		
-		    		vac_id: vaccineurgent.vac_id,
-		    		pen_id: vaccineurgent.pen_id,
+		    		
 		    		vac_id: vac_id,
 		    		pen_id: 2
+		    		
+		    	}),
+		    })
+		    .then(this.getVaccineUrgent)	
+		    .catch(err => console.error(err))
+		    console.log('addVaccine');
+	}
+
+
+	onAdd2(vaccineurgent) {
+		console.log("B");
+		    fetch('http://localhost:4000/vaccine_urgent/addurgent', {
+		    	method: 'POST',
+		    	headers: {
+		    		Accept: 'application/json',
+		    		'Content-Type': 'application/json',
+		    	},
+		    	body: JSON.stringify({
+		    		
+		    		vac_name: vaccineurgent.vac_name,
+		    		required: 0,
 		    		
 		    	}),
 		    })
@@ -84,14 +105,14 @@ class vaccine_urgent extends Component {
 						<Panel header="Select date" key="1" style={customPanelStyle}>
 							<DatePicker onChange={onChange} />
 						</Panel>
-						<Panel header="Select Barn" key="1" style={customPanelStyle}>
+						<Panel header="Select Barn" key="2" style={customPanelStyle}>
 							<Selectmenu/>
 						</Panel>
 
-						<Panel header="submit" key="2" style={customPanelStyle}>
-							<Add onAdd={this.onAdd}/>
+						<Panel header="submit" key="3" style={customPanelStyle}>
+
+							<Add onAdd2={this.onAdd2}/>
 						</Panel>
-						
 						
 					</Collapse>	
 				<Show onAdd={this.onAdd} vaccineurgentList={vaccineurgentList}/>	

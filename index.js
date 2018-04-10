@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql');
+const hbs = require('hbs');
+const phantom = require('phantom');
 const app = express();
 
 const SELECT_ALL_PEN_QUERY = 'SELECT * FROM pen';
@@ -11,21 +13,20 @@ const SELECT_ALL_VACCINETYPE_QUERY = 'SELECT * FROM vaccine_type';
 const SELECT_ALL_BARN_QUERY = 'SELECT * FROM barn';
 const SELECT_ALL_PENCOUNT_QUERY = 'SELECT * FROM transfer';
 const SELECT_ALL_FOOD_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM food";
-const SELECT_ALL_VACCINEPROGRAM_QUERY ='SELECT age, vac_name FROM vaccine WHERE required=1';
-const SELECT_ALL_VACCINEURGENT_QUERY ='SELECT vac_name FROM vaccine WHERE required=0';
+const SELECT_ALL_VACCINEPROGRAM_QUERY ='SELECT age, vac_name, vac_id FROM vaccine WHERE required=1';
+const SELECT_ALL_VACCINEURGENT_QUERY ='SELECT vac_name ,vac_id FROM vaccine WHERE required=0';
 
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+app.set('view engine', 'hbs');
 
 //connect to SQL server 
 const connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password:'root',
 	database: 'react_sql',
-	socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock" //for Mac
 });
 
 connection.connect(function(err) {
@@ -57,10 +58,9 @@ app.get('/barn', (req, res) =>{
 //add new barn and add 5 pens to it
 app.post('/barn/open', function(req, res) {
 	var name = req.body.name;
-	var open_date = req.body.open_date;
 	var user_id = req.body.user_id;
-	var barn_id;
-	const INSERT_BARN_QUERY = 'INSERT INTO barn (name, open_date, user_id) VALUES("'+name+'", "'+open_date+'", '+user_id+')';
+	var open_date = 'CURDATE()';
+	const INSERT_BARN_QUERY = 'INSERT INTO barn (name, open_date, user_id) VALUES("'+name+'",'+open_date+', '+user_id+')';
 	const GET_CURRENT_ID = 'SELECT AUTO_INCREMENT as barn_id FROM information_schema.TABLES WHERE TABLE_SCHEMA = "react_sql" AND TABLE_NAME = "barn"';
 	connection.query(INSERT_BARN_QUERY, (err,results) =>{
 		if (err) {
@@ -503,6 +503,56 @@ app.post('/vaccine_urgent/add', function(req, res) {
 		else{
 			return res.send('VACCINE ADDED')
 		}
+	});
+});
+
+
+//app.get('/test', function(req, res) {
+//	connection.query(SELECT_ALL_REPORT_QUERY, (err,results) =>{
+
+app.post('/vaccine_urgent/addurgent', function(req, res) {
+    
+	var vac_name = req.body.vac_name;
+	
+	const INSERT_VACCINEPEN_QUERY = 'INSERT INTO vaccine ( vac_name, required) VALUES("'+vac_name+'",0)';
+	connection.query(INSERT_VACCINEPEN_QUERY, (err,results) =>{
+
+		if (err) {
+			return res.send(err)
+		}
+		else{
+
+			console.log(results);
+			res.render('test',{
+				results: results,
+			});
+
+			return res.send('VACCINE ADDED')
+
+		}
+	});
+});
+
+
+
+app.get('/test', function(req, res) {
+	res.render('test',{
+			stores: result
+		});
+	res.render('test2');
+});
+
+
+app.get('/report/test', function(req, res) {
+	phantom.create().then(function(ph) {
+	    ph.createPage().then(function(page) {
+	        page.open("http://localhost:4000/test").then(function(status) {
+	            page.render('test.pdf').then(function() {
+	               	res.send("DONE");
+	                ph.exit();
+	            });
+	        });
+	    });
 	});
 });
 
