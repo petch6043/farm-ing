@@ -339,6 +339,86 @@ app.post('/report/generate/', (req, res) =>{
 	});
 });
 
+//new report (GET from transfer) all barn
+app.get('/report2', (req, res) =>{
+	var barn_id;
+	var pig_current, pig_sold, pig_sick, pig_die, food_amount, fpp;
+	var report_type = 'monthly';
+	var report = []
+	var reportList = []
+	const BARN_ID_QUERY = 'SELECT DISTINCT barn_id FROM transfer'
+	connection.query(BARN_ID_QUERY, (err,results)=>{
+		if (err) {
+			console.log('barn id err')
+			return res.send("err barn id: "+err)
+		}else{
+			console.log('gotBarnIDs :')
+			console.log(results)
+			results.forEach(async function(barn,i){
+				console.log('for barn '+barn.barn_id+' i = '+i)
+				var barn_id = barn.barn_id
+				const SUM_SOLD_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE barn_id='+barn_id+' AND type="sold";';
+				connection.query(SUM_SOLD_QUERY, (err,results) =>{
+					if (err) {
+						console.log('pig sold err')
+						return res.send("err sold: "+err)
+					}
+					else{
+						pig_sold = results[0].sum
+						console.log(barn_id+' pig_sold = '+pig_sold)
+						reportList.push({barn_id:pig_sold,pig_current:pig_sold})
+						const SUM_SICK_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE barn_id='+barn_id+' AND type="sick";';
+						connection.query(SUM_SICK_QUERY, (err,results) =>{
+							if (err) {
+								return res.send("err sick: "+err)
+							}
+							else{
+								pig_sick = results[0].sum
+								console.log(barn_id+' pig_sick = '+pig_sick)
+								reportList.push({barn_id:barn_id,pig_sick:pig_sick})
+								const SUM_DIED_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE barn_id='+barn_id+' AND type="died";';
+								connection.query(SUM_DIED_QUERY, (err,results) =>{
+									if (err) {
+										return res.send("err died: "+err)
+									}
+									else{
+										pig_died = results[0].sum
+										console.log(barn_id+' pig_died = '+pig_died)
+										reportList.push({barn_id:barn_id,pig_died:pig_died})
+										const SUM_ADDED_QUERY = 'SELECT IFNULL(SUM(value),0) AS sum FROM transfer WHERE barn_id='+barn_id+' AND type="add";';
+										connection.query(SUM_ADDED_QUERY, (err,results) =>{
+											if (err) {
+												return res.send("err added: "+err)
+											}
+											else{
+												pig_current = results[0].sum - pig_died - pig_sick - pig_sold
+												console.log(barn_id+' pig_current = '+pig_current)
+												reportList.push({barn_id:barn_id,pig_current:pig_current})
+												const SUM_FOOD_QUERY = 'SELECT IFNULL(SUM(amount),0) AS sum FROM food WHERE barn_id='+barn_id+';';
+												connection.query(SUM_FOOD_QUERY, (err,results) =>{
+													if (err) {
+														return res.send("err food: "+err)
+													}
+													else{
+														food_amount = results[0].sum
+														fpp = food_amount/pig_current;
+														reportList.push({barn_id:barn_id,food_amount:pig_current,fpp:fpp})
+														return res.json(reportList)
+													}
+												});
+											}
+										});
+									}
+								});
+							}
+						});
+					}
+				});
+			})
+		}
+	});
+});
+
 /*-------------------------- VACCINE --------------------------*/
 app.get('/vaccine', (req, res) =>{
 	connection.query(SELECT_ALL_VACCINE_QUERY, (err,results) =>{
