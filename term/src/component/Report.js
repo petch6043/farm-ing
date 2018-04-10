@@ -23,6 +23,7 @@ class Report extends Component {
 					<Link to="/Transfer_report">
 						<Button className="myButton">
 							<Icon type="line-chart" style={{fontSize: 72}}/>
+>>>>>>> 430cb6976f68ce8d5781fd5d7b9a3dcf51a45e5c
 							<div>Transfer & Food</div>
 							<div>Report</div>
 						</Button>
