@@ -25,7 +25,7 @@ const connection = mysql.createConnection({
 	user: 'root',
 	password:'root',
 	database: 'react_sql',
-	socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock" //for Mac
+	//socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock" //for Mac
 });
 
 connection.connect(function(err) {
@@ -58,8 +58,9 @@ app.get('/barn', (req, res) =>{
 app.post('/barn/open', function(req, res) {
 	var name = req.body.name;
 	var user_id = req.body.user_id;
+	var active = req.body.active;
 	var open_date = 'CURDATE()';
-	const INSERT_BARN_QUERY = 'INSERT INTO barn (name, open_date, user_id) VALUES("'+name+'",'+open_date+', '+user_id+')';
+	const INSERT_BARN_QUERY = 'INSERT INTO barn (name, open_date, user_id, active) VALUES("'+name+'",'+open_date+', '+user_id+', '+active+')';
 	const GET_CURRENT_ID = 'SELECT AUTO_INCREMENT as barn_id FROM information_schema.TABLES WHERE TABLE_SCHEMA = "react_sql" AND TABLE_NAME = "barn"';
 	connection.query(INSERT_BARN_QUERY, (err,results) =>{
 		if (err) {
@@ -77,7 +78,7 @@ app.post('/barn/open', function(req, res) {
 						if (err) {
 							return res.send(err)
 						} else {	
-							return res.send('5 pens added to'+barn_id)
+							return res.send(1)
 						}
 					});
 				}

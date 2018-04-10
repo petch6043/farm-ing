@@ -65,22 +65,23 @@ onAdd(barn) {
 	    	},
 	    	body: JSON.stringify({
 	    		name: barn.name,
-	    		user_id: barn.user_id
+	    		user_id: 1,
+	    		active: 1
 	    	}),
 	    })
-	    .then((response) => {
-	    	response.json().then((data) => {
-	    		if(data == 1) {
-	    			this.getBarn();
-	    			noti('success','Add Barn','Sucessfully saved data.');
-	    		} else {
-	    			noti('error','Add Barn','Unable to save data.');
-	    		}
-           	});
-	    })
-	    .catch(err => {
-	    	noti('error','Add Barn','Failed to connect to database.');
-	    })
+	    // .then((response) => {
+	    // 	response.json().then((data) => {
+	    // 		if(data == 1) {
+	    // 			this.getBarn();
+	    // 			noti('success','Add Barn','Sucessfully saved data.');
+	    // 		} else {
+	    // 			noti('error','Add Barn','Unable to save data.');
+	    // 		}
+     //       	});
+	    // })
+	    // .catch(err => {
+	    // 	noti('error','Add Barn','Failed to connect to database.');
+	    // })
 	}
 	
 
@@ -91,13 +92,12 @@ onAdd(barn) {
 
 				<Header thisPage="Barn Select"/>
 				<div className="myBody">
-				{/*<Createmenu_transfer BarnList={BarnList}/>*/}
-				<Createmenu_transfer/>
+				<Createmenu_transfer BarnList={BarnList}/>
 
 					<Collapse bordered={false} style={{marginBottom:20}}>
 						
 							<Panel header="Create Barn" key="2" style={customPanelStyle}>
-							<Add onAdd={this.onAdd}/>
+							<Add onAdd={this.onAdd} BarnList={BarnList}/>
 						</Panel>
 					</Collapse>
 
