@@ -36,17 +36,21 @@ class Transfer extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			transferList: []
+			transferList: [],
+			barnNumber: props.location.Barn_no
+
 		}
 		this.onAdd = this.onAdd.bind(this);
 	}
 
 	componentDidMount(){
+		
 		this.getTransfers();
+
 	}
 
 	getTransfers() {
-	    fetch("http://localhost:4000/transfer")
+	    fetch("http://localhost:4000/transfer/"+this.state.barnNumber)
 	    .then(response => response.json())
 	    .then(response => this.setState({ transferList: response.data}))
 	    .catch(err => console.error(err))
@@ -83,9 +87,11 @@ class Transfer extends Component {
 
 	render() {
 		let {transferList} = this.state;
-		let {Barn_no} = this.props.location
+		let {Barn_no} = this.props.location;
+		let {barnNumber} = this.state;
 		console.log(Barn_no);
 		return(
+
 			<div>
 				<Header thisPage={"Barn " + Barn_no}/>
 				<div className="myBody">
