@@ -50,14 +50,14 @@ class Transfer extends Component {
 	}
 
 	getTransfers() {
-	    fetch("http://localhost:4000/transfer/"+this.state.barnNumber)
+	    fetch("http://206.189.35.130:4000/transfer/"+this.state.barnNumber)
 	    .then(response => response.json())
 	    .then(response => this.setState({ transferList: response.data}))
 	    .catch(err => console.error(err))
 	}
 
 	onAdd(transfer) {
-	    fetch('http://localhost:4000/transfer/add', {
+	    fetch('http://206.189.35.130:4000/transfer/add', {
 	    	method: 'POST',
 	    	headers: {
 	    		Accept: 'application/json',

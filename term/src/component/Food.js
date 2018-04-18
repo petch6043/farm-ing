@@ -46,14 +46,14 @@ class Food extends Component {
  getFood() {
 
  	console.log(this.state.barnNo);
-     fetch("http://localhost:4000/food/"+this.state.barnNo)
+     fetch("http://206.189.35.130:4000/food/"+this.state.barnNo)
        .then(response => response.json())
        .then(response => this.setState({ foodList: response.data}))
        .catch(err => console.error(err))
  }
 
  onAdd(food) {
-	    fetch('http://localhost:4000/food/add', {
+	    fetch('http://206.189.35.130:4000/food/add', {
 	    	method: 'POST',
 	    	headers: {
 	    		Accept: 'application/json',
