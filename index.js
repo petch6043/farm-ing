@@ -28,7 +28,7 @@ const connection = mysql.createConnection({
 	user: 'root',
 	password:'root',
 	database: 'react_sql',
-	//socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock" //for Mac
+	socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock" //for Mac
 });
 
 connection.connect(function(err) {
@@ -176,16 +176,27 @@ app.get('/transfer/:barn_name', (req, res) =>{
 // });
 
 app.post('/transfer/add', function(req, res) {
-    var type = req.body.type;
-	var barn_id = req.body.barn_id;
+	var type = req.body.type;
 	var user_id = req.body.user_id;
 	var value = req.body.value;
-	const INSERT_PRODUCTS_QUERY = 'INSERT INTO transfer (barn_id, type, value, user_id) VALUES('+barn_id+', "'+type+'", '+value+', '+user_id+')';
-	connection.query(INSERT_PRODUCTS_QUERY, (err,results) =>{
+	var barn_name = req.body.barn_name;
+	var barn_id;
+	const GET_BARN_ID_QUERY = 'SELECT barn_id FROM barn WHERE name='+barn_name+' AND active=1'
+	connection.query(GET_BARN_ID_QUERY, (err,results) =>{
 		if (err) {
-			return res.send(err);
-		} else {
-			return res.send('1')
+			return res.send(err)
+		}
+		else{
+			barn_id = results[0].barn_id
+			console.log(barn_id)
+			const INSERT_PRODUCTS_QUERY = 'INSERT INTO transfer (barn_id, type, value, user_id) VALUES('+barn_id+', "'+type+'", '+value+', '+user_id+')';
+			connection.query(INSERT_PRODUCTS_QUERY, (err,results) =>{
+				if (err) {
+					return res.send(err);
+				} else {
+					return res.send('added')
+				}
+			});
 		}
 	});
 });
