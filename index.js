@@ -28,7 +28,7 @@ const connection = mysql.createConnection({
 	user: 'root',
 	password:'root',
 	database: 'react_sql',
-	socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock" //for Mac
+	// socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock" //for Mac
 });
 
 connection.connect(function(err) {
@@ -194,7 +194,7 @@ app.post('/transfer/add', function(req, res) {
 				if (err) {
 					return res.send(err);
 				} else {
-					return res.send('added')
+					return res.send(1)
 				}
 			});
 		}

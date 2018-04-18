@@ -65,12 +65,13 @@ class Transfer extends Component {
 	    	},
 	    	body: JSON.stringify({
 	    		type: transfer.type,
-	    		barn_id: transfer.barn_id,
+	    		barn_name: this.state.barnNumber,
 	    		user_id: transfer.user_id,
 	    		value: transfer.value
 	    	}),
 	    })
 	    .then((response) => {
+	    	console.log(response.json())
 	    	response.json().then((data) => {
 	    		if(data == 1) {
 	    			this.getTransfers();
