@@ -102,6 +102,11 @@ class myForm extends Component {
             </Select>
           )}
         </FormItem>
+        <FormItem className="myFormItem">
+					{getFieldDecorator('open_age', {
+					rules: [{ required: true, message: 'Please input Age!' }],
+					})(<Input placeholder="AGE" />)}
+				</FormItem>
 				
 				<FormItem>
 					<Button type="primary" ghost htmlType="submit" className="login-form-button">Submit</Button>
