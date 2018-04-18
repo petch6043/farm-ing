@@ -63,7 +63,8 @@ app.post('/barn/open', function(req, res) {
 	var user_id = req.body.user_id;
 	var active = req.body.active;
 	var open_date = 'CURDATE()';
-	const INSERT_BARN_QUERY = 'INSERT INTO barn (name, open_date, user_id, active) VALUES("'+name+'",'+open_date+', '+user_id+', '+active+')';
+	var open_age = req.body.open_age;
+	const INSERT_BARN_QUERY = 'INSERT INTO barn (name, open_date, open_age, user_id, active) VALUES("'+name+'",'+open_date+', '+open_age+', '+user_id+', '+active+')';
 	const GET_CURRENT_ID = 'SELECT AUTO_INCREMENT as barn_id FROM information_schema.TABLES WHERE TABLE_SCHEMA = "react_sql" AND TABLE_NAME = "barn"';
 	connection.query(INSERT_BARN_QUERY, (err,results) =>{
 		if (err) {
@@ -283,18 +284,19 @@ app.post('/food/add', function(req, res) {
 
 /*-------------------------- REPORT --------------------------*/
 app.get('/report', (req, res) =>{
-	connection.query(SELECT_ALL_REPORT_QUERY, (err,results) =>{
+	const SELECT_ALL_REPORT2_QUERY = 'CALL generate_report()'
+	connection.query(SELECT_ALL_REPORT2_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
 		}
 		else{
 			return res.json({
-				data: results
+				data: results[0]
 			})
 		}
 	});
 });
-
+/*
 app.get('/report/generate/', (req, res) =>{
 	var barn_id = 1;
 	var pig_current = 50;
@@ -380,6 +382,8 @@ app.post('/report/generate/', (req, res) =>{
 		}
 	});
 });
+*/
+
 /*
 //new report (GET from transfer) all barn
 app.get('/report2', (req, res) =>{
