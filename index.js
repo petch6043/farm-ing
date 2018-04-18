@@ -380,7 +380,7 @@ app.post('/report/generate/', (req, res) =>{
 		}
 	});
 });
-
+/*
 //new report (GET from transfer) all barn
 app.get('/report2', (req, res) =>{
 	var barn_id;
@@ -460,6 +460,7 @@ app.get('/report2', (req, res) =>{
 		}
 	});
 });
+*/
 
 /*-------------------------- VACCINE --------------------------*/
 app.get('/vaccine', (req, res) =>{
