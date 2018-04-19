@@ -6,7 +6,7 @@ import Show from './transfer/Show';
 import Createmenu_transfer from './Createmenu_transfer';
 import Create_barn from './Create_barn';
 import { Collapse } from 'antd';
-import { Button, notification } from 'antd';
+import { Popconfirm, Button, notification } from 'antd';
 import { DatePicker } from 'antd';
 
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
@@ -87,6 +87,7 @@ class Transfer extends Component {
 	}
 
 	closeBarn() {
+
 	    fetch("http://206.189.35.130:4000/barn/close/"+this.state.barnNumber)
 	    .then(response => response.json())
 	    .then(response => this.setState({ transferList: response.data}))
@@ -97,16 +98,23 @@ class Transfer extends Component {
 		let {transferList} = this.state;
 		let {Barn_no} = this.props.location;
 		let {barnNumber} = this.state;
-		console.log(Barn_no);
+		// console.log(Barn_no);
 		return(
 
 			<div>
 				<Header_transfer thisPage={"Barn " + Barn_no}/>
+				
+				<br/>
+				<Popconfirm placement="bottomLeft" title="Are you sure to close this barn?" onConfirm={this.closeBarn()} okText="Yes" cancelText="No">
+        
+        <Button className="myCloseBarn">Close barn </Button>
+      </Popconfirm>
+      <DatePicker onChange={onChange} className="mySelectDate"/>
+      	<br/>	
+      	<br/>
 				<div className="myBody">
 					<Collapse bordered={false} style={{marginBottom:20}}>
-						<Panel header="Select date" key="1" style={customPanelStyle}>
-							<DatePicker onChange={onChange} />
-						</Panel>
+							
 						<Panel header="Add transfer" key="2" style={customPanelStyle}>
 							<Add onAdd={this.onAdd}/>
 						</Panel>

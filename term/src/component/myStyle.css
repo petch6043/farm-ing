@@ -18,7 +18,7 @@ h2 {
 }
 
 .myRightLabel {
-	text-align: right; 
+	text-align: right;
 	margin-right: 25px;
 }
 
@@ -41,14 +41,14 @@ h2 {
 	width: 100%;
 }
 
-.myNav2 {
-	border-top: 1px solid black;
-	position: fixed;
-	top: 10;
-	right: 10;
-	width: 20%;
+.myCloseBarn{
+	float: right;
+	margin-right: 30px;
 }
-
+.mySelectDate{
+	float: left;
+	margin-left: 30px;
+}
 
 .myTab {
 	width: 100%;

@@ -26,7 +26,6 @@ class Header_transfer extends Component {
 					<div className="myTopLabel">{thisPage}</div>
 
 				</Col>
-				<Button type="primary" ghost htmlType="submit" className="myNav2">Close barn</Button>
 			</Row>
 
 		);
