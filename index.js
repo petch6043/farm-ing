@@ -1,11 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql');
-const hbs = require('hbs');
-const phantom = require('phantom');
 const fs = require('fs');
 const csv = require('fast-csv');
 const moment = require('moment');
+const iconv = require('iconv-lite');
+const CronJob = require('cron').CronJob;
+const nodemailer = require('nodemailer');
 const app = express();
 
 const SELECT_ALL_PEN_QUERY = 'SELECT * FROM pen';
@@ -13,7 +14,7 @@ const SELECT_ALL_VACCINE_QUERY = 'SELECT * FROM vaccine';
 const SELECT_ALL_VACCINEPEN_QUERY = 'SELECT * FROM vaccine_pen';
 const SELECT_ALL_REPORT_QUERY = 'SELECT * FROM report';
 const SELECT_ALL_VACCINETYPE_QUERY = 'SELECT * FROM vaccine_type';
-const SELECT_ALL_BARN_QUERY = 'SELECT * FROM barn';
+const SELECT_ALL_BARN_QUERY = 'SELECT * FROM barn ORDER BY name';
 const SELECT_ALL_PENCOUNT_QUERY = 'SELECT * FROM transfer';
 const SELECT_ALL_FOOD_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM food";
 const SELECT_ALL_VACCINEPROGRAM_QUERY ='SELECT age, vac_name, vac_id FROM vaccine WHERE required=1';
@@ -23,26 +24,37 @@ const SELECT_ALL_VACCINEURGENT_QUERY ='SELECT vac_name ,vac_id FROM vaccine WHER
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
-app.set('view engine', 'hbs');
+
+// Report time trigger
+var job = new CronJob('00 00 12 * * 1-7',
+	function() {
+		// Runs every day at 12:00:00 AM.
+  		console.log("Generating report");
+	}, function () {
+  		console.log("Report is generated");
+  	},
+  	true,
+  	"Asia/Bangkok"
+);
 
 //connect to SQL server 
 const connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password:'root', //for server, root for local
+	password:'nenaneno', //for server, root for local
 	database: 'react_sql',
-	socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock" //for Mac
+	//socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock" //for Mac
 });
 
 connection.connect(function(err) {
   if (err) throw err;
-  console.log("Connected!");
+  console.log("Connected to database!");
 });
 
 app.use(cors());
 
 app.get('/',(req,res) => {
-	res.send('hello from the farm-ing server!')
+	res.send('Hello from the farm-ing server!')
 
 });	
 
@@ -72,8 +84,7 @@ app.post('/barn/open', function(req, res) {
 	connection.query(INSERT_BARN_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
-		} else {	
-			res.send('BARN '+name+' OPENED')
+		} else {
 			connection.query(GET_CURRENT_ID, (err,results) =>{
 				if (err) {
 					return res.send(err)
@@ -83,9 +94,9 @@ app.post('/barn/open', function(req, res) {
 					const INSERT_PEN_QUERY = 'INSERT INTO pen (pen_id, barn_id) VALUES(1, '+barn_id+'),(2, '+barn_id+'),(3, '+barn_id+'),(4, '+barn_id+'),(5, '+barn_id+')'
 					connection.query(INSERT_PEN_QUERY, (err,results) =>{
 						if (err) {
-							return res.send(err)
-						} else {	
-							return res.send(1)
+							return res.json(err);
+						} else {
+							return res.json(1)
 						}
 					});
 				}
@@ -333,7 +344,7 @@ app.post('/food/add', function(req, res) {
 			return res.send(err)
 		}
 		else{
-			return res.send('FOOD ADDED')
+			return res.send(1)
 		}
 	});
 });
@@ -367,19 +378,36 @@ app.post('/food/add', function(req, res) {
 });
 
 /*-------------------------- REPORT --------------------------*/
-app.get('/report', (req, res) =>{
+app.get('/report/food', (req, res) =>{
 	const SELECT_ALL_REPORT2_QUERY = 'CALL generate_report()'
 	connection.query(SELECT_ALL_REPORT2_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
-		}
-		else{
-			return res.json({
-				data: results[0]
-			})
+		} else {
+			var type = "Food";
+			var dir = "./term/public/reports/";
+			var name = moment().format("DDMMMYYYY") + "-Daily" + type + "Report" + ".csv";
+			var ws = fs.createWriteStream(dir + name, { encoding: 'utf-8'} );
+			var report = [];
+			if(results[0].legnth == 0) {
+				report = ["Nothing to report"];
+			} else {
+				report.push([ type + " report " + moment().format("DD MMM YYYY")]);
+				report.push(["Barn", "Date of open barn","Age(Day)", "Move in", "Move out", "Current pig", "Cumulative Food(Kg)", "FPP", "Target FPP"]);
+				results[0].forEach(function(item) {
+					report.push([item.barn_id, moment(item.open_date).format("DD MMM YYYY"), item.age, item.move_in, item.move_out, item.current_pig, item.cumulative_food, item.fpp, item.target_fpp]);
+				});
+			}
+			
+			csv.write(report, { headers: true })
+			.pipe(ws)
+			.on("finish", function(){
+				res.send(name + " is generated");
+		   	});
 		}
 	});
 });
+
 /*
 app.get('/report/generate/', (req, res) =>{
 	var barn_id = 1;
@@ -593,7 +621,7 @@ app.post('/vaccine/add', function(req, res) {
 			return res.send(err)
 		}
 		else{
-			return res.send('VACCINE ADDED')
+			return res.send(1)
 		}
 	});
 });
@@ -636,7 +664,7 @@ app.post('/vaccine_pen/add', function(req, res) {
 			return res.send(err)
 		}
 		else{
-			return res.send('VACCINEPEN ADDED')
+			return res.send(1)
 		}
 	});
 });
@@ -681,7 +709,7 @@ app.post('/vaccine_program/add', function(req, res) {
 			return res.send(err)
 		}
 		else{
-			return res.send('VACCINE ADDED')
+			return res.send(1)
 		}
 	});
 });
@@ -710,14 +738,10 @@ app.post('/vaccine_urgent/add', function(req, res) {
 			return res.send(err)
 		}
 		else{
-			return res.send('VACCINE ADDED')
+			return res.send(1)
 		}
 	});
 });
-
-
-//app.get('/test', function(req, res) {
-//	connection.query(SELECT_ALL_REPORT_QUERY, (err,results) =>{
 
 app.post('/vaccine_urgent/addurgent', function(req, res) {
     
@@ -728,31 +752,13 @@ app.post('/vaccine_urgent/addurgent', function(req, res) {
 
 		if (err) {
 			return res.send(err)
-		}
-		else{
-
-			console.log(results);
-			res.render('test',{
-				results: results,
-			});
-
-			return res.send('VACCINE ADDED')
-
+		} else {
+			return res.send(1)
 		}
 	});
 });
 
-
-
 /*
-app.get('/test', function(req, res) {
-	res.render('test',{
-			stores: result
-		});
-	res.render('test2');
-});
-
-
 app.get('/report/test', function(req, res) {
 	phantom.create().then(function(ph) {
 	    ph.createPage().then(function(page) {
@@ -767,23 +773,38 @@ app.get('/report/test', function(req, res) {
 });
 */
 
-app.get('/abc', function(req, res) {
-	var type = "Health";
-	var dir = "./reports/";
-	var name = moment().format("DD MMM YYYY") + " Daily " + type + " Report" + ".csv";
-	var ws = fs.createWriteStream(dir + name);
-	csv.write([
-		["A","b1"],
-		["a2","b2"],
-		["a3","b3"],
-		["a4","b4"],
-	], {headers: true})
-	.pipe(ws)
-	.on("finish", function(){
-		res.send(name + " is generated");
-   	});
+app.get('/email', function(req, res) {
+   	var transporter = nodemailer.createTransport({
+		service: 'gmail',
+		auth: {
+	    	user: 'farm.ingbkk@gmail.com',
+	    	pass: 'farming2018'
+		}
+	});
+
+	var filename = "19Apr2018-DailyFoodReport.csv";
+	var path = "./term/public/reports/19Apr2018-DailyFoodReport.csv";
+	const mailOptions = {
+		from: 'noreply@farm-ing.co', // sender address
+		to: 'suppakit.neno@gmail.com, goodkavin@gmail.com, nattapol.puttasuntithum@gmail.com', // list of receivers
+		subject: 'Farm-ing Daily report', // Subject line
+		html: '<p>Please view reports</p>', // plain text body
+		attachments: [
+		    {
+		        filename: filename,
+		        path: path,
+		        content: 'csv'
+		    },
+		]
+	};
+
+	transporter.sendMail(mailOptions, function (err, info) {
+		if(err) return res.send(err)
+		else return res.send(info)
+	});
 });
 
+
 app.listen(4000, () => {
-	console.log('Products server listening on port 4000')
+	console.log('Server listening on port 4000')
 });

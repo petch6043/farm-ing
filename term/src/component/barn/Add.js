@@ -64,8 +64,8 @@ class myForm extends Component {
 		    }
 		}
 		closedBarn = arr_diff(allBarn,openBarn)
-		console.log(closedBarn)
-		 console.log('barnList: '+data) 
+		//console.log(closedBarn)
+		//console.log('barnList: '+data) 
     	const formItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 14 },
@@ -105,7 +105,7 @@ class myForm extends Component {
         <FormItem className="myFormItem">
 					{getFieldDecorator('open_age', {
 					rules: [{ required: true, message: 'Please input Age!' }],
-					})(<Input placeholder="AGE" />)}
+					})(<Input placeholder="age" />)}
 				</FormItem>
 				
 				<FormItem>
