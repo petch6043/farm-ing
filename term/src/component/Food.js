@@ -42,18 +42,18 @@ class Food extends Component {
   
  }
  
-
+//fetching data from database named food
  getFood() {
-
- 	console.log(this.state.barnNo);
+	console.log(this.state.barnNo);
      fetch("http://localhost:4000/food/"+this.state.barnNo)
        .then(response => response.json())
        .then(response => this.setState({ foodList: response.data}))
        .catch(err => console.error(err))
  }
 
+//posting data to the database named food
  onAdd(food) {
-	    fetch('http://localhost:4000/food/add', {
+	fetch('http://localhost:4000/food/add', {
 	    	method: 'POST',
 	    	headers: {
 	    		Accept: 'application/json',
@@ -61,7 +61,7 @@ class Food extends Component {
 	    	},
 	    	body: JSON.stringify({
           user_id: 1,
-          barn_id: this.state.barnNo,
+          barn_name: this.state.barnNo,
           amount: food.amount,
           food_type: food.food_type,
 	    		
@@ -83,12 +83,13 @@ class Food extends Component {
 	    	noti('error','Add food','Failed to connect to database.');
 	    })*/
 	    console.log(JSON.stringify({
-	    		barn_id: this.state.barnNo,
+	    		barn_name: this.state.barnNo,
 	    		amount: food.amount,
 	    		food_type: food.food_type,
 	    		
 	    	}));
-	}
+}
+ 
  render() {
 
   let {foodList} = this.state;
