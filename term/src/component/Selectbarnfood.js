@@ -16,56 +16,58 @@ const customPanelStyle = {
  overflow: 'hidden',
 };
 class Selectbarnfood extends Component {
-    
-    
- render(){
+    constructor(props){
+    super(props);
+    this.state = 
+    {current: 0,
+      BarnList: []}
+  }
 
+    componentDidMount(){
+    this.getBarn();
+  }
+  getBarn() {
+      fetch("http://localhost:4000/barn")
+      .then(response => response.json())
+      .then(response => this.setState({ BarnList: response.data}))
+      .catch(err => console.error(err))
+  }
+
+    handleClick = (e) => {
+        console.log('clicking'+e.key, e)
+        
+        this.setState({
+          current: e.key
+        });
+        console.log('current:'+this.state.current)
+      };
+ render(){
+    let {BarnList} = this.state;
+    const data = BarnList;
+    console.log(data)
   return(
     <div>
-    <Header thisPage="Barn"/>
+    <Header thisPage="Please select barn"/>
     <div className="myBody">
     <Collapse bordered={false} style={{marginBottom:20}}>
     <Panel header="Select barn" style={customPanelStyle}> 
     <div align="center">
-    
-    <Menu  
-          mode="inline"
-          //openKeys={this.state.openKeys}
-          style={{ width: 300 }}>
+      <Menu
+        onClick={this.handleClick}
+        mode="inline"
+        style={{ width: 300 }}>
+        {  
+
+          data.map((x) =>{
+            return x.active == 1 ?
+            <Menu.Item  key={x.barn_id} >
+                   <Link to={{pathname : '/food' , barnNumber:x.name }}>Barn {x.name}</Link>
+          </Menu.Item>
+          : ""
           
-         <Menu.Item key="1">
-                  <Link to={{pathname : '/food' , barnNumber: '1' }}>
-                   Barn 1
-                  </Link>
-          </Menu.Item>
-         
-          <Menu.Item key="2">
-                  <Link to={{pathname : '/food' , barnNumber: '2' }}>
-                  Barn 2
-                  </Link>
-          </Menu.Item>
-
-          <Menu.Item key="3">
-                  <Link to={{pathname : '/food' , barnNumber: '3' }}>
-                  Barn 3
-                  </Link>
-          </Menu.Item>
-
-          <Menu.Item key="4">
-                  <Link to={{pathname : '/food' , barnNumber: '4' }}>
-                  Barn 4
-                  </Link>
-          </Menu.Item>
-
-          <Menu.Item key="5">
-                  <Link to={{pathname : '/food' , barnNumber: '5' }}>
-                  Barn 5
-                  </Link>
-           </Menu.Item>
-                 
-              
-          </Menu>
-
+         } 
+        )}    
+      </Menu>
         </div>
         </Panel>
         </Collapse>

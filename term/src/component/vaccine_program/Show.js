@@ -67,9 +67,9 @@ class Show extends Component {
  		 			console.log(this.state)
  		 			console.log(selectedRows)
    		 			console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows[0].vac_id);
-   		 			this.setState({x:x+1})
+   		 			this.setState({x:1})
    		 		}else{
-   		 			this.setState({x:x+1})
+   		 			this.setState({x:2})
    		 		
    		 		}
 	   		 			

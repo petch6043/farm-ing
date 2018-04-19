@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Apr 18, 2018 at 02:56 PM
+-- Generation Time: Apr 19, 2018 at 08:30 AM
 -- Server version: 5.6.35
 -- PHP Version: 7.1.8
 
@@ -54,7 +54,7 @@ CREATE TABLE `barn` (
   `name` varchar(256) NOT NULL,
   `open_date` date NOT NULL,
   `open_age` int(11) NOT NULL DEFAULT '70',
-  `close_date` date NOT NULL,
+  `close_date` date DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -81,7 +81,11 @@ INSERT INTO `barn` (`barn_id`, `name`, `open_date`, `open_age`, `close_date`, `u
 (24, '2', '0000-00-00', 70, '0000-00-00', 1, 0),
 (25, '2', '2018-04-04', 70, '2018-04-19', 1, 0),
 (26, '5', '2018-04-01', 70, '2018-04-02', 1, 0),
-(27, '3', '2018-04-18', 75, '0000-00-00', 1, 0);
+(27, '3', '2018-04-18', 75, '0000-00-00', 1, 0),
+(28, '3', '2018-04-19', 75, '0000-00-00', 1, 0),
+(29, '3', '2018-04-19', 75, '0000-00-00', 1, 0),
+(30, '3', '2018-04-19', 75, '0000-00-00', 1, 0),
+(31, '3', '2018-04-19', 75, '0000-00-00', 1, 0);
 
 --
 -- Triggers `barn`
@@ -176,7 +180,27 @@ INSERT INTO `pen` (`barn_id`, `pen_id`) VALUES
 (27, 2),
 (27, 3),
 (27, 4),
-(27, 5);
+(27, 5),
+(28, 1),
+(28, 2),
+(28, 3),
+(28, 4),
+(28, 5),
+(29, 1),
+(29, 2),
+(29, 3),
+(29, 4),
+(29, 5),
+(30, 1),
+(30, 2),
+(30, 3),
+(30, 4),
+(30, 5),
+(31, 1),
+(31, 2),
+(31, 3),
+(31, 4),
+(31, 5);
 
 -- --------------------------------------------------------
 
@@ -300,7 +324,11 @@ INSERT INTO `report2` (`barn_id`, `open_date`, `age`, `current_pig`, `cumulative
 (22, '2018-04-09', 79, 0, 0, 0.00, 17.10, 0, 0),
 (23, '2018-04-10', 78, 0, 0, 0.00, 15.20, 0, 0),
 (26, '2018-04-01', 87, 0, 0, 0.00, 32.30, 0, 0),
-(27, '2018-04-18', 75, 0, 0, 0.00, 9.50, 0, 0);
+(27, '2018-04-18', 75, 0, 0, 0.00, 9.50, 0, 0),
+(28, '0000-00-00', 0, 0, 0, 0.00, 0.00, 0, 0),
+(29, '0000-00-00', 0, 0, 0, 0.00, 0.00, 0, 0),
+(30, '0000-00-00', 0, 0, 0, 0.00, 0.00, 0, 0),
+(31, '0000-00-00', 0, 0, 0, 0.00, 0.00, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -478,7 +506,7 @@ ALTER TABLE `vaccine_pen`
 -- AUTO_INCREMENT for table `barn`
 --
 ALTER TABLE `barn`
-  MODIFY `barn_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `barn_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT for table `food`
 --

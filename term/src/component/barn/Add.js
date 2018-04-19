@@ -105,7 +105,7 @@ class myForm extends Component {
         <FormItem className="myFormItem">
 					{getFieldDecorator('open_age', {
 					rules: [{ required: true, message: 'Please input Age!' }],
-					})(<Input placeholder="AGE" />)}
+					})(<Input placeholder="age" />)}
 				</FormItem>
 				
 				<FormItem>
