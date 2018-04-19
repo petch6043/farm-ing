@@ -15,10 +15,6 @@ const SubMenu = Menu.SubMenu;
 
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 
-function onChange(date, dateString) {
-	console.log(date, dateString);
-}
-
 const noti = (type, msg, desc) => {
 	notification[type]({
 		message: msg,
@@ -56,7 +52,7 @@ class Transfer_barn_select extends Component {
 	    .catch(err => console.error(err))
 	}
 
-onAdd(barn) {
+	onAdd(barn) {
 	    fetch('http://206.189.35.130:4000/barn/open', {
 	    	method: 'POST',
 	    	headers: {
@@ -70,19 +66,19 @@ onAdd(barn) {
 	    		active: 1
 	    	}),
 	    })
-	    // .then((response) => {
-	    // 	response.json().then((data) => {
-	    // 		if(data == 1) {
-	    // 			this.getBarn();
-	    // 			noti('success','Add Barn','Sucessfully saved data.');
-	    // 		} else {
-	    // 			noti('error','Add Barn','Unable to save data.');
-	    // 		}
-     //       	});
-	    // })
-	    // .catch(err => {
-	    // 	noti('error','Add Barn','Failed to connect to database.');
-	    // })
+	    .then((response) => {
+	    	response.json().then((data) => {
+	     		if(data == 1) {
+	     			this.getBarn();
+	     			noti('success','Add Barn','Sucessfully saved data.');
+	     		} else {
+	     			noti('error','Add Barn','Unable to save data.');
+	     		}
+     	    });
+	    })
+	    .catch(err => {
+	     	noti('error','Add Barn', err);
+	    })
 	}
 	
 
@@ -93,16 +89,14 @@ onAdd(barn) {
 
 				<Header thisPage="Barn Select"/>
 				<div className="myBody">
-				<Createmenu_transfer BarnList={BarnList}/>
-
-					<Collapse bordered={false} style={{marginBottom:20}}>
-						
-							<Panel header="Create Barn" key="2" style={customPanelStyle}>
+					<Collapse bordered={false} style={{marginBottom:15}}>
+						<Panel header="Create Barn" key="2" style={customPanelStyle}>
 							<Add onAdd={this.onAdd} BarnList={BarnList}/>
 						</Panel>
 					</Collapse>
 
-					
+					<div><h2>Select Barn: </h2></div>
+					<Createmenu_transfer BarnList={BarnList}/>
 				</div>
 				<Footer/>
 			</div>
