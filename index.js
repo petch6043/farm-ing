@@ -29,9 +29,9 @@ app.set('view engine', 'hbs');
 const connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password:'chikadow2018', //for server, root for local
+	password:'root', //for server, root for local
 	database: 'react_sql',
-	//socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock" //for Mac
+	socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock" //for Mac
 });
 
 connection.connect(function(err) {
