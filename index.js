@@ -94,6 +94,30 @@ app.post('/barn/open', function(req, res) {
 	});
 });
 
+//close barn by barn name
+app.get('/barn/close/:barn_name', (req, res) =>{
+	var barn_name = req.params.barn_name;
+	var barn_id;
+	const GET_BARN_ID_QUERY = 'SELECT barn_id FROM barn WHERE name='+barn_name+' AND active=1'
+	connection.query(GET_BARN_ID_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			barn_id = results[0].barn_id
+			const SELECT_TRANSFER_BY_BARN_QUERY = 'UPDATE barn SET active=0 WHERE barn_id='+barn_id;
+			connection.query(SELECT_TRANSFER_BY_BARN_QUERY, (err,results) =>{
+				if (err) {
+					return res.send(err)
+				}
+				else{
+					return res.send('barn '+barn_name+'(ID: '+barn_id+') closed')
+				}
+			});
+		}
+	});
+});
+
 /*-------------------------- PEN --------------------------*/
 app.get('/pen', (req, res) =>{
 	connection.query(SELECT_ALL_PEN_QUERY, (err,results) =>{
