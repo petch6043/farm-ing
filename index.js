@@ -89,14 +89,13 @@ app.post('/barn/open', function(req, res) {
 				if (err) {
 					return res.send(err)
 				} else {
-					barn_id = results[0].barn_id - 1
-					console.log(barn_id)
+					barn_id = results[0].barn_id - 1;
 					const INSERT_PEN_QUERY = 'INSERT INTO pen (pen_id, barn_id) VALUES(1, '+barn_id+'),(2, '+barn_id+'),(3, '+barn_id+'),(4, '+barn_id+'),(5, '+barn_id+')'
 					connection.query(INSERT_PEN_QUERY, (err,results) =>{
 						if (err) {
-							return res.json(err);
+							return res.send(err);
 						} else {
-							return res.json(1)
+							return res.send("1");
 						}
 					});
 				}
@@ -233,7 +232,7 @@ app.post('/transfer/add', function(req, res) {
 				if (err) {
 					return res.send(err);
 				} else {
-					return res.send('added')
+					return res.send("1")
 				}
 			});
 		}
@@ -370,7 +369,7 @@ app.post('/food/add', function(req, res) {
 					return res.send(err)
 				}
 				else{
-					return res.send('FOOD ADDED')
+					return res.send("1")
 				}
 			});
 		}
@@ -621,7 +620,7 @@ app.post('/vaccine/add', function(req, res) {
 			return res.send(err)
 		}
 		else{
-			return res.send(1)
+			return res.send("1")
 		}
 	});
 });
@@ -664,7 +663,7 @@ app.post('/vaccine_pen/add', function(req, res) {
 			return res.send(err)
 		}
 		else{
-			return res.send(1)
+			return res.send("1")
 		}
 	});
 });
@@ -709,7 +708,7 @@ app.post('/vaccine_program/add', function(req, res) {
 			return res.send(err)
 		}
 		else{
-			return res.send(1)
+			return res.send("1")
 		}
 	});
 });
@@ -738,7 +737,7 @@ app.post('/vaccine_urgent/add', function(req, res) {
 			return res.send(err)
 		}
 		else{
-			return res.send(1)
+			return res.send("1")
 		}
 	});
 });
@@ -753,7 +752,7 @@ app.post('/vaccine_urgent/addurgent', function(req, res) {
 		if (err) {
 			return res.send(err)
 		} else {
-			return res.send(1)
+			return res.send("1")
 		}
 	});
 });
