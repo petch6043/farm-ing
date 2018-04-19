@@ -3,6 +3,9 @@ const cors = require('cors');
 const mysql = require('mysql');
 const hbs = require('hbs');
 const phantom = require('phantom');
+const fs = require('fs');
+const csv = require('fast-csv');
+const moment = require('moment');
 const app = express();
 
 const SELECT_ALL_PEN_QUERY = 'SELECT * FROM pen';
@@ -644,6 +647,7 @@ app.post('/vaccine_urgent/addurgent', function(req, res) {
 
 
 
+/*
 app.get('/test', function(req, res) {
 	res.render('test',{
 			stores: result
@@ -663,6 +667,24 @@ app.get('/report/test', function(req, res) {
 	        });
 	    });
 	});
+});
+*/
+
+app.get('/abc', function(req, res) {
+	var type = "Health";
+	var dir = "./reports/";
+	var name = moment().format("DD MMM YYYY") + " Daily " + type + " Report" + ".csv";
+	var ws = fs.createWriteStream(dir + name);
+	csv.write([
+		["A","b1"],
+		["a2","b2"],
+		["a3","b3"],
+		["a4","b4"],
+	], {headers: true})
+	.pipe(ws)
+	.on("finish", function(){
+		res.send(name + " is generated");
+   	});
 });
 
 app.listen(4000, () => {
