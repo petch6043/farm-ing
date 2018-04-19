@@ -3,6 +3,9 @@ const cors = require('cors');
 const mysql = require('mysql');
 const hbs = require('hbs');
 const phantom = require('phantom');
+const fs = require('fs');
+const csv = require('fast-csv');
+const moment = require('moment');
 const app = express();
 
 const SELECT_ALL_PEN_QUERY = 'SELECT * FROM pen';
@@ -85,6 +88,30 @@ app.post('/barn/open', function(req, res) {
 							return res.send(1)
 						}
 					});
+				}
+			});
+		}
+	});
+});
+
+//close barn by barn name
+app.get('/barn/close/:barn_name', (req, res) =>{
+	var barn_name = req.params.barn_name;
+	var barn_id;
+	const GET_BARN_ID_QUERY = 'SELECT barn_id FROM barn WHERE name='+barn_name+' AND active=1'
+	connection.query(GET_BARN_ID_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			barn_id = results[0].barn_id
+			const SELECT_TRANSFER_BY_BARN_QUERY = 'UPDATE barn SET active=0 WHERE barn_id='+barn_id;
+			connection.query(SELECT_TRANSFER_BY_BARN_QUERY, (err,results) =>{
+				if (err) {
+					return res.send(err)
+				}
+				else{
+					return res.send('barn '+barn_name+'(ID: '+barn_id+') closed')
 				}
 			});
 		}
@@ -660,6 +687,7 @@ app.post('/vaccine_urgent/addurgent', function(req, res) {
 
 
 
+/*
 app.get('/test', function(req, res) {
 	res.render('test',{
 			stores: result
@@ -679,6 +707,24 @@ app.get('/report/test', function(req, res) {
 	        });
 	    });
 	});
+});
+*/
+
+app.get('/abc', function(req, res) {
+	var type = "Health";
+	var dir = "./reports/";
+	var name = moment().format("DD MMM YYYY") + " Daily " + type + " Report" + ".csv";
+	var ws = fs.createWriteStream(dir + name);
+	csv.write([
+		["A","b1"],
+		["a2","b2"],
+		["a3","b3"],
+		["a4","b4"],
+	], {headers: true})
+	.pipe(ws)
+	.on("finish", function(){
+		res.send(name + " is generated");
+   	});
 });
 
 app.listen(4000, () => {

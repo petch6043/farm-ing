@@ -9,26 +9,34 @@ class Footer extends Component {
 	render() {
 		return(
 			<Row className="myNav">
-				<Col span={6} align="center">
-					<Badge count={0} className="myTab">
-						<Link to="/"><Icon type="home" style={{ fontSize: 20, color: '#000'}} /></Link>
-				    </Badge>
-				</Col>
-				<Col span={6} align="center">
-					<Badge count={0} className="myTab">
-				      	<Link to="/calendar"><Icon type="calendar" style={{ fontSize: 20, color: '#000'}} /></Link>
-				    </Badge>
-				</Col>
-				<Col span={6} align="center">
-					<Badge count={2} className="myTab">
-				      	<Link to="/notification"><Icon type="bell" style={{ fontSize: 20, color: '#000'}} /></Link>
-				    </Badge>
-				</Col>
-				<Col span={6} align="center">
-					<Badge count={0} className="myTab">
-				      	<Link to="/user"><Icon type="user" style={{ fontSize: 20, color: '#000'}} /></Link>
-				    </Badge>
-				</Col>
+				<Link to="/">
+					<Col span={6} align="center">
+						<Badge count={0} className="myTab">
+							<Icon type="home" style={{ fontSize: 20, color: '#000'}} />
+					    </Badge>
+					</Col>
+				</Link>
+				<Link to="/calendar">
+					<Col span={6} align="center">
+						<Badge count={0} className="myTab">
+					      	<Icon type="calendar" style={{ fontSize: 20, color: '#000'}} />
+					    </Badge>
+					</Col>
+				</Link>
+				<Link to="/notification">
+					<Col span={6} align="center">
+						<Badge count={2} className="myTab">
+					      	<Icon type="bell" style={{ fontSize: 20, color: '#000'}} />
+					    </Badge>
+					</Col>
+				</Link>
+				<Link to="/user">
+					<Col span={6} align="center">
+						<Badge count={0} className="myTab">
+					      	<Icon type="user" style={{ fontSize: 20, color: '#000'}} />
+					    </Badge>
+					</Col>
+				</Link>
 			</Row>
 			
 		);
