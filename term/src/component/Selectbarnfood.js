@@ -27,7 +27,7 @@ class Selectbarnfood extends Component {
     this.getBarn();
   }
   getBarn() {
-      fetch("http://localhost:4000/barn")
+      fetch("http://206.189.35.130:4000/barn")
       .then(response => response.json())
       .then(response => this.setState({ BarnList: response.data}))
       .catch(err => console.error(err))
