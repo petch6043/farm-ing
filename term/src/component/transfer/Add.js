@@ -21,11 +21,6 @@ class myForm extends Component {
 		return(
 			<Form onSubmit={this.handleSubmit} className="login-form">
 				<FormItem className="myFormItem">
-					{getFieldDecorator('barn_id', {
-					rules: [{ required: true, message: 'Please input Barn ID!' }],
-					})(<Input placeholder="Barn ID" />)}
-				</FormItem>
-				<FormItem className="myFormItem">
 					{getFieldDecorator('type', {
 					rules: [{ required: true, message: 'Please input Type!' }],
 					})(<Input placeholder="Type" />)}

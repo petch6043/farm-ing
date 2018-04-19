@@ -29,9 +29,9 @@ app.set('view engine', 'hbs');
 const connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password:'root',
+	password:'chikadow2018', //for server, root for local
 	database: 'react_sql',
-	socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock" //for Mac
+	//socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock" //for Mac
 });
 
 connection.connect(function(err) {
@@ -66,7 +66,8 @@ app.post('/barn/open', function(req, res) {
 	var user_id = req.body.user_id;
 	var active = req.body.active;
 	var open_date = 'CURDATE()';
-	const INSERT_BARN_QUERY = 'INSERT INTO barn (name, open_date, user_id, active) VALUES("'+name+'",'+open_date+', '+user_id+', '+active+')';
+	var open_age = req.body.open_age;
+	const INSERT_BARN_QUERY = 'INSERT INTO barn (name, open_date, open_age, user_id, active) VALUES("'+name+'",'+open_date+', '+open_age+', '+user_id+', '+active+')';
 	const GET_CURRENT_ID = 'SELECT AUTO_INCREMENT as barn_id FROM information_schema.TABLES WHERE TABLE_SCHEMA = "react_sql" AND TABLE_NAME = "barn"';
 	connection.query(INSERT_BARN_QUERY, (err,results) =>{
 		if (err) {
@@ -179,16 +180,27 @@ app.get('/transfer/:barn_name', (req, res) =>{
 // });
 
 app.post('/transfer/add', function(req, res) {
-    var type = req.body.type;
-	var barn_id = req.body.barn_id;
+	var type = req.body.type;
 	var user_id = req.body.user_id;
 	var value = req.body.value;
-	const INSERT_PRODUCTS_QUERY = 'INSERT INTO transfer (barn_id, type, value, user_id) VALUES('+barn_id+', "'+type+'", '+value+', '+user_id+')';
-	connection.query(INSERT_PRODUCTS_QUERY, (err,results) =>{
+	var barn_name = req.body.barn_name;
+	var barn_id;
+	const GET_BARN_ID_QUERY = 'SELECT barn_id FROM barn WHERE name='+barn_name+' AND active=1'
+	connection.query(GET_BARN_ID_QUERY, (err,results) =>{
 		if (err) {
-			return res.send(err);
-		} else {
-			return res.send('1')
+			return res.send(err)
+		}
+		else{
+			barn_id = results[0].barn_id
+			console.log(barn_id)
+			const INSERT_PRODUCTS_QUERY = 'INSERT INTO transfer (barn_id, type, value, user_id) VALUES('+barn_id+', "'+type+'", '+value+', '+user_id+')';
+			connection.query(INSERT_PRODUCTS_QUERY, (err,results) =>{
+				if (err) {
+					return res.send(err);
+				} else {
+					return res.send('added')
+				}
+			});
 		}
 	});
 });
@@ -275,18 +287,19 @@ app.post('/food/add', function(req, res) {
 
 /*-------------------------- REPORT --------------------------*/
 app.get('/report', (req, res) =>{
-	connection.query(SELECT_ALL_REPORT_QUERY, (err,results) =>{
+	const SELECT_ALL_REPORT2_QUERY = 'CALL generate_report()'
+	connection.query(SELECT_ALL_REPORT2_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
 		}
 		else{
 			return res.json({
-				data: results
+				data: results[0]
 			})
 		}
 	});
 });
-
+/*
 app.get('/report/generate/', (req, res) =>{
 	var barn_id = 1;
 	var pig_current = 50;
@@ -372,7 +385,9 @@ app.post('/report/generate/', (req, res) =>{
 		}
 	});
 });
+*/
 
+/*
 //new report (GET from transfer) all barn
 app.get('/report2', (req, res) =>{
 	var barn_id;
@@ -452,6 +467,7 @@ app.get('/report2', (req, res) =>{
 		}
 	});
 });
+*/
 
 /*-------------------------- VACCINE --------------------------*/
 app.get('/vaccine', (req, res) =>{
@@ -690,4 +706,3 @@ app.get('/abc', function(req, res) {
 app.listen(4000, () => {
 	console.log('Products server listening on port 4000')
 });
-

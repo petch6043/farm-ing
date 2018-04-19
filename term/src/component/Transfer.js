@@ -36,24 +36,28 @@ class Transfer extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			transferList: []
+			transferList: [],
+			barnNumber: props.location.Barn_no
+
 		}
 		this.onAdd = this.onAdd.bind(this);
 	}
 
 	componentDidMount(){
+		
 		this.getTransfers();
+
 	}
 
 	getTransfers() {
-	    fetch("http://localhost:4000/transfer")
+	    fetch("http://206.189.35.130:4000/transfer/"+this.state.barnNumber)
 	    .then(response => response.json())
 	    .then(response => this.setState({ transferList: response.data}))
 	    .catch(err => console.error(err))
 	}
 
 	onAdd(transfer) {
-	    fetch('http://localhost:4000/transfer/add', {
+	    fetch('http://206.189.35.130:4000/transfer/add', {
 	    	method: 'POST',
 	    	headers: {
 	    		Accept: 'application/json',
@@ -61,12 +65,13 @@ class Transfer extends Component {
 	    	},
 	    	body: JSON.stringify({
 	    		type: transfer.type,
-	    		barn_id: transfer.barn_id,
+	    		barn_name: this.state.barnNumber,
 	    		user_id: transfer.user_id,
 	    		value: transfer.value
 	    	}),
 	    })
 	    .then((response) => {
+	    	console.log(response.json())
 	    	response.json().then((data) => {
 	    		if(data == 1) {
 	    			this.getTransfers();
@@ -83,9 +88,11 @@ class Transfer extends Component {
 
 	render() {
 		let {transferList} = this.state;
-		let {Barn_no} = this.props.location
+		let {Barn_no} = this.props.location;
+		let {barnNumber} = this.state;
 		console.log(Barn_no);
 		return(
+
 			<div>
 				<Header thisPage={"Barn " + Barn_no}/>
 				<div className="myBody">
