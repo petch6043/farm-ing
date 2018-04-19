@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Header from './Header';
+import Header_transfer from './Header_transfer';
 import Footer from './Footer';
 import Add from './transfer/Add';
 import Show from './transfer/Show';
@@ -86,6 +86,13 @@ class Transfer extends Component {
 	    })
 	}
 
+	closeBarn() {
+	    fetch("http://206.189.35.130:4000/barn/close/"+this.state.barnNumber)
+	    .then(response => response.json())
+	    .then(response => this.setState({ transferList: response.data}))
+	    .catch(err => console.error(err))
+	}
+
 	render() {
 		let {transferList} = this.state;
 		let {Barn_no} = this.props.location;
@@ -94,7 +101,7 @@ class Transfer extends Component {
 		return(
 
 			<div>
-				<Header thisPage={"Barn " + Barn_no}/>
+				<Header_transfer thisPage={"Barn " + Barn_no}/>
 				<div className="myBody">
 					<Collapse bordered={false} style={{marginBottom:20}}>
 						<Panel header="Select date" key="1" style={customPanelStyle}>
