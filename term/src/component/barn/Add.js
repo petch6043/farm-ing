@@ -64,8 +64,8 @@ class myForm extends Component {
 		    }
 		}
 		closedBarn = arr_diff(allBarn,openBarn)
-		console.log(closedBarn)
-		 console.log('barnList: '+data) 
+		//console.log(closedBarn)
+		//console.log('barnList: '+data) 
     	const formItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 14 },
