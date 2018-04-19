@@ -65,6 +65,7 @@ onAdd(barn) {
 	    	},
 	    	body: JSON.stringify({
 	    		name: barn.name,
+	    		open_age: barn.open_age,
 	    		user_id: 1,
 	    		active: 1
 	    	}),
