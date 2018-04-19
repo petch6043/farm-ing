@@ -243,7 +243,7 @@ app.get('/food', (req, res) =>{
 	});
 });
 
-//select food by barn id
+/*
 app.get('/food/:barn_id', (req, res) =>{
 	var barn_id = req.params.barn_id;
 	const SELECT_FOOD_BY_BARN_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM food WHERE barn_id="+barn_id;
@@ -255,6 +255,34 @@ app.get('/food/:barn_id', (req, res) =>{
 			return res.json({
 				data: results
 			})
+		}
+	});
+});
+*/
+
+//select food by barn name
+app.get('/food/:barn_name', (req, res) =>{
+	var barn_name = req.params.barn_name;
+	var barn_id;
+	const GET_BARN_ID_QUERY = 'SELECT barn_id FROM barn WHERE name='+barn_name+' AND active=1'
+	connection.query(GET_BARN_ID_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			barn_id = results[0].barn_id
+			console.log(barn_id)
+			const SELECT_FOOD_BY_BARN_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM food WHERE barn_id="+barn_id;
+			connection.query(SELECT_FOOD_BY_BARN_QUERY, (err,results) =>{
+				if (err) {
+					return res.send(err)
+				}
+				else{
+					return res.json({
+						data: results
+					})
+				}
+			});
 		}
 	});
 });
@@ -293,6 +321,7 @@ app.get('/food/:barn_id/:date', (req, res) =>{
 // 	});
 // });
 
+/*
 app.post('/food/add', function(req, res) {
     var barn_id = req.body.barn_id;
 	var amount = req.body.amount;
@@ -305,6 +334,34 @@ app.post('/food/add', function(req, res) {
 		}
 		else{
 			return res.send('FOOD ADDED')
+		}
+	});
+});
+*/
+
+app.post('/food/add', function(req, res) {
+	var barn_name = req.body.barn_name;
+	var amount = req.body.amount;
+	var food_type = req.body.food_type;
+	var user_id = req.body.user_id;
+	var barn_id;
+	const GET_BARN_ID_QUERY = 'SELECT barn_id FROM barn WHERE name='+barn_name+' AND active=1'
+	connection.query(GET_BARN_ID_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			barn_id = results[0].barn_id
+			console.log(barn_id)
+			const INSERT_FOOD_QUERY = 'INSERT INTO food (barn_id, amount, food_type, user_id) VALUES('+barn_id+', '+amount+', '+food_type+', '+user_id+')';
+			connection.query(INSERT_FOOD_QUERY, (err,results) =>{
+				if (err) {
+					return res.send(err)
+				}
+				else{
+					return res.send('FOOD ADDED')
+				}
+			});
 		}
 	});
 });
