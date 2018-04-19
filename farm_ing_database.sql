@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Apr 10, 2018 at 03:52 PM
+-- Generation Time: Apr 19, 2018 at 08:30 AM
 -- Server version: 5.6.35
 -- PHP Version: 7.1.8
 
@@ -13,6 +13,35 @@ SET time_zone = "+00:00";
 --
 -- Database: `react_sql`
 --
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `generate_report` ()  NO SQL
+BEGIN
+  UPDATE report2 SET 
+    open_date = (SELECT barn.open_date FROM barn WHERE barn.barn_id=report2.barn_id),
+    
+    age = DATEDIFF(NOW(),open_date)+(SELECT barn.open_age FROM barn WHERE barn.barn_id=report2.barn_id),
+    
+    move_in = (SELECT SUM(transfer.value) FROM transfer WHERE transfer.type='add' AND transfer.barn_id=report2.barn_id),
+    
+    move_out = (SELECT SUM(transfer.value) FROM transfer WHERE transfer.type IN ('died','sold','sick') AND transfer.barn_id=report2.barn_id),
+    
+    current_pig = (move_in - move_out),
+    
+    cumulative_food = (SELECT SUM(food.amount) FROM food WHERE  food.barn_id=report2.barn_id),
+    
+    fpp = cumulative_food/current_pig,
+    
+    target_fpp = 1.9*age - 133
+    
+    WHERE barn_id IN (SELECT DISTINCT barn_id FROM barn);
+    SELECT * FROM report2;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -24,7 +53,8 @@ CREATE TABLE `barn` (
   `barn_id` int(11) NOT NULL,
   `name` varchar(256) NOT NULL,
   `open_date` date NOT NULL,
-  `close_date` date NOT NULL,
+  `open_age` int(11) NOT NULL DEFAULT '70',
+  `close_date` date DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -33,21 +63,37 @@ CREATE TABLE `barn` (
 -- Dumping data for table `barn`
 --
 
-INSERT INTO `barn` (`barn_id`, `name`, `open_date`, `close_date`, `user_id`, `active`) VALUES
-(4, '1', '2018-03-01', '2018-04-30', NULL, 0),
-(5, '2', '2018-04-01', '2018-04-23', NULL, 0),
-(6, '3', '2018-04-01', '2018-04-30', NULL, 0),
-(13, '1', '2018-04-20', '0000-00-00', 1, 0),
-(14, '1', '2018-04-20', '0000-00-00', 1, 0),
-(15, '2', '2018-04-20', '0000-00-00', 1, 0),
-(16, '2', '2018-04-20', '0000-00-00', 1, 1),
-(17, '2', '2018-04-20', '0000-00-00', 1, 0),
-(18, '2', '2018-04-20', '0000-00-00', 1, 0),
-(19, '3', '2018-04-20', '0000-00-00', 1, 0),
-(20, '5', '2018-04-08', '0000-00-00', 1, 0),
-(21, '4', '2018-04-08', '0000-00-00', 1, 1),
-(22, '4', '2018-04-09', '0000-00-00', 1, 0),
-(23, '4', '2018-04-10', '0000-00-00', 1, 0);
+INSERT INTO `barn` (`barn_id`, `name`, `open_date`, `open_age`, `close_date`, `user_id`, `active`) VALUES
+(4, '1', '2018-03-01', 70, '2018-04-30', NULL, 0),
+(5, '2', '2018-04-01', 70, '2018-04-23', NULL, 0),
+(6, '3', '2018-04-01', 70, '2018-04-30', NULL, 0),
+(13, '1', '2018-04-20', 70, '0000-00-00', 1, 0),
+(14, '1', '2018-04-20', 70, '0000-00-00', 1, 0),
+(15, '2', '2018-04-20', 70, '0000-00-00', 1, 0),
+(16, '2', '2018-04-20', 70, '0000-00-00', 1, 1),
+(17, '2', '2018-04-20', 70, '0000-00-00', 1, 0),
+(18, '2', '2018-04-20', 70, '0000-00-00', 1, 0),
+(19, '3', '2018-04-20', 70, '0000-00-00', 1, 0),
+(20, '5', '2018-04-08', 70, '0000-00-00', 1, 0),
+(21, '4', '2018-04-08', 70, '0000-00-00', 1, 1),
+(22, '4', '2018-04-09', 70, '0000-00-00', 1, 0),
+(23, '4', '2018-04-10', 70, '0000-00-00', 1, 0),
+(24, '2', '0000-00-00', 70, '0000-00-00', 1, 0),
+(25, '2', '2018-04-04', 70, '2018-04-19', 1, 0),
+(26, '5', '2018-04-01', 70, '2018-04-02', 1, 0),
+(27, '3', '2018-04-18', 75, '0000-00-00', 1, 0),
+(28, '3', '2018-04-19', 75, '0000-00-00', 1, 0),
+(29, '3', '2018-04-19', 75, '0000-00-00', 1, 0),
+(30, '3', '2018-04-19', 75, '0000-00-00', 1, 0),
+(31, '3', '2018-04-19', 75, '0000-00-00', 1, 0);
+
+--
+-- Triggers `barn`
+--
+DELIMITER $$
+CREATE TRIGGER `new_barn_added` AFTER INSERT ON `barn` FOR EACH ROW INSERT INTO report2(barn_id) VALUES(new.barn_id)
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -129,7 +175,32 @@ INSERT INTO `pen` (`barn_id`, `pen_id`) VALUES
 (23, 2),
 (23, 3),
 (23, 4),
-(23, 5);
+(23, 5),
+(27, 1),
+(27, 2),
+(27, 3),
+(27, 4),
+(27, 5),
+(28, 1),
+(28, 2),
+(28, 3),
+(28, 4),
+(28, 5),
+(29, 1),
+(29, 2),
+(29, 3),
+(29, 4),
+(29, 5),
+(30, 1),
+(30, 2),
+(30, 3),
+(30, 4),
+(30, 5),
+(31, 1),
+(31, 2),
+(31, 3),
+(31, 4),
+(31, 5);
 
 -- --------------------------------------------------------
 
@@ -218,6 +289,50 @@ INSERT INTO `report` (`report_id`, `date`, `barn_id`, `pig_sold`, `pig_sick`, `p
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `report2`
+--
+
+CREATE TABLE `report2` (
+  `barn_id` int(11) NOT NULL,
+  `open_date` date NOT NULL,
+  `age` int(11) NOT NULL,
+  `current_pig` int(11) NOT NULL,
+  `cumulative_food` int(11) NOT NULL,
+  `fpp` double(10,2) NOT NULL,
+  `target_fpp` double(10,2) NOT NULL,
+  `move_in` int(11) NOT NULL,
+  `move_out` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `report2`
+--
+
+INSERT INTO `report2` (`barn_id`, `open_date`, `age`, `current_pig`, `cumulative_food`, `fpp`, `target_fpp`, `move_in`, `move_out`) VALUES
+(4, '2018-03-01', 118, 22, 100, 4.55, 91.20, 42, 20),
+(5, '2018-04-01', 87, 0, 100, 0.00, 32.30, 0, 0),
+(6, '2018-04-01', 87, 0, 0, 0.00, 32.30, 0, 0),
+(13, '2018-04-20', 68, 0, 0, 0.00, -3.80, 0, 0),
+(14, '2018-04-20', 68, 0, 0, 0.00, -3.80, 0, 0),
+(15, '2018-04-20', 68, 0, 382, 0.00, -3.80, 0, 0),
+(16, '2018-04-20', 68, 50, 0, 0.00, -3.80, 50, 0),
+(17, '2018-04-20', 68, 0, 0, 0.00, -3.80, 0, 0),
+(18, '2018-04-20', 68, 0, 0, 0.00, -3.80, 0, 0),
+(19, '2018-04-20', 68, 0, 0, 0.00, -3.80, 0, 0),
+(20, '2018-04-08', 80, 0, 0, 0.00, 19.00, 0, 0),
+(21, '2018-04-08', 80, 70, 0, 0.00, 19.00, 70, 0),
+(22, '2018-04-09', 79, 0, 0, 0.00, 17.10, 0, 0),
+(23, '2018-04-10', 78, 0, 0, 0.00, 15.20, 0, 0),
+(26, '2018-04-01', 87, 0, 0, 0.00, 32.30, 0, 0),
+(27, '2018-04-18', 75, 0, 0, 0.00, 9.50, 0, 0),
+(28, '0000-00-00', 0, 0, 0, 0.00, 0.00, 0, 0),
+(29, '0000-00-00', 0, 0, 0, 0.00, 0.00, 0, 0),
+(30, '0000-00-00', 0, 0, 0, 0.00, 0.00, 0, 0),
+(31, '0000-00-00', 0, 0, 0, 0.00, 0.00, 0, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `transfer`
 --
 
@@ -240,7 +355,10 @@ INSERT INTO `transfer` (`tran_id`, `barn_id`, `type`, `value`, `user_id`, `times
 (87, 4, 'sick', 2, 1, '2018-04-06 15:45:47'),
 (88, 4, 'died', 6, 1, '2018-04-06 15:48:49'),
 (89, 4, 'add', 9, 1, '2018-04-06 15:46:13'),
-(90, 16, 'add', 50, 1, '2018-04-09 16:08:22');
+(90, 16, 'add', 50, 1, '2018-04-09 16:08:22'),
+(91, 4, 'add', 12, 1, '2018-04-10 17:56:23'),
+(92, 21, 'add', 70, 1, '2018-04-18 05:07:52'),
+(93, 4, 'add', 1, 1, '2018-04-18 11:44:15');
 
 -- --------------------------------------------------------
 
@@ -288,7 +406,8 @@ INSERT INTO `vaccine` (`vac_id`, `vac_name`, `required`, `age`, `timestamp`) VAL
 (3, 'Program 3', 1, 70, '2018-04-07 07:52:38'),
 (4, 'Actinobacillus', 0, 0, '2018-04-07 07:52:16'),
 (5, 'E. coli', 0, 0, '2018-04-07 07:52:48'),
-(6, 'Salmonella', 0, 0, '2018-04-07 07:53:06');
+(6, 'Salmonella', 0, 0, '2018-04-07 07:53:06'),
+(7, 'dad', 0, 0, '2018-04-10 17:58:11');
 
 -- --------------------------------------------------------
 
@@ -347,6 +466,12 @@ ALTER TABLE `report`
   ADD KEY `barn_id` (`barn_id`);
 
 --
+-- Indexes for table `report2`
+--
+ALTER TABLE `report2`
+  ADD KEY `fk1` (`barn_id`);
+
+--
 -- Indexes for table `transfer`
 --
 ALTER TABLE `transfer`
@@ -381,7 +506,7 @@ ALTER TABLE `vaccine_pen`
 -- AUTO_INCREMENT for table `barn`
 --
 ALTER TABLE `barn`
-  MODIFY `barn_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `barn_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT for table `food`
 --
@@ -396,12 +521,12 @@ ALTER TABLE `report`
 -- AUTO_INCREMENT for table `transfer`
 --
 ALTER TABLE `transfer`
-  MODIFY `tran_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `tran_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 --
 -- AUTO_INCREMENT for table `vaccine`
 --
 ALTER TABLE `vaccine`
-  MODIFY `vac_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `vac_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- Constraints for dumped tables
 --
@@ -430,6 +555,12 @@ ALTER TABLE `pen`
 --
 ALTER TABLE `report`
   ADD CONSTRAINT `report_ibfk_1` FOREIGN KEY (`barn_id`) REFERENCES `barn` (`barn_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `report2`
+--
+ALTER TABLE `report2`
+  ADD CONSTRAINT `fk1` FOREIGN KEY (`barn_id`) REFERENCES `barn` (`barn_id`);
 
 --
 -- Constraints for table `transfer`

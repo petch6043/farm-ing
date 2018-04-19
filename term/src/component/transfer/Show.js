@@ -7,10 +7,6 @@ class Show extends Component {
 		let {transferList} = this.props;
 		const data = transferList;
 			const columns = [{
-				title: 'Barn',
-				dataIndex: 'barn_id',
-				key: 'barn_id',
-			}, {
 				title: 'Type',
 				dataIndex: 'type',
 				key: 'type',

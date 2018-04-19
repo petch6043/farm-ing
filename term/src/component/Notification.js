@@ -30,9 +30,6 @@ class Notification extends Component {
 					    <Panel header="22/1/18 - 12:00 | Vaccine program 1 is due today " key="2">
 					      <p>Autogenous vaccines are bacterial vaccines that are manufactured from the specific pathogenic bacteria isolated from the diseased pig.</p>
 					    </Panel>
-					    <Panel header="10/1/18 - 13:47 | Staffs meeting is today" key="3">
-					      <p>The objective of a staff meeting is to provide updates, deliver announcements, solicit feedback, share information and participate in a team environment.</p>
-					    </Panel>
 					</Collapse>
 				</div>
 			<Footer/>

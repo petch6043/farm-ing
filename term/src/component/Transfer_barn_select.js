@@ -50,14 +50,14 @@ class Transfer_barn_select extends Component {
 		this.getBarn();
 	}
 	getBarn() {
-	    fetch("http://localhost:4000/barn")
+	    fetch("http://206.189.35.130:4000/barn")
 	    .then(response => response.json())
 	    .then(response => this.setState({ BarnList: response.data}))
 	    .catch(err => console.error(err))
 	}
 
 onAdd(barn) {
-	    fetch('http://localhost:4000/barn/open', {
+	    fetch('http://206.189.35.130:4000/barn/open', {
 	    	method: 'POST',
 	    	headers: {
 	    		Accept: 'application/json',
@@ -65,6 +65,7 @@ onAdd(barn) {
 	    	},
 	    	body: JSON.stringify({
 	    		name: barn.name,
+	    		open_age: barn.open_age,
 	    		user_id: 1,
 	    		active: 1
 	    	}),
