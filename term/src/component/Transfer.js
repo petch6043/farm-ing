@@ -87,12 +87,15 @@ class Transfer extends Component {
 	}
 
 	closeBarn() {
-
+		console.log("ABC");
+		/*
 	    fetch("http://206.189.35.130:4000/barn/close/"+this.state.barnNumber)
 	    .then(response => response.json())
 	    .then(response => this.setState({ transferList: response.data}))
 	    .catch(err => console.error(err))
+	    */
 	}
+	
 
 	render() {
 		let {transferList} = this.state;
@@ -105,7 +108,7 @@ class Transfer extends Component {
 				<Header_transfer thisPage={"Barn " + Barn_no}/>
 				
 				<br/>
-				<Popconfirm placement="bottomLeft" title="Are you sure to close this barn?" onConfirm={this.closeBarn()} okText="Yes" cancelText="No">
+				<Popconfirm placement="bottomLeft" title="Are you sure to close this barn?" onConfirm={this.closeBarn} okText="Yes" cancelText="No">
         
         <Button className="myCloseBarn">Close barn </Button>
       </Popconfirm>

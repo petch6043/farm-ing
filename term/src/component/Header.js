@@ -9,12 +9,13 @@ import 'antd/dist/antd.css';
 import { Row, Col } from 'antd';
 import { Card } from 'antd';
 import { Menu, Icon, Button } from 'antd';
+import PropTypes from 'prop-types'; 
 import './myStyle.css';
 
 class Header extends Component {
 	static contextTypes = {
-    router: () => true, // replace with PropTypes.object if you use them
-  }
+    	router: PropTypes.object
+	}
 
 	render() {
 		let {thisPage} = this.props;

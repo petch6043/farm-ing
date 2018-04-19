@@ -95,7 +95,7 @@ class Transfer_barn_select extends Component {
 						</Panel>
 					</Collapse>
 
-					<div><h2>Barn list: </h2></div>
+					<div><h2>Select Barn: </h2></div>
 					<Createmenu_transfer BarnList={BarnList}/>
 				</div>
 				<Footer/>
