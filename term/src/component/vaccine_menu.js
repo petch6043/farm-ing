@@ -24,7 +24,7 @@ class vaccine_menu extends Component {
 			<Row>
 				
 				<Col span={12} align="right">
-						<Link to="/vaccine_program">
+						<Link to="/selectbarnvaccine">
 							<Button className="myButton">
 								<Icon type="check-square-o" style={{fontSize: 72}}/>
 								<div>Vaccine Program</div>
@@ -32,7 +32,7 @@ class vaccine_menu extends Component {
 						</Link>
 				</Col>
 				<Col span={12} align="left">
-						<Link to="/vaccine_urgent">
+						<Link to="/selectbarnvaccine2">
 							<Button className="myButton">
 								<Icon type="exclamation-circle-o" style={{fontSize: 72}}/>
 								<div>Vaccine Urgent</div>

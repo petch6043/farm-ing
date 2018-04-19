@@ -46,7 +46,7 @@ class vaccine_urgent extends Component {
 	}
 
 	getVaccineUrgent = _ => {
-	    fetch("http://localhost:4000/vaccine_urgent")
+	    fetch("http://206.189.35.130:4000/vaccine_urgent")
 	      .then(response => response.json())
 	      .then(response => this.setState({ vaccineurgentList: response.data}))
 	      .catch(err => console.error(err))
@@ -55,7 +55,7 @@ class vaccine_urgent extends Component {
 	
 	onAdd(vac_id) {
 		console.log("A" + vac_id);
-		    fetch('http://localhost:4000/vaccine_urgent/add', {
+		    fetch('http://206.189.35.130:4000/vaccine_urgent/add', {
 		    	method: 'POST',
 		    	headers: {
 		    		Accept: 'application/json',
@@ -77,7 +77,7 @@ class vaccine_urgent extends Component {
 
 	onAdd2(vaccineurgent) {
 		console.log("B");
-		    fetch('http://localhost:4000/vaccine_urgent/addurgent', {
+		    fetch('http://206.189.35.130:4000/vaccine_urgent/addurgent', {
 		    	method: 'POST',
 		    	headers: {
 		    		Accept: 'application/json',
@@ -104,9 +104,6 @@ class vaccine_urgent extends Component {
 					<Collapse bordered={false} style={{marginBottom:20}}>
 						<Panel header="Select date" key="1" style={customPanelStyle}>
 							<DatePicker onChange={onChange} />
-						</Panel>
-						<Panel header="Select Barn" key="2" style={customPanelStyle}>
-							<Selectmenu/>
 						</Panel>
 
 						<Panel header="submit" key="3" style={customPanelStyle}>
