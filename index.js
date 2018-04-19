@@ -94,9 +94,9 @@ app.post('/barn/open', function(req, res) {
 					const INSERT_PEN_QUERY = 'INSERT INTO pen (pen_id, barn_id) VALUES(1, '+barn_id+'),(2, '+barn_id+'),(3, '+barn_id+'),(4, '+barn_id+'),(5, '+barn_id+')'
 					connection.query(INSERT_PEN_QUERY, (err,results) =>{
 						if (err) {
-							return res.json(err);
+							return res.send(err);
 						} else {
-							return res.json(1)
+							return res.send(1)
 						}
 					});
 				}

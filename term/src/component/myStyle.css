@@ -40,6 +40,9 @@ h2 {
 	bottom: 0;
 	width: 100%;
 }
+.mySelect {
+	height: 45px;
+}
 
 .myCloseBarn{
 	float: right;
