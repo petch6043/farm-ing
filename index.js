@@ -298,7 +298,6 @@ app.get('/food/:barn_name', (req, res) =>{
 		}
 		else{
 			barn_id = results[0].barn_id
-			console.log(barn_id)
 			const SELECT_FOOD_BY_BARN_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM food WHERE barn_id="+barn_id;
 			connection.query(SELECT_FOOD_BY_BARN_QUERY, (err,results) =>{
 				if (err) {
@@ -315,18 +314,28 @@ app.get('/food/:barn_name', (req, res) =>{
 });
 
 //select food by barn id and date
-app.get('/food/:barn_id/:date', (req, res) =>{
-	var barn_id = req.params.barn_id;
-	var date = req.params.date;
-	const SELECT_FOOD_BY_BARN_DATE_QUERY = 'SELECT * FROM food WHERE barn_id='+barn_id+' AND DATE(timestamp) = "'+date+'"';
-	connection.query(SELECT_FOOD_BY_BARN_DATE_QUERY, (err,results) =>{
+app.get('/food/:barn_name/:selected_date', (req, res) =>{
+	var barn_name = req.params.barn_name;
+	var selected_date = req.params.selected_date;
+	var barn_id;
+	const GET_BARN_ID_QUERY = 'SELECT barn_id FROM barn WHERE name='+barn_name+' AND active=1'
+	connection.query(GET_BARN_ID_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
 		}
 		else{
-			return res.json({
-				data: results
-			})
+			barn_id = results[0].barn_id
+			const SELECT_FOOD_BY_BARN_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM food WHERE barn_id=" + barn_id + " AND DATE(timestamp) = " + selected_date;
+			connection.query(SELECT_FOOD_BY_BARN_QUERY, (err,results) =>{
+				if (err) {
+					return res.send(err)
+				}
+				else{
+					return res.json({
+						data: results
+					})
+				}
+			});
 		}
 	});
 });

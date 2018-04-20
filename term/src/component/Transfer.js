@@ -112,10 +112,9 @@ class Transfer extends Component {
 					</Collapse>
 
 					<div className="mySelect">
-						<DatePicker onChange={this.onChange} className="mySelectDate"/>
-						
-						<Popconfirm placement="bottomLeft" title="คุณแน่ใจหรือไม่ว่าจะปิดเล้านี้?" onConfirm={this.closeBarn} okText="ยืนยัน" cancelText="ยกเลิก">
-		       				<Button className="myCloseBarn">ปิดเล้า </Button>
+						<DatePicker onChange={this.onChange}/>
+						<Popconfirm placement="bottomLeft" title="คุณแน่ใจหรือไม่ว่าจะปิดเล้านี้" onConfirm={this.closeBarn} okText="Yes" cancelText="No">
+		       				<Button style={{marginLeft: 15}}>ปิดเล้า</Button>
 	      				</Popconfirm>
 	      			</div>
 
