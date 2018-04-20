@@ -218,16 +218,18 @@ app.post('/transfer/add', function(req, res) {
 	var user_id = req.body.user_id;
 	var value = req.body.value;
 	var barn_name = req.body.barn_name;
-	var barn_id;
-	const GET_BARN_ID_QUERY = 'SELECT barn_id FROM barn WHERE name='+barn_name+' AND active=1'
+	var from_barn_name = req.body.from_barn_name;
+	var barn_id, from_barn_id;
+	const GET_BARN_ID_QUERY = 'SELECT A.barn_id AS barn_id, B.barn_id AS from_barn_id FROM barn A, barn B WHERE A.name = '+barn_name+' AND b.name ='+from_barn_name+' AND A.active = 1 AND B.active = 1'
 	connection.query(GET_BARN_ID_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
 		}
 		else{
 			barn_id = results[0].barn_id
+			from_barn_id = results[0].from_barn_id
 			console.log(barn_id)
-			const INSERT_PRODUCTS_QUERY = 'INSERT INTO transfer (barn_id, type, value, user_id) VALUES('+barn_id+', "'+type+'", '+value+', '+user_id+')';
+			const INSERT_PRODUCTS_QUERY = 'INSERT INTO transfer (barn_id, type, value, from_barn_id, user_id) VALUES('+barn_id+', "'+type+'", '+value+', '+from_barn_id+', '+user_id+')';
 			connection.query(INSERT_PRODUCTS_QUERY, (err,results) =>{
 				if (err) {
 					return res.send(err);
