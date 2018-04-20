@@ -117,8 +117,6 @@ class Transfer extends Component {
 						<Panel header="ย้ายเข้า" key="2" style={customPanelStyle}>
 							<MoveIn onAdd={this.onAdd}/>
 						</Panel>
-					</Collapse>
-					<Collapse bordered={false} style={{marginBottom:20}}>
 						<Panel header="ย้ายออก" key="2" style={customPanelStyle}>
 							<MoveOut onAdd={this.onAdd}/>
 						</Panel>
