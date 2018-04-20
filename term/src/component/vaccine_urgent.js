@@ -105,9 +105,6 @@ class vaccine_urgent extends Component {
 						<Panel header="Select date" key="1" style={customPanelStyle}>
 							<DatePicker onChange={onChange} />
 						</Panel>
-						<Panel header="Select Barn" key="2" style={customPanelStyle}>
-							<Selectmenu/>
-						</Panel>
 
 						<Panel header="submit" key="3" style={customPanelStyle}>
 

@@ -13,6 +13,7 @@ class Show extends Component {
 			done:false,
 			vac_id:0,
 			x:0,
+			selected: []
 		}
 		this.toggle = this.toggle.bind(this)
 		this.addClick = this.addClick.bind(this);
@@ -20,11 +21,10 @@ class Show extends Component {
 
 	addClick() {
 		let {onAdd} = this.props;
-		console.log("addclick "+this.state.vac_id);
-		onAdd(this.state.vac_id);
+		onAdd(this.state.selected);
 		this.setState({
+			selected: [],
 			vaccineprogram: {
-				
 				vac_id: "",
 				pen_id: 0,
 			}
@@ -61,7 +61,8 @@ class Show extends Component {
 		const rowSelection = {	
 
  		 		onChange: (selectedRowKeys, selectedRows) => {
-
+ 		 			this.setState({selected: selectedRows});
+ 		 			/*
  		 		if(x%2==0){
  		 			this.setState({vac_id:selectedRows[0].vac_id})
  		 			console.log(this.state)
@@ -72,6 +73,7 @@ class Show extends Component {
    		 			this.setState({x:2})
    		 		
    		 		}
+   		 		*/
 	   		 			
   			},
   				getCheckboxProps: record => ({

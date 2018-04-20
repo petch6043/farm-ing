@@ -13,6 +13,8 @@ import vaccine_type from './component/vaccine_type';
 import vaccine_program from './component/vaccine_program';
 import vaccine_urgent from './component/vaccine_urgent';
 import Selectbarnfood from './component/Selectbarnfood';
+import selectBarnVaccine from './component/selectBarnVaccine';
+import selectBarnVac2 from './component/selectBarnVac2';
 import Transfer_report from './component/Transfer_report';
 import Health_report from './component/Health_report';
 import Notification from './component/Notification';
@@ -48,6 +50,8 @@ class App extends Component {
 	    			<Route path="/Health_report" component={Health_report} />
 	    			<Route path="/calendar" component={CalendarPage} />
 	    			<Route path="/selectbarnfood" component={Selectbarnfood} />
+	    			<Route path="/selectbarnvaccine" component={selectBarnVaccine} />
+	    			<Route path="/selectbarnvaccine2" component={selectBarnVac2} />
 	    			<Route path="/Create_barn" component={Create_barn} />
 	    			<Route path="/calendar" component={Calendar}/>
 	    			<Route path="/notification" component={Notification}/>

@@ -47,28 +47,46 @@ class vaccine_program extends Component {
 	}
 
 	getVaccineProgram = _ => {
-	    fetch("http://localhost:4000/vaccine_program")
-	      .then(response => response.json())
-	      .then(response => this.setState({ vaccineprogramList: response.data}))
-	      .catch(err => console.error(err))
+	    fetch("http://206.189.35.130:4000/vaccine_program")
+	    .then(response => response.json())
+	    .then(response => this.setState({ vaccineprogramList: response.data}))
+	    .catch(err => console.error(err))
 	}
-	onAdd(vac_id) {
-		console.log("A" + vac_id);
-		    fetch('http://localhost:4000/vaccine_program/add', {
+	onAdd(selected) {
+		var x = this;
+		selected.map(function(item) {
+			fetch('http://206.189.35.130:4000/vaccine_program/add', {
 		    	method: 'POST',
 		    	headers: {
 		    		Accept: 'application/json',
 		    		'Content-Type': 'application/json',
 		    	},
 		    	body: JSON.stringify({
-		    		vac_id: vac_id,
+		    		vac_id: selected.vac_id,
 		    		pen_id: 2
 		    		
 		    	}),
 		    })
-		    .then(this.getVaccineProgram)
-		    .catch(err => console.error(err))
-		    console.log('addVaccine');
+		    .then(x.getVaccineProgram)
+		    .then(console.log("A"))
+	    	.catch(err => console.error(err))
+		});
+		/*
+		fetch('http://206.189.35.130:4000/vaccine_program/add', {
+	    	method: 'POST',
+	    	headers: {
+	    		Accept: 'application/json',
+	    		'Content-Type': 'application/json',
+	    	},
+	    	body: JSON.stringify({
+	    		vac_id: 2,
+	    		pen_id: 2
+	    		
+	    	}),
+	    })
+	    .then(this.getVaccineProgram)
+	    .catch(err => console.error(err))
+	    */
 	}
 
 	render() {
@@ -81,9 +99,7 @@ class vaccine_program extends Component {
 						<Panel header="Select date" key="1" style={customPanelStyle}>
 							<DatePicker onChange={onChange} />
 						</Panel>
-						<Panel header="Select Barn" key="2" style={customPanelStyle}>
-							<Selectmenu/>
-						</Panel>	
+							
 
 						
 						
