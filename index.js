@@ -25,95 +25,11 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-// Report time trigger
-/*
-var job = new CronJob('00 00 12 * * 1-7',
-	function() {
-		// Runs every day at 12:00:00
-  		console.log("Generating report");
-	}, function () {
-  		console.log("Report is generated");
-  	},
-  	true,
-  	"Asia/Bangkok"
-);
-*/
-
-// Report time trigger
-var job = new CronJob('00 00 18 * * 1-7',
-	function() {
-		// Runs every day at 12:00:00
-  		console.log("Generating report...");
-  		const SELECT_ALL_REPORT2_QUERY = 'CALL generate_report()'
-		connection.query(SELECT_ALL_REPORT2_QUERY, (err,results) =>{
-			if (err) {
-				return res.send(err)
-			} else {
-				var type = "Food";
-				var dir = "./term/public/reports/";
-				var name = moment().format("DDMMMYYYY") + "-Daily" + type + "Report" + ".csv";
-				var ws = fs.createWriteStream(dir + name, { encoding: 'utf-8'} );
-				var report = [];
-				if(results[0].legnth == 0) {
-					report = ["Nothing to report"];
-				} else {
-					report.push([ type + " report " + moment().format("DD MMM YYYY")]);
-					report.push(["Barn", "Date of open barn","Age(Day)", "Move in", "Move out", "Current pig", "Cumulative Food(Kg)", "FPP", "Target FPP"]);
-					results[0].forEach(function(item) {
-						report.push([item.barn_id, moment(item.open_date).format("DD MMM YYYY"), item.age, item.move_in, item.move_out, item.current_pig, item.cumulative_food, item.fpp, item.target_fpp]);
-					});
-				}
-				
-				csv.write(report, { headers: true })
-				.pipe(ws)
-				.on("finish", function(){
-
-					var transporter = nodemailer.createTransport({
-						service: 'gmail',
-						auth: {
-					    	user: 'farm.ingbkk@gmail.com',
-					    	pass: 'farming2018'
-						}
-					});
-
-					//var filename = "19Apr2018-DailyFoodReport.csv";
-					var filename = name;
-					//var path = "./term/public/reports/19Apr2018-DailyFoodReport.csv";
-					var path = dir + name;
-					const mailOptions = {
-						from: 'noreply@farm-ing.co', // sender address
-						to: 'suppakit.neno@gmail.com, goodkavin@gmail.com, nattapol.puttasuntithum@gmail.com, pasithtommy@gmail.com', // list of receivers
-						subject: 'Farm-ing Daily report', // Subject line
-						html: '<p>Please view reports</p><br><p>This report is auto-generated at ' + moment().format("Do MMMM YYYY, k:m:s") + '</p>', // plain text body
-						attachments: [
-						    {
-						        filename: filename,
-						        path: path,
-						        content: 'csv'
-						    },
-						]
-					};
-
-					transporter.sendMail(mailOptions, function (err, info) {
-						if(err) return res.send(err)
-						else return res.send(info)
-					});
-
-			   	});
-			}
-		});
-	}, function () {
-  		console.log("Report is generated and sent");
-  	},
-  	true,
-  	"Asia/Bangkok"
-);
-
 //connect to SQL server 
 const connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password:'chikadow2018', //for server, root for local
+	password:'nenaneno', //for server, root for local
 	database: 'react_sql',
 	//socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock" //for Mac
 });
@@ -931,6 +847,90 @@ app.get('/email', function(req, res) {
 		else return res.send(info)
 	});
 });
+
+// Report time trigger
+/*
+var job = new CronJob('00 00 12 * * 1-7',
+	function() {
+		// Runs every day at 12:00:00
+  		console.log("Generating report");
+	}, function () {
+  		console.log("Report is generated");
+  	},
+  	true,
+  	"Asia/Bangkok"
+);
+*/
+
+// Report time trigger
+var job = new CronJob('00 00 18 * * 1-7',
+	function() {
+		// Runs every day at 12:00:00
+  		console.log("Generating report...");
+  		const SELECT_ALL_REPORT2_QUERY = 'CALL generate_report()'
+		connection.query(SELECT_ALL_REPORT2_QUERY, (err,results) =>{
+			if (err) {
+				return res.send(err)
+			} else {
+				var type = "Food";
+				var dir = "./term/public/reports/";
+				var name = moment().format("DDMMMYYYY") + "-Daily" + type + "Report" + ".csv";
+				var ws = fs.createWriteStream(dir + name, { encoding: 'utf-8'} );
+				var report = [];
+				if(results[0].legnth == 0) {
+					report = ["Nothing to report"];
+				} else {
+					report.push([ type + " report " + moment().format("DD MMM YYYY")]);
+					report.push(["Barn", "Date of open barn","Age(Day)", "Move in", "Move out", "Current pig", "Cumulative Food(Kg)", "FPP", "Target FPP"]);
+					results[0].forEach(function(item) {
+						report.push([item.barn_id, moment(item.open_date).format("DD MMM YYYY"), item.age, item.move_in, item.move_out, item.current_pig, item.cumulative_food, item.fpp, item.target_fpp]);
+					});
+				}
+				
+				csv.write(report, { headers: true })
+				.pipe(ws)
+				.on("finish", function(){
+
+					var transporter = nodemailer.createTransport({
+						service: 'gmail',
+						auth: {
+					    	user: 'farm.ingbkk@gmail.com',
+					    	pass: 'farming2018'
+						}
+					});
+
+					//var filename = "19Apr2018-DailyFoodReport.csv";
+					var filename = name;
+					//var path = "./term/public/reports/19Apr2018-DailyFoodReport.csv";
+					var path = dir + name;
+					const mailOptions = {
+						from: 'noreply@farm-ing.co', // sender address
+						to: 'suppakit.neno@gmail.com, goodkavin@gmail.com, nattapol.puttasuntithum@gmail.com, pasithtommy@gmail.com', // list of receivers
+						subject: 'Farm-ing Daily report', // Subject line
+						html: '<p>Please view reports</p><br><p>This report is auto-generated at ' + moment().format("Do MMMM YYYY, k:m:s") + '</p>', // plain text body
+						attachments: [
+						    {
+						        filename: filename,
+						        path: path,
+						        content: 'csv'
+						    },
+						]
+					};
+
+					transporter.sendMail(mailOptions, function (err, info) {
+						if(err) return res.send(err)
+						else return res.send(info)
+					});
+
+			   	});
+			}
+		});
+	}, function () {
+  		console.log("Report is generated and sent");
+  	},
+  	true,
+  	"Asia/Bangkok"
+);
 
 
 app.listen(4000, () => {
