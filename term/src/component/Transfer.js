@@ -50,6 +50,7 @@ class Transfer extends Component {
 	}
 
 	onChange(date, dateString) {
+		console.log("http://206.189.35.130:4000/transfer/" + this.state.barnNumber + "/" + dateString);
 		fetch("http://206.189.35.130:4000/transfer/" + this.state.barnNumber + "/" + dateString)
 	    .then(response => response.json())
 	    .then(response => this.setState({ transferList: response.data}))

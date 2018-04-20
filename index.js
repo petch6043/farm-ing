@@ -196,7 +196,7 @@ app.get('/transfer/:barn_name/:selected_date', (req, res) =>{
 		}
 		else{
 			barn_id = results[0].barn_id
-			const SELECT_TRANSFER_BY_BARN_QUERY = 'SELECT * FROM transfer WHERE barn_id = ' + barn_id + ' AND DATE(timestamp) = ' + selected_date;
+			const SELECT_TRANSFER_BY_BARN_QUERY = 'SELECT * FROM transfer WHERE barn_id = ' + barn_id + ' AND DATE(timestamp) = "' + selected_date +'"';
 			connection.query(SELECT_TRANSFER_BY_BARN_QUERY, (err,results) =>{
 				if (err) {
 					return res.send(err)
