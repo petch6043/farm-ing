@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'antd';
 import { Button, Icon } from 'antd';
-import { Form, Input, Checkbox } from 'antd';
+import { Form, Input, Checkbox,Select } from 'antd';
 const FormItem = Form.Item;
+const Option = Select.Option;
 
 class myForm extends Component {
 	handleSubmit = (e) => {
@@ -16,15 +17,39 @@ class myForm extends Component {
 		});
 	}
 
+
 	render() {
 		const { getFieldDecorator } = this.props.form;
+		const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 14 },
+    };
 		return(
 			<Form onSubmit={this.handleSubmit} className="login-form">
-				<FormItem className="myFormItem">
-					{getFieldDecorator('food_type', {
-					rules: [{ required: true, message: 'กรุณาใส่ประเภทอาหาร!' }],
-					})(<Input placeholder="ประเภท" />)}
-				</FormItem>
+				
+
+				<FormItem
+        		>
+          			{getFieldDecorator('food_type', {
+            		rules: [
+              		{required: true, message: 'กรุณาใส่ประเภท!' },
+            		],
+          			})(
+            		<Select placeholder="เลือกประเภท">
+            		
+
+   					<Option value='301'>301</Option>
+   					<Option value='302'>302</Option>
+   					<Option value='303'>303</Option>
+   					<Option value='304'>304</Option>
+          
+         
+        		
+              
+            		</Select>
+          		)}
+        </FormItem>
+
 				<FormItem className="myFormItem">
 					{getFieldDecorator('amount', {
 					rules: [{ required: true, message: 'กรุณาใส่ปริมาณอาหาร!' }],

@@ -33,7 +33,7 @@ class myForm extends Component {
         		>
           			{getFieldDecorator('type', {
             		rules: [
-              		{required: true, message: 'เลือกประเภท' },
+              		{required: true, message: 'กรุณาใส่ประเภท!' },
             		],
           			})(
             		<Select placeholder="เลือกประเภท">

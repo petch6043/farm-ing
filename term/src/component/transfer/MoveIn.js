@@ -35,7 +35,7 @@ class myForm extends Component {
         		>
           			{getFieldDecorator('from_barn_name', {
             		rules: [
-              		{required: true, message: 'เลือกเล้า' },
+              		{required: true, message: 'กรุณาเลือกเล้า' },
             		],
           			})(
             		<Select placeholder="มาจาก">
