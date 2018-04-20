@@ -108,11 +108,9 @@ class Transfer extends Component {
 
 				<div className="myBody">
 					<Collapse bordered={false} style={{marginBottom:20}}>
-						<Panel header="Move in" key="2" style={customPanelStyle}>
+						<Panel header="Move in" key="1" style={customPanelStyle}>
 							<MoveIn onAdd={this.onAdd}/>
 						</Panel>
-					</Collapse>
-					<Collapse bordered={false} style={{marginBottom:20}}>
 						<Panel header="Move out" key="2" style={customPanelStyle}>
 							<MoveOut onAdd={this.onAdd}/>
 						</Panel>

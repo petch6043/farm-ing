@@ -49,7 +49,7 @@ class Transfer_report extends Component {
 	}
 
 	getReport = _ => {
-	    fetch("http://localhost:4000/report")
+	    fetch("http://206.189.35.130:4000/report/get/food")
 		.then(response => response.json())
 		.then(response => this.setState({ reportList: response.data}))
 		.catch(err => console.error(err))
@@ -62,13 +62,14 @@ class Transfer_report extends Component {
 			<div>
 				<Header thisPage="รายงานอาหารและการเคลื่อนย้าย"/>
 				<div className="myBody">
-				<DatePicker onChange={onChange} /> 
-					<div>
-						<h2>รายชื่อรายงาน: </h2>
-						<Link to={process.env.PUBLIC_URL + '/reports/19Apr2018-DailyFoodReport.csv'} target='_blank'>
-							<div><Button icon="file-excel" style={{marginBottom:10}}>รายงานประจำวัน 28-12-60</Button></div>
-						</Link>
-					</div>
+					<div className="mySelect" style={{marginTop: 10}}><DatePicker onChange={onChange} /></div> 
+					<h2>รายชื่อรายงาน:</h2>
+					<Link to={process.env.PUBLIC_URL + '/reports/19Apr2018-DailyFoodReport.csv'} target='_blank'>
+						<div><Button icon="file-excel" style={{marginBottom:10}}>รายงานประจำวัน 19-01-61</Button></div>
+					</Link>
+					<Link to={process.env.PUBLIC_URL + '/reports/20Apr2018-DailyFoodReport.csv'} target='_blank'>
+						<div><Button icon="file-excel" style={{marginBottom:10}}>รายงานประจำวัน 20-01-61</Button></div>
+					</Link>
 				</div>
 				<Footer/>
 			</div>

@@ -13,6 +13,7 @@ const SELECT_ALL_PEN_QUERY = 'SELECT * FROM pen';
 const SELECT_ALL_VACCINE_QUERY = 'SELECT * FROM vaccine';
 const SELECT_ALL_VACCINEPEN_QUERY = 'SELECT * FROM vaccine_pen';
 const SELECT_ALL_REPORT_QUERY = 'SELECT * FROM report';
+const SELECT_ALL_FOOD_REPORT_QUERY = "SELECT * FROM report_list WHERE type = 'transfer'";
 const SELECT_ALL_VACCINETYPE_QUERY = 'SELECT * FROM vaccine_type';
 const SELECT_ALL_BARN_QUERY = 'SELECT * FROM barn ORDER BY name';
 const SELECT_ALL_PENCOUNT_QUERY = 'SELECT * FROM transfer';
@@ -403,6 +404,19 @@ app.post('/food/add', function(req, res) {
 });
 
 /*-------------------------- REPORT --------------------------*/
+app.get('/report/get/food', (req, res) =>{
+	connection.query(SELECT_ALL_FOOD_REPORT_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			return res.json({
+				data: results
+			})
+		}
+	});
+});
+
 app.get('/report/food', (req, res) =>{
 	const SELECT_ALL_REPORT2_QUERY = 'CALL generate_report()'
 	connection.query(SELECT_ALL_REPORT2_QUERY, (err,results) =>{
