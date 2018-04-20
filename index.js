@@ -31,7 +31,7 @@ const connection = mysql.createConnection({
 	user: 'root',
 	password:'chikadow2018', //for server, root for local
 	database: 'react_sql',
-	timezone: '+0700',
+	timezone: 'UTC+7',
 	//socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock" //for Mac
 });
 
