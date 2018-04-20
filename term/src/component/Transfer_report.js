@@ -65,22 +65,14 @@ class Transfer_report extends Component {
 					<Collapse bordered={false} style={{marginBottom:20}}>
 						<Panel header="Select option" key="1" style={customPanelStyle}>
 							<DatePicker onChange={onChange} /> 
-							<Select defaultValue="all" style={{ width: 120, marginLeft: 10}} onChange={handleChange}>
-								<Option value="all">All</Option>
-								<Option value="daily">Daily</Option>
-								<Option value="weekly">Weekly</Option>
-								<Option value="monthly">Monthly</Option>
-							</Select>
 						</Panel>
 					</Collapse>
 
 					<div>
 						<h2>Transfer & Food Report: </h2>
-						<Link to={process.env.PUBLIC_URL + '/ReportFoodTransferPDF.pdf'} target='_blank'><Button icon="file-pdf" style={{marginBottom:10}}>28-12-60 (Daily report)</Button></Link>
-						<Button icon="file-pdf" style={{marginBottom:10}}>29-12-60 (Daily report)</Button>
-						<Button icon="file-pdf" style={{marginBottom:10}}>30-12-60 (Daily report)</Button>
-						<Button icon="file-pdf" style={{marginBottom:10}}>31-12-60 (Daily report)</Button>
-						<Button icon="file-pdf" style={{marginBottom:10}}>31-12-60 (Monthly report)</Button>
+						<Link to={process.env.PUBLIC_URL + '/reports/19Apr2018-DailyFoodReport.csv'} target='_blank'>
+							<div><Button icon="file-excel" style={{marginBottom:10}}>28-12-60 (Daily report)</Button></div>
+						</Link>
 					</div>
 				</div>
 				<Footer/>
