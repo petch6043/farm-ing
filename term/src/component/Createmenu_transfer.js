@@ -21,9 +21,11 @@ class Createmenu_transfer extends Component {
 
   return(
     
-    <div align="center">
+    <div>
 
       <List
+        header={"a"}
+        footer={"a"}
         bordered
         dataSource={data}
         renderItem={

@@ -96,3 +96,7 @@ h2 {
 .myCalendar {
 	padding-top: 30px;
 }
+
+.ant-list-header, .ant-list-footer {
+	display: none;
+}
