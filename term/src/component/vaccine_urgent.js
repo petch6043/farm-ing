@@ -106,18 +106,13 @@ class vaccine_urgent extends Component {
 							<DatePicker onChange={onChange} />
 						</Panel>
 
-						<Panel header="submit" key="3" style={customPanelStyle}>
+						<Panel header="Add Vaccine" key="3" style={customPanelStyle}>
 
 							<Add onAdd2={this.onAdd2}/>
 						</Panel>
 						
 					</Collapse>	
-				<Show onAdd={this.onAdd} vaccineurgentList={vaccineurgentList}/>	
-					
-					
-					
-				
-				
+					<Show onAdd={this.onAdd} vaccineurgentList={vaccineurgentList}/>		
 				</div>
 			
 				<Footer/>

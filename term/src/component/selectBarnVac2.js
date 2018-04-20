@@ -54,6 +54,8 @@ class selectBarnVac2 extends Component {
       <div className="myBody">
         <div><h2>Select Barn: </h2></div>
         <List
+          header={"a"}
+          footer={"a"}
           bordered
           onClick={this.handleClick}
           dataSource={data}

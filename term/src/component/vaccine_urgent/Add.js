@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Form, Icon, Input, Button } from 'antd';
+const FormItem = Form.Item;
 
 class Add extends Component {
 	constructor(props) {
@@ -34,16 +36,16 @@ class Add extends Component {
 		return(
 			<div>
           		
-          <input
-          value={vaccineurgent.vac_name}
-          onChange={e => this.setState({ vaccineurgent: { ...vaccineurgent, vac_name: e.target.value }})}
-          />
-          
+				<Input
+				value={vaccineurgent.vac_name}
+				onChange={e => this.setState({ vaccineurgent: { ...vaccineurgent, vac_name: e.target.value }})}
+				/>
 
-          
-          
-          <button onClick={this.addClick2}>Add vaccine name</button>
-        </div>
+	          	<FormItem>
+					<Button type="primary" ghost htmlType="submit" className="login-form-button" onClick={this.addClick2}>Submit</Button>
+				</FormItem>
+          	
+          	</div>
 		);
 	}
 }
