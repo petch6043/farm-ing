@@ -42,15 +42,15 @@ class Show extends Component {
 		let {x} = this.props;
 		const data = vaccineprogramList;
 			const columns = [{
-				title: 'age',
+				title: 'อายุ',
 				dataIndex: 'age',
 				key: 'age',
 			}, {
-				title: 'Vaccine name',
+				title: 'วัคซีน',
 				dataIndex: 'vac_name',
 				key: 'vac_name',
 			} , {
-				title: 'Vaccine id',
+				title: 'ลำดับวัคซีน',
 				dataIndex: 'vac_id',
 				key: 'vac_id',
 			}
@@ -85,13 +85,13 @@ class Show extends Component {
 
 		return(
 			<div>
-				<div><h2>Vaccine Program:</h2></div>
+				<div><h2>วัคซีนโปรแกรม:</h2></div>
 				<Col span={24} align="center">
 				<Table rowSelection={rowSelection} columns={columns} dataSource={data}/>
 				</Col>
 
 				<Col span={12} align="left" style={{padding:10}}>
-				<Button type="primary" onClick={this.addClick}>Submit</Button>
+				<Button type="primary" onClick={this.addClick}>ส่ง</Button>
 				</Col>
 				
 

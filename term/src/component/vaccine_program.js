@@ -98,7 +98,7 @@ class vaccine_program extends Component {
 		console.log(this.state.vaccineprogramList)
 		return(
 			<div>
-				<Header thisPage={"Vaccine Program Of Barn : "+ barnNo}/>
+				<Header thisPage={"วัคซีนโปรแกรมของเล้าที่ : "+ barnNo}/>
 				<div className="myBody">
 					<Collapse bordered={false} style={{marginBottom:20}}>
 						<Panel header="Select date" key="1" style={customPanelStyle}>

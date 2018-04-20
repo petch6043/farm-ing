@@ -101,14 +101,14 @@ class vaccine_urgent extends Component {
 		let {vaccineurgentList} = this.state;
 		return(
 			<div>
-				<Header thisPage="Vaccine Urgent"/>
+				<Header thisPage="วัคซีนฉุกเฉิน"/>
 				<div className="myBody">
 					<Collapse bordered={false} style={{marginBottom:20}}>
-						<Panel header="Select date" key="1" style={customPanelStyle}>
+						<Panel header="เลือกวันที่" key="1" style={customPanelStyle}>
 							<DatePicker onChange={onChange} />
 						</Panel>
 
-						<Panel header="Add Vaccine" key="3" style={customPanelStyle}>
+						<Panel header="เพิ่มวัคซีน" key="3" style={customPanelStyle}>
 
 							<Add onAdd2={this.onAdd2}/>
 						</Panel>
