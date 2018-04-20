@@ -220,7 +220,7 @@ app.post('/transfer/add', function(req, res) {
 	var barn_name = req.body.barn_name;
 	var from_barn_name = req.body.from_barn_name;
 	var barn_id, from_barn_id;
-	const GET_BARN_ID_QUERY = 'SELECT A.barn_id AS barn_id, B.barn_id AS from_barn_id FROM barn A, barn B WHERE A.name = '+barn_name+' AND b.name ='+from_barn_name+' AND A.active = 1 AND B.active = 1'
+	const GET_BARN_ID_QUERY = 'SELECT A.barn_id AS barn_id, B.barn_id AS from_barn_id FROM barn A, barn B WHERE A.name = '+barn_name+' AND B.name ='+from_barn_name+' AND A.active = 1 AND B.active = 1'
 	connection.query(GET_BARN_ID_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
