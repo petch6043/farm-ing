@@ -18,41 +18,46 @@ const noti = (type, msg, desc) => {
 const Panel = Collapse.Panel;
 
 const customPanelStyle = {
- background: '#f7f7f7',
- borderRadius: 4,
- marginBottom: 5,
- border: 0,
- overflow: 'hidden',
+	background: '#f7f7f7',
+	borderRadius: 4,
+	marginBottom: 5,
+	border: 0,
+	overflow: 'hidden',
 };
 
 class Food extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			foodList: [],
+			barnNo: props.location.barnNumber
+		}
+		this.onAdd = this.onAdd.bind(this);
+		this.onChange = this.onChange.bind(this);
+	}
 
- constructor(props) {
-  super(props);
-  this.state = {
-   foodList: [],
-   barnNo: props.location.barnNumber
-  }
-  this.onAdd = this.onAdd.bind(this);
- }
 
-
- componentDidMount(){
-  this.getFood();
-  
- }
+ 	componentDidMount(){
+  		this.getFood();
+ 	}
  
-//fetching data from database named food
- getFood() {
- 	console.log(this.state.barnNo);
-     fetch("http://206.189.35.130:4000/food/"+this.state.barnNo)
-       .then(response => response.json())
-       .then(response => this.setState({ foodList: response.data}))
-       .catch(err => console.error(err))
- }
+	//fetching data from database named food
+	getFood() {
+    	fetch("http://206.189.35.130:4000/food/"+this.state.barnNo)
+    	.then(response => response.json())
+       	.then(response => this.setState({ foodList: response.data}))
+       	.catch(err => console.error(err))
+ 	}
 
-//posting data to the database named food
- onAdd(food) {
+	onChange(date, dateString) {
+ 		fetch("http://206.189.35.130:4000/food/"+this.state.barnNo + "/" + dateString)
+       	.then(response => response.json())
+       	.then(response => this.setState({ foodList: response.data}))
+       	.catch(err => console.error(err))
+	}
+
+	//posting data to the database named food
+ 	onAdd(food) {
 	    fetch('http://206.189.35.130:4000/food/add', {
 	    	method: 'POST',
 	    	headers: {
@@ -60,60 +65,53 @@ class Food extends Component {
 	    		'Content-Type': 'application/json',
 	    	},
 	    	body: JSON.stringify({
-          user_id: 1,
-          barn_name: this.state.barnNo,
-          amount: food.amount,
-          food_type: food.food_type,
+          		user_id: 1,
+          		barn_name: this.state.barnNo,
+          		amount: food.amount,
+          		food_type: food.food_type,
 	    		
 	    	}),
 	    })
-	    noti('success','Add food','Sucessfully saved data.');
-	    /*.then((response) => {
-	    	console(response)
+	    .then((response) => {
 	    	response.json().then((data) => {
 	    		if(data == 1) {
-	    			this.getTransfers();
-	    			noti('success','Add food','Sucessfully saved data.');
+	    			noti('success','ให้อาหาร','เก็บข้อมูลสำเร็จ');
+	    			this.getFood();
 	    		} else {
-	    			noti('error','Add food','Unable to save data.');
+	    			noti('error','ให้อาหาร','เก็บข้อมูลไม่สำเร็จ');
 	    		}
            	});
 	    })
 	    .catch(err => {
-	    	noti('error','Add food','Failed to connect to database.');
-	    })*/
-	    console.log(JSON.stringify({
-	    		barn_name: this.state.barnNo,
-	    		amount: food.amount,
-	    		food_type: food.food_type,
-	    		
-	    	}));
+	    	noti('error','ให้อาหาร','Failed to connect to database.');
+	    })
 }
  
- render() {
+	render() {
+		let {foodList} = this.state;
+		let {barnNumber} = this.props.location;
+		let {barnNo} = this.state;
+		return(
 
-  let {foodList} = this.state;
- 	let {barnNumber} = this.props.location;
- 	console.log(barnNumber);
- 	let {barnNo} = this.state;
-  return(
+			<div>
+				<Header thisPage="อาหาร"/>
+				<div className="myBody">
+					<Collapse bordered={false} style={{marginBottom:20}}>
+						<Panel header="เพิ่ม" key="2" style={customPanelStyle}>
+							<Add onAdd={this.onAdd}/>
+						</Panel>
+					</Collapse>
+					<div className="mySelect">
+						<DatePicker onChange={this.onChange}/>
+	      			</div>
 
-   <div>
-    <Header thisPage="Food"/>
-    <div className="myBody">
-     <Collapse bordered={false} style={{marginBottom:20}}>
-      <Panel header="Add food" style={customPanelStyle}>
-      	<Add onAdd={this.onAdd}/>
-      </Panel>
+					<Show foodList={foodList}/>
+				</div>
+				<Footer/>
+			</div>
 
-     </Collapse>
-     <Show foodList={foodList}/>
-    </div>
-    <Footer/>
-   </div>
-
-  );
- }
+		);
+	}
 }
 
 export default Food;

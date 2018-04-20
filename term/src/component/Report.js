@@ -17,25 +17,26 @@ class Report extends Component {
 	render() {
 		return (
 			<div>
-				<Header thisPage="Report"/>
+				<Header thisPage="รายงาน"/>
 				<Row>	
 				<Col span={12} align="right">	
 					<Link to="/Transfer_report">
 						<Button className="myButton">
 							<Icon type="line-chart" style={{fontSize: 72}}/>
-							<div>Transfer & Food</div>
-							<div>Report</div>
+							<div>รายงานอาหารและ</div>
+							<div>การเคลื่อนย้าย</div>
 						</Button>
 					</Link>
 				</Col>
 
 				<Col span={12} align="left">	
-					<Link to="/Health_report">
+					{/*<Link to="/Health_report">
 						<Button className="myButton">
 							<Icon type="bar-chart" style={{fontSize: 72}}/>
-							<div>Health Report</div>
+							<div>รายงานสุขภาพ</div>
 						</Button>
 					</Link>
+				*/}
 				</Col>
 				</Row>	
 				<Footer/>

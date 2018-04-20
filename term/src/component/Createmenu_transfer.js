@@ -31,7 +31,7 @@ class Createmenu_transfer extends Component {
         renderItem={
           item => (
             <Link to={{pathname : '/transfer' , Barn_no:item.name }}>
-              <List.Item key={item.barn_id}>Barn {item.name}</List.Item>
+              <List.Item key={item.barn_id}>เล้า {item.name}</List.Item>
             </Link>
           )
         } 

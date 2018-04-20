@@ -55,7 +55,7 @@ class vaccine_urgent extends Component {
 	
 	onAdd(vac_id) {
 		console.log("A" + vac_id);
-		    fetch('http://localhost:4000/vaccine_urgent/add', {
+		    fetch('http://206.189.35.130:4000/vaccine_urgent/add', {
 		    	method: 'POST',
 		    	headers: {
 		    		Accept: 'application/json',
@@ -77,7 +77,7 @@ class vaccine_urgent extends Component {
 
 	onAdd2(vaccineurgent) {
 		console.log("B");
-		    fetch('http://localhost:4000/vaccine_urgent/addurgent', {
+		    fetch('http://206.189.35.130:4000/vaccine_urgent/addurgent', {
 		    	method: 'POST',
 		    	headers: {
 		    		Accept: 'application/json',
@@ -106,18 +106,13 @@ class vaccine_urgent extends Component {
 							<DatePicker onChange={onChange} />
 						</Panel>
 
-						<Panel header="submit" key="3" style={customPanelStyle}>
+						<Panel header="Add Vaccine" key="3" style={customPanelStyle}>
 
 							<Add onAdd2={this.onAdd2}/>
 						</Panel>
 						
 					</Collapse>	
-				<Show onAdd={this.onAdd} vaccineurgentList={vaccineurgentList}/>	
-					
-					
-					
-				
-				
+					<Show onAdd={this.onAdd} vaccineurgentList={vaccineurgentList}/>		
 				</div>
 			
 				<Footer/>

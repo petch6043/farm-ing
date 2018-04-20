@@ -85,7 +85,7 @@ class Show extends Component {
 
 		return(
 			<div>
-				<div> Vaccine Program:</div>
+				<div><h2>Vaccine Program:</h2></div>
 				<Col span={24} align="center">
 				<Table rowSelection={rowSelection} columns={columns} dataSource={data}/>
 				</Col>

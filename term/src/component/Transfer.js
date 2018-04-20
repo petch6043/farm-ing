@@ -12,10 +12,6 @@ import { DatePicker } from 'antd';
 
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 
-function onChange(date, dateString) {
-	console.log(date, dateString);
-}
-
 const noti = (type, msg, desc) => {
 	notification[type]({
 		message: msg,
@@ -32,26 +28,31 @@ const customPanelStyle = {
 	overflow: 'hidden',
 };
 
-
 class Transfer extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			transferList: [],
 			barnNumber: props.location.Barn_no
-
 		}
 		this.onAdd = this.onAdd.bind(this);
+		this.onChange = this.onChange.bind(this);
 	}
 
 	componentDidMount(){
-		
 		this.getTransfers();
-
 	}
 
 	getTransfers() {
-	    fetch("http://206.189.35.130:4000/transfer/"+this.state.barnNumber)
+	    fetch("http://206.189.35.130:4000/transfer/" + this.state.barnNumber)
+	    .then(response => response.json())
+	    .then(response => this.setState({ transferList: response.data}))
+	    .catch(err => console.error(err))
+	}
+
+	onChange(date, dateString) {
+		console.log("http://206.189.35.130:4000/transfer/" + this.state.barnNumber + "/" + dateString);
+		fetch("http://206.189.35.130:4000/transfer/" + this.state.barnNumber + "/" + dateString)
 	    .then(response => response.json())
 	    .then(response => this.setState({ transferList: response.data}))
 	    .catch(err => console.error(err))
@@ -73,11 +74,10 @@ class Transfer extends Component {
 	    	}),
 	    })
 	    .then((response) => {
-	    	
 	    	response.json().then((data) => {
 	    		if(data == 1) {
-	    			this.getTransfers();
 	    			noti('success','Add transfer','Sucessfully saved data.');
+	    			this.getTransfers();
 	    		} else {
 	    			noti('error','Add transfer','Unable to save data.');
 	    		}
@@ -104,7 +104,7 @@ class Transfer extends Component {
 		return(
 
 			<div>
-				<Header_transfer thisPage={"Barn " + Barn_no}/>
+				<Header_transfer thisPage={"เล้า " + Barn_no}/>
 
 				<div className="myBody">
 					<Collapse bordered={false} style={{marginBottom:20}}>
@@ -119,10 +119,9 @@ class Transfer extends Component {
 					</Collapse>
 
 					<div className="mySelect">
-						<DatePicker onChange={onChange} className="mySelectDate"/>
-						
-						<Popconfirm placement="bottomLeft" title="Are you sure to close this barn?" onConfirm={this.closeBarn} okText="Yes" cancelText="No">
-		       				<Button className="myCloseBarn">Close barn </Button>
+						<DatePicker onChange={this.onChange}/>
+						<Popconfirm placement="bottomLeft" title="คุณแน่ใจหรือไม่ว่าจะปิดเล้านี้" onConfirm={this.closeBarn} okText="Yes" cancelText="No">
+		       				<Button style={{marginLeft: 15}}>ปิดเล้า</Button>
 	      				</Popconfirm>
 	      			</div>
 

@@ -24,11 +24,11 @@ class Notification extends Component {
     		<Header thisPage="Notification"/>
     			<div  className="myCalendar" style={{padding:10}}>
 					<Collapse accordion>
-					    <Panel header="12/2/18 - 10:45 | Pig died in barn 4" key="1">
-					      <p>It is tough to lose any pet, but, mini pigs tend to take a small piece of your heart with them when they pass away. This seems to hurt even more if death occurs suddenly without explanation.</p>
+					    <Panel header="12/2/18 - 10:45 | หมูตายที่เล้า 4" key="1">
+					      <p>หมูตายที่เล้า 4 จำนวณ 1 ตัว สาเหตุ: ไม่ทราบ</p>
 					    </Panel>
-					    <Panel header="22/1/18 - 12:00 | Vaccine program 1 is due today " key="2">
-					      <p>Autogenous vaccines are bacterial vaccines that are manufactured from the specific pathogenic bacteria isolated from the diseased pig.</p>
+					    <Panel header="22/1/18 - 12:00 | โปรแกรมวัคซีน 1 ต้องฉีดวันนี้ " key="2">
+					      <p>โปรแกรมวัคซีน 1 ต้องฉีดวันนี้ สำหรับเล้า 1,2,4,6,7 และ 11</p>
 					    </Panel>
 					</Collapse>
 				</div>

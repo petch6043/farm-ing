@@ -27,7 +27,6 @@ class myForm extends Component {
     };
 		return(
 			<Form onSubmit={this.handleSubmit} className="login-form">
-				
 
 
 				<FormItem
@@ -52,11 +51,10 @@ class myForm extends Component {
             		</Select>
           		)}
         </FormItem>
-
 				<FormItem className="myFormItem">
 					{getFieldDecorator('value', {
 					rules: [{ required: true, message: 'Please input Value!' }],
-					})(<Input placeholder="Value" />)}
+					})(<Input placeholder="จำนวณ" />)}
 				</FormItem>
 				
 				<FormItem>
