@@ -37,7 +37,8 @@ class vaccine_program extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			vaccineprogramList: []
+			vaccineprogramList: [],
+			barnNo: props.location.barnNumber
 		}
 		this.onAdd = this.onAdd.bind(this);
 	}
@@ -46,11 +47,13 @@ class vaccine_program extends Component {
 		this.getVaccineProgram();
 	}
 
-	getVaccineProgram = _ => {
-	    fetch("http://206.189.35.130:4000/vaccine_program")
+	getVaccineProgram() {
+		console.log(this.state.barnNo)
+	    fetch("http://206.189.35.130:4000/vaccine_program/")
 	    .then(response => response.json())
 	    .then(response => this.setState({ vaccineprogramList: response.data}))
 	    .catch(err => console.error(err))
+	    
 	}
 	onAdd(selected) {
 		var x = this;
@@ -91,9 +94,11 @@ class vaccine_program extends Component {
 
 	render() {
 		let {vaccineprogramList} = this.state;
+		let {barnNo} = this.state;
+		console.log(this.state.vaccineprogramList)
 		return(
 			<div>
-				<Header thisPage="Vaccine Program"/>
+				<Header thisPage={"Vaccine Program Of Barn : "+ barnNo}/>
 				<div className="myBody">
 					<Collapse bordered={false} style={{marginBottom:20}}>
 						<Panel header="Select date" key="1" style={customPanelStyle}>

@@ -45,39 +45,39 @@ class vaccine_urgent extends Component {
 		this.getVaccineUrgent();
 	}
 
-	getVaccineUrgent = _ => {
-	    fetch("http://localhost:4000/vaccine_urgent")
+	getVaccineUrgent (){
+	    fetch("http://206.189.35.130:4000/vaccine_urgent")
 	      .then(response => response.json())
 	      .then(response => this.setState({ vaccineurgentList: response.data}))
 	      .catch(err => console.error(err))
 	}
 
 	
-	onAdd(vac_id) {
-		console.log("A" + vac_id);
-		    fetch('http://localhost:4000/vaccine_urgent/add', {
+	onAdd(selected) {
+		var x = this;
+		selected.map(function(item) {
+			fetch('http://206.189.35.130:4000/vaccine_urgent/add', {
 		    	method: 'POST',
 		    	headers: {
 		    		Accept: 'application/json',
 		    		'Content-Type': 'application/json',
 		    	},
 		    	body: JSON.stringify({
-		    		
-		    		
-		    		vac_id: vac_id,
+		    		vac_id: selected.vac_id,
 		    		pen_id: 2
 		    		
 		    	}),
 		    })
-		    .then(this.getVaccineUrgent)	
-		    .catch(err => console.error(err))
-		    console.log('addVaccine');
+		    .then(x.getVaccineUrgent)
+		    .then(console.log("A"))
+	    	.catch(err => console.error(err))
+		});
 	}
 
 
 	onAdd2(vaccineurgent) {
 		console.log("B");
-		    fetch('http://localhost:4000/vaccine_urgent/addurgent', {
+		    fetch('http://206.189.35.130:4000/vaccine_urgent/addurgent', {
 		    	method: 'POST',
 		    	headers: {
 		    		Accept: 'application/json',

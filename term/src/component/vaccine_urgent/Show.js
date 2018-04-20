@@ -13,7 +13,8 @@ constructor (props){
 		this.state = {
 			done:false,
 			vac_id:0,
-			x:0
+			x:0,
+			selected: []
 			
 		}
 		this.toggle = this.toggle.bind(this)
@@ -22,9 +23,9 @@ constructor (props){
 
 	addClick() {
 		let {onAdd} = this.props;
-		console.log("addclick "+this.state.vac_id);
-		onAdd(this.state.vac_id);
+		onAdd(this.state.selected);
 		this.setState({
+			selected: [],
 			vaccineurgent: {
 				
 				vac_id: "",
@@ -61,8 +62,9 @@ constructor (props){
 		const rowSelection = {
 
  		 		onChange: (selectedRowKeys, selectedRows) => {
+ 		 			this.setState({selected: selectedRows});
    		 			
- 		 		
+ 		 		/*
  		 		if(x%2==0){
  		 			this.setState({vac_id:selectedRows[0].vac_id})
  		 			console.log(this.state)
@@ -73,12 +75,13 @@ constructor (props){
    		 			this.setState({x:x+1})
    		 		
    		 		}
+   		 		*/
   			},
   				getCheckboxProps: record => ({
     				disabled: record.type === 'Disabled User', // Column configuration not to be checked
     				name: record.type,
   				}),
-			};
+			};   
 
 		return(
 			<div>
