@@ -82,7 +82,7 @@ constructor (props){
 
 		return(
 			<div>
-				<div>Vaccineurgent list:</div>
+				<div><h2>Vaccine urgent list:</h2></div>
 				<Col span={24} align="center">
 				<Table rowSelection={rowSelection} columns={columns} dataSource={data}/>
 				</Col>

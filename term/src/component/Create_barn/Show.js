@@ -40,7 +40,7 @@ class Show extends Component {
 		const expandedRowRender = record => <label>{record.type}</label>;
 		return(
 			<div>
-				<div> Report:</div>
+				<div>Report:</div>
 			<Table expandedRowRender={expandedRowRender} columns={columns} dataSource={data}/>
 			</div>
 		);

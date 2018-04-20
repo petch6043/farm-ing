@@ -22,7 +22,7 @@ class Show extends Component {
    const expandedRowRender = record => <label>{record.type}</label>;
   return(
    <div>
-    <div><h3>รายการให้อาหาร</h3></div>
+    <div><h2>รายการให้อาหาร:</h2></div>
     <Table expandedRowRender={expandedRowRender} columns={columns} dataSource={data}/>
    </div>
   );

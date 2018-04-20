@@ -75,15 +75,15 @@ class Food extends Component {
 	    .then((response) => {
 	    	response.json().then((data) => {
 	    		if(data == 1) {
-	    			noti('success','Add transfer','Sucessfully saved data.');
+	    			noti('success','ให้อาหาร','เก็บข้อมูลสำเร็จ');
 	    			this.getFood();
 	    		} else {
-	    			noti('error','Add transfer','Unable to save data.');
+	    			noti('error','ให้อาหาร','เก็บข้อมูลไม่สำเร็จ');
 	    		}
            	});
 	    })
 	    .catch(err => {
-	    	noti('error','Add transfer','Failed to connect to database.');
+	    	noti('error','ให้อาหาร','Failed to connect to database.');
 	    })
 }
  
