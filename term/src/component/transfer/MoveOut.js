@@ -11,7 +11,7 @@ class myForm extends Component {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
-				
+
 				send(values);
 				console.log(values)
 				this.props.form.resetFields();
@@ -30,20 +30,18 @@ class myForm extends Component {
 
 
 				<FormItem
-          			{...formItemLayout}
-          			label="Select"
-          			hasFeedback
         		>
           			{getFieldDecorator('type', {
             		rules: [
-              		{required: true, message: 'Please select a type!' },
+              		{required: true, message: 'เลือกประเภท' },
             		],
           			})(
-            		<Select placeholder="Please select type">
+            		<Select placeholder="เลือกประเภท">
             		
-   					<Option value='Sold'>Sold</Option>
-   					<Option value='Died'>Died</Option>
-   					<Option value='Sick'>Sick</Option>
+
+   					<Option value='ขาย'>ขาย</Option>
+   					<Option value='ตาย'>ตาย</Option>
+   					<Option value='ป่วย'>ป่วย</Option>
           
          
         		
@@ -53,8 +51,8 @@ class myForm extends Component {
         </FormItem>
 				<FormItem className="myFormItem">
 					{getFieldDecorator('value', {
-					rules: [{ required: true, message: 'Please input Value!' }],
-					})(<Input placeholder="จำนวณ" />)}
+					rules: [{ required: true, message: 'เลือกจำนวน' }],
+					})(<Input placeholder="จำนวน" />)}
 				</FormItem>
 				
 				<FormItem>

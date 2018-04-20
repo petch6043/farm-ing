@@ -59,6 +59,12 @@ class Transfer extends Component {
 	}
 
 	onAdd(transfer) {
+		let a = 0
+		if (transfer.from_barn_name) {
+			a=transfer.from_barn_name 
+		}else{
+			a=this.state.barnNumber
+		}
 	    fetch('http://206.189.35.130:4000/transfer/add', {
 	    	method: 'POST',
 	    	headers: {
@@ -70,7 +76,7 @@ class Transfer extends Component {
 	    		barn_name: this.state.barnNumber,
 	    		user_id: 1,
 	    		value: transfer.value,
-	    		from_barn_name: transfer.from_barn_name
+	    		from_barn_name: a
 	    	}),
 	    })
 	    .then((response) => {
@@ -108,12 +114,12 @@ class Transfer extends Component {
 
 				<div className="myBody">
 					<Collapse bordered={false} style={{marginBottom:20}}>
-						<Panel header="Move in" key="2" style={customPanelStyle}>
+						<Panel header="ย้ายเข้า" key="2" style={customPanelStyle}>
 							<MoveIn onAdd={this.onAdd}/>
 						</Panel>
 					</Collapse>
 					<Collapse bordered={false} style={{marginBottom:20}}>
-						<Panel header="Move out" key="2" style={customPanelStyle}>
+						<Panel header="ย้ายออก" key="2" style={customPanelStyle}>
 							<MoveOut onAdd={this.onAdd}/>
 						</Panel>
 					</Collapse>

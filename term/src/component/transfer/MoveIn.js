@@ -11,7 +11,7 @@ class myForm extends Component {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
-				values.type="add"
+				values.type="รับ"
 				send(values);
 				console.log(values)
 				this.props.form.resetFields();
@@ -32,23 +32,20 @@ class myForm extends Component {
 
 
 				<FormItem
-          			{...formItemLayout}
-          			label="Select"
-          			hasFeedback
         		>
           			{getFieldDecorator('from_barn_name', {
             		rules: [
-              		{required: true, message: 'Please select a Barn!' },
+              		{required: true, message: 'เลือกเล้า' },
             		],
           			})(
-            		<Select placeholder="Please select a Barn">
+            		<Select placeholder="มาจาก">
 
             {  
      	
      	
           allBarn.map((x) =>
 
-   			<Option value={x} key={x}>Barn {x}</Option>
+   			<Option value={x} key={x}>เล้า {x}</Option>
           
          
         )}
@@ -59,8 +56,8 @@ class myForm extends Component {
 
 				<FormItem className="myFormItem">
 					{getFieldDecorator('value', {
-					rules: [{ required: true, message: 'Please input Value!' }],
-					})(<Input placeholder="Value" />)}
+					rules: [{ required: true, message: 'เลือกจำนวน' }],
+					})(<Input placeholder="จำนวน" />)}
 				</FormItem>
 				
 				<FormItem>
