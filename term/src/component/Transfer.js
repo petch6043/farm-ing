@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Header_transfer from './Header_transfer';
 import Footer from './Footer';
-import Add from './transfer/Add';
+import MoveOut from './transfer/MoveOut';
+import MoveIn from './transfer/MoveIn';
 import Show from './transfer/Show';
 import Createmenu_transfer from './Createmenu_transfer';
 import Create_barn from './Create_barn';
@@ -66,12 +67,13 @@ class Transfer extends Component {
 	    	body: JSON.stringify({
 	    		type: transfer.type,
 	    		barn_name: this.state.barnNumber,
-	    		user_id: transfer.user_id,
-	    		value: transfer.value
+	    		user_id: 1,
+	    		value: transfer.value,
+	    		from_barn_name: transfer.from_barn_name
 	    	}),
 	    })
 	    .then((response) => {
-	    	console.log(response.json())
+	    	
 	    	response.json().then((data) => {
 	    		if(data == 1) {
 	    			this.getTransfers();
@@ -82,7 +84,7 @@ class Transfer extends Component {
            	});
 	    })
 	    .catch(err => {
-	    	noti('error','Add transfer','Failed to connect to database.');
+	    	noti('error','Add transfer',err);
 	    })
 	}
 
@@ -106,8 +108,13 @@ class Transfer extends Component {
 
 				<div className="myBody">
 					<Collapse bordered={false} style={{marginBottom:20}}>
-						<Panel header="Add transfer" key="2" style={customPanelStyle}>
-							<Add onAdd={this.onAdd}/>
+						<Panel header="Move in" key="2" style={customPanelStyle}>
+							<MoveIn onAdd={this.onAdd}/>
+						</Panel>
+					</Collapse>
+					<Collapse bordered={false} style={{marginBottom:20}}>
+						<Panel header="Move out" key="2" style={customPanelStyle}>
+							<MoveOut onAdd={this.onAdd}/>
 						</Panel>
 					</Collapse>
 
