@@ -10,68 +10,61 @@ import { List } from 'antd';
 const SubMenu = Menu.SubMenu;
 const Panel = Collapse.Panel;
 const customPanelStyle = {
- background: '#f7f7f7',
- borderRadius: 4,
- marginBottom: 5,
- border: 0,
- overflow: 'hidden',
+  background: '#f7f7f7',
+  borderRadius: 4,
+  marginBottom: 5,
+  border: 0,
+  overflow: 'hidden',
 };
 class Selectbarnfood extends Component {
-    constructor(props){
+  constructor(props){
     super(props);
-    this.state = 
-    {current: 0,
-      BarnList: []}
+    this.state = {
+      current: 0,
+      BarnList: []
+    }
   }
 
-    componentDidMount(){
+  componentDidMount(){
     this.getBarn();
   }
-  getBarn() {
-      fetch("http://206.189.35.130:4000/barn")
-      .then(response => response.json())
-      .then(response => this.setState({ BarnList: response.data}))
-      .catch(err => console.error(err))
-  }
 
-    handleClick = (e) => {
-        console.log('clicking'+e.key, e)
-        
-        this.setState({
-          current: e.key
-        });
-        console.log('current:'+this.state.current)
-      };
- render(){
+  getBarn() {
+    fetch("http://206.189.35.130:4000/barn")
+    .then(response => response.json())
+    .then(response => this.setState({ BarnList: response.data}))
+    .catch(err => console.error(err))
+  }
+  render(){
     let {BarnList} = this.state;
     const data = BarnList.filter(function(attr) {
       return attr.active == 1;
     });
-  return(
-    <div>
-      <Header thisPage="Please select barn"/>
 
-      <div className="myBody">
-        <div><h2>Select Barn: </h2></div>
-        <List
-          bordered
-          onClick={this.handleClick}
-          dataSource={data}
-          renderItem={
-            item => (
-              <Link to={{pathname : '/food' , barnNumber:item.name }}>
-                <List.Item key={item.barn_id}>Barn {item.name}</List.Item>
-              </Link>
-            )
-          } 
-        />
+    return(
+      <div>
+        <Header thisPage="อาหาร"/>
+
+        <div className="myBody">
+          <div><h2>เลือกเล้า: </h2></div>
+          <List
+            header={"a"}
+            footer={"a"}
+            bordered
+            dataSource={data}
+            renderItem={
+              item => (
+                <Link to={{pathname : '/food' , barnNumber:item.name }}>
+                  <List.Item key={item.barn_id}>เล้า {item.name}</List.Item>
+                </Link>
+              )
+            } 
+          />
+        </div>
+
+        <Footer/>
       </div>
-
-      <Footer/>
-   </div>
-
-          
-   )
- }
+    )
+  }
 }
 export default Selectbarnfood;

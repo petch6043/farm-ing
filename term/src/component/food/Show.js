@@ -7,22 +7,22 @@ class Show extends Component {
   const data = foodList;
   const columns = [{
     
-    title: 'Type',
+    title: 'ประเภท',
     dataIndex: 'food_type',
     key: 'food_type',
    }, {
-    title: 'Amount',
+    title: 'ปริมาณ',
     dataIndex: 'amount',
     key: 'amount',
    }, {
-    title: 'Date - Time',
+    title: 'วัน - เวลา',
     dataIndex: 'time',
     key: 'time'
    }];
    const expandedRowRender = record => <label>{record.type}</label>;
   return(
    <div>
-    <div>Food list:</div>
+    <div><h2>รายการให้อาหาร:</h2></div>
     <Table expandedRowRender={expandedRowRender} columns={columns} dataSource={data}/>
    </div>
   );

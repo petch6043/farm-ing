@@ -26,9 +26,9 @@ class User extends Component {
 				<Row>
 					<Col span={24} align="center" >
 						<img  style={{width: 80, height: 80,borderRadius:100}} src='https://st.depositphotos.com/2075685/3076/v/950/depositphotos_30768193-stock-illustration-business-pig.jpg'/>
-						<div style={{fontSize: 20}}><b>Bacon Frankfurter</b></div>
-						<div>CEO of Chikadow Farm</div>
-						<Button type="danger" style={{bottom:-300}}>Log out</Button>
+						<div style={{fontSize: 20}}><b>ชัญญา จิรกวินวาณิช</b></div>
+						<div>CTO ชัยภูมิฟาร์ม</div>
+						<Button type="danger" style={{bottom:-300}}>ออกจากระบบ</Button>
 					</Col>
 				</Row>
 				</div>

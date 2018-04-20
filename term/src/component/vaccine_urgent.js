@@ -53,10 +53,12 @@ class vaccine_urgent extends Component {
 	}
 
 	
+
 	onAdd(selected) {
 		var x = this;
 		selected.map(function(item) {
 			fetch('http://206.189.35.130:4000/vaccine_urgent/add', {
+
 		    	method: 'POST',
 		    	headers: {
 		    		Accept: 'application/json',
@@ -106,18 +108,13 @@ class vaccine_urgent extends Component {
 							<DatePicker onChange={onChange} />
 						</Panel>
 
-						<Panel header="submit" key="3" style={customPanelStyle}>
+						<Panel header="Add Vaccine" key="3" style={customPanelStyle}>
 
 							<Add onAdd2={this.onAdd2}/>
 						</Panel>
 						
 					</Collapse>	
-				<Show onAdd={this.onAdd} vaccineurgentList={vaccineurgentList}/>	
-					
-					
-					
-				
-				
+					<Show onAdd={this.onAdd} vaccineurgentList={vaccineurgentList}/>		
 				</div>
 			
 				<Footer/>

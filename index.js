@@ -13,6 +13,7 @@ const SELECT_ALL_PEN_QUERY = 'SELECT * FROM pen';
 const SELECT_ALL_VACCINE_QUERY = 'SELECT * FROM vaccine';
 const SELECT_ALL_VACCINEPEN_QUERY = 'SELECT * FROM vaccine_pen';
 const SELECT_ALL_REPORT_QUERY = 'SELECT * FROM report';
+const SELECT_ALL_FOOD_REPORT_QUERY = "SELECT * FROM report_list WHERE type = 'transfer'";
 const SELECT_ALL_VACCINETYPE_QUERY = 'SELECT * FROM vaccine_type';
 const SELECT_ALL_BARN_QUERY = 'SELECT * FROM barn ORDER BY name';
 const SELECT_ALL_PENCOUNT_QUERY = 'SELECT * FROM transfer';
@@ -25,25 +26,14 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-// Report time trigger
-var job = new CronJob('00 00 12 * * 1-7',
-	function() {
-		// Runs every day at 12:00:00 AM.
-  		console.log("Generating report");
-	}, function () {
-  		console.log("Report is generated");
-  	},
-  	true,
-  	"Asia/Bangkok"
-);
-
 //connect to SQL server 
 const connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
 	password:'chikadow2018', //for server, root for local
 	database: 'react_sql',
-	socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock" //for Mac
+	timezone: '+07:00',
+	//socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock" //for Mac
 });
 
 connection.connect(function(err) {
@@ -181,8 +171,34 @@ app.get('/transfer/:barn_name', (req, res) =>{
 		}
 		else{
 			barn_id = results[0].barn_id
-			console.log(barn_id)
 			const SELECT_TRANSFER_BY_BARN_QUERY = 'SELECT * FROM transfer WHERE barn_id='+barn_id;
+			connection.query(SELECT_TRANSFER_BY_BARN_QUERY, (err,results) =>{
+				if (err) {
+					return res.send(err)
+				}
+				else{
+					return res.json({
+						data: results
+					})
+				}
+			});
+		}
+	});
+});
+
+//select transfer by barn name and date
+app.get('/transfer/:barn_name/:selected_date', (req, res) =>{
+	var barn_name = req.params.barn_name;
+	var selected_date = req.params.selected_date;
+	var barn_id;
+	const GET_BARN_ID_QUERY = 'SELECT barn_id FROM barn WHERE name = ' + barn_name + ' AND active = 1';
+	connection.query(GET_BARN_ID_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			barn_id = results[0].barn_id
+			const SELECT_TRANSFER_BY_BARN_QUERY = 'SELECT * FROM transfer WHERE barn_id = ' + barn_id + ' AND DATE(timestamp) = "' + selected_date +'"';
 			connection.query(SELECT_TRANSFER_BY_BARN_QUERY, (err,results) =>{
 				if (err) {
 					return res.send(err)
@@ -218,16 +234,18 @@ app.post('/transfer/add', function(req, res) {
 	var user_id = req.body.user_id;
 	var value = req.body.value;
 	var barn_name = req.body.barn_name;
-	var barn_id;
-	const GET_BARN_ID_QUERY = 'SELECT barn_id FROM barn WHERE name='+barn_name+' AND active=1'
+	var from_barn_name = req.body.from_barn_name;
+	var barn_id, from_barn_id;
+	const GET_BARN_ID_QUERY = 'SELECT A.barn_id AS barn_id, B.barn_id AS from_barn_id FROM barn A, barn B WHERE A.name = '+barn_name+' AND B.name ='+from_barn_name+' AND A.active = 1 AND B.active = 1'
 	connection.query(GET_BARN_ID_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
 		}
 		else{
 			barn_id = results[0].barn_id
+			from_barn_id = results[0].from_barn_id
 			console.log(barn_id)
-			const INSERT_PRODUCTS_QUERY = 'INSERT INTO transfer (barn_id, type, value, user_id) VALUES('+barn_id+', "'+type+'", '+value+', '+user_id+')';
+			const INSERT_PRODUCTS_QUERY = 'INSERT INTO transfer (barn_id, type, value, from_barn_id, user_id) VALUES('+barn_id+', "'+type+'", '+value+', '+from_barn_id+', '+user_id+')';
 			connection.query(INSERT_PRODUCTS_QUERY, (err,results) =>{
 				if (err) {
 					return res.send(err);
@@ -281,7 +299,6 @@ app.get('/food/:barn_name', (req, res) =>{
 		}
 		else{
 			barn_id = results[0].barn_id
-			console.log(barn_id)
 			const SELECT_FOOD_BY_BARN_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM food WHERE barn_id="+barn_id;
 			connection.query(SELECT_FOOD_BY_BARN_QUERY, (err,results) =>{
 				if (err) {
@@ -298,18 +315,28 @@ app.get('/food/:barn_name', (req, res) =>{
 });
 
 //select food by barn id and date
-app.get('/food/:barn_id/:date', (req, res) =>{
-	var barn_id = req.params.barn_id;
-	var date = req.params.date;
-	const SELECT_FOOD_BY_BARN_DATE_QUERY = 'SELECT * FROM food WHERE barn_id='+barn_id+' AND DATE(timestamp) = "'+date+'"';
-	connection.query(SELECT_FOOD_BY_BARN_DATE_QUERY, (err,results) =>{
+app.get('/food/:barn_name/:selected_date', (req, res) =>{
+	var barn_name = req.params.barn_name;
+	var selected_date = req.params.selected_date;
+	var barn_id;
+	const GET_BARN_ID_QUERY = 'SELECT barn_id FROM barn WHERE name='+barn_name+' AND active=1'
+	connection.query(GET_BARN_ID_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
 		}
 		else{
-			return res.json({
-				data: results
-			})
+			barn_id = results[0].barn_id
+			const SELECT_FOOD_BY_BARN_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM food WHERE barn_id=" + barn_id + " AND DATE(timestamp) = " + selected_date;
+			connection.query(SELECT_FOOD_BY_BARN_QUERY, (err,results) =>{
+				if (err) {
+					return res.send(err)
+				}
+				else{
+					return res.json({
+						data: results
+					})
+				}
+			});
 		}
 	});
 });
@@ -377,6 +404,19 @@ app.post('/food/add', function(req, res) {
 });
 
 /*-------------------------- REPORT --------------------------*/
+app.get('/report/get/food', (req, res) =>{
+	connection.query(SELECT_ALL_FOOD_REPORT_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			return res.json({
+				data: results
+			})
+		}
+	});
+});
+
 app.get('/report/food', (req, res) =>{
 	const SELECT_ALL_REPORT2_QUERY = 'CALL generate_report()'
 	connection.query(SELECT_ALL_REPORT2_QUERY, (err,results) =>{
@@ -401,7 +441,38 @@ app.get('/report/food', (req, res) =>{
 			csv.write(report, { headers: true })
 			.pipe(ws)
 			.on("finish", function(){
-				res.send(name + " is generated");
+
+				var transporter = nodemailer.createTransport({
+					service: 'gmail',
+					auth: {
+				    	user: 'farm.ingbkk@gmail.com',
+				    	pass: 'farming2018'
+					}
+				});
+
+				//var filename = "19Apr2018-DailyFoodReport.csv";
+				var filename = name;
+				//var path = "./term/public/reports/19Apr2018-DailyFoodReport.csv";
+				var path = dir + name;
+				const mailOptions = {
+					from: 'noreply@farm-ing.co', // sender address
+					to: 'suppakit.neno@gmail.com, goodkavin@gmail.com, nattapol.puttasuntithum@gmail.com, pasithtommy@gmail.com', // list of receivers
+					subject: 'Farm-ing Daily report', // Subject line
+					html: '<p>Please view reports</p>', // plain text body
+					attachments: [
+					    {
+					        filename: filename,
+					        path: path,
+					        content: 'csv'
+					    },
+					]
+				};
+
+				transporter.sendMail(mailOptions, function (err, info) {
+					if(err) return res.send(err)
+					else return res.send(info)
+				});
+
 		   	});
 		}
 	});
@@ -785,7 +856,7 @@ app.get('/email', function(req, res) {
 	var path = "./term/public/reports/19Apr2018-DailyFoodReport.csv";
 	const mailOptions = {
 		from: 'noreply@farm-ing.co', // sender address
-		to: 'suppakit.neno@gmail.com, goodkavin@gmail.com, nattapol.puttasuntithum@gmail.com', // list of receivers
+		to: 'suppakit.neno@gmail.com, goodkavin@gmail.com, nattapol.puttasuntithum@gmail.com, pasithtommy@gmail.com', // list of receivers
 		subject: 'Farm-ing Daily report', // Subject line
 		html: '<p>Please view reports</p>', // plain text body
 		attachments: [
@@ -802,6 +873,90 @@ app.get('/email', function(req, res) {
 		else return res.send(info)
 	});
 });
+
+// Report time trigger
+/*
+var job = new CronJob('00 00 12 * * 1-7',
+	function() {
+		// Runs every day at 12:00:00
+  		console.log("Generating report");
+	}, function () {
+  		console.log("Report is generated");
+  	},
+  	true,
+  	"Asia/Bangkok"
+);
+*/
+
+// Report time trigger
+var job = new CronJob('00 00 22 * * 1-7',
+	function() {
+		// Runs every day at 12:00:00
+  		console.log("Generating report...");
+  		const SELECT_ALL_REPORT2_QUERY = 'CALL generate_report()'
+		connection.query(SELECT_ALL_REPORT2_QUERY, (err,results) =>{
+			if (err) {
+				return res.send(err)
+			} else {
+				var type = "Food";
+				var dir = "./term/public/reports/";
+				var name = moment().format("DDMMMYYYY") + "-Daily" + type + "Report" + ".csv";
+				var ws = fs.createWriteStream(dir + name, { encoding: 'utf-8'} );
+				var report = [];
+				if(results[0].legnth == 0) {
+					report = ["Nothing to report"];
+				} else {
+					report.push([ type + " report " + moment().format("DD MMM YYYY")]);
+					report.push(["Barn", "Date of open barn","Age(Day)", "Move in", "Move out", "Current pig", "Cumulative Food(Kg)", "FPP", "Target FPP"]);
+					results[0].forEach(function(item) {
+						report.push([item.barn_id, moment(item.open_date).format("DD MMM YYYY"), item.age, item.move_in, item.move_out, item.current_pig, item.cumulative_food, item.fpp, item.target_fpp]);
+					});
+				}
+				
+				csv.write(report, { headers: true })
+				.pipe(ws)
+				.on("finish", function(){
+
+					var transporter = nodemailer.createTransport({
+						service: 'gmail',
+						auth: {
+					    	user: 'farm.ingbkk@gmail.com',
+					    	pass: 'farming2018'
+						}
+					});
+
+					//var filename = "19Apr2018-DailyFoodReport.csv";
+					var filename = name;
+					//var path = "./term/public/reports/19Apr2018-DailyFoodReport.csv";
+					var path = dir + name;
+					const mailOptions = {
+						from: 'noreply@farm-ing.co', // sender address
+						to: 'suppakit.neno@gmail.com, goodkavin@gmail.com, nattapol.puttasuntithum@gmail.com, pasithtommy@gmail.com', // list of receivers
+						subject: 'Farm-ing Daily report', // Subject line
+						html: '<p>Please view reports</p><br><p>This report is auto-generated at ' + moment().format("Do MMMM YYYY, k:m:s") + '</p>', // plain text body
+						attachments: [
+						    {
+						        filename: filename,
+						        path: path,
+						        content: 'csv'
+						    },
+						]
+					};
+
+					transporter.sendMail(mailOptions, function (err, info) {
+						if(err) return res.send(err)
+						else return res.send(info)
+					});
+
+			   	});
+			}
+		});
+	}, function () {
+  		console.log("Report is generated and sent");
+  	},
+  	true,
+  	"Asia/Bangkok"
+);
 
 
 app.listen(4000, () => {

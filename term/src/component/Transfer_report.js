@@ -49,7 +49,7 @@ class Transfer_report extends Component {
 	}
 
 	getReport = _ => {
-	    fetch("http://localhost:4000/report")
+	    fetch("http://206.189.35.130:4000/report/get/food")
 		.then(response => response.json())
 		.then(response => this.setState({ reportList: response.data}))
 		.catch(err => console.error(err))
@@ -60,28 +60,16 @@ class Transfer_report extends Component {
 		let {reportList} = this.state;
 		return(
 			<div>
-				<Header thisPage="Transfer & Food Report"/>
+				<Header thisPage="รายงานอาหารและการเคลื่อนย้าย"/>
 				<div className="myBody">
-					<Collapse bordered={false} style={{marginBottom:20}}>
-						<Panel header="Select option" key="1" style={customPanelStyle}>
-							<DatePicker onChange={onChange} /> 
-							<Select defaultValue="all" style={{ width: 120, marginLeft: 10}} onChange={handleChange}>
-								<Option value="all">All</Option>
-								<Option value="daily">Daily</Option>
-								<Option value="weekly">Weekly</Option>
-								<Option value="monthly">Monthly</Option>
-							</Select>
-						</Panel>
-					</Collapse>
-
-					<div>
-						<h2>Transfer & Food Report: </h2>
-						<Link to={process.env.PUBLIC_URL + '/ReportFoodTransferPDF.pdf'} target='_blank'><Button icon="file-pdf" style={{marginBottom:10}}>28-12-60 (Daily report)</Button></Link>
-						<Button icon="file-pdf" style={{marginBottom:10}}>29-12-60 (Daily report)</Button>
-						<Button icon="file-pdf" style={{marginBottom:10}}>30-12-60 (Daily report)</Button>
-						<Button icon="file-pdf" style={{marginBottom:10}}>31-12-60 (Daily report)</Button>
-						<Button icon="file-pdf" style={{marginBottom:10}}>31-12-60 (Monthly report)</Button>
-					</div>
+					<div className="mySelect" style={{marginTop: 10}}><DatePicker onChange={onChange} /></div> 
+					<h2>รายชื่อรายงาน:</h2>
+					<Link to={process.env.PUBLIC_URL + '/reports/19Apr2018-DailyFoodReport.csv'} target='_blank'>
+						<div><Button icon="file-excel" style={{marginBottom:10}}>รายงานประจำวัน 19-01-61</Button></div>
+					</Link>
+					<Link to={process.env.PUBLIC_URL + '/reports/20Apr2018-DailyFoodReport.csv'} target='_blank'>
+						<div><Button icon="file-excel" style={{marginBottom:10}}>รายงานประจำวัน 20-01-61</Button></div>
+					</Link>
 				</div>
 				<Footer/>
 			</div>
