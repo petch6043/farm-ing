@@ -23,12 +23,12 @@ class myForm extends Component {
 				<FormItem className="myFormItem">
 					{getFieldDecorator('type', {
 					rules: [{ required: true, message: 'Please input Type!' }],
-					})(<Input placeholder="Type" />)}
+					})(<Input placeholder="ประเภท" />)}
 				</FormItem>
 				<FormItem className="myFormItem">
 					{getFieldDecorator('value', {
 					rules: [{ required: true, message: 'Please input Value!' }],
-					})(<Input placeholder="Value" />)}
+					})(<Input placeholder="จำนวณ" />)}
 				</FormItem>
 				<FormItem className="myFormItem">
 					{getFieldDecorator('user_id', {

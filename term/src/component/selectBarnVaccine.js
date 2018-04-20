@@ -49,10 +49,10 @@ class SelectBarnVaccine extends Component {
     });
   return(
     <div>
-      <Header thisPage="Please select barn"/>
+      <Header thisPage="วัคซีน"/>
 
       <div className="myBody">
-        <div><h2>Select Barn: </h2></div>
+        <div><h2>เลือกเล้า: </h2></div>
         <List
           header={"a"}
           footer={"a"}
@@ -62,7 +62,7 @@ class SelectBarnVaccine extends Component {
           renderItem={
             item => (
               <Link to={{pathname : '/vaccine_program' , barnNumber:item.name }}>
-                <List.Item key={item.barn_id}>Barn {item.name}</List.Item>
+                <List.Item key={item.barn_id}>เล้า {item.name}</List.Item>
               </Link>
             )
           } 

@@ -99,10 +99,10 @@ class Food extends Component {
   return(
 
    <div>
-    <Header thisPage="Food"/>
+    <Header thisPage="อาหาร"/>
     <div className="myBody">
      <Collapse bordered={false} style={{marginBottom:20}}>
-      <Panel header="Add food" style={customPanelStyle}>
+      <Panel header="เพิ่ม" style={customPanelStyle}>
       	<Add onAdd={this.onAdd}/>
       </Panel>
 

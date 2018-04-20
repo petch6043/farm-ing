@@ -43,10 +43,10 @@ class Selectbarnfood extends Component {
 
     return(
       <div>
-        <Header thisPage="Please select barn"/>
+        <Header thisPage="อาหาร"/>
 
         <div className="myBody">
-          <div><h2>Select Barn: </h2></div>
+          <div><h2>เลือกเล้า: </h2></div>
           <List
             header={"a"}
             footer={"a"}
@@ -55,7 +55,7 @@ class Selectbarnfood extends Component {
             renderItem={
               item => (
                 <Link to={{pathname : '/food' , barnNumber:item.name }}>
-                  <List.Item key={item.barn_id}>Barn {item.name}</List.Item>
+                  <List.Item key={item.barn_id}>เล้า {item.name}</List.Item>
                 </Link>
               )
             } 

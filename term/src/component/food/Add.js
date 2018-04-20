@@ -22,16 +22,16 @@ class myForm extends Component {
 			<Form onSubmit={this.handleSubmit} className="login-form">
 				<FormItem className="myFormItem">
 					{getFieldDecorator('food_type', {
-					rules: [{ required: true, message: 'Please input Pen ID!' }],
-					})(<Input placeholder="Food type" />)}
+					rules: [{ required: true, message: 'กรุณาใส่ประเภทอาหาร!' }],
+					})(<Input placeholder="ประเภท" />)}
 				</FormItem>
 				<FormItem className="myFormItem">
 					{getFieldDecorator('amount', {
-					rules: [{ required: true, message: 'Please input Type!' }],
-					})(<Input placeholder="Amount" />)}
+					rules: [{ required: true, message: 'กรุณาใส่ปริมาณอาหาร!' }],
+					})(<Input placeholder="ปริมาณ" />)}
 				</FormItem>
 				<FormItem>
-					<Button type="primary" ghost htmlType="submit" className="login-form-button">Submit</Button>
+					<Button type="primary" ghost htmlType="ยืนยัน" className="login-form-button">ยืนยัน</Button>
 				</FormItem>
 			</Form>
 		)

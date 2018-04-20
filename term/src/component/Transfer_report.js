@@ -60,18 +60,13 @@ class Transfer_report extends Component {
 		let {reportList} = this.state;
 		return(
 			<div>
-				<Header thisPage="Transfer & Food Report"/>
+				<Header thisPage="รายงานอาหารและการเคลื่อนย้าย"/>
 				<div className="myBody">
-					<Collapse bordered={false} style={{marginBottom:20}}>
-						<Panel header="Select option" key="1" style={customPanelStyle}>
-							<DatePicker onChange={onChange} /> 
-						</Panel>
-					</Collapse>
-
+				<DatePicker onChange={onChange} /> 
 					<div>
-						<h2>Transfer & Food Report: </h2>
+						<h2>รายชื่อรายงาน: </h2>
 						<Link to={process.env.PUBLIC_URL + '/reports/19Apr2018-DailyFoodReport.csv'} target='_blank'>
-							<div><Button icon="file-excel" style={{marginBottom:10}}>28-12-60 (Daily report)</Button></div>
+							<div><Button icon="file-excel" style={{marginBottom:10}}>รายงานประจำวัน 28-12-60</Button></div>
 						</Link>
 					</div>
 				</div>

@@ -20,14 +20,14 @@ class vaccine_menu extends Component {
   render() {
     return (
     	<div>
-    		<Header thisPage="Health"/>
+    		<Header thisPage="สุขภาพ"/>
 			<Row>
 				
 				<Col span={12} align="right">
 						<Link to="/selectbarnvaccine">
 							<Button className="myButton">
 								<Icon type="check-square-o" style={{fontSize: 72}}/>
-								<div>Vaccine Program</div>
+								<div>โปรแกรมวัคซีน</div>
 							</Button>
 						</Link>
 				</Col>
@@ -35,7 +35,7 @@ class vaccine_menu extends Component {
 						<Link to="/selectbarnvaccine2">
 							<Button className="myButton">
 								<Icon type="exclamation-circle-o" style={{fontSize: 72}}/>
-								<div>Vaccine Urgent</div>
+								<div>วัคซีนฉุกเฉิน</div>
 							</Button>
 						</Link>
 				</Col>
