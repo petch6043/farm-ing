@@ -55,7 +55,7 @@ class vaccine_urgent extends Component {
 	
 	onAdd(vac_id) {
 		console.log("A" + vac_id);
-		    fetch('http://localhost:4000/vaccine_urgent/add', {
+		    fetch('http://206.189.35.130:4000/vaccine_urgent/add', {
 		    	method: 'POST',
 		    	headers: {
 		    		Accept: 'application/json',
@@ -77,7 +77,7 @@ class vaccine_urgent extends Component {
 
 	onAdd2(vaccineurgent) {
 		console.log("B");
-		    fetch('http://localhost:4000/vaccine_urgent/addurgent', {
+		    fetch('http://206.189.35.130:4000/vaccine_urgent/addurgent', {
 		    	method: 'POST',
 		    	headers: {
 		    		Accept: 'application/json',
