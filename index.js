@@ -875,7 +875,7 @@ var job = new CronJob('00 00 12 * * 1-7',
 */
 
 // Report time trigger
-var job = new CronJob('00 00 18 * * 1-7',
+var job = new CronJob('00 00 22 * * 1-7',
 	function() {
 		// Runs every day at 12:00:00
   		console.log("Generating report...");
