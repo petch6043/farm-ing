@@ -8,6 +8,9 @@ import { Collapse } from 'antd';
 import { Button, notification } from 'antd';
 import { DatePicker } from 'antd';
 
+
+const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
+
 const noti = (type, msg, desc) => {
 	notification[type]({
 		message: msg,
