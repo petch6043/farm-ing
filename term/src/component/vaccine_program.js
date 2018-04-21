@@ -7,11 +7,12 @@ import { DatePicker } from 'antd';
 import { Collapse } from 'antd';
 import { Button, notification } from 'antd';
 import Selectmenu from './Selectmenu';
-import { Row, Col } from 'antd';
+import { Row, Col , Select} from 'antd';
 import 'antd/dist/antd.css';
 import { Checkbox } from 'antd';
 
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
+const Option = Select.Option;
 function onChange(date, dateString) {
 	console.log(date, dateString);
 }
@@ -38,9 +39,11 @@ class vaccine_program extends Component {
 		super(props);
 		this.state = {
 			vaccineprogramList: [],
-			barnNo: props.location.barnNumber
+			barnNo: props.location.barnNumber,
+			pen_id:0
 		}
 		this.onAdd = this.onAdd.bind(this);
+		this.handleChange = this.handleChange.bind(this);
 	}
 
 	componentDidMount(){
@@ -65,8 +68,8 @@ class vaccine_program extends Component {
 		    		'Content-Type': 'application/json',
 		    	},
 		    	body: JSON.stringify({
-		    		vac_id: selected.vac_id,
-		    		pen_id: 2
+		    		vac_id: item.vac_id,
+		    		pen_id: x.state.pen_id
 		    		
 		    	}),
 		    })
@@ -103,6 +106,12 @@ class vaccine_program extends Component {
 	    */
 	}
 
+	handleChange(value) {
+ 		console.log(`selected ${value}`);
+ 		this.setState({ pen_id: value});
+	}
+
+
 	render() {
 		let {vaccineprogramList} = this.state;
 		let {barnNo} = this.state;
@@ -114,6 +123,15 @@ class vaccine_program extends Component {
 					<div className="mySelect">
 						<DatePicker onChange={onChange} />
 					</div>
+					<Select placeholder="เลือกคอก" style={{ width: 120 }} onChange={this.handleChange} >
+            		
+    					<Option value='1'>คอก 1</Option>
+    					<Option value='2'>คอก 2</Option>
+    					<Option value='3'>คอก 3</Option>
+          
+             		
+              
+            		</Select>
 							
 
 				
