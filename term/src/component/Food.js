@@ -97,7 +97,7 @@ class Food extends Component {
 		return(
 
 			<div>
-				<Header thisPage="อาหาร"/>
+				<Header thisPage={"เล้า " + barnNumber}/>
 				<div className="myBody">
 					<Collapse bordered={false} style={{marginBottom:20}}>
 						<Panel header="เพิ่ม" key="2" style={customPanelStyle}>

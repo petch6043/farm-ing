@@ -36,16 +36,9 @@ class myForm extends Component {
             		],
           			})(
             		<Select placeholder="เลือกประเภท">
-            		
-
-   					<Option value='301'>301</Option>
-   					<Option value='302'>302</Option>
-   					<Option value='303'>303</Option>
-   					<Option value='304'>304</Option>
-          
-         
-        		
-              
+	   					<Option value='310'>310</Option>
+	   					<Option value='320'>320</Option>
+	   					<Option value='430'>430</Option>
             		</Select>
           		)}
         </FormItem>
