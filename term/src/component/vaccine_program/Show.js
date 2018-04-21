@@ -83,13 +83,13 @@ class Show extends Component {
 
 		return(
 			<div>
-				<div> Vaccine Program:</div>
+				<div className="myBigFont"> Vaccine Program:</div>
 				<Col span={24} align="center">
 				<Table rowSelection={rowSelection} columns={columns} dataSource={data}/>
 				</Col>
 
 				<Col span={12} align="left" style={{padding:10}}>
-				<Button type="primary" onClick={this.addClick}>Submit</Button>
+				<Button type="primary" onClick={this.addClick} className="mySubmitButton">Submit</Button>
 				</Col>
 				
 

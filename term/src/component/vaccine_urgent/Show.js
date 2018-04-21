@@ -82,13 +82,13 @@ constructor (props){
 
 		return(
 			<div>
-				<div>Vaccineurgent list:</div>
+				<div className="myBigFont">Vaccineurgent list:</div>
 				<Col span={24} align="center">
 				<Table rowSelection={rowSelection} columns={columns} dataSource={data}/>
 				</Col>
 
 				<Col span={12} align="left" style={{padding:10}}>
-				<Button type="primary" onClick={this.addClick}>Submit</Button>
+				<Button type="primary" onClick={this.addClick} className="mySubmitButton">Submit</Button>
 				</Col>
 				
 			</div>

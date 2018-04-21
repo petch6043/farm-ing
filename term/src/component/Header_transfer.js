@@ -20,7 +20,7 @@ class Header_transfer extends Component {
 		let {thisPage} = this.props;
 		return(
 			<Row>
-				<Col span={24} className="myTop">
+				<Col span={24} className="myTop myBigFont">
 					<Icon onClick={this.context.router.history.goBack} type="left" style={{ fontSize: 25 }} className="myBack"/>
 
 					<div className="myTopLabel">{thisPage}</div>

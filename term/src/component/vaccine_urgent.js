@@ -102,14 +102,14 @@ class vaccine_urgent extends Component {
 				<Header thisPage="Vaccine Urgent"/>
 				<div className="myBody">
 					<Collapse bordered={false} style={{marginBottom:20}}>
-						<Panel header="Select date" key="1" style={customPanelStyle}>
+						<Panel header="Select date" key="1" style={customPanelStyle} className="myBigFont">
 							<DatePicker onChange={onChange} />
 						</Panel>
-						<Panel header="Select Barn" key="2" style={customPanelStyle}>
+						<Panel header="Select Barn" key="2" style={customPanelStyle} className="myBigFont">
 							<Selectmenu/>
 						</Panel>
 
-						<Panel header="submit" key="3" style={customPanelStyle}>
+						<Panel header="submit" key="3" style={customPanelStyle} className="myBigFont">
 
 							<Add onAdd2={this.onAdd2}/>
 						</Panel>

@@ -31,7 +31,7 @@ class myForm extends Component {
 					})(<Input placeholder="Amount" />)}
 				</FormItem>
 				<FormItem>
-					<Button type="primary" ghost htmlType="submit" className="login-form-button">Submit</Button>
+					<Button type="primary" ghost htmlType="submit" className="login-form-button" className="mySubmitButton">Submit</Button>
 				</FormItem>
 			</Form>
 		)

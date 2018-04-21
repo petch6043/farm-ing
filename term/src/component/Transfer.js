@@ -105,7 +105,7 @@ class Transfer extends Component {
 				<Header_transfer thisPage={"Barn " + Barn_no}/>
 				
 				<br/>
-				<Popconfirm placement="bottomLeft" title="Are you sure to close this barn?" onConfirm={this.closeBarn()} okText="Yes" cancelText="No">
+				<Popconfirm placement="bottomLeft" title="Are you sure to close this barn?" onConfirm={this.closeBarn} okText="Yes" cancelText="No">
         
         <Button className="myCloseBarn">Close barn </Button>
       </Popconfirm>
@@ -115,7 +115,7 @@ class Transfer extends Component {
 				<div className="myBody">
 					<Collapse bordered={false} style={{marginBottom:20}}>
 							
-						<Panel header="Add transfer" key="2" style={customPanelStyle}>
+						<Panel header="Add transfer" key="2" style={customPanelStyle} className="myBigFont">
 							<Add onAdd={this.onAdd}/>
 						</Panel>
 						

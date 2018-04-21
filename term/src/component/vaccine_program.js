@@ -78,10 +78,10 @@ class vaccine_program extends Component {
 				<Header thisPage="Vaccine Program"/>
 				<div className="myBody">
 					<Collapse bordered={false} style={{marginBottom:20}}>
-						<Panel header="Select date" key="1" style={customPanelStyle}>
+						<Panel header="Select date" key="1" style={customPanelStyle} className="myBigFont">
 							<DatePicker onChange={onChange} />
 						</Panel>
-						<Panel header="Select Barn" key="2" style={customPanelStyle}>
+						<Panel header="Select Barn" key="2" style={customPanelStyle} className="myBigFont">
 							<Selectmenu/>
 						</Panel>	
 

@@ -7,6 +7,7 @@ import Selectmenu from './Selectmenu';
 import { Collapse } from 'antd';
 import { Button, notification } from 'antd';
 import { DatePicker } from 'antd';
+import { Popconfirm } from 'antd';
 
 const noti = (type, msg, desc) => {
 	notification[type]({
@@ -24,6 +25,10 @@ const customPanelStyle = {
  border: 0,
  overflow: 'hidden',
 };
+
+function onChange(date, dateString) {
+	console.log(date, dateString);
+}
 
 class Food extends Component {
 
@@ -67,12 +72,12 @@ class Food extends Component {
 	    		
 	    	}),
 	    })
-	    noti('success','Add food','Sucessfully saved data.');
-	    /*.then((response) => {
-	    	console(response)
+	    
+	    .then((response) => {
+	    	
 	    	response.json().then((data) => {
 	    		if(data == 1) {
-	    			this.getTransfers();
+	    			this.getFood();
 	    			noti('success','Add food','Sucessfully saved data.');
 	    		} else {
 	    			noti('error','Add food','Unable to save data.');
@@ -81,7 +86,7 @@ class Food extends Component {
 	    })
 	    .catch(err => {
 	    	noti('error','Add food','Failed to connect to database.');
-	    })*/
+	    })
 	    console.log(JSON.stringify({
 	    		barn_name: this.state.barnNo,
 	    		amount: food.amount,
@@ -99,10 +104,14 @@ class Food extends Component {
   return(
 
    <div>
-    <Header thisPage="Food"/>
+    <Header thisPage="Food" />
     <div className="myBody">
      <Collapse bordered={false} style={{marginBottom:20}}>
-      <Panel header="Add food" style={customPanelStyle}>
+      <Panel header="Select date" style={customPanelStyle} className="myBigFont" >
+      <DatePicker onChange={onChange}/>
+      	
+      </Panel>
+      <Panel header="Add food" style={customPanelStyle} className="myBigFont">
       	<Add onAdd={this.onAdd}/>
       </Panel>
 

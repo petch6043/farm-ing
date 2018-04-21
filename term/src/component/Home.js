@@ -19,32 +19,32 @@ class Home extends Component {
 					<Col span={12} align="right">
 						<Link to="/transfer_barn_select">
 							<Button className="myButton">
-								<Icon type="swap" style={{fontSize: 72}}/>
-								<div>Transfer</div>
+								<Icon type="swap" style={{fontSize: 100}}/>
+								<div className="myBigFont">Transfer</div>
 							</Button>
 						</Link>
 					</Col>
 					<Col span={12} align="left">
 						<Link to="/selectbarnfood">
 							<Button className="myButton">
-								<Icon type="inbox" style={{fontSize: 72}}/>
-								<div>Food</div>
+								<Icon type="inbox" style={{fontSize: 100}}/>
+								<div className="myBigFont">Food</div>
 							</Button>
 						</Link>
 					</Col>
 					<Col span={12} align="right">
 						<Link to="/vaccine_menu">
 							<Button className="myButton">
-								<Icon type="medicine-box" style={{fontSize: 72}}/>
-								<div>Health</div>
+								<Icon type="medicine-box" style={{fontSize: 100}}/>
+								<div className="myBigFont">Health</div>
 							</Button>
 						</Link>
 					</Col>
 					<Col span={12} align="left">
 						<Link to="/report">
 							<Button className="myButton">
-								<Icon type="file-text" style={{fontSize: 72}}/>
-								<div>Report</div>
+								<Icon type="file-text" style={{fontSize: 100}}/>
+								<div className="myBigFont">Report</div>
 							</Button>
 						</Link>
 					</Col>

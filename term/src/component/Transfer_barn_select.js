@@ -90,7 +90,7 @@ class Transfer_barn_select extends Component {
 				<Header thisPage="Barn Select"/>
 				<div className="myBody">
 					<Collapse bordered={false} style={{marginBottom:15}}>
-						<Panel header="Create Barn" key="2" style={customPanelStyle}>
+						<Panel header="Create Barn" key="2" style={customPanelStyle} className="myBigFont ">
 							<Add onAdd={this.onAdd} BarnList={BarnList}/>
 						</Panel>
 					</Collapse>

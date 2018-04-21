@@ -49,13 +49,16 @@ class Selectbarnfood extends Component {
     <div>
     <Header thisPage="Please select barn"/>
     <div className="myBody">
-    <Collapse bordered={false} style={{marginBottom:20}}>
-    <Panel header="Select barn" style={customPanelStyle}> 
+    <Collapse bordered={false} style={{marginBottom:20}} >
+    <Panel header="Select barn" style={customPanelStyle} className="myBigFont" > 
     <div align="center">
       <Menu
         onClick={this.handleClick}
         mode="inline"
-        style={{ width: 300 }}>
+        style={{ width: 300}}
+
+        >
+
         {  
 
           data.map((x) =>{
