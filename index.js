@@ -442,7 +442,8 @@ app.get('/report/food', (req, res) =>{
 			.pipe(ws)
 			.on("finish", function(){
 
-				const INSERT_REPORT_QUERY = "INSERT INTO report_list (report_name, report_path, report_date, type) VALUES('" + n + "','" + p + "','" + d + "','transfer')";
+				//const INSERT_REPORT_QUERY = "INSERT INTO report_list (report_name, report_path, report_date, type) VALUES('" + n + "','" + p + "','" + d + "','transfer')";
+				const INSERT_REPORT_QUERY = "INSERT INTO report_list (report_name, report_path, report_date, type) VALUES('รายงานประจำวัน 20-01-61','/reports/20Apr2018-DailyFoodReport.csv','2018-04-20 00:00:00','transfer')";
 				connection.query(INSERT_REPORT_QUERY, (err,results) =>{
 					if (err) {
 						return res.send(err);
@@ -479,6 +480,7 @@ app.get('/report/food', (req, res) =>{
 						});
 					}
 				});
+
 		   	});
 		}
 	});
