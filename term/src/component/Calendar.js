@@ -19,7 +19,7 @@ class CalendarPage extends Component {
   render() {
     return (
     	<div>
-    		<Header thisPage="Calendar"/>
+    		<Header thisPage="ปฏิทิน"/>
     			<div align='center' className="myCalendar">
 					<div style={{ width: 300, border: '1px solid #d9d9d9', borderRadius: 4}}>
 					    <Calendar fullscreen={false} onPanelChange={onPanelChange} />

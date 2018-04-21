@@ -13,6 +13,7 @@ h2 {
 }
 
 .myTopLabel {
+	padding-top: 3px;
 	text-align: center; 
 	margin-right: 25px;
 }
@@ -27,7 +28,7 @@ h2 {
 }
 
 .myBody {
-	padding:10px 10px 55px 10px;
+	padding:10px 10px 105px 10px;
 }
 
 .myHome {
@@ -48,14 +49,8 @@ h2 {
 	bottom: 0;
 	width: 100%;
 }
-
-.myCloseBarn{
-	float: right;
-	margin-right: 30px;
-}
-.mySelectDate{
-	float: left;
-	margin-left: 30px;
+.mySelect {
+	margin-bottom: 10px;
 }
 
 .myTab {
@@ -108,4 +103,8 @@ h2 {
 
 .myCalendar {
 	padding-top: 30px;
+}
+
+.ant-list-header, .ant-list-footer {
+	display: none;
 }

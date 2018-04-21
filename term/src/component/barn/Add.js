@@ -77,24 +77,23 @@ class myForm extends Component {
       <Form onSubmit={this.handleSubmit}>
         <FormItem
           {...formItemLayout}
-          label="Select"
           hasFeedback
         >
           {getFieldDecorator('name', {
             rules: [
-              { required: true, message: 'Please select a Barn!' },
+              { required: true, message: 'กรุณาเลือกเล้า!' },
             ],
           })(
 
 
-            <Select placeholder="Please select a Barn">
+            <Select placeholder="เลือกเล้า">
 
             {  
      	
      	
           closedBarn.map((x) =>
 
-   			<Option value={x}>Barn {x}</Option>
+   			<Option value={x} key={x}>เล้า {x}</Option>
           
          
         )}
@@ -104,12 +103,14 @@ class myForm extends Component {
         </FormItem>
         <FormItem className="myFormItem">
 					{getFieldDecorator('open_age', {
-					rules: [{ required: true, message: 'Please input Age!' }],
-					})(<Input placeholder="age" />)}
+					rules: [{ required: true, message: 'กรุณาใส่อายุย้ายเข้า!' }],
+					})(<Input placeholder="อายุย้ายเข้า" />)}
 				</FormItem>
 				
 				<FormItem>
-					<Button type="primary" ghost htmlType="submit" className="login-form-button mySubmitButton">Submit</Button>
+
+					<Button type="primary" ghost htmlType="submit" className="login-form-button mySubmitButton">ยืนยัน</Button>
+
 				</FormItem>
 			</Form>
 		)

@@ -13,18 +13,28 @@ class Show extends Component {
 			done:false,
 			vac_id:0,
 			x:0,
+			selected: []
 		}
 		this.toggle = this.toggle.bind(this)
 		this.addClick = this.addClick.bind(this);
 	}
 
+	checkVaccine(vaccined) {
+		if(vaccined > 0) {
+			console.log("a");
+			return [0]
+		} else {
+			console.log("b");
+			return []
+		}
+	}
+
 	addClick() {
 		let {onAdd} = this.props;
-		console.log("addclick "+this.state.vac_id);
-		onAdd(this.state.vac_id);
+		onAdd(this.state.selected);
 		this.setState({
+			selected: [],
 			vaccineprogram: {
-				
 				vac_id: "",
 				pen_id: 0,
 			}
@@ -37,20 +47,23 @@ class Show extends Component {
 		})
 	}
 
+
+
 	render() {
 		let {vaccineprogramList} = this.props;
 		let {x} = this.props;
+		let {vaccined} = this.props;
 		const data = vaccineprogramList;
 			const columns = [{
-				title: 'age',
+				title: 'อายุ',
 				dataIndex: 'age',
 				key: 'age',
 			}, {
-				title: 'Vaccine name',
+				title: 'วัคซีน',
 				dataIndex: 'vac_name',
 				key: 'vac_name',
 			} , {
-				title: 'Vaccine id',
+				title: 'ลำดับวัคซีน',
 				dataIndex: 'vac_id',
 				key: 'vac_id',
 			}
@@ -58,10 +71,13 @@ class Show extends Component {
 
 
 		const expandedRowRender = record => <label>{record.type}</label>;
+		let selectedRowKeys = vaccined;
 		const rowSelection = {	
+			selectedRowKeys,
 
  		 		onChange: (selectedRowKeys, selectedRows) => {
-
+ 		 			this.setState({selected: selectedRows});
+ 		 			/*
  		 		if(x%2==0){
  		 			this.setState({vac_id:selectedRows[0].vac_id})
  		 			console.log(this.state)
@@ -72,6 +88,7 @@ class Show extends Component {
    		 			this.setState({x:2})
    		 		
    		 		}
+   		 		*/
 	   		 			
   			},
   				getCheckboxProps: record => ({
@@ -84,12 +101,14 @@ class Show extends Component {
 		return(
 			<div>
 				<div className="myBigFont"> Vaccine Program:</div>
+
+
 				<Col span={24} align="center">
 				<Table rowSelection={rowSelection} columns={columns} dataSource={data}/>
 				</Col>
 
 				<Col span={12} align="left" style={{padding:10}}>
-				<Button type="primary" onClick={this.addClick} className="mySubmitButton">Submit</Button>
+				<Button type="primary" onClick={this.addClick} className="mySubmitButton">ส่ง</Button>
 				</Col>
 				
 

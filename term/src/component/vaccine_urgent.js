@@ -45,39 +45,49 @@ class vaccine_urgent extends Component {
 		this.getVaccineUrgent();
 	}
 
-	getVaccineUrgent = _ => {
-	    fetch("http://localhost:4000/vaccine_urgent")
+	getVaccineUrgent (){
+	    fetch("http://206.189.35.130:4000/vaccine_urgent")
 	      .then(response => response.json())
 	      .then(response => this.setState({ vaccineurgentList: response.data}))
 	      .catch(err => console.error(err))
 	}
 
 	
-	onAdd(vac_id) {
-		console.log("A" + vac_id);
-		    fetch('http://localhost:4000/vaccine_urgent/add', {
+
+	onAdd(selected) {
+		var x = this;
+		selected.map(function(item) {
+			fetch('http://206.189.35.130:4000/vaccine_urgent/add', {
+
 		    	method: 'POST',
 		    	headers: {
 		    		Accept: 'application/json',
 		    		'Content-Type': 'application/json',
 		    	},
 		    	body: JSON.stringify({
-		    		
-		    		
-		    		vac_id: vac_id,
+		    		vac_id: selected.vac_id,
 		    		pen_id: 2
 		    		
 		    	}),
 		    })
-		    .then(this.getVaccineUrgent)	
-		    .catch(err => console.error(err))
-		    console.log('addVaccine');
+		    .then((response) => {
+	    	response.json().then((data) => {
+	    		if(data == 1) {
+	    			noti('success','Add vaccine','Sucessfully saved data.');
+	    			x.getVaccineUrgent();
+	    		} else {
+	    			noti('error','Add vaccine','Unable to save data.');
+	    		}
+           	});
+	    })
+	    	.catch(err => console.error(err))
+		});
 	}
 
 
 	onAdd2(vaccineurgent) {
 		console.log("B");
-		    fetch('http://localhost:4000/vaccine_urgent/addurgent', {
+		    fetch('http://206.189.35.130:4000/vaccine_urgent/addurgent', {
 		    	method: 'POST',
 		    	headers: {
 		    		Accept: 'application/json',
@@ -99,28 +109,23 @@ class vaccine_urgent extends Component {
 		let {vaccineurgentList} = this.state;
 		return(
 			<div>
-				<Header thisPage="Vaccine Urgent"/>
+				<Header thisPage="วัคซีนฉุกเฉิน"/>
 				<div className="myBody">
 					<Collapse bordered={false} style={{marginBottom:20}}>
 						<Panel header="Select date" key="1" style={customPanelStyle} className="myBigFont">
+
+						<Panel header="เลือกวันที่" key="1" style={customPanelStyle} className="myBigFont">
 							<DatePicker onChange={onChange} />
 						</Panel>
-						<Panel header="Select Barn" key="2" style={customPanelStyle} className="myBigFont">
-							<Selectmenu/>
-						</Panel>
 
-						<Panel header="submit" key="3" style={customPanelStyle} className="myBigFont">
+						<Panel header="เพิ่มวัคซีน" key="3" style={customPanelStyle} className="myBigFont">
+
 
 							<Add onAdd2={this.onAdd2}/>
 						</Panel>
 						
 					</Collapse>	
-				<Show onAdd={this.onAdd} vaccineurgentList={vaccineurgentList}/>	
-					
-					
-					
-				
-				
+					<Show onAdd={this.onAdd} vaccineurgentList={vaccineurgentList}/>		
 				</div>
 			
 				<Footer/>

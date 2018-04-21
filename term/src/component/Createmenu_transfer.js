@@ -12,16 +12,6 @@ class Createmenu_transfer extends Component {
     this.state = 
     {current: 0}
   }
-
-   
-    handleClick = (e) => {
-        console.log('clicking'+e.key, e)
-        
-        this.setState({
-          current: e.key
-        });
-        console.log('current:'+this.state.current)
-      };
     
  render(){
   let {BarnList} = this.props;
@@ -31,16 +21,17 @@ class Createmenu_transfer extends Component {
 
   return(
     
-    <div align="center">
+    <div>
 
       <List
+        header={"a"}
+        footer={"a"}
         bordered
-        onClick={this.handleClick}
         dataSource={data}
         renderItem={
           item => (
             <Link to={{pathname : '/transfer' , Barn_no:item.name }}>
-              <List.Item key={item.barn_id}>Barn {item.name}</List.Item>
+              <List.Item key={item.barn_id}>เล้า {item.name}</List.Item>
             </Link>
           )
         } 

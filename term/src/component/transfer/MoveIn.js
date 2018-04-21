@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'antd';
 import { Button, Icon } from 'antd';
-import { Form, Input, Checkbox } from 'antd';
+import { Form, Input, Checkbox, Select } from 'antd';
 const FormItem = Form.Item;
+const Option = Select.Option;
 
 class myForm extends Component {
 	handleSubmit = (e) => {
@@ -10,7 +11,9 @@ class myForm extends Component {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
+				values.type="รับ"
 				send(values);
+				console.log(values)
 				this.props.form.resetFields();
 			}
 		});
@@ -18,23 +21,45 @@ class myForm extends Component {
 
 	render() {
 		const { getFieldDecorator } = this.props.form;
+		var allBarn = [1,2,3,4,5,6,7,8,9,10]
+		const formItemLayout = {
+      labelCol: { span: 6 },
+      wrapperCol: { span: 14 },
+    };
 		return(
 			<Form onSubmit={this.handleSubmit} className="login-form">
-				<FormItem className="myFormItem">
-					{getFieldDecorator('type', {
-					rules: [{ required: true, message: 'Please input Type!' }],
-					})(<Input placeholder="Type" />)}
-				</FormItem>
+				
+
+
+				<FormItem
+        		>
+          			{getFieldDecorator('from_barn_name', {
+            		rules: [
+              		{required: true, message: 'กรุณาเลือกเล้า' },
+            		],
+          			})(
+            		<Select placeholder="มาจาก">
+
+            {  
+     	
+     	
+          allBarn.map((x) =>
+
+   			<Option value={x} key={x}>เล้า {x}</Option>
+          
+         
+        )}
+              
+            </Select>
+          		)}
+        </FormItem>
+
 				<FormItem className="myFormItem">
 					{getFieldDecorator('value', {
-					rules: [{ required: true, message: 'Please input Value!' }],
-					})(<Input placeholder="Value" />)}
+					rules: [{ required: true, message: 'เลือกจำนวน' }],
+					})(<Input placeholder="จำนวน" />)}
 				</FormItem>
-				<FormItem className="myFormItem">
-					{getFieldDecorator('user_id', {
-					rules: [{ required: true, message: 'Please input User ID!' }],
-					})(<Input placeholder="User ID" />)}
-				</FormItem>
+				
 				<FormItem>
 					<Button type="primary" ghost htmlType="submit" className="login-form-button ">Submit</Button>
 				</FormItem>
@@ -45,7 +70,7 @@ class myForm extends Component {
 
 const AddForm = Form.create()(myForm);
 
-class Add extends Component {
+class MoveIn extends Component {
 	constructor(props) {
 		super(props);
 		this.send = this.send.bind(this);
@@ -66,4 +91,4 @@ class Add extends Component {
 	}
 }
 
-export default Add;
+export default MoveIn;

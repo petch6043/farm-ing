@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'antd';
 import { Button, Icon } from 'antd';
-import { Form, Input, Checkbox,Select } from 'antd';
+import { Form, Input, Checkbox, Select } from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
 
@@ -11,12 +11,13 @@ class myForm extends Component {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
+
 				send(values);
+				console.log(values)
 				this.props.form.resetFields();
 			}
 		});
 	}
-
 
 	render() {
 		const { getFieldDecorator } = this.props.form;
@@ -26,32 +27,36 @@ class myForm extends Component {
     };
 		return(
 			<Form onSubmit={this.handleSubmit} className="login-form">
-				
+
 
 				<FormItem
         		>
-          			{getFieldDecorator('food_type', {
+          			{getFieldDecorator('type', {
             		rules: [
               		{required: true, message: 'กรุณาใส่ประเภท!' },
             		],
           			})(
             		<Select placeholder="เลือกประเภท">
-	   					<Option value='310'>310</Option>
-	   					<Option value='320'>320</Option>
-	   					<Option value='430'>430</Option>
+            		
+
+   					<Option value='ขาย'>ขาย</Option>
+   					<Option value='ตาย'>ตาย</Option>
+   					<Option value='ป่วย'>ป่วย</Option>
+          
+         
+        		
+              
             		</Select>
           		)}
         </FormItem>
-
 				<FormItem className="myFormItem">
-					{getFieldDecorator('amount', {
-					rules: [{ required: true, message: 'กรุณาใส่ปริมาณอาหาร!' }],
-					})(<Input placeholder="ปริมาณ" />)}
+					{getFieldDecorator('value', {
+					rules: [{ required: true, message: 'เลือกจำนวน' }],
+					})(<Input placeholder="จำนวน" />)}
 				</FormItem>
+				
 				<FormItem>
-
-					<Button type="primary" ghost htmlType="ยืนยัน" className="login-form-button" className="mySubmitButton">ยืนยัน</Button>
-
+					<Button type="primary" ghost htmlType="submit" className="login-form-button">Submit</Button>
 				</FormItem>
 			</Form>
 		)
@@ -60,15 +65,15 @@ class myForm extends Component {
 
 const AddForm = Form.create()(myForm);
 
-class Add extends Component {
+class MoveOut extends Component {
 	constructor(props) {
 		super(props);
 		this.send = this.send.bind(this);
 	}
 
-	send(food) {
+	send(transfer) {
 		let {onAdd} = this.props;
-		onAdd(food);
+		onAdd(transfer);
 	}
 
 
@@ -81,4 +86,4 @@ class Add extends Component {
 	}
 }
 
-export default Add;
+export default MoveOut;

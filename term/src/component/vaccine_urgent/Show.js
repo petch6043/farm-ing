@@ -13,7 +13,8 @@ constructor (props){
 		this.state = {
 			done:false,
 			vac_id:0,
-			x:0
+			x:0,
+			selected: []
 			
 		}
 		this.toggle = this.toggle.bind(this)
@@ -22,9 +23,9 @@ constructor (props){
 
 	addClick() {
 		let {onAdd} = this.props;
-		console.log("addclick "+this.state.vac_id);
-		onAdd(this.state.vac_id);
+		onAdd(this.state.selected);
 		this.setState({
+			selected: [],
 			vaccineurgent: {
 				
 				vac_id: "",
@@ -47,12 +48,12 @@ constructor (props){
 		const data = vaccineurgentList;
 			
 			const columns = [{
-				title: 'Vaccine name',
+				title: 'วัคซีน',
 				dataIndex: 'vac_name',
 				key: 'vac_name',
 			}	
 				, {
-				title: 'Vaccine id',
+				title: 'ลำดับวัคซีน',
 				dataIndex: 'vac_id',
 				key: 'vac_id',
 			}
@@ -61,8 +62,9 @@ constructor (props){
 		const rowSelection = {
 
  		 		onChange: (selectedRowKeys, selectedRows) => {
+ 		 			this.setState({selected: selectedRows});
    		 			
- 		 		
+ 		 		/*
  		 		if(x%2==0){
  		 			this.setState({vac_id:selectedRows[0].vac_id})
  		 			console.log(this.state)
@@ -73,22 +75,25 @@ constructor (props){
    		 			this.setState({x:x+1})
    		 		
    		 		}
+   		 		*/
   			},
   				getCheckboxProps: record => ({
     				disabled: record.type === 'Disabled User', // Column configuration not to be checked
     				name: record.type,
   				}),
-			};
+			};   
 
 		return(
 			<div>
 				<div className="myBigFont">Vaccineurgent list:</div>
+
 				<Col span={24} align="center">
 				<Table rowSelection={rowSelection} columns={columns} dataSource={data}/>
 				</Col>
 
 				<Col span={12} align="left" style={{padding:10}}>
-				<Button type="primary" onClick={this.addClick} className="mySubmitButton">Submit</Button>
+
+				<Button type="primary" onClick={this.addClick} className="mySubmitButton">ส่ง</Button>
 				</Col>
 				
 			</div>

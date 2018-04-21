@@ -6,80 +6,69 @@ import Food from './Food';
 import Header from './Header';
 import Footer from './Footer';
 import { Collapse } from 'antd';
+import { List } from 'antd';
 const SubMenu = Menu.SubMenu;
 const Panel = Collapse.Panel;
 const customPanelStyle = {
- background: '#f7f7f7',
- borderRadius: 4,
- marginBottom: 5,
- border: 0,
- overflow: 'hidden',
+  background: '#f7f7f7',
+  borderRadius: 4,
+  marginBottom: 5,
+  border: 0,
+  overflow: 'hidden',
 };
 class Selectbarnfood extends Component {
-    constructor(props){
+  constructor(props){
     super(props);
-    this.state = 
-    {current: 0,
-      BarnList: []}
+    this.state = {
+      current: 0,
+      BarnList: []
+    }
   }
 
-    componentDidMount(){
+  componentDidMount(){
     this.getBarn();
   }
-  getBarn() {
-      fetch("http://206.189.35.130:4000/barn")
-      .then(response => response.json())
-      .then(response => this.setState({ BarnList: response.data}))
-      .catch(err => console.error(err))
-  }
 
-    handleClick = (e) => {
-        console.log('clicking'+e.key, e)
-        
-        this.setState({
-          current: e.key
-        });
-        console.log('current:'+this.state.current)
-      };
- render(){
+  getBarn() {
+    fetch("http://206.189.35.130:4000/barn")
+    .then(response => response.json())
+    .then(response => this.setState({ BarnList: response.data}))
+    .catch(err => console.error(err))
+  }
+  render(){
     let {BarnList} = this.state;
     const data = BarnList;
-    console.log(data)
-  return(
-    <div>
-    <Header thisPage="Please select barn"/>
-    <div className="myBody">
-    <Collapse bordered={false} style={{marginBottom:20}} >
-    <Panel header="Select barn" style={customPanelStyle} className="myBigFont" > 
     <div align="center">
-      <Menu
-        onClick={this.handleClick}
-        mode="inline"
         style={{ width: 300}}
 
-        >
+    const data = BarnList.filter(function(attr) {
+      return attr.active == 1;
+    });
 
-        {  
+    return(
+      <div>
+        <Header thisPage="อาหาร"/>
 
-          data.map((x) =>{
-            return x.active == 1 ?
-            <Menu.Item  key={x.barn_id} >
-                   <Link to={{pathname : '/food' , barnNumber:x.name }}>Barn {x.name}</Link>
-          </Menu.Item>
-          : ""
-          
-         } 
-        )}    
-      </Menu>
+        <div className="myBody">
+          <div><h2>เลือกเล้า: </h2></div>
+          <List
+            header={"a"}
+            footer={"a"}
+            bordered
+            dataSource={data}
+            renderItem={
+              item => (
+                <Link to={{pathname : '/food' , barnNumber:item.name }}>
+                  <List.Item key={item.barn_id}>เล้า {item.name}</List.Item>
+                </Link>
+              )
+            } 
+          />
         </div>
-        </Panel>
-        </Collapse>
-        </div>
-    <Footer/>
-   </div>
 
-          
-   )
- }
+        <Footer/>
+      </div>
+    )
+  }
 }
 export default Selectbarnfood;

@@ -87,16 +87,17 @@ class Transfer_barn_select extends Component {
 		return(
 			<div>
 
-				<Header thisPage="Barn Select"/>
+				<Header thisPage="เคลื่อนย้าย"/>
 				<div className="myBody">
 					<Collapse bordered={false} style={{marginBottom:15}}>
-						<Panel header="Create Barn" key="2" style={customPanelStyle} className="myBigFont ">
+
+					<Createmenu_transfer BarnList={BarnList}/>
+
+					<Collapse bordered={false} style={{marginTop:15}}>
+						<Panel header="เปิดเล้า" key="2" style={customPanelStyle} className="myBigFont ">
 							<Add onAdd={this.onAdd} BarnList={BarnList}/>
 						</Panel>
 					</Collapse>
-
-					<div><h2>Barn list: </h2></div>
-					<Createmenu_transfer BarnList={BarnList}/>
 				</div>
 				<Footer/>
 			</div>
