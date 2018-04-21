@@ -42,7 +42,7 @@ class Add extends Component {
 				/>
 
 	          	<FormItem>
-					<Button type="primary" ghost htmlType="submit" className="login-form-button" onClick={this.addClick2}>Submit</Button>
+					<Button type="primary" ghost htmlType="submit" className="login-form-button" onClick={this.addClick2}>ส่ง</Button>
 				</FormItem>
           	
           	</div>

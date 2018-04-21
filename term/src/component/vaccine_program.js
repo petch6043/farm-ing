@@ -70,8 +70,19 @@ class vaccine_program extends Component {
 		    		
 		    	}),
 		    })
-		    .then(x.getVaccineProgram)
-		    .then(console.log("A"))
+		    .then((response) => {
+	    	response.json().then((data) => {
+	    		if(data == 1) {
+	    			noti('success','Add vaccine','Sucessfully saved data.');
+	    			x.getVaccineProgram();
+	    		} else {
+	    			noti('error','Add vaccine','Unable to save data.');
+	    		}
+           	});
+	    })
+	    .catch(err => {
+	    	noti('error','Add transfer',err);
+	    })
 	    	.catch(err => console.error(err))
 		});
 		/*
@@ -98,17 +109,12 @@ class vaccine_program extends Component {
 		console.log(this.state.vaccineprogramList)
 		return(
 			<div>
-				<Header thisPage={"Vaccine Program Of Barn : "+ barnNo}/>
+				<Header thisPage={"วัคซีนโปรแกรมของเล้าที่ : "+ barnNo}/>
 				<div className="myBody">
-					<Collapse bordered={false} style={{marginBottom:20}}>
-						<Panel header="Select date" key="1" style={customPanelStyle}>
-							<DatePicker onChange={onChange} />
-						</Panel>
+					<div className="mySelect">
+						<DatePicker onChange={onChange} />
+					</div>
 							
-
-						
-						
-					</Collapse>	
 
 				
 

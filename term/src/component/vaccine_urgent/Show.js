@@ -48,12 +48,12 @@ constructor (props){
 		const data = vaccineurgentList;
 			
 			const columns = [{
-				title: 'Vaccine name',
+				title: 'วัคซีน',
 				dataIndex: 'vac_name',
 				key: 'vac_name',
 			}	
 				, {
-				title: 'Vaccine id',
+				title: 'ลำดับวัคซีน',
 				dataIndex: 'vac_id',
 				key: 'vac_id',
 			}
@@ -85,13 +85,13 @@ constructor (props){
 
 		return(
 			<div>
-				<div><h2>Vaccine urgent list:</h2></div>
+				<div><h2>วัคซีนฉุกเฉิน 	:</h2></div>
 				<Col span={24} align="center">
 				<Table rowSelection={rowSelection} columns={columns} dataSource={data}/>
 				</Col>
 
 				<Col span={12} align="left" style={{padding:10}}>
-				<Button type="primary" onClick={this.addClick}>Submit</Button>
+				<Button type="primary" onClick={this.addClick}>ส่ง</Button>
 				</Col>
 				
 			</div>

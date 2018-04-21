@@ -31,14 +31,14 @@ class vaccine_menu extends Component {
 							</Button>
 						</Link>
 				</Col>
-				<Col span={12} align="left">
+				{ /* <Col span={12} align="left">
 						<Link to="/selectbarnvaccine2">
 							<Button className="myButton">
 								<Icon type="exclamation-circle-o" style={{fontSize: 72}}/>
 								<div>วัคซีนฉุกเฉิน</div>
 							</Button>
 						</Link>
-				</Col>
+				</Col> */}
 			</Row> 
 			<Footer/>
 		</div>	
