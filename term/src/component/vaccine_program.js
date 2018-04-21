@@ -120,8 +120,8 @@ class vaccine_program extends Component {
 
 	handleChange(value) {
  		console.log(`selected ${value}`);
- 		console.log("http://localhost:4000/vaccine_pen/"+this.state.barnNo+"/"+value);
- 		fetch("http://localhost:4000/vaccine_pen/"+this.state.barnNo+"/"+value)
+ 		console.log("http://206.189.35.130:4000/vaccine_pen/"+this.state.barnNo+"/"+value);
+ 		fetch("http://206.189.35.130:4000/vaccine_pen/"+this.state.barnNo+"/"+value)
 	    .then(response => response.json())
 	    .then(response => {
 
