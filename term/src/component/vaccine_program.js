@@ -62,8 +62,8 @@ class vaccine_program extends Component {
 	}
 	getVaccinePen(value) {
 		this.setState({ pen_id: value})
-		console.log("http://localhost:4000/vaccine_pen/"+this.state.barnNo+"/"+this.state.pen_id)
-	    fetch("http://localhost:4000/vaccine_pen/"+this.state.barnNo+"/"+this.state.pen_id)
+		console.log("http://206.189.35.130:4000/vaccine_pen/"+this.state.barnNo+"/"+this.state.pen_id)
+	    fetch("http://206.189.35.130:4000/vaccine_pen/"+this.state.barnNo+"/"+this.state.pen_id)
 	    .then(response => response.json())
 	    .then(response => this.setState({ vaccined: response.data.length}))
 	    .catch(err => console.error(err))
