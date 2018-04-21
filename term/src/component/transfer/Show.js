@@ -15,11 +15,11 @@ class Show extends Component {
 				dataIndex: 'value',
 				key: 'value',
 			}, {
-				title: 'User',
-				dataIndex: 'user_id',
-				key: 'user_id',
+				title: 'วัน - เวลา',
+			    dataIndex: 'time',
+			    key: 'time'
 			}];
-		const expandedRowRender = record => <label>{record.type}</label>;
+		const expandedRowRender = record => <label>ใส่โดย: ชัญญา จิรกวินวาณิช</label>;
 
 		return(
 			

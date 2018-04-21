@@ -8,6 +8,9 @@ import { Collapse } from 'antd';
 import { Button, notification } from 'antd';
 import { DatePicker } from 'antd';
 
+
+const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
+
 const noti = (type, msg, desc) => {
 	notification[type]({
 		message: msg,
@@ -94,7 +97,7 @@ class Food extends Component {
 		return(
 
 			<div>
-				<Header thisPage="อาหาร"/>
+				<Header thisPage={"เล้า " + barnNumber}/>
 				<div className="myBody">
 					<Collapse bordered={false} style={{marginBottom:20}}>
 						<Panel header="เพิ่ม" key="2" style={customPanelStyle}>
