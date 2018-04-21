@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Transfer_report from './Transfer_report';
+import ReportTransfer from './ReportTransfer';
 import Health_report from './Health_report';
 import { Button, Icon } from 'antd';
 import { Row, Col } from 'antd';
@@ -20,7 +20,7 @@ class Report extends Component {
 				<Header thisPage="รายงาน"/>
 				<Row>	
 				<Col span={12} align="right">	
-					<Link to="/Transfer_report">
+					<Link to="/report/transfer">
 						<Button className="myButton">
 							<Icon type="line-chart" style={{fontSize: 72}}/>
 							<div>รายงานอาหารและ</div>
