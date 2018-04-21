@@ -37,6 +37,7 @@ class Transfer extends Component {
 		}
 		this.onAdd = this.onAdd.bind(this);
 		this.onChange = this.onChange.bind(this);
+		this.closeBarn = this.closeBarn.bind(this);
 	}
 
 	componentDidMount(){
