@@ -38,14 +38,14 @@ class myForm extends Component {
               		{required: true, message: 'กรุณาเลือกเล้า' },
             		],
           			})(
-            		<Select placeholder="มาจาก">
+            		<Select placeholder="มาจาก" className="myBigFont">
 
             {  
      	
      	
           allBarn.map((x) =>
 
-   			<Option value={x} key={x}>เล้า {x}</Option>
+   			<Option value={x} key={x}><div className="myBigFont">เล้า {x}</div></Option>
           
          
         )}
@@ -57,7 +57,7 @@ class myForm extends Component {
 				<FormItem className="myFormItem">
 					{getFieldDecorator('value', {
 					rules: [{ required: true, message: 'เลือกจำนวน' }],
-					})(<Input placeholder="จำนวน" />)}
+					})(<Input placeholder="จำนวน" className="myBigFont"/>)}
 				</FormItem>
 				
 				<FormItem>

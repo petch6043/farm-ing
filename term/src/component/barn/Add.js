@@ -86,14 +86,14 @@ class myForm extends Component {
           })(
 
 
-            <Select placeholder="เลือกเล้า">
+            <Select placeholder="เลือกเล้า" className="myBigFont">
 
             {  
      	
      	
           closedBarn.map((x) =>
 
-   			<Option value={x} key={x}>เล้า {x}</Option>
+   			<Option value={x} key={x}><div className="myBigFont">เล้า {x}</div></Option>
           
          
         )}
@@ -104,7 +104,7 @@ class myForm extends Component {
         <FormItem className="myFormItem">
 					{getFieldDecorator('open_age', {
 					rules: [{ required: true, message: 'กรุณาใส่อายุย้ายเข้า!' }],
-					})(<Input placeholder="อายุย้ายเข้า" />)}
+					})(<Input placeholder="อายุย้ายเข้า" className="myBigFont"/>)}
 				</FormItem>
 				
 				<FormItem>

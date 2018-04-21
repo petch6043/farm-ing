@@ -35,10 +35,10 @@ class myForm extends Component {
               		{required: true, message: 'กรุณาใส่ประเภท!' },
             		],
           			})(
-            		<Select placeholder="เลือกประเภท">
-	   					<Option value='310'>310</Option>
-	   					<Option value='320'>320</Option>
-	   					<Option value='430'>430</Option>
+            		<Select placeholder="เลือกประเภท" className="myBigFont">
+	   					<Option value='310'><div className="myBigFont">310</div></Option>
+	   					<Option value='320'><div className="myBigFont">320</div></Option>
+	   					<Option value='430'><div className="myBigFont">430</div></Option>
             		</Select>
           		)}
         </FormItem>
@@ -46,7 +46,7 @@ class myForm extends Component {
 				<FormItem className="myFormItem">
 					{getFieldDecorator('amount', {
 					rules: [{ required: true, message: 'กรุณาใส่ปริมาณอาหาร!' }],
-					})(<Input placeholder="ปริมาณ" />)}
+					})(<Input placeholder="ปริมาณ" className="myBigFont"/>)}
 				</FormItem>
 				<FormItem>
 

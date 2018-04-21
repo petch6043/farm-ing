@@ -146,19 +146,19 @@ class vaccine_program extends Component {
 				<Header thisPage={"วัคซีนโปรแกรมของเล้าที่ : "+ barnNo}/>
 				<div className="myBody">
 
-					<div className="mySelect">
-						<DatePicker onChange={onChange} />
+					<div className="mySelect myBigFont">
+						<DatePicker onChange={onChange}/>
 					</div>
 					<Select placeholder="เลือกคอก" style={{ width: 120 }} onChange={this.handleChange} className="myBigFont">
             		
-    					<Option value='1'>คอก 1</Option>
-    					<Option value='2'>คอก 2</Option>
-    					<Option value='3'>คอก 3</Option>
+    					<Option value='1'><div className="myBigFont">คอก 1</div></Option>
+    					<Option value='2'><div className="myBigFont">คอก 2</div></Option>
+    					<Option value='3'><div className="myBigFont">คอก 3</div></Option>
           
              		
               
             		</Select>
-							
+				
 
 
 				
