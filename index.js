@@ -171,7 +171,7 @@ app.get('/transfer/:barn_name', (req, res) =>{
 		}
 		else{
 			barn_id = results[0].barn_id
-			const SELECT_TRANSFER_BY_BARN_QUERY = "SELECT *,DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM transfer WHERE barn_id="+barn_id;
+			const SELECT_TRANSFER_BY_BARN_QUERY = 'SELECT * FROM transfer WHERE barn_id='+barn_id;
 			connection.query(SELECT_TRANSFER_BY_BARN_QUERY, (err,results) =>{
 				if (err) {
 					return res.send(err)
@@ -441,44 +441,36 @@ app.get('/report/food', (req, res) =>{
 			csv.write(report, { headers: true })
 			.pipe(ws)
 			.on("finish", function(){
-				
-				//const INSERT_REPORT_QUERY = "INSERT INTO report_list (report_name, report_path, report_date, type) VALUES('" + n + "','" + p + "','" + d + "','transfer')";
-				const INSERT_REPORT_QUERY = "INSERT INTO report_list (report_name, report_path, report_date, type) VALUES('รายงานประจำวัน 20-01-61','/reports/20Apr2018-DailyFoodReport.csv','2018-04-20 00:00:00','transfer')";
-				connection.query(INSERT_REPORT_QUERY, (err,results) =>{
-					if (err) {
-						return res.send(err);
-					} else {
-						var transporter = nodemailer.createTransport({
-							service: 'gmail',
-							auth: {
-						    	user: 'farm.ingbkk@gmail.com',
-						    	pass: 'farming2018'
-							}
-						});
 
-						//var filename = "19Apr2018-DailyFoodReport.csv";
-						var filename = name;
-						//var path = "./term/public/reports/19Apr2018-DailyFoodReport.csv";
-						var path = dir + name;
-						const mailOptions = {
-							from: 'noreply@farm-ing.co', // sender address
-							to: 'suppakit.neno@gmail.com, goodkavin@gmail.com, nattapol.puttasuntithum@gmail.com, pasithtommy@gmail.com', // list of receivers
-							subject: 'Farm-ing Daily report', // Subject line
-							html: '<p>Please view reports</p>', // plain text body
-							attachments: [
-							    {
-							        filename: filename,
-							        path: path,
-							        content: 'csv'
-							    },
-							]
-						};
-
-						transporter.sendMail(mailOptions, function (err, info) {
-							if(err) return res.send(err)
-							else return res.send(info)
-						});
+				var transporter = nodemailer.createTransport({
+					service: 'gmail',
+					auth: {
+				    	user: 'farm.ingbkk@gmail.com',
+				    	pass: 'farming2018'
 					}
+				});
+
+				//var filename = "19Apr2018-DailyFoodReport.csv";
+				var filename = name;
+				//var path = "./term/public/reports/19Apr2018-DailyFoodReport.csv";
+				var path = dir + name;
+				const mailOptions = {
+					from: 'noreply@farm-ing.co', // sender address
+					to: 'suppakit.neno@gmail.com, goodkavin@gmail.com, nattapol.puttasuntithum@gmail.com, pasithtommy@gmail.com', // list of receivers
+					subject: 'Farm-ing Daily report', // Subject line
+					html: '<p>Please view reports</p>', // plain text body
+					attachments: [
+					    {
+					        filename: filename,
+					        path: path,
+					        content: 'csv'
+					    },
+					]
+				};
+
+				transporter.sendMail(mailOptions, function (err, info) {
+					if(err) return res.send(err)
+					else return res.send(info)
 				});
 
 		   	});
