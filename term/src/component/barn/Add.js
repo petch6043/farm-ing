@@ -93,7 +93,7 @@ class myForm extends Component {
      	
           closedBarn.map((x) =>
 
-   			<Option value={x} key={x}>Barn {x}</Option>
+   			<Option value={x} key={x}>เล้า {x}</Option>
           
          
         )}
