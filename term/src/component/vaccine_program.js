@@ -111,15 +111,10 @@ class vaccine_program extends Component {
 			<div>
 				<Header thisPage={"วัคซีนโปรแกรมของเล้าที่ : "+ barnNo}/>
 				<div className="myBody">
-					<Collapse bordered={false} style={{marginBottom:20}}>
-						<Panel header="เลือกวันที่" key="1" style={customPanelStyle}>
-							<DatePicker onChange={onChange} />
-						</Panel>
+					<div className="mySelect">
+						<DatePicker onChange={onChange} />
+					</div>
 							
-
-						
-						
-					</Collapse>	
 
 				
 

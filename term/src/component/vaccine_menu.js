@@ -23,7 +23,7 @@ class vaccine_menu extends Component {
     		<Header thisPage="สุขภาพ"/>
 			<Row>
 				
-				<Col span={24} align="center">
+				<Col span={12} align="right">
 						<Link to="/selectbarnvaccine">
 							<Button className="myButton">
 								<Icon type="check-square-o" style={{fontSize: 72}}/>
