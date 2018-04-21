@@ -10,6 +10,7 @@ class Show extends Component {
 	constructor (props){
 		super(props)
 		this.state = {
+			selectedRowKeys: [], // Check here to configure the default column
 			done:false,
 			vac_id:0,
 			x:0,
@@ -40,6 +41,7 @@ class Show extends Component {
 	render() {
 		let {vaccineprogramList} = this.props;
 		let {x} = this.props;
+		let {selectedRowKeys} = this.props;
 		const data = vaccineprogramList;
 			const columns = [{
 				title: 'อายุ',
@@ -59,6 +61,7 @@ class Show extends Component {
 
 		const expandedRowRender = record => <label>{record.type}</label>;
 		const rowSelection = {	
+			selectedRowKeys,
 
  		 		onChange: (selectedRowKeys, selectedRows) => {
  		 			this.setState({selected: selectedRows});

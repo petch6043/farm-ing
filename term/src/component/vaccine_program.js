@@ -39,6 +39,7 @@ class vaccine_program extends Component {
 		this.state = {
 			vaccineprogramList: [],
 			barnNo: props.location.barnNumber
+			vaccined: [0,1]
 		}
 		this.onAdd = this.onAdd.bind(this);
 	}
@@ -129,6 +130,7 @@ class vaccine_program extends Component {
 
 			
 			
+					<Show selectedRowKeys={this.state.vaccined} onAdd={this.onAdd} vaccineprogramList={vaccineprogramList}/>		
 				<Footer/>
 			</div>
 			

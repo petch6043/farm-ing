@@ -709,6 +709,24 @@ app.get('/vaccine_pen', (req, res) =>{
 	});
 });
 
+//get vaccine_pen by barn name and pen
+app.get('/vaccine_pen/:barn_name/:pen_id', (req, res) =>{
+	var barn_name = req.params.barn_name;
+	var pen_id = req.params.pen_id;
+	const SELECT_VACCINEPEN_QUERY = 'SELECT * FROM vaccine_pen NATURAL JOIN barn WHERE barn.active=1 AND name='+barn_name+' AND pen_id='+pen_id;
+	connection.query(SELECT_VACCINEPEN_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			return res.json({
+				data: results
+			})
+		}
+	});
+});
+
+
 /*app.get('/vaccine_pen/add', (req, res) =>{
 	var vac_id = 4;
 	var pen_id = 1;
