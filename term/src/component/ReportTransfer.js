@@ -35,7 +35,7 @@ const customPanelStyle = {
 	overflow: 'hidden',
 };
 
-class Transfer_report extends Component {
+class ReportTransfer extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -71,4 +71,4 @@ class Transfer_report extends Component {
 	}
 }
 
-export default Transfer_report;
+export default ReportTransfer;

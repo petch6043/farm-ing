@@ -15,7 +15,7 @@ import vaccine_urgent from './component/vaccine_urgent';
 import Selectbarnfood from './component/Selectbarnfood';
 import selectBarnVaccine from './component/selectBarnVaccine';
 import selectBarnVac2 from './component/selectBarnVac2';
-import Transfer_report from './component/Transfer_report';
+import ReportTransfer from './component/ReportTransfer';
 import Health_report from './component/Health_report';
 import Notification from './component/Notification';
 import Transfer_barn_select from './component/Transfer_barn_select';
@@ -44,9 +44,9 @@ class App extends Component {
 	    			<Route path="/vaccine_type" component={vaccine_type} />
 	    			<Route path="/vaccine_program" component={vaccine_program} />
 	    			<Route path="/vaccine_urgent" component={vaccine_urgent} />
-	    			<Route path="/report" component={Report} />
+	    			<Route exact path="/report" component={Report} />
+	    			<Route path="/report/transfer" component={ReportTransfer} />
 	    			<Route path="/login" component={Login} />
-	    			<Route path="/Transfer_report" component={Transfer_report} />
 	    			<Route path="/Health_report" component={Health_report} />
 	    			<Route path="/calendar" component={CalendarPage} />
 	    			<Route path="/selectbarnfood" component={Selectbarnfood} />
