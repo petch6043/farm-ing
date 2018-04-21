@@ -70,8 +70,16 @@ class vaccine_urgent extends Component {
 		    		
 		    	}),
 		    })
-		    .then(x.getVaccineUrgent)
-		    .then(console.log("A"))
+		    .then((response) => {
+	    	response.json().then((data) => {
+	    		if(data == 1) {
+	    			noti('success','Add vaccine','Sucessfully saved data.');
+	    			x.getVaccineUrgent();
+	    		} else {
+	    			noti('error','Add vaccine','Unable to save data.');
+	    		}
+           	});
+	    })
 	    	.catch(err => console.error(err))
 		});
 	}
