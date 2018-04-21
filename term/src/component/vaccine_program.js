@@ -39,26 +39,37 @@ class vaccine_program extends Component {
 		super(props);
 		this.state = {
 			vaccineprogramList: [],
-			barnNo: props.location.barnNumber
-			vaccined: [0,1],
+			barnNo: props.location.barnNumber,
+			vaccined: [],
 			pen_id:0
 		}
 		this.onAdd = this.onAdd.bind(this);
 		this.handleChange = this.handleChange.bind(this);
+		this.getVaccineProgram = this.getVaccineProgram.bind(this);
 	}
 
 	componentDidMount(){
 		this.getVaccineProgram();
+		
 	}
 
 	getVaccineProgram() {
-		console.log(this.state.barnNo)
 	    fetch("http://206.189.35.130:4000/vaccine_program/")
 	    .then(response => response.json())
 	    .then(response => this.setState({ vaccineprogramList: response.data}))
 	    .catch(err => console.error(err))
 	    
 	}
+	getVaccinePen(value) {
+		this.setState({ pen_id: value})
+		console.log("http://localhost:4000/vaccine_pen/"+this.state.barnNo+"/"+this.state.pen_id)
+	    fetch("http://localhost:4000/vaccine_pen/"+this.state.barnNo+"/"+this.state.pen_id)
+	    .then(response => response.json())
+	    .then(response => this.setState({ vaccined: response.data.length}))
+	    .catch(err => console.error(err))
+	    
+	}
+	
 	onAdd(selected) {
 		var x = this;
 		selected.map(function(item) {
@@ -109,14 +120,27 @@ class vaccine_program extends Component {
 
 	handleChange(value) {
  		console.log(`selected ${value}`);
- 		this.setState({ pen_id: value});
+ 		console.log("http://localhost:4000/vaccine_pen/"+this.state.barnNo+"/"+value);
+ 		fetch("http://localhost:4000/vaccine_pen/"+this.state.barnNo+"/"+value)
+	    .then(response => response.json())
+	    .then(response => {
+
+	    	if(response.data.length > 0) {
+	    		this.setState({ vaccined: [0]})
+	    	} else {
+	    		this.setState({ vaccined: []})
+	    	}
+	    	console.log(this.state.vaccined)
+	    })
+	    .catch(err => console.error(err))
+ 		
 	}
 
 
 	render() {
 		let {vaccineprogramList} = this.state;
 		let {barnNo} = this.state;
-		console.log(this.state.vaccineprogramList)
+		console.log(this.state.vaccineprogramList)	
 		return(
 			<div>
 				<Header thisPage={"วัคซีนโปรแกรมของเล้าที่ : "+ barnNo}/>
@@ -137,7 +161,7 @@ class vaccine_program extends Component {
 
 				
 
-					<Show onAdd={this.onAdd} vaccineprogramList={vaccineprogramList}/>
+					<Show vaccined={this.state.vaccined} onAdd={this.onAdd} vaccineprogramList={vaccineprogramList}/>		
 
 					
 				
@@ -148,7 +172,7 @@ class vaccine_program extends Component {
 
 			
 			
-					<Show selectedRowKeys={this.state.vaccined} onAdd={this.onAdd} vaccineprogramList={vaccineprogramList}/>		
+					
 				<Footer/>
 			</div>
 			

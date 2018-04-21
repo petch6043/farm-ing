@@ -10,7 +10,6 @@ class Show extends Component {
 	constructor (props){
 		super(props)
 		this.state = {
-			selectedRowKeys: [], // Check here to configure the default column
 			done:false,
 			vac_id:0,
 			x:0,
@@ -18,6 +17,16 @@ class Show extends Component {
 		}
 		this.toggle = this.toggle.bind(this)
 		this.addClick = this.addClick.bind(this);
+	}
+
+	checkVaccine(vaccined) {
+		if(vaccined > 0) {
+			console.log("a");
+			return [0]
+		} else {
+			console.log("b");
+			return []
+		}
 	}
 
 	addClick() {
@@ -38,10 +47,12 @@ class Show extends Component {
 		})
 	}
 
+
+
 	render() {
 		let {vaccineprogramList} = this.props;
 		let {x} = this.props;
-		let {selectedRowKeys} = this.props;
+		let {vaccined} = this.props;
 		const data = vaccineprogramList;
 			const columns = [{
 				title: 'อายุ',
@@ -60,6 +71,7 @@ class Show extends Component {
 
 
 		const expandedRowRender = record => <label>{record.type}</label>;
+		let selectedRowKeys = vaccined;
 		const rowSelection = {	
 			selectedRowKeys,
 
