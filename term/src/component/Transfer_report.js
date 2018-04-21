@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import Show from './Transfer_report/Show';
+import ShowTransfer from './Report/ShowTransfer';
 import { Collapse } from 'antd';
 import { Button, notification } from 'antd';
 import { DatePicker } from 'antd';
 import { Select } from 'antd';
-import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 
 const Option = Select.Option;
 
@@ -64,12 +63,7 @@ class Transfer_report extends Component {
 				<div className="myBody">
 					<div className="mySelect" style={{marginTop: 10}}><DatePicker onChange={onChange} /></div> 
 					<h2>รายชื่อรายงาน:</h2>
-					<Link to={process.env.PUBLIC_URL + '/reports/19Apr2018-DailyFoodReport.csv'} target='_blank'>
-						<div><Button icon="file-excel" style={{marginBottom:10}}>รายงานประจำวัน 19-01-61</Button></div>
-					</Link>
-					<Link to={process.env.PUBLIC_URL + '/reports/20Apr2018-DailyFoodReport.csv'} target='_blank'>
-						<div><Button icon="file-excel" style={{marginBottom:10}}>รายงานประจำวัน 20-01-61</Button></div>
-					</Link>
+					<ShowTransfer transferReport={reportList}/>
 				</div>
 				<Footer/>
 			</div>
