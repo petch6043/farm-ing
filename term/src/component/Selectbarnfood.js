@@ -37,9 +37,6 @@ class Selectbarnfood extends Component {
   }
   render(){
     let {BarnList} = this.state;
-    const data = BarnList;
-    <div align="center">
-        style={{ width: 300}}
 
     const data = BarnList.filter(function(attr) {
       return attr.active == 1;
@@ -59,7 +56,7 @@ class Selectbarnfood extends Component {
             renderItem={
               item => (
                 <Link to={{pathname : '/food' , barnNumber:item.name }}>
-                  <List.Item key={item.barn_id}>เล้า {item.name}</List.Item>
+                  <List.Item key={item.barn_id} ><div className="myBigFont">เล้า {item.name} </div></List.Item>
                 </Link>
               )
             } 

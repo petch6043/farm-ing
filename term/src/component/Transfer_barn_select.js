@@ -89,8 +89,8 @@ class Transfer_barn_select extends Component {
 
 				<Header thisPage="เคลื่อนย้าย"/>
 				<div className="myBody">
-					<Collapse bordered={false} style={{marginBottom:15}}>
 
+					<div><h2>เลือกเล้า: </h2></div>
 					<Createmenu_transfer BarnList={BarnList}/>
 
 					<Collapse bordered={false} style={{marginTop:15}}>

@@ -19,7 +19,9 @@ class Home extends Component {
 					<Col span={12} align="right">
 						<Link to="/transfer_barn_select">
 							<Button className="myButton">
+
 								<Icon type="swap" style={{fontSize: 100}}/>
+								<div className="myBigFont">เคลื่อนย้าย</div>
 
 							</Button>
 						</Link>
@@ -29,8 +31,7 @@ class Home extends Component {
 							<Button className="myButton">
 
 								<Icon type="inbox" style={{fontSize: 100}}/>
-								<div className="myBigFont">Food</div>
-								<div>อาหาร</div>
+								<div className="myBigFont">อาหาร</div>
 
 							</Button>
 						</Link>
@@ -40,7 +41,7 @@ class Home extends Component {
 							<Button className="myButton">
 
 								<Icon type="medicine-box" style={{fontSize: 100}}/>
-								<div>สุขภาพ</div>
+								<div className="myBigFont">สุขภาพ</div>
 
 							</Button>
 						</Link>
@@ -50,7 +51,7 @@ class Home extends Component {
 							<Button className="myButton">
 
 								<Icon type="file-text" style={{fontSize: 100}}/>
-								<div>รายงาน</div>
+								<div className="myBigFont">รายงาน</div>
 
 							</Button>
 						</Link>

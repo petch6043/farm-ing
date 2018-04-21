@@ -56,7 +56,7 @@ class myForm extends Component {
 				</FormItem>
 				
 				<FormItem>
-					<Button type="primary" ghost htmlType="submit" className="login-form-button">Submit</Button>
+					<Button type="primary" ghost htmlType="submit" className="login-form-button mySubmitButton">Submit</Button>
 				</FormItem>
 			</Form>
 		)

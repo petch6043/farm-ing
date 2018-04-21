@@ -112,7 +112,6 @@ class vaccine_urgent extends Component {
 				<Header thisPage="วัคซีนฉุกเฉิน"/>
 				<div className="myBody">
 					<Collapse bordered={false} style={{marginBottom:20}}>
-						<Panel header="Select date" key="1" style={customPanelStyle} className="myBigFont">
 
 						<Panel header="เลือกวันที่" key="1" style={customPanelStyle} className="myBigFont">
 							<DatePicker onChange={onChange} />

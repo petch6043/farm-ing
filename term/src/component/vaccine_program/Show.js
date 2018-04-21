@@ -100,15 +100,17 @@ class Show extends Component {
 
 		return(
 			<div>
-				<div className="myBigFont"> Vaccine Program:</div>
 
+				<div><h2>วัคซีนโปรแกรม:</h2></div>
 
 				<Col span={24} align="center">
 				<Table rowSelection={rowSelection} columns={columns} dataSource={data}/>
 				</Col>
 
 				<Col span={12} align="left" style={{padding:10}}>
+
 				<Button type="primary" onClick={this.addClick} className="mySubmitButton">ส่ง</Button>
+
 				</Col>
 				
 

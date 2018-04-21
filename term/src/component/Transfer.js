@@ -111,16 +111,15 @@ class Transfer extends Component {
 		return(
 
 			<div>
-				<Header_transfer thisPage={"Barn " + Barn_no}/>
-      	<br/>	
 
 				<Header_transfer thisPage={"เล้า " + Barn_no}/>
 
 				<div className="myBody">
 					<Collapse bordered={false} style={{marginBottom:20}}>
+						<Panel header="ย้ายเข้า" key="1" style={customPanelStyle} className="myBigFont">
 							<MoveIn onAdd={this.onAdd}/>
 						</Panel>
-						<Panel header="ย้ายออก" key="2" style={customPanelStyle}>
+						<Panel header="ย้ายออก" key="2" style={customPanelStyle} className="myBigFont">
 							<MoveOut onAdd={this.onAdd}/>
 
 						</Panel>

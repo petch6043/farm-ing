@@ -145,8 +145,6 @@ class vaccine_program extends Component {
 			<div>
 				<Header thisPage={"วัคซีนโปรแกรมของเล้าที่ : "+ barnNo}/>
 				<div className="myBody">
-					<Collapse bordered={false} style={{marginBottom:20}}>
-						
 
 					<div className="mySelect">
 						<DatePicker onChange={onChange} />
@@ -158,6 +156,7 @@ class vaccine_program extends Component {
     					<Option value='3'>คอก 3</Option>
           
              		
+              
             		</Select>
 							
 
