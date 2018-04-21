@@ -19,7 +19,7 @@ class Show extends Component {
     dataIndex: 'time',
     key: 'time'
    }];
-   const expandedRowRender = record => <label>{record.type}</label>;
+   const expandedRowRender = record => <label>ใส่โดย: ชัญญา จิรกวินวาณิช</label>;
   return(
    <div>
     <div><h2>รายการให้อาหาร:</h2></div>
