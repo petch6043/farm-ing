@@ -54,7 +54,7 @@ class myForm extends Component {
 		const { getFieldDecorator } = this.props.form;
 		let {BarnList} = this.props;
 		const data = BarnList;
-		var allBarn = [1,2,3,4,5,6,7,8,9,10]
+		var allBarn = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
 		var closedBarn = []
 		var openBarn = []
 		var i

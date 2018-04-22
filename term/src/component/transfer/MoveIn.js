@@ -21,7 +21,8 @@ class myForm extends Component {
 
 	render() {
 		const { getFieldDecorator } = this.props.form;
-		var allBarn = [1,2,3,4,5,6,7,8,9,10]
+		var nursery = [1,2,3,4]
+		var allBarn = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
 		const formItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 14 },
@@ -40,16 +41,30 @@ class myForm extends Component {
           			})(
             		<Select placeholder="มาจาก" className="myBigFont">
 
+			{
+      			nursery.map((x) =>
+
+
+   				<Option value={x} key={x}><div className="myBigFont">อนุบาล {x}</div></Option>
+          
+         
+        				)
+			}
+        
+
             {  
      	
      	
           allBarn.map((x) =>
 
+
    			<Option value={x} key={x}><div className="myBigFont">เล้า {x}</div></Option>
           
          
-        )}
-              
+        )
+      }
+      
+      
             </Select>
           		)}
         </FormItem>
