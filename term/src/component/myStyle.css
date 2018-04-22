@@ -45,8 +45,6 @@ h2 {
 }
 .myNav {
 	border-top: 1px solid black;
-	position: fixed;
-	bottom: 0;
 	width: 100%;
 }
 .mySelect {
@@ -87,7 +85,7 @@ h2 {
 	font-size: 130%;
 }
 .myUser {
-	padding:35px;
+	padding:10px;
 	margin-bottom: 20px;
 	background: linear-gradient(to bottom right, #f2cca5, #e09587);
 }

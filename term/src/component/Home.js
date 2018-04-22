@@ -12,7 +12,7 @@ class Home extends Component {
 				<div className="myHome">
 				<Row>
 					<Col span={24} align="center" className="myUser">
-						<img  style={{width: 80, height: 80,borderRadius:100}} src='https://st.depositphotos.com/2075685/3076/v/950/depositphotos_30768193-stock-illustration-business-pig.jpg'/>
+						<img  style={{width: 60, height: 60,borderRadius:100}} src='https://st.depositphotos.com/2075685/3076/v/950/depositphotos_30768193-stock-illustration-business-pig.jpg'/>
 						<div style={{fontSize: 20}}><b>ชัญญา จิรกวินวาณิช</b></div>
 						<div>CTO ชัยภูมิ ฟาร์ม</div>
 					</Col>
