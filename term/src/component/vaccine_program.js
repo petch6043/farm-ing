@@ -54,7 +54,7 @@ class vaccine_program extends Component {
 	}
 /*
 	getVaccineProgram() {
-	    fetch("http://localhost:4000/vaccine_program/")
+	    fetch("http://farm-ing.co:4000/vaccine_program/")
 	    .then(response => response.json())
 	    .then(response => this.setState({ vaccineprogramList: response.data}))
 	    .catch(err => console.error(err))
@@ -62,8 +62,8 @@ class vaccine_program extends Component {
 	}
 	*/
 	getVaccinePen() {
-		console.log("http://localhost:4000/vaccine_pen/"+this.state.barnNo+"/"+this.state.pen_id)
-	    fetch("http://localhost:4000/vaccine_pen/"+this.state.barnNo+"/"+this.state.pen_id)
+		console.log("http://farm-ing.co:4000/vaccine_pen/"+this.state.barnNo+"/"+this.state.pen_id)
+	    fetch("http://farm-ing.co:4000/vaccine_pen/"+this.state.barnNo+"/"+this.state.pen_id)
 	    .then(response => response.json())
 	    .then(response => this.setState({ vaccineprogramList: response.data}))
 	    .catch(err => console.error(err))
@@ -71,8 +71,8 @@ class vaccine_program extends Component {
 	
 	onAdd() {
 		//selected.map(function(item) {
-			console.log('http://localhost:4000/vaccine_pen/'+this.state.barnNo+"/"+this.state.pen_id+'/add')
-			fetch('http://localhost:4000/vaccine_pen/'+this.state.barnNo+"/"+this.state.pen_id+'/add')
+			console.log('http://farm-ing.co:4000/vaccine_pen/'+this.state.barnNo+"/"+this.state.pen_id+'/add')
+			fetch('http://farm-ing.co:4000/vaccine_pen/'+this.state.barnNo+"/"+this.state.pen_id+'/add')
 		    .then((response) => {
 	    	response.json().then((data) => {
 	    		if(data == 1) {
@@ -109,8 +109,8 @@ class vaccine_program extends Component {
 	handleChange(value) {
  		console.log(`selected ${value}`);
  		this.setState({pen_id:value})
- 		console.log("http://localhost:4000/vaccine_pen/"+this.state.barnNo+"/"+value);
- 		fetch("http://localhost:4000/vaccine_pen/"+this.state.barnNo+"/"+value)
+ 		console.log("http://farm-ing.co:4000/vaccine_pen/"+this.state.barnNo+"/"+value);
+ 		fetch("http://farm-ing.co:4000/vaccine_pen/"+this.state.barnNo+"/"+value)
 	    .then(response => response.json())
 	    .then(response => this.setState({ vaccineprogramList: response.data}))
 	    /*.then(response => {
