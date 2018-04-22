@@ -30,10 +30,10 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 const connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password:'root', //for server, root for local
+	password:'chikadow2018', //for server, root for local
 	database: 'react_sql',
 	timezone: '+07:00',
-	socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock" //for Mac
+	//socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock" //for Mac
 });
 
 connection.connect(function(err) {
