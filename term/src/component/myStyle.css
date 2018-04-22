@@ -45,8 +45,6 @@ h2 {
 }
 .myNav {
 	border-top: 1px solid black;
-	position: fixed;
-	bottom: 0;
 	width: 100%;
 }
 .mySelect {
