@@ -18,16 +18,15 @@ class Show extends Component {
 		this.toggle = this.toggle.bind(this)
 		this.addClick = this.addClick.bind(this);
 	}
-
-	checkVaccine(vaccined) {
-		if(vaccined > 0) {
-			console.log("a");
-			return [0]
-		} else {
-			console.log("b");
-			return []
-		}
-	}
+	// checkVaccine(vaccined) {
+	// 	if(vaccined > 0) {
+	// 		console.log("a");
+	// 		return [0]
+	// 	} else {
+	// 		console.log("b");
+	// 		return []
+	// 	}
+	// }
 
 	addClick() {
 		let {onAdd} = this.props;
@@ -47,28 +46,24 @@ class Show extends Component {
 		})
 	}
 
-
-
 	render() {
 		let {vaccineprogramList} = this.props;
 		let {x} = this.props;
 		let {vaccined} = this.props;
 		const data = vaccineprogramList;
 			const columns = [{
-				title: 'อายุ',
-				dataIndex: 'age',
-				key: 'age',
+				title: 'อายุแรกเข้า',
+				dataIndex: 'open_age',
+				key: 'open_age',
 			}, {
-				title: 'วัคซีน',
-				dataIndex: 'vac_name',
-				key: 'vac_name',
+				title: 'กำหนดฉีด',
+				dataIndex: 'program_date_formatted',
+				key: 'program_date_formatted',
 			} , {
-				title: 'ลำดับวัคซีน',
-				dataIndex: 'vac_id',
-				key: 'vac_id',
-			}
-			];
-
+				title: 'สถานะ',
+				dataIndex: 'done',
+				key: 'done',
+			}];
 
 		const expandedRowRender = record => <label>{record.type}</label>;
 		let selectedRowKeys = vaccined;
@@ -97,27 +92,16 @@ class Show extends Component {
   				}),
 			};
 
-
 		return(
 			<div>
-
 				<div><h2>วัคซีนโปรแกรม:</h2></div>
-
+				<div>สถานะ: 1 = ฉีดแล้ว, 0 = ยังไม่ฉีด</div>
 				<Col span={24} align="center">
-				<Table rowSelection={rowSelection} columns={columns} dataSource={data}/>
+				<Table  columns={columns} dataSource={data}/>
+				{/*rowSelection={rowSelection}*/}
 				</Col>
-
-				<Col span={12} align="left" style={{padding:10}}>
-
-				<Button type="primary" onClick={this.addClick} className="mySubmitButton">ส่ง</Button>
-
-				</Col>
-				
-
+				<Button type="primary" onClick={this.addClick} className="mySubmitButton">ฉีดวัคซีน</Button>
 			</div>
-			
-				
-			
 		);
 	}
 }

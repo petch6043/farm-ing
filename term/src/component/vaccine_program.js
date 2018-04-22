@@ -45,51 +45,39 @@ class vaccine_program extends Component {
 		}
 		this.onAdd = this.onAdd.bind(this);
 		this.handleChange = this.handleChange.bind(this);
-		this.getVaccineProgram = this.getVaccineProgram.bind(this);
+		//this.getVaccineProgram = this.getVaccineProgram.bind(this);
 	}
 
 	componentDidMount(){
-		this.getVaccineProgram();
+		//this.getVaccineProgram();
 		
 	}
-
+/*
 	getVaccineProgram() {
-	    fetch("http://206.189.35.130:4000/vaccine_program/")
+	    fetch("http://localhost:4000/vaccine_program/")
 	    .then(response => response.json())
 	    .then(response => this.setState({ vaccineprogramList: response.data}))
 	    .catch(err => console.error(err))
 	    
 	}
-	getVaccinePen(value) {
-		this.setState({ pen_id: value})
-		console.log("http://206.189.35.130:4000/vaccine_pen/"+this.state.barnNo+"/"+this.state.pen_id)
-	    fetch("http://206.189.35.130:4000/vaccine_pen/"+this.state.barnNo+"/"+this.state.pen_id)
+	*/
+	getVaccinePen() {
+		console.log("http://localhost:4000/vaccine_pen/"+this.state.barnNo+"/"+this.state.pen_id)
+	    fetch("http://localhost:4000/vaccine_pen/"+this.state.barnNo+"/"+this.state.pen_id)
 	    .then(response => response.json())
-	    .then(response => this.setState({ vaccined: response.data.length}))
+	    .then(response => this.setState({ vaccineprogramList: response.data}))
 	    .catch(err => console.error(err))
-	    
 	}
 	
-	onAdd(selected) {
-		var x = this;
-		selected.map(function(item) {
-			fetch('http://206.189.35.130:4000/vaccine_program/add', {
-		    	method: 'POST',
-		    	headers: {
-		    		Accept: 'application/json',
-		    		'Content-Type': 'application/json',
-		    	},
-		    	body: JSON.stringify({
-		    		vac_id: item.vac_id,
-		    		pen_id: x.state.pen_id
-		    		
-		    	}),
-		    })
+	onAdd() {
+		//selected.map(function(item) {
+			console.log('http://localhost:4000/vaccine_pen/'+this.state.barnNo+"/"+this.state.pen_id+'/add')
+			fetch('http://localhost:4000/vaccine_pen/'+this.state.barnNo+"/"+this.state.pen_id+'/add')
 		    .then((response) => {
 	    	response.json().then((data) => {
 	    		if(data == 1) {
 	    			noti('success','Add vaccine','Sucessfully saved data.');
-	    			x.getVaccineProgram();
+	    			this.getVaccinePen();
 	    		} else {
 	    			noti('error','Add vaccine','Unable to save data.');
 	    		}
@@ -99,7 +87,7 @@ class vaccine_program extends Component {
 	    	noti('error','Add transfer',err);
 	    })
 	    	.catch(err => console.error(err))
-		});
+		//});
 		/*
 		fetch('http://206.189.35.130:4000/vaccine_program/add', {
 	    	method: 'POST',
@@ -120,10 +108,12 @@ class vaccine_program extends Component {
 
 	handleChange(value) {
  		console.log(`selected ${value}`);
- 		console.log("http://206.189.35.130:4000/vaccine_pen/"+this.state.barnNo+"/"+value);
- 		fetch("http://206.189.35.130:4000/vaccine_pen/"+this.state.barnNo+"/"+value)
+ 		this.setState({pen_id:value})
+ 		console.log("http://localhost:4000/vaccine_pen/"+this.state.barnNo+"/"+value);
+ 		fetch("http://localhost:4000/vaccine_pen/"+this.state.barnNo+"/"+value)
 	    .then(response => response.json())
-	    .then(response => {
+	    .then(response => this.setState({ vaccineprogramList: response.data}))
+	    /*.then(response => {
 
 	    	if(response.data.length > 0) {
 	    		this.setState({ vaccined: [0]})
@@ -132,10 +122,9 @@ class vaccine_program extends Component {
 	    	}
 	    	console.log(this.state.vaccined)
 	    })
+	    */
 	    .catch(err => console.error(err))
- 		
 	}
-
 
 	render() {
 		let {vaccineprogramList} = this.state;
@@ -145,38 +134,18 @@ class vaccine_program extends Component {
 			<div>
 				<Header thisPage={"วัคซีนโปรแกรมของเล้าที่ : "+ barnNo}/>
 				<div className="myBody">
-
 					<div className="mySelect myBigFont">
 						<DatePicker onChange={onChange}/>
 					</div>
 					<Select placeholder="เลือกคอก" style={{ width: 120 }} onChange={this.handleChange} className="myBigFont">
-            		
     					<Option value='1'><div className="myBigFont">คอก 1</div></Option>
     					<Option value='2'><div className="myBigFont">คอก 2</div></Option>
     					<Option value='3'><div className="myBigFont">คอก 3</div></Option>
-          
-             		
-              
-            		</Select>
-				
-
-
-				
-
-					<Show vaccined={this.state.vaccined} onAdd={this.onAdd} vaccineprogramList={vaccineprogramList}/>		
-
-					
-				
-				
-				</div>
-
-			
-
-			
-			
-					
-				<Footer/>
-			</div>
+    				</Select>
+    				<Show  onAdd={this.onAdd} vaccineprogramList={vaccineprogramList}/>
+    			</div>
+    			<Footer/>
+    		</div>
 			
 		);
 	}

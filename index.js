@@ -725,7 +725,7 @@ app.get('/vaccine_pen', (req, res) =>{
 app.get('/vaccine_pen/:barn_name/:pen_id', (req, res) =>{
 	var barn_name = req.params.barn_name;
 	var pen_id = req.params.pen_id;
-	const SELECT_VACCINEPEN_QUERY = 'SELECT * FROM vaccine_pen NATURAL JOIN barn WHERE barn.active=1 AND name='+barn_name+' AND pen_id='+pen_id;
+	const SELECT_VACCINEPEN_QUERY = "SELECT *,DATE_FORMAT(program_date,'%d/%m/%Y') AS program_date_formatted FROM vaccine_pen NATURAL JOIN barn WHERE barn.active=1 AND name="+barn_name+' AND pen_id='+pen_id;
 	connection.query(SELECT_VACCINEPEN_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
@@ -752,6 +752,21 @@ app.get('/vaccine_pen/:barn_name/:pen_id', (req, res) =>{
 		}
 	});
 }); */
+
+//add vaccine_pen by barn name and pen
+app.get('/vaccine_pen/:barn_name/:pen_id/add', (req, res) =>{
+	var barn_name = req.params.barn_name;
+	var pen_id = req.params.pen_id;
+	const SELECT_VACCINEPEN_QUERY = 'UPDATE vaccine_pen NATURAL JOIN barn SET done=1 WHERE barn.active=1 AND name='+barn_name+' AND pen_id='+pen_id;
+	connection.query(SELECT_VACCINEPEN_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			return res.send('1')
+		}
+	});
+});
 
 app.post('/vaccine_pen/add', function(req, res) {
     
