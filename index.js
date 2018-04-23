@@ -172,6 +172,7 @@ app.get('/transfer/:barn_name', (req, res) =>{
 		else{
 			barn_id = results[0].barn_id
 			const SELECT_TRANSFER_BY_BARN_QUERY = "SELECT *,DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM transfer WHERE barn_id="+barn_id;
+			const SELECT_TRANSFER_BY_BARN_QUERY = "SELECT *,DATE_FORMAT(date,'%d/%m/%Y') AS time FROM transfer WHERE barn_id="+barn_id;
 			connection.query(SELECT_TRANSFER_BY_BARN_QUERY, (err,results) =>{
 				if (err) {
 					return res.send(err)
@@ -199,6 +200,7 @@ app.get('/transfer/:barn_name/:selected_date', (req, res) =>{
 		else{
 			barn_id = results[0].barn_id
 			const SELECT_TRANSFER_BY_BARN_QUERY = "SELECT *,DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM transfer WHERE barn_id = " + barn_id + " AND DATE(timestamp) = '" + selected_date +"'";
+			const SELECT_TRANSFER_BY_BARN_QUERY = "SELECT *,DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM transfer WHERE barn_id = " + barn_id + " AND DATE(date) = '" + selected_date +"'";
 			connection.query(SELECT_TRANSFER_BY_BARN_QUERY, (err,results) =>{
 				if (err) {
 					return res.send(err)
@@ -236,6 +238,7 @@ app.post('/transfer/add', function(req, res) {
 	var barn_name = req.body.barn_name;
 	var from_barn_name = req.body.from_barn_name;
 	var barn_id, from_barn_id;
+	var selected_date = req.body.selected_date;
 	const GET_BARN_ID_QUERY = 'SELECT A.barn_id AS barn_id, B.barn_id AS from_barn_id FROM barn A, barn B WHERE A.name = '+barn_name+' AND B.name ='+from_barn_name+' AND A.active = 1 AND B.active = 1'
 	connection.query(GET_BARN_ID_QUERY, (err,results) =>{
 		if (err) {
@@ -246,6 +249,12 @@ app.post('/transfer/add', function(req, res) {
 			from_barn_id = results[0].from_barn_id
 			console.log(barn_id)
 			const INSERT_PRODUCTS_QUERY = 'INSERT INTO transfer (barn_id, type, value, from_barn_id, user_id) VALUES('+barn_id+', "'+type+'", '+value+', '+from_barn_id+', '+user_id+')';
+			if (selected_date==""){
+				selected_date=moment().format('YYYY-MM-DD')
+			}
+
+
+			const INSERT_PRODUCTS_QUERY = 'INSERT INTO transfer (barn_id, type, value, from_barn_id, user_id, date) VALUES('+barn_id+', "'+type+'", '+value+', '+from_barn_id+', '+user_id+',"'+ selected_date+'")';
 			connection.query(INSERT_PRODUCTS_QUERY, (err,results) =>{
 				if (err) {
 					return res.send(err);
