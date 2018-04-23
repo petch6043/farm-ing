@@ -1,26 +1,24 @@
 import React, { Component } from 'react';
 import Home from './component/Home';
+
 import Transfer from './component/Transfer';
+import TransferSelectBarn from './component/TransferSelectBarn';
+
 import Food from './component/Food';
+import FoodSelectBarn from './component/FoodSelectBarn';
+
 import Vaccine from './component/Vaccine';
+import VaccineSelectType from './component/VaccineSelectType';
+import VaccineSelectBarn from './component/VaccineSelectBarn';
+
 import Report from './component/Report';
+import ReportTransfer from './component/ReportTransfer';
+
 import Login from './component/Login';
 import Calendar from './component/Calendar';
-import CalendarPage from './component/Calendar';
-import vaccine_menu from './component/vaccine_menu';
-import vaccine_pen from './component/vaccine_pen';
-import vaccine_type from './component/vaccine_type';
-import vaccine_program from './component/vaccine_program';
-import vaccine_urgent from './component/vaccine_urgent';
-import Selectbarnfood from './component/Selectbarnfood';
-import selectBarnVaccine from './component/selectBarnVaccine';
-import selectBarnVac2 from './component/selectBarnVac2';
-import ReportTransfer from './component/ReportTransfer';
-import Health_report from './component/Health_report';
 import Notification from './component/Notification';
-import Transfer_barn_select from './component/Transfer_barn_select';
-import Create_barn from './component/Create_barn';
 import User from './component/User';
+
 import {
 	BrowserRouter as Router,
 	Link,
@@ -35,27 +33,25 @@ class App extends Component {
     		<Router>
     			<Switch>
 	    			<Route exact path="/" component={Home} />
-	    			<Route path="/transfer" component={Transfer} />
-	    			<Route path="/transfer_barn_select" component={Transfer_barn_select} />
-	    			<Route path="/food" component={Food} />
-	    			<Route path="/vaccine_menu" component={vaccine_menu} />
+
+	    			<Route exact path="/transfer" component={Transfer} />
+	    			<Route path="/transfer/select" component={TransferSelectBarn} />
+
+	    			<Route exact path="/food" component={Food} />
+	    			<Route path="/food/select" component={FoodSelectBarn} />
+
 	    			<Route exact path="/vaccine" component={Vaccine} />
-	    			<Route path="/vaccine_pen" component={vaccine_pen} />
-	    			<Route path="/vaccine_type" component={vaccine_type} />
-	    			<Route path="/vaccine_program" component={vaccine_program} />
-	    			<Route path="/vaccine_urgent" component={vaccine_urgent} />
+	    			<Route path="/vaccine/menu" component={VaccineSelectType} />
+	    			<Route path="/vaccine/select" component={VaccineSelectBarn} />
+
 	    			<Route exact path="/report" component={Report} />
 	    			<Route path="/report/transfer" component={ReportTransfer} />
-	    			<Route path="/login" component={Login} />
-	    			<Route path="/Health_report" component={Health_report} />
-	    			<Route path="/calendar" component={CalendarPage} />
-	    			<Route path="/selectbarnfood" component={Selectbarnfood} />
-	    			<Route path="/selectbarnvaccine" component={selectBarnVaccine} />
-	    			<Route path="/selectbarnvaccine2" component={selectBarnVac2} />
-	    			<Route path="/Create_barn" component={Create_barn} />
+
 	    			<Route path="/calendar" component={Calendar}/>
 	    			<Route path="/notification" component={Notification}/>
 	    			<Route path="/user" component={User}/>
+
+	    			<Route path="/login" component={Login} />
         		</Switch>
 	         </Router>
 	    </div>

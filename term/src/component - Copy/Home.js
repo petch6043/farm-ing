@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import { Row, Col, Button, Icon } from 'antd';
+import { Row, Col } from 'antd';
+import { Button, Icon } from 'antd';
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 
 class Home extends Component {
@@ -14,7 +15,7 @@ class Home extends Component {
 						<div><img src={process.env.PUBLIC_URL + "favicon.png"} style={{width:100}}/></div>
 					</Col>
 					<Col span={12} align="right">
-						<Link to="/transfer/select">
+						<Link to="/transfer_barn_select">
 							<Button className="myButton">
 
 								<Icon type="swap" style={{fontSize: 70}}/>
@@ -24,7 +25,7 @@ class Home extends Component {
 						</Link>
 					</Col>
 					<Col span={12} align="left">
-						<Link to="/food/select">
+						<Link to="/selectbarnfood">
 							<Button className="myButton">
 
 								<Icon type="inbox" style={{fontSize: 70}}/>
@@ -34,7 +35,7 @@ class Home extends Component {
 						</Link>
 					</Col>
 					<Col span={12} align="right">
-						<Link to="/vaccine/menu">
+						<Link to="/vaccine_menu">
 							<Button className="myButton">
 
 								<Icon type="medicine-box" style={{fontSize: 70}}/>

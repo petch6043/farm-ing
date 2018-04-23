@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import Add from './Food/Add';
-import Show from './Food/Show';
+import Add from './food/Add';
+import Show from './food/Show';
+import Selectmenu from './Selectmenu';
 import { Collapse } from 'antd';
-import { notification } from 'antd';
+import { Button, notification } from 'antd';
 import { DatePicker } from 'antd';
+import { Popconfirm } from 'antd';
 
+
+const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 
 const noti = (type, msg, desc) => {
 	notification[type]({
@@ -24,6 +28,10 @@ const customPanelStyle = {
 	border: 0,
 	overflow: 'hidden',
 };
+
+function onChange(date, dateString) {
+	console.log(date, dateString);
+}
 
 class Food extends Component {
 	constructor(props) {
@@ -113,7 +121,7 @@ class Food extends Component {
 	    	response.json().then((data) => {
 	    		if(data == 1) {
 	    			noti('success','ให้อาหาร','เก็บข้อมูลสำเร็จ');
-	    			this.getFoodByDate(this.state.dateSelected);
+	    			this.getFoodByDate();
 
 	    		} else {
 	    			noti('error','ให้อาหาร','เก็บข้อมูลไม่สำเร็จ');
@@ -130,6 +138,7 @@ class Food extends Component {
 	render() {
 		let {foodList, dateIsSelected} = this.state;
 		let {barnNumber} = this.props.location;
+		let {barnNo} = this.state;
 		return(
 
 

@@ -6,7 +6,9 @@ import {
 	Switch,
 } from 'react-router-dom';
 import 'antd/dist/antd.css';
-import { Row, Col, Card, Menu, Icon, Button } from 'antd';
+import { Row, Col } from 'antd';
+import { Card } from 'antd';
+import { Menu, Icon, Button } from 'antd';
 import PropTypes from 'prop-types'; 
 import './myStyle.css';
 

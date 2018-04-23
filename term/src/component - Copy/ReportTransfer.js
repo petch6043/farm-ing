@@ -2,8 +2,35 @@ import React, { Component } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import ShowTransfer from './Report/ShowTransfer';
-import {DatePicker} from 'antd';
+import { Collapse } from 'antd';
+import { Button, notification } from 'antd';
+import { DatePicker } from 'antd';
+import { Select } from 'antd';
 
+const Option = Select.Option;
+
+const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
+
+
+function handleChange(value) {
+  console.log(`selected ${value}`);
+}
+
+const noti = (type, msg, desc) => {
+	notification[type]({
+		message: msg,
+		description: desc,
+	});
+};
+
+const Panel = Collapse.Panel;
+const customPanelStyle = {
+	background: '#f7f7f7',
+	borderRadius: 4,
+	marginBottom: 5,
+	border: 0,
+	overflow: 'hidden',
+};
 
 class ReportTransfer extends Component {
 	constructor(props) {

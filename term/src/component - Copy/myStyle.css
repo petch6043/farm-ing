@@ -1,0 +1,134 @@
+@font-face {
+	font-family: Kanit;
+	src: url(Kanit-Regular.ttf);
+}
+
+html,body,.ant-list,.ant-collapse,.ant-table,.ant-select,.ant-input,.mySubmitButton {
+	font-family: Kanit !important;
+}
+
+a {
+	color: black;
+}
+
+h2 {
+	margin-bottom: 10px;
+}
+
+.myTop {
+	padding: 15px;
+	width: 100%;
+	background: linear-gradient(to right, #f2cca5, #e09587);
+}
+
+.myTopLabel {
+	padding-top: 3px;
+	text-align: center; 
+	margin-right: 25px;
+}
+
+.myRightLabel {
+	text-align: right;
+	margin-right: 25px;
+}
+
+.myBack {
+	float: left;
+}
+
+.myBody {
+	padding:10px 10px 60px 10px;
+}
+
+.myHome {
+	padding-bottom:50px;
+	margin-bottom: 20px;
+}
+
+.mySelectBarn{
+}
+
+.myInputField{
+
+}
+.myNav {
+	border-top: 1px solid black;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+}
+.mySelect {
+	margin-bottom: 10px;
+}
+
+.myInput {
+	margin-bottom: 7px;
+}
+
+.myTab {
+	width: 100%;
+	padding: 13px;
+  	background: white;
+}
+
+.myTab:hover {
+	background: #eaeaea;
+}
+
+.myButton {
+	width: 135px;
+	height: 135px;
+	border-radius: 18px;
+	margin: 10px;
+}
+
+.myButton2 {
+	width: 300px;
+	height: 150px;
+	border-radius: 18px;
+	margin: 10px;
+}
+
+.myBigFont{
+}
+
+.myUser {
+	padding:15px;
+	margin-bottom: 15	px;
+	background: linear-gradient(to bottom right, #f2cca5, #e09587);
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.myFormItem {
+	width: 215px;
+}
+
+.ant-form-item {
+	margin-bottom: 0;
+}
+
+.myCalendar {
+	padding-top: 10px;
+}
+
+.ant-list-header, .ant-list-footer {
+	display: none;
+}
+
+.ant-input {
+	height: 40px;
+	padding: 4px 15px;
+}
+
+.mySubmitButton, .ant-select-selection--single{
+	height: 40px;
+}
+
+.ant-select-selection__rendered {
+	line-height: 40px;
+}
+
+.ant-calendar-picker-input {
+	width: 200px;
+}

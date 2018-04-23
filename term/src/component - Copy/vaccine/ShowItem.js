@@ -5,7 +5,7 @@ class ShowItem extends Component {
 		let {item} = this.props;
 		return(
 			<div>
-				 อายุ: {item.age}, วัคซีน: {item.vac_name}, จำเป็น:{item.age}, เวลา: {item.timestamp}
+				 VAC NAME: {item.vac_name}, VAC Type: {item.type_id}
 			</div>
 		);
 	}

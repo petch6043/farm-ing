@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import ShowItem from './ShowItem';
 import { Table, Icon, Divider } from 'antd';
-import { Row, Col, Button,notification } from 'antd';
+import { Row, Col, Button } from 'antd';
 import 'antd/dist/antd.css';
 import { Checkbox } from 'antd';
 
-class Show extends Component {
+class Show2 extends Component {
 
 	constructor (props){
 		super(props)
@@ -28,10 +28,9 @@ class Show extends Component {
 	// 	}
 	// }
 
-	addClick(a,barnNo) {
+	addClick() {
 		let {onAdd} = this.props;
-		onAdd(a,barnNo);
-		
+		onAdd(this.state.selected);
 		this.setState({
 			selected: [],
 			vaccineprogram: {
@@ -48,46 +47,22 @@ class Show extends Component {
 	}
 
 	render() {
-		let {vaccineprogramList} = this.props;
+		let {vaccineprogramList2} = this.props;
 		let {x} = this.props;
 		let {vaccined} = this.props;
-		let {barnNo} = this.props;
-		console.log("ssss"+barnNo)
-		const data = vaccineprogramList;
+
+		const data = vaccineprogramList2;
 		
 			const columns = [{
-				title: 'คอกที่',
-				dataIndex: 'pen_id',
-				key: 'pen_id',
-			},  {
-				title: 'สถานะ',
-				dataIndex: 'done',
-				key: 'pen_id',
-				render: (text, row, index) => {
-					console.log("xxxxxxx",row)
-    			if (row.done==1) {
-      				return <a href="javascript:;">ฉีดแล้ว</a>;
-    			}
-    				return <a href="javascript:;">ยังไม่ฉีด</a>;
-  				},
+				title: 'อายุแรกเข้า',
+				dataIndex: 'open_age',
+				key: 'open_age',
+			}, {
+				title: 'กำหนดฉีด',
+				dataIndex: 'program_date_formatted',
+				key: 'program_date_formatted',
+			} , ];
 
-
-
-
-  				
-				//render: () => <a href="javascript:;">ฉีดแล้ว</a> ,
-
-			},
-			
-			{
-				title: 'ปุ่ม',
-				dataIndex: 'done',
-				key: 'pen_id',
-				render: (text, row, index) => {
-    				return (<Button onClick={() => this.addClick(row.pen_id,barnNo)}>ฉีด</Button>);
-  				},
-			
-			}];
 			
 
 		const expandedRowRender = record => <label>{record.type}</label>;
@@ -118,16 +93,16 @@ class Show extends Component {
 			};
 
 		return(
-			<div>
-				<Col span={24} align="center">
+				<div>
+
+				<div><h2>วัคซีนโปรแกรม:</h2></div>
 				<Table  columns={columns} dataSource={data}/>
+				</div>
 				
-				{/*rowSelection={rowSelection}*/}
-				</Col>
-				{/*<Button type="primary" onClick={this.addClick} className="mySubmitButton">ฉีดวัคซีน</Button>*/}
-			</div>
+				
+				
 		);
 	}
 }
 
-export default Show;
+export default Show2;

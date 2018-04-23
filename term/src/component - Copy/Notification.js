@@ -1,9 +1,21 @@
 import React, { Component } from 'react';
+import { Button, Icon, Calendar, Collapse } from 'antd';
+import { Row, Col } from 'antd';
 import Header from './Header';
 import Footer from './Footer';
-import { Collapse } from 'antd';
+
+import {
+	BrowserRouter as Router,
+	Link,
+	Route,
+	Switch,
+} from 'react-router-dom';
 
 const Panel = Collapse.Panel;
+
+function onPanelChange(value, mode) {
+  console.log(value, mode);
+}
 
 class Notification extends Component {
 	render() {

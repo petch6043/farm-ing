@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { Button, Icon, Calendar, Collapse, List, Avatar } from 'antd';
+import { Row, Col } from 'antd';
 import Header from './Header';
 import Footer from './Footer';
-import { Button, Icon, Calendar, Collapse, List, Avatar, Row, Col } from 'antd';
 
 import {
 	BrowserRouter as Router,
