@@ -4,10 +4,9 @@ class Add extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			vaccine: {
-				
-				vac_name: "",
-				type_id: 0,
+			vaccineprogram: {
+				vac_id: "",
+				pen_id: 0,
 			}
 		}
 		this.addClick = this.addClick.bind(this);
@@ -15,32 +14,32 @@ class Add extends Component {
 
 	addClick() {
 		let {onAdd} = this.props;
-		console.log(this.state.vaccine);
-		onAdd(this.state.vaccine);
+		console.log(this.state.vaccineprogram);
+		onAdd(this.state.vaccineprogram);
 		this.setState({
-			vaccine: {
+			vaccineprogram: {
 				
-				vac_name: "",
-				type_id: 0,
+				vac_id: "",
+				pen_id: 0,
 			}
 		});
 	}
 
 	render() {
-		let {vaccine} = this.state;
+		let {vaccineprogram} = this.state;
 		return(
 			<div>
           		
           <input
-          value={vaccine.vac_name}
-          onChange={e => this.setState({ vaccine: { ...vaccine, vac_name: e.target.value }})}
+          value={vaccineprogram.vac_id}
+          onChange={e => this.setState({ vaccineprogram: { ...vaccineprogram, vac_id: e.target.value }})}
           />
           <input
-          value={vaccine.type_id}
-          onChange={e => this.setState({ vaccine: { ...vaccine, type_id: e.target.value }})}
+          value={vaccineprogram.pen_id}
+          onChange={e => this.setState({ vaccineprogram: { ...vaccineprogram, pen_id: e.target.value }})}
           />
           
-          <button onClick={this.addClick}>Add vaccine</button>
+          <button onClick={this.addClick}>Add vaccine program</button>
         </div>
 		);
 	}

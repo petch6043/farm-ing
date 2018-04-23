@@ -3,7 +3,6 @@ import Header from './Header';
 import Footer from './Footer';
 import Add from './vaccine_program/Add';
 import Show from './vaccine_program/Show';
-import Show2 from './vaccine_program/Show2';
 import { DatePicker } from 'antd';
 import { Collapse } from 'antd';
 import { Button, notification } from 'antd';
@@ -40,21 +39,17 @@ class vaccine_program extends Component {
 		super(props);
 		this.state = {
 			vaccineprogramList: [],
-			vaccineprogramList2:[],
-			barnNumber: props.location.barnNo,
+			barnNo: props.location.barnNumber,
 			vaccined: [],
 			pen_id:0
 		}
 		this.onAdd = this.onAdd.bind(this);
-		//this.handleChange = this.handleChange.bind(this);
+		this.handleChange = this.handleChange.bind(this);
 		//this.getVaccineProgram = this.getVaccineProgram.bind(this);
 	}
 
 	componentDidMount(){
 		//this.getVaccineProgram();
-		this.getVaccinePen();
-		this.getVaccinePen2();
-
 		
 	}
 /*
@@ -67,31 +62,17 @@ class vaccine_program extends Component {
 	}
 	*/
 	getVaccinePen() {
-		
-	    fetch("http://farm-ing.co:4000/vaccine_pen/"+this.state.barnNumber)
+		console.log("http://farm-ing.co:4000/vaccine_pen/"+this.state.barnNo+"/"+this.state.pen_id)
+	    fetch("http://farm-ing.co:4000/vaccine_pen/"+this.state.barnNo+"/"+this.state.pen_id)
 	    .then(response => response.json())
-	    
 	    .then(response => this.setState({ vaccineprogramList: response.data}))
-	    
-
-	    .catch(err => console.error(err))
-	}
-
-	getVaccinePen2() {
-		console.log("get" ,"http://farm-ing.co:4000/vaccine_pen/"+this.state.barnNumber)
-	    fetch("http://farm-ing.co:4000/vaccine_pen2/"+this.state.barnNumber)
-	    .then(response => response.json())
-	    
-	    .then(response => this.setState({ vaccineprogramList2: response.data}))
-	    
-
 	    .catch(err => console.error(err))
 	}
 	
-	onAdd(a,barnNo) {
+	onAdd() {
 		//selected.map(function(item) {
-			//console.log('http://farm-ing.co:4000/vaccine_pen/'+this.state.barnNumber+"/"+this.state.pen_id+'/add')
-			fetch('http://farm-ing.co:4000/vaccine_pen/'+barnNo+"/"+a+'/add')
+			console.log('http://farm-ing.co:4000/vaccine_pen/'+this.state.barnNo+"/"+this.state.pen_id+'/add')
+			fetch('http://farm-ing.co:4000/vaccine_pen/'+this.state.barnNo+"/"+this.state.pen_id+'/add')
 		    .then((response) => {
 	    	response.json().then((data) => {
 	    		if(data == 1) {
@@ -125,15 +106,13 @@ class vaccine_program extends Component {
 	    */
 	}
 
-	/*handleChange(value) {
+	handleChange(value) {
  		console.log(`selected ${value}`);
  		this.setState({pen_id:value})
  		console.log("http://farm-ing.co:4000/vaccine_pen/"+this.state.barnNo+"/"+value);
  		fetch("http://farm-ing.co:4000/vaccine_pen/"+this.state.barnNo+"/"+value)
 	    .then(response => response.json())
 	    .then(response => this.setState({ vaccineprogramList: response.data}))
-
-
 	    /*.then(response => {
 
 	    	if(response.data.length > 0) {
@@ -144,31 +123,27 @@ class vaccine_program extends Component {
 	    	console.log(this.state.vaccined)
 	    })
 	    */
-	    //.catch(err => console.error(err))
-	//} 
+	    .catch(err => console.error(err))
+	}
 
 	render() {
 		let {vaccineprogramList} = this.state;
-		let {vaccineprogramList2} = this.state;
-		let {barnNo} = this.props.location;
-		let {barnNumber} = this.state;
+		let {barnNo} = this.state;
 		console.log(this.state.vaccineprogramList)	
 		return(
 			<div>
 				<Header thisPage={"วัคซีนโปรแกรมของเล้าที่ : "+ barnNo}/>
 				<div className="myBody">
 					<div className="mySelect myBigFont">
-						<DatePicker onChange={onChange}/>
-					</div>
-					{/*<Select placeholder="เลือกคอก" style={{ width: 120 }} onChange={this.handleChange} className="myBigFont">
-    					<Option value='1'><div className="myBigFont">คอก 1</div></Option>
-    					<Option value='2'><div className="myBigFont">คอก 2</div></Option>
-    					<Option value='3'><div className="myBigFont">คอก 3</div></Option>
-    					<Option value='4'><div className="myBigFont">คอก 4</div></Option>
-    					<Option value='5'><div className="myBigFont">คอก 5</div></Option>
-    				</Select>*/}
-    				<Show2 onAdd={this.onAdd} vaccineprogramList2={vaccineprogramList2}/>
-    				<Show  onAdd={this.onAdd} vaccineprogramList={vaccineprogramList} barnNo={barnNo} />
+						<Select placeholder="เลือกคอก" style={{ width: 200 }} onChange={this.handleChange} className="myBigFont">
+	    					<Option value='1'><div className="myBigFont">คอก 1</div></Option>
+	    					<Option value='2'><div className="myBigFont">คอก 2</div></Option>
+	    					<Option value='3'><div className="myBigFont">คอก 3</div></Option>
+	    					<Option value='4'><div className="myBigFont">คอก 4</div></Option>
+	    					<Option value='5'><div className="myBigFont">คอก 5</div></Option>
+	    				</Select>
+    				</div>
+    				<Show onAdd={this.onAdd} vaccineprogramList={vaccineprogramList}/>
     			</div>
     			<Footer/>
     		</div>

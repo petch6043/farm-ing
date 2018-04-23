@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Footer from './Footer';
+import { Row, Col } from 'antd';
 import { Button, Icon } from 'antd';
-import { Form, Input } from 'antd';
+import { Form, Input, Checkbox } from 'antd';
 const FormItem = Form.Item;
 
 class myForm extends Component {

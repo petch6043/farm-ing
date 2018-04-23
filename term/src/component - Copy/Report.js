@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import ReportTransfer from './ReportTransfer';
+import Health_report from './Health_report';
+import { Button, Icon } from 'antd';
+import { Row, Col } from 'antd';
 import Header from './Header';
 import Footer from './Footer';
-import { Button, Icon, Row, Col } from 'antd';
 
 import {
 	BrowserRouter as Router,
@@ -28,6 +30,13 @@ class Report extends Component {
 				</Col>
 
 				<Col span={12} align="left">	
+					{/*<Link to="/Health_report">
+						<Button className="myButton">
+							<Icon type="bar-chart" style={{fontSize: 72}}/>
+							<div>รายงานสุขภาพ</div>
+						</Button>
+					</Link>
+				*/}
 				</Col>
 				</Row>	
 				<Footer/>

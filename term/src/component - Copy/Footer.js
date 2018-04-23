@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Affix, Menu, Icon, Button, Badge, Row, Col, Card } from 'antd';
+import { Affix, Menu, Icon, Button, Badge } from 'antd';
+import 'antd/dist/antd.css';
+import { Row, Col } from 'antd';
+import { Card } from 'antd';
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 
 class Footer extends Component {

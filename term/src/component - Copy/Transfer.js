@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
-import Header from './Header';
+import Header_transfer from './Header_transfer';
 import Footer from './Footer';
-import MoveOut from './Transfer/MoveOut';
-import MoveIn from './Transfer/MoveIn';
-import Show from './Transfer/Show';
-import { Popconfirm, Button, notification, Collapse, DatePicker } from 'antd';
+import MoveOut from './transfer/MoveOut';
+import MoveIn from './transfer/MoveIn';
+import Show from './transfer/Show';
+import Createmenu_transfer from './Createmenu_transfer';
+import Create_barn from './Create_barn';
+import { Collapse } from 'antd';
+import { Popconfirm, Button, notification } from 'antd';
+import { DatePicker } from 'antd';
 
+const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 
 const noti = (type, msg, desc) => {
 	notification[type]({
@@ -126,12 +131,13 @@ class Transfer extends Component {
 	render() {
 		let {transferList, dateIsSelected} = this.state;
 		let {Barn_no} = this.props.location;
+		let {barnNumber} = this.state;
 		// console.log(Barn_no);
 		return(
 
 			<div>
 
-				<Header thisPage={"เล้า " + Barn_no}/>
+				<Header_transfer thisPage={"เล้า " + Barn_no}/>
 
 				<div className="myBody">
 
