@@ -11,9 +11,6 @@ const Option = Select.Option;
 
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 
-function onChange(date, dateString) {
-	console.log(date, dateString);
-}
 
 function handleChange(value) {
   console.log(`selected ${value}`);
@@ -39,20 +36,45 @@ class ReportTransfer extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			reportList: []
+			reportList: [],
+			dateIsSelected: false,
+			dateSelected: ""
 		}
+		this.onChange = this.onChange.bind(this);
 	}
 
 	componentDidMount(){
 		this.getReport();
 	}
 
-	getReport = _ => {
-	    fetch("http://206.189.35.130:4000/report/get/food")
+	getReport() {
+	    fetch("http://localhost:4000/report/get/food")
 		.then(response => response.json())
 		.then(response => this.setState({ reportList: response.data}))
 		.catch(err => console.error(err))
 	}
+
+	onChange(date, dateString) {
+       	this.setState({dateSelected:dateString})
+		console.log("xxxx"+this.state.dateSelected)
+		console.log(date, dateString)
+		console.log("http://localhost:4000/report/get/food/" + dateString);
+		fetch("http://localhost:4000/report/get/food/" + dateString)
+	    .then(response => response.json())
+	    .then(response => {
+	    	if(dateString!=""){
+	    		console.log("selected date")
+	    		this.setState({dateIsSelected: true})
+	    	}else{
+	    		console.log("deselected date")
+	    		this.setState({dateIsSelected: false})
+	    	}
+	    	this.setState({ reportList: response.data })
+	    
+	    })
+	    .catch(err => console.error(err))
+	}
+
 
 
 	render() {
@@ -62,7 +84,7 @@ class ReportTransfer extends Component {
 				<Header thisPage="รายงานอาหารและการเคลื่อนย้าย"/>
 				<div className="myBody">
 					<div className="mySelect">
-						<DatePicker onChange={onChange} placeholder="เลือกวันที่" />
+						<DatePicker onChange={this.onChange} placeholder="เลือกวันที่" />
 					</div> 
 					<h2>รายชื่อรายงาน</h2>
 					<ShowTransfer transferReport={reportList}/>

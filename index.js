@@ -416,7 +416,23 @@ app.post('/food/add', function(req, res) {
 
 /*-------------------------- REPORT --------------------------*/
 app.get('/report/get/food', (req, res) =>{
+	var selected_date = req.params.selected_date;
 	connection.query(SELECT_ALL_FOOD_REPORT_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			return res.json({
+				data: results
+			})
+		}
+	});
+});
+
+app.get('/report/get/food/:selected_date', (req, res) =>{
+	var selected_date = req.params.selected_date;
+	const SELECT_REPORT_BY_DATE_QUERY = "SELECT * FROM report_list WHERE report_date = '" + selected_date+"' ORDER BY id DESC"; 
+	connection.query(SELECT_REPORT_BY_DATE_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
 		}
