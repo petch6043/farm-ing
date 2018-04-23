@@ -442,7 +442,7 @@ app.get('/report/food', (req, res) =>{
 			csv.write(report, { headers: true })
 			.pipe(ws)
 			.on("finish", function(){
-				var n = 'รายงานประจำวัน ' + moment().format("DD MM YYYY");
+				var n = 'รายงานประจำวัน ' + moment().format("DD-MM-YYYY");
 				var p = dir2 + name;
 				var d = moment().format("YYYY-MM-DD")
 				var t = "transfer";

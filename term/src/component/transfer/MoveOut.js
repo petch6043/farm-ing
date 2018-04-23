@@ -27,36 +27,38 @@ class myForm extends Component {
     };
 		return(
 			<Form onSubmit={this.handleSubmit} className="login-form">
-
-
-				<FormItem
-        		>
-          			{getFieldDecorator('type', {
-            		rules: [
-              		{required: true, message: 'กรุณาใส่ประเภท!' },
-            		],
-          			})(
-            		<Select placeholder="เลือกประเภท" className="myBigFont">
-            		
-
-   					<Option value='ขาย'><div className="myBigFont">ขาย</div></Option>
-   					<Option value='ตาย'><div className="myBigFont">ตาย</div></Option>
-   					<Option value='ป่วย'><div className="myBigFont">ป่วย</div></Option>
-          
-         
-        		
-              
-            		</Select>
-          		)}
-        </FormItem>
 				<FormItem className="myFormItem">
-					{getFieldDecorator('value', {
-					rules: [{ required: true, message: 'เลือกจำนวน' }],
-					})(<Input placeholder="จำนวน" className="myBigFont"/>)}
+					<div className="myInput">
+          			{
+          				getFieldDecorator('type', {
+            				rules: [{required: true, message: 'กรุณาใส่ประเภท!' }]
+            			})
+            			(
+            				<Select placeholder="เลือกประเภท" className="myBigFont">
+            					<Option value='ขาย'><div className="myBigFont">ขาย</div></Option>
+			   					<Option value='ตาย'><div className="myBigFont">ตาย</div></Option>
+			   					<Option value='ป่วย'><div className="myBigFont">ป่วย</div></Option>
+			   				</Select>
+			   			)
+            		}
+            		</div>
+        		</FormItem>
+
+				<FormItem className="myFormItem">
+					{
+						getFieldDecorator('value', {
+							rules: [{ required: true, message: 'เลือกจำนวน' }]
+						})
+						(
+							<div className="myInput">
+								<Input placeholder="จำนวน" className="myBigFont"/>
+							</div>
+						)
+					}
 				</FormItem>
 				
 				<FormItem>
-					<Button type="primary" ghost htmlType="submit" className="login-form-button mySubmitButton">Submit</Button>
+					<Button type="primary" ghost htmlType="submit" className="login-form-button mySubmitButton">ยืนยัน</Button>
 				</FormItem>
 			</Form>
 		)

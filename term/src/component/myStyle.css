@@ -32,12 +32,11 @@ h2 {
 }
 
 .myHome {
+	padding-bottom:50px;
 	margin-bottom: 20px;
 }
 
 .mySelectBarn{
-	size: 500%;
-
 }
 
 .myInputField{
@@ -45,15 +44,21 @@ h2 {
 }
 .myNav {
 	border-top: 1px solid black;
+	position: fixed;
+	bottom: 0;
 	width: 100%;
 }
 .mySelect {
 	margin-bottom: 10px;
 }
 
+.myInput {
+	margin-bottom: 7px;
+}
+
 .myTab {
 	width: 100%;
-	padding: 15px;
+	padding: 13px;
   	background: white;
 }
 
@@ -62,8 +67,8 @@ h2 {
 }
 
 .myButton {
-	width: 160px;
-	height: 160px;
+	width: 135px;
+	height: 135px;
 	border-radius: 18px;
 	margin: 10px;
 }
@@ -74,25 +79,20 @@ h2 {
 	border-radius: 18px;
 	margin: 10px;
 }
-.mySubmitButton{
-	width: 120px;
-	height: 50px;
-	border-radius: 8px;
-	margin: 10px;
 
-}
 .myBigFont{
-	font-size: 130%;
 }
+
 .myUser {
-	padding:10px;
-	margin-bottom: 20px;
+	padding:15px;
+	margin-bottom: 15	px;
 	background: linear-gradient(to bottom right, #f2cca5, #e09587);
+	font-size: 18px;
+	font-weight: bold;
 }
 
 .myFormItem {
-	width: 80%;
-	margin-bottom: 0;
+	width: 215px;
 }
 
 .ant-form-item {
@@ -105,4 +105,17 @@ h2 {
 
 .ant-list-header, .ant-list-footer {
 	display: none;
+}
+
+.ant-input {
+	height: 40px;
+	padding: 4px 15px;
+}
+
+.mySubmitButton, .ant-select-selection--single{
+	height: 40px;
+}
+
+.ant-select-selection__rendered {
+	line-height: 40px;
 }

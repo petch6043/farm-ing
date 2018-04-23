@@ -11,16 +11,14 @@ class Home extends Component {
 			<div>
 				<div className="myHome">
 				<Row>
-					<Col span={24} align="center" className="myUser">
-						<img  style={{width: 60, height: 60,borderRadius:100}} src='https://st.depositphotos.com/2075685/3076/v/950/depositphotos_30768193-stock-illustration-business-pig.jpg'/>
-						<div style={{fontSize: 20}}><b>ชัญญา จิรกวินวาณิช</b></div>
-						<div>CTO ชัยภูมิ ฟาร์ม</div>
+					<Col span={24} align="center" className="myTop" style={{marginBottom:10}}>
+						<div>Farm-ing</div>
 					</Col>
 					<Col span={12} align="right">
 						<Link to="/transfer_barn_select">
 							<Button className="myButton">
 
-								<Icon type="swap" style={{fontSize: 100}}/>
+								<Icon type="swap" style={{fontSize: 70}}/>
 								<div className="myBigFont">เคลื่อนย้าย</div>
 
 							</Button>
@@ -30,7 +28,7 @@ class Home extends Component {
 						<Link to="/selectbarnfood">
 							<Button className="myButton">
 
-								<Icon type="inbox" style={{fontSize: 100}}/>
+								<Icon type="inbox" style={{fontSize: 70}}/>
 								<div className="myBigFont">อาหาร</div>
 
 							</Button>
@@ -40,7 +38,7 @@ class Home extends Component {
 						<Link to="/vaccine_menu">
 							<Button className="myButton">
 
-								<Icon type="medicine-box" style={{fontSize: 100}}/>
+								<Icon type="medicine-box" style={{fontSize: 70}}/>
 								<div className="myBigFont">สุขภาพ</div>
 
 							</Button>
@@ -50,7 +48,7 @@ class Home extends Component {
 						<Link to="/report">
 							<Button className="myButton">
 
-								<Icon type="file-text" style={{fontSize: 100}}/>
+								<Icon type="file-text" style={{fontSize: 70}}/>
 								<div className="myBigFont">รายงาน</div>
 
 							</Button>
