@@ -33,7 +33,7 @@ class myForm extends Component {
           					rules: [{required: true, message: 'กรุณาใส่ประเภท!' }]
           				})
           				(
-		          			<div className="myInput">
+		          			
 			            		<Select placeholder="เลือกประเภท" className="myBigFont">
 				   					<Option value='310'><div className="myBigFont">310</div></Option>
 				   					<Option value='310(1)'><div className="myBigFont">310(1)</div></Option>
@@ -41,7 +41,7 @@ class myForm extends Component {
 				   					<Option value='430'><div className="myBigFont">430</div></Option>
 				   					<Option value='440(1)'><div className="myBigFont">440(1)</div></Option>
 			            		</Select>
-		            		</div>
+		            	
           				)
           			}
           			</div>
@@ -61,7 +61,7 @@ class myForm extends Component {
 				</FormItem>
 
 				<FormItem>
-					<Button type="primary" ghost htmlType="ยืนยัน" className="login-form-button" className="mySubmitButton">ยืนยัน</Button>
+					<Button type="primary" ghost htmlType="submit" className="login-form-button" className="mySubmitButton">ยืนยัน</Button>
 				</FormItem>
 			</Form>
 		)
