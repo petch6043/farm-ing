@@ -38,11 +38,10 @@ class myForm extends Component {
           			})
 						(
             				<Select placeholder="มาจาก" className="myBigFont">
-            				{
-            					nursery.map((x) =>
-            						<Option value={x} key={x}><div className="myBigFont">อนุบาล {x}</div></Option>
-            					)
-            				}
+            				<Option value='001'><div className="myBigFont">อนุบาล 1</div></Option>
+            				<Option value='002'><div className="myBigFont">อนุบาล 2</div></Option>
+            				<Option value='003'><div className="myBigFont">อนุบาล 3</div></Option>
+            				<Option value='004'><div className="myBigFont">อนุบาล 4</div></Option>
             				{  
             					allBarn.map((x) =>
             						<Option value={x} key={x}><div className="myBigFont">เล้า {x}</div></Option>

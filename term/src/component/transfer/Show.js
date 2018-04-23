@@ -20,7 +20,7 @@ class Show extends Component {
 			dataIndex: 'value',
 			key: 'value',
 		}, {
-			title: 'วัน - เวลา',
+			title: 'วัน',
 		    dataIndex: 'time',
 		    key: 'time'
 		}];

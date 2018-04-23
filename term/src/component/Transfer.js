@@ -34,7 +34,8 @@ class Transfer extends Component {
 		this.state = {
 			transferList: [],
 			barnNumber: props.location.Barn_no,
-			dateIsSelected: false
+			dateIsSelected: false,
+			dateSelected: ""
 		}
 		this.onAdd = this.onAdd.bind(this);
 		this.onChange = this.onChange.bind(this);
@@ -52,7 +53,18 @@ class Transfer extends Component {
 	    .catch(err => console.error(err))
 	}
 
+	getTransfersByDate(dateSelected){
+
+		fetch("http://206.189.35.130:4000/transfer/" + this.state.barnNumber + "/" + dateSelected)
+	    .then(response => response.json())
+	    .then(response => this.setState({ transferList: response.data}))
+	    .catch(err => console.error(err))
+	}
+
+
 	onChange(date, dateString) {
+		this.setState({dateSelected:dateString})
+		console.log("xxxx"+this.state.dateSelected)
 		console.log(date, dateString)
 		console.log("http://206.189.35.130:4000/transfer/" + this.state.barnNumber + "/" + dateString);
 		fetch("http://206.189.35.130:4000/transfer/" + this.state.barnNumber + "/" + dateString)
@@ -88,14 +100,15 @@ class Transfer extends Component {
 	    		barn_name: this.state.barnNumber,
 	    		user_id: 1,
 	    		value: transfer.value,
-	    		from_barn_name: a
+	    		from_barn_name: a,
+	    		selected_date: this.state.dateSelected
 	    	}),
 	    })
 	    .then((response) => {
 	    	response.json().then((data) => {
 	    		if(data == 1) {
 	    			noti('success','Add transfer','Sucessfully saved data.');
-	    			this.getTransfers();
+	    			this.getTransfersByDate(this.state.dateSelected);
 	    		} else {
 	    			noti('error','Add transfer','Unable to save data.');
 	    		}
@@ -126,6 +139,13 @@ class Transfer extends Component {
 				<Header_transfer thisPage={"เล้า " + Barn_no}/>
 
 				<div className="myBody">
+
+					<div className="mySelect">
+						<DatePicker onChange={this.onChange} placeholder="เลือกวันที่"/>
+						<Popconfirm placement="bottomLeft" title="คุณแน่ใจหรือไม่ว่าจะปิดเล้านี้" onConfirm={this.closeBarn} okText="Yes" cancelText="No">
+		       				<Button style={{marginLeft: 15, height:42}}>ปิดเล้า</Button>
+	      				</Popconfirm>
+	      			</div>
 					<Collapse bordered={false} style={{marginBottom:10}}>
 						<Panel header="ย้ายเข้า" key="1" style={customPanelStyle} className="myBigFont">
 							<MoveIn onAdd={this.onAdd}/>
@@ -134,13 +154,6 @@ class Transfer extends Component {
 							<MoveOut onAdd={this.onAdd}/>
 						</Panel>
 					</Collapse>
-					
-					<div className="mySelect">
-						<DatePicker onChange={this.onChange} placeholder="เลือกวันที่"/>
-						<Popconfirm placement="bottomLeft" title="คุณแน่ใจหรือไม่ว่าจะปิดเล้านี้" onConfirm={this.closeBarn} okText="Yes" cancelText="No">
-		       				<Button style={{marginLeft: 15, height:42}}>ปิดเล้า</Button>
-	      				</Popconfirm>
-	      			</div>
 
 					<Show transferList={transferList} dateIsSelected={dateIsSelected}/>
 				</div>
