@@ -121,14 +121,13 @@ class Transfer extends Component {
 						</Panel>
 						<Panel header="ย้ายออก" key="2" style={customPanelStyle} className="myBigFont">
 							<MoveOut onAdd={this.onAdd}/>
-
 						</Panel>
 					</Collapse>
 					
 					<div className="mySelect">
 						<DatePicker onChange={this.onChange}/>
 						<Popconfirm placement="bottomLeft" title="คุณแน่ใจหรือไม่ว่าจะปิดเล้านี้" onConfirm={this.closeBarn} okText="Yes" cancelText="No">
-		       				<Button style={{marginLeft: 15}}>ปิดเล้า</Button>
+		       				<Button style={{marginLeft: 15, height:42}}>ปิดเล้า</Button>
 	      				</Popconfirm>
 	      			</div>
 

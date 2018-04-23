@@ -26,32 +26,38 @@ class myForm extends Component {
     };
 		return(
 			<Form onSubmit={this.handleSubmit} className="login-form">
-				
-
-				<FormItem
-        		>
-          			{getFieldDecorator('food_type', {
-            		rules: [
-              		{required: true, message: 'กรุณาใส่ประเภท!' },
-            		],
-          			})(
-            		<Select placeholder="เลือกประเภท" className="myBigFont">
-	   					<Option value='310'><div className="myBigFont">310</div></Option>
-	   					<Option value='320'><div className="myBigFont">320</div></Option>
-	   					<Option value='430'><div className="myBigFont">430</div></Option>
-            		</Select>
-          		)}
-        </FormItem>
+				<FormItem className="myFormItem">
+          			{
+          				getFieldDecorator('food_type', {
+          					rules: [{required: true, message: 'กรุณาใส่ประเภท!' }]
+          				})
+          				(
+		          			<div className="myInput">
+			            		<Select placeholder="เลือกประเภท" className="myBigFont">
+				   					<Option value='310'><div className="myBigFont">310</div></Option>
+				   					<Option value='320'><div className="myBigFont">320</div></Option>
+				   					<Option value='430'><div className="myBigFont">430</div></Option>
+			            		</Select>
+		            		</div>
+          				)
+          			}
+        		</FormItem>
 
 				<FormItem className="myFormItem">
-					{getFieldDecorator('amount', {
-					rules: [{ required: true, message: 'กรุณาใส่ปริมาณอาหาร!' }],
-					})(<Input placeholder="ปริมาณ" className="myBigFont"/>)}
+					{
+						getFieldDecorator('amount', {
+							rules: [{ required: true, message: 'กรุณาใส่ปริมาณอาหาร!' }],
+						})
+						(
+							<div className="myInput">
+							<Input placeholder="ปริมาณ" className="myBigFont"/>
+							</div>
+						)
+					}
 				</FormItem>
+
 				<FormItem>
-
 					<Button type="primary" ghost htmlType="ยืนยัน" className="login-form-button" className="mySubmitButton">ยืนยัน</Button>
-
 				</FormItem>
 			</Form>
 		)
