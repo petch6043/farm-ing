@@ -53,20 +53,20 @@ class Food extends Component {
  
 	//fetching data from database named food
 	getFood() {
-    	fetch("http://206.189.35.130:4000/food/"+this.state.barnNo)
+    	fetch("http://localhost:4000/food/"+this.state.barnNo)
     	.then(response => response.json())
        	.then(response => this.setState({ foodList: response.data}))
        	.catch(err => console.error(err))
  	}
  	getFoodByDate(dateSelected){
 
-		fetch("http://206.189.35.130:4000/food/" + this.state.barnNo + "/" + dateSelected)
+		fetch("http://localhost:4000/food/" + this.state.barnNo + "/" + dateSelected)
 	    .then(response => response.json())
 	    .then(response => this.setState({ foodList: response.data}))
 	    .catch(err => console.error(err))
 	}
 	onChange(date, dateString) {
- 		/*fetch("http://206.189.35.130:4000/food/"+this.state.barnNo + "/" + dateString)
+ 		/*fetch("http://localhost:4000/food/"+this.state.barnNo + "/" + dateString)
        	.then(response => response.json())
        	.then(response => {
 	    	if(dateString!=""){
@@ -82,8 +82,8 @@ class Food extends Component {
        	this.setState({dateSelected:dateString})
 		console.log("xxxx"+this.state.dateSelected)
 		console.log(date, dateString)
-		console.log("http://206.189.35.130:4000/food/" + this.state.barnNo + "/" + dateString);
-		fetch("http://206.189.35.130:4000/food/" + this.state.barnNo + "/" + dateString)
+		console.log("http://localhost:4000/food/" + this.state.barnNo + "/" + dateString);
+		fetch("http://localhost:4000/food/" + this.state.barnNo + "/" + dateString)
 	    .then(response => response.json())
 	    .then(response => {
 	    	if(dateString!=""){
@@ -101,7 +101,7 @@ class Food extends Component {
 
 	//posting data to the database named food
  	onAdd(food) {
-	    fetch('http://206.189.35.130:4000/food/add', {
+	    fetch('http://localhost:4000/food/add', {
 	    	method: 'POST',
 	    	headers: {
 	    		Accept: 'application/json',

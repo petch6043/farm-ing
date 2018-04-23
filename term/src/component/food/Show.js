@@ -14,7 +14,7 @@ class Show extends Component {
     dataIndex: 'amount',
     key: 'amount',
    }, {
-    title: 'วัน - เวลา',
+    title: 'วัน ',
     dataIndex: 'time',
     key: 'time'
    }];
