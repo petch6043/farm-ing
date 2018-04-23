@@ -21,7 +21,7 @@ class User extends Component {
   render() {
     return (
     	<div>
-    		<Header thisPage="Account"/>
+    		<Header thisPage="ผู้ใช้"/>
     			<div  className="myCalendar" style={{padding:10}}>
 				<Row>
 					<Col span={24} align="center" >

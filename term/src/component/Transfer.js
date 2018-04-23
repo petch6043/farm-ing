@@ -35,6 +35,7 @@ class Transfer extends Component {
 			transferList: [],
 			barnNumber: props.location.Barn_no,
 			dateIsSelected: false
+
 		}
 		this.onAdd = this.onAdd.bind(this);
 		this.onChange = this.onChange.bind(this);
@@ -61,7 +62,7 @@ class Transfer extends Component {
 	    	if(dateString!=""){
 	    		console.log("selected date")
 	    		this.setState({dateIsSelected: true})
-	    	}else{
+	    	} else {
 	    		console.log("deselected date")
 	    		this.setState({dateIsSelected: false})
 	    	}
@@ -73,9 +74,9 @@ class Transfer extends Component {
 	onAdd(transfer) {
 		let a = 0
 		if (transfer.from_barn_name) {
-			a=transfer.from_barn_name 
-		}else{
-			a=this.state.barnNumber
+			a = transfer.from_barn_name 
+		} else {
+			a = this.state.barnNumber
 		}
 	    fetch('http://206.189.35.130:4000/transfer/add', {
 	    	method: 'POST',

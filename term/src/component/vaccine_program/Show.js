@@ -111,7 +111,7 @@ class Show extends Component {
 				<Table  columns={columns} dataSource={data}/>
 				{/*rowSelection={rowSelection}*/}
 				</Col>
-				<Button type="primary" onClick={this.addClick} className="mySubmitButton">ฉีดวัคซีน</Button>
+				<Button type="primary" onClick={this.addClick} className="mySubmitButton" style={{marginTop:10}}>ฉีดวัคซีน</Button>
 			</div>
 		);
 	}
