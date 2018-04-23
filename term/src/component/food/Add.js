@@ -27,6 +27,7 @@ class myForm extends Component {
 		return(
 			<Form onSubmit={this.handleSubmit} className="login-form">
 				<FormItem className="myFormItem">
+					<div className="myInput">
           			{
           				getFieldDecorator('food_type', {
           					rules: [{required: true, message: 'กรุณาใส่ประเภท!' }]
@@ -43,6 +44,7 @@ class myForm extends Component {
 		            		</div>
           				)
           			}
+          			</div>
         		</FormItem>
 
 				<FormItem className="myFormItem">
