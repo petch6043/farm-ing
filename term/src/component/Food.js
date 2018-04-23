@@ -119,13 +119,13 @@ class Food extends Component {
 			<div>
 				<Header thisPage={"เล้า " + barnNumber}/>
 				<div className="myBody">
-					<Collapse bordered={false} style={{marginBottom:20}}>
+					<Collapse bordered={false} style={{marginBottom:10}}>
 						<Panel header="เพิ่ม" key="2" style={customPanelStyle} className="myBigFont">
 							<Add onAdd={this.onAdd}/>
 						</Panel>
 					</Collapse>
 					<div className="mySelect">
-						<DatePicker onChange={this.onChange}/>
+						<DatePicker onChange={this.onChange} placeholder="เลือกวันที่"/>
 	      			</div>
 
 

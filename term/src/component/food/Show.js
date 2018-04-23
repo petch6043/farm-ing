@@ -31,7 +31,7 @@ class Show extends Component {
   return(
    <div>
 
-    <div><h2>รายการให้อาหาร:</h2></div>
+    <div><h2>รายการให้อาหาร</h2></div>
 
    {dateIsSelected ? (
         <Table expandedRowRender={expandedRowRender} columns={columns2} dataSource={data}/>

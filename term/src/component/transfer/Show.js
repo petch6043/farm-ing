@@ -38,7 +38,7 @@ class Show extends Component {
 		return(
 			
 			<div>
-				<h2>Transfer list </h2>
+				<h2>รายการเคลื่อนย้าย</h2>
 				{dateIsSelected ? (
 			    	<Table expandedRowRender={expandedRowRender} columns={columns2} dataSource={data}/>
 			    ) : (

@@ -61,8 +61,10 @@ class ReportTransfer extends Component {
 			<div>
 				<Header thisPage="รายงานอาหารและการเคลื่อนย้าย"/>
 				<div className="myBody">
-					<div className="mySelect" style={{marginTop: 10}}><DatePicker onChange={onChange} /></div> 
-					<h2>รายชื่อรายงาน:</h2>
+					<div className="mySelect">
+						<DatePicker onChange={onChange} />
+					</div> 
+					<h2>รายชื่อรายงาน</h2>
 					<ShowTransfer transferReport={reportList}/>
 				</div>
 				<Footer/>

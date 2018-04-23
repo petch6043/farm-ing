@@ -19,6 +19,8 @@ class myForm extends Component {
 		});
 	}
 
+
+
 	render() {
 		const { getFieldDecorator } = this.props.form;
 		var nursery = [1,2,3,4]
@@ -30,27 +32,25 @@ class myForm extends Component {
 		return(
 			<Form onSubmit={this.handleSubmit} className="login-form">
 				<FormItem className="myFormItem">
-          			{
-          				getFieldDecorator('from_barn_name', {
-          					rules: [{required: true, message: 'กรุณาเลือกเล้า' }]
-          				})
-          				(
-          					<div className="myInput">
-	          					<Select placeholder="มาจาก" className="myBigFont">
-									{
-			      						nursery.map((x) =>
-			      							<Option value={x} key={x}><div className="myBigFont">อนุบาล {x}</div></Option>
-			      						)
-			      					}
-			      					{
-			      						allBarn.map((x) =>
-			      							<Option value={x} key={x}><div className="myBigFont">เล้า {x}</div></Option>
-			      						)
-			      					}
-			      				</Select>
-		      				</div>
-		      			)
-          			}
+					{
+						getFieldDecorator('from_barn_name', {
+            				rules: [{required: true, message: 'กรุณาเลือกเล้า' }]
+          			})
+						(
+            				<Select placeholder="มาจาก" className="myBigFont">
+            				{
+            					nursery.map((x) =>
+            						<Option value={x} key={x}><div className="myBigFont">อนุบาล {x}</div></Option>
+            					)
+            				}
+            				{  
+            					allBarn.map((x) =>
+            						<Option value={x} key={x}><div className="myBigFont">เล้า {x}</div></Option>
+            					)
+            				}
+            				</Select>
+          				)
+					}
         		</FormItem>
 
 				<FormItem className="myFormItem">

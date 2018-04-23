@@ -126,7 +126,7 @@ class Transfer extends Component {
 				<Header_transfer thisPage={"เล้า " + Barn_no}/>
 
 				<div className="myBody">
-					<Collapse bordered={false} style={{marginBottom:20}}>
+					<Collapse bordered={false} style={{marginBottom:10}}>
 						<Panel header="ย้ายเข้า" key="1" style={customPanelStyle} className="myBigFont">
 							<MoveIn onAdd={this.onAdd}/>
 						</Panel>
@@ -136,7 +136,7 @@ class Transfer extends Component {
 					</Collapse>
 					
 					<div className="mySelect">
-						<DatePicker onChange={this.onChange}/>
+						<DatePicker onChange={this.onChange} placeholder="เลือกวันที่"/>
 						<Popconfirm placement="bottomLeft" title="คุณแน่ใจหรือไม่ว่าจะปิดเล้านี้" onConfirm={this.closeBarn} okText="Yes" cancelText="No">
 		       				<Button style={{marginLeft: 15, height:42}}>ปิดเล้า</Button>
 	      				</Popconfirm>

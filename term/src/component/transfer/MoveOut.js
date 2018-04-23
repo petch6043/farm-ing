@@ -27,23 +27,21 @@ class myForm extends Component {
     };
 		return(
 			<Form onSubmit={this.handleSubmit} className="login-form">
-
-
 				<FormItem className="myFormItem">
+					<div className="myInput">
           			{
           				getFieldDecorator('type', {
-          					rules: [{required: true, message: 'กรุณาใส่ประเภท!'}]
-          				})
-          				(
-          					<div className="myInput">
-	            				<Select placeholder="เลือกประเภท" className="myBigFont">
-				   					<Option value='ขาย'><div className="myBigFont">ขาย</div></Option>
-				   					<Option value='ตาย'><div className="myBigFont">ตาย</div></Option>
-				   					<Option value='ป่วย'><div className="myBigFont">ป่วย</div></Option>
-	            				</Select>
-            				</div>
-          				)
-          			}
+            				rules: [{required: true, message: 'กรุณาใส่ประเภท!' }]
+            			})
+            			(
+            				<Select placeholder="เลือกประเภท" className="myBigFont">
+            					<Option value='ขาย'><div className="myBigFont">ขาย</div></Option>
+			   					<Option value='ตาย'><div className="myBigFont">ตาย</div></Option>
+			   					<Option value='ป่วย'><div className="myBigFont">ป่วย</div></Option>
+			   				</Select>
+			   			)
+            		}
+            		</div>
         		</FormItem>
 
 				<FormItem className="myFormItem">
