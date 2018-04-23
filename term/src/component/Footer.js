@@ -16,17 +16,17 @@ class Footer extends Component {
 					    </Badge>
 					</Col>
 				</Link>
-				<Link to="/calendar">
-					<Col span={6} align="center">
-						<Badge count={0} className="myTab">
-					      	<Icon type="calendar" style={{ fontSize: 22, color: '#000'}} />
-					    </Badge>
-					</Col>
-				</Link>
 				<Link to="/notification">
 					<Col span={6} align="center">
 						<Badge count={2} className="myTab">
 					      	<Icon type="bell" style={{ fontSize: 22, color: '#000'}} />
+					    </Badge>
+					</Col>
+				</Link>
+				<Link to="/calendar">
+					<Col span={6} align="center">
+						<Badge count={0} className="myTab">
+					      	<Icon type="profile" style={{ fontSize: 22, color: '#000'}} />
 					    </Badge>
 					</Col>
 				</Link>
