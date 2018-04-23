@@ -34,13 +34,9 @@ class Transfer extends Component {
 		this.state = {
 			transferList: [],
 			barnNumber: props.location.Barn_no,
-<<<<<<< HEAD
-			dateIsSelected: false
-
-=======
 			dateIsSelected: false,
 			dateSelected: ""
->>>>>>> 47e6652501b973c2268f0f694c442d65d3de0111
+
 		}
 		this.onAdd = this.onAdd.bind(this);
 		this.onChange = this.onChange.bind(this);

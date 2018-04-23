@@ -79,11 +79,7 @@ class User extends Component {
   render() {
     return (
     	<div>
-<<<<<<< HEAD
-    		<Header thisPage="ผู้ใช้"/>
-=======
     		<Header thisPage="สร้างโดย"/>
->>>>>>> 47e6652501b973c2268f0f694c442d65d3de0111
     			<div  className="myCalendar" style={{padding:10}}>
 				<Row>
 					{/*<Col span={24} align="center" >
