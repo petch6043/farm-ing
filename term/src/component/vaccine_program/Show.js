@@ -50,6 +50,7 @@ class Show extends Component {
 		let {vaccineprogramList} = this.props;
 		let {x} = this.props;
 		let {vaccined} = this.props;
+
 		const data = vaccineprogramList;
 			const columns = [{
 				title: 'อายุแรกเข้า',
@@ -63,6 +64,16 @@ class Show extends Component {
 				title: 'สถานะ',
 				dataIndex: 'done',
 				key: 'done',
+				render: (text, row, index) => {
+					console.log("x",row,index);
+    			if (row.done==1) {
+      				return <a href="javascript:;">ฉีดแล้ว</a>;
+    			}
+    				return <a href="javascript:;">ยังไม่ฉีด</a>;
+  				},
+
+				//render: () => <a href="javascript:;">ฉีดแล้ว</a> ,
+
 			}];
 
 		const expandedRowRender = record => <label>{record.type}</label>;
@@ -95,7 +106,7 @@ class Show extends Component {
 		return(
 			<div>
 				<div><h2>วัคซีนโปรแกรม:</h2></div>
-				<div>สถานะ: 1 = ฉีดแล้ว, 0 = ยังไม่ฉีด</div>
+				
 				<Col span={24} align="center">
 				<Table  columns={columns} dataSource={data}/>
 				{/*rowSelection={rowSelection}*/}

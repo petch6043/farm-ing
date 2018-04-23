@@ -141,6 +141,8 @@ class vaccine_program extends Component {
     					<Option value='1'><div className="myBigFont">คอก 1</div></Option>
     					<Option value='2'><div className="myBigFont">คอก 2</div></Option>
     					<Option value='3'><div className="myBigFont">คอก 3</div></Option>
+    					<Option value='4'><div className="myBigFont">คอก 4</div></Option>
+    					<Option value='5'><div className="myBigFont">คอก 5</div></Option>
     				</Select>
     				<Show  onAdd={this.onAdd} vaccineprogramList={vaccineprogramList}/>
     			</div>
