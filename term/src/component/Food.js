@@ -121,7 +121,7 @@ class Food extends Component {
 	    	response.json().then((data) => {
 	    		if(data == 1) {
 	    			noti('success','ให้อาหาร','เก็บข้อมูลสำเร็จ');
-	    			this.getFoodByDate();
+	    			this.getFoodByDate(this.state.dateSelected);
 
 	    		} else {
 	    			noti('error','ให้อาหาร','เก็บข้อมูลไม่สำเร็จ');
