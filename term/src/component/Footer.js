@@ -12,28 +12,28 @@ class Footer extends Component {
 				<Link to="/">
 					<Col span={6} align="center">
 						<Badge count={0} className="myTab">
-							<Icon type="home" style={{ fontSize: 30, color: '#000'}} />
+							<Icon type="home" style={{ fontSize: 22, color: '#000'}} />
 					    </Badge>
 					</Col>
 				</Link>
 				<Link to="/calendar">
 					<Col span={6} align="center">
 						<Badge count={0} className="myTab">
-					      	<Icon type="calendar" style={{ fontSize: 30, color: '#000'}} />
+					      	<Icon type="calendar" style={{ fontSize: 22, color: '#000'}} />
 					    </Badge>
 					</Col>
 				</Link>
 				<Link to="/notification">
 					<Col span={6} align="center">
 						<Badge count={2} className="myTab">
-					      	<Icon type="bell" style={{ fontSize: 30, color: '#000'}} />
+					      	<Icon type="bell" style={{ fontSize: 22, color: '#000'}} />
 					    </Badge>
 					</Col>
 				</Link>
 				<Link to="/user">
 					<Col span={6} align="center">
 						<Badge count={0} className="myTab">
-					      	<Icon type="user" style={{ fontSize: 30, color: '#000'}} />
+					      	<Icon type="user" style={{ fontSize: 22, color: '#000'}} />
 					    </Badge>
 					</Col>
 				</Link>

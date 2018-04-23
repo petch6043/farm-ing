@@ -93,7 +93,7 @@ class Transfer_barn_select extends Component {
 					<div><h2>เลือกเล้า: </h2></div>
 					<Createmenu_transfer BarnList={BarnList}/>
 
-					<Collapse bordered={false} style={{marginTop:15}}>
+					<Collapse bordered={false} style={{marginTop:10}}>
 						<Panel header="เปิดเล้า" key="2" style={customPanelStyle} className="myBigFont ">
 							<Add onAdd={this.onAdd} BarnList={BarnList}/>
 						</Panel>

@@ -38,14 +38,16 @@ class Food extends Component {
 		super(props);
 		this.state = {
 			foodList: [],
-			barnNo: props.location.barnNumber
+			barnNo: props.location.barnNumber,
+			dateIsSelected: false,
+			dateSelected: ""
 		}
 		this.onAdd = this.onAdd.bind(this);
 		this.onChange = this.onChange.bind(this);
 	}
 
 
- 	componentDidMount(){
+ 	componentDidMount(){	
   		this.getFood();
  	}
  
@@ -55,17 +57,51 @@ class Food extends Component {
     	.then(response => response.json())
        	.then(response => this.setState({ foodList: response.data}))
        	.catch(err => console.error(err))
- 	}
+ 	}	
+ 	getFoodByDate(dateSelected){
 
+		fetch("http://206.189.35.130:4000/food/" + this.state.barnNo + "/" + dateSelected)
+	    .then(response => response.json())
+	    .then(response => this.setState({ foodList: response.data}))
+	    .catch(err => console.error(err))
+	}
 	onChange(date, dateString) {
- 		fetch("http://206.189.35.130:4000/food/"+this.state.barnNo + "/" + dateString)
+ 		/*fetch("http://206.189.35.130:4000/food/"+this.state.barnNo + "/" + dateString)
        	.then(response => response.json())
-       	.then(response => this.setState({ foodList: response.data}))
-       	.catch(err => console.error(err))
+       	.then(response => {
+	    	if(dateString!=""){
+	    		console.log("selected date")
+	    		this.setState({dateIsSelected: true})
+	    	}else{
+	    		console.log("deselected date")
+	    		this.setState({dateIsSelected: false})
+	    	}
+	    	this.setState({ foodList: response.data })
+	    })
+       	.catch(err => console.error(err))*/
+       	this.setState({dateSelected:dateString})
+		console.log("xxxx"+this.state.dateSelected)
+		console.log(date, dateString)
+		console.log("http://206.189.35.130:4000/food/" + this.state.barnNo + "/" + dateString);
+		fetch("http://206.189.35.130:4000/food/" + this.state.barnNo + "/" + dateString)
+	    .then(response => response.json())
+	    .then(response => {
+	    	if(dateString!=""){
+	    		console.log("selected date")
+	    		this.setState({dateIsSelected: true})
+	    	}else{
+	    		console.log("deselected date")
+	    		this.setState({dateIsSelected: false})
+	    	}
+	    	this.setState({ foodList: response.data })
+	    
+	    })
+	    .catch(err => console.error(err))
 	}
 
 	//posting data to the database named food
  	onAdd(food) {
+ 		console.log(this.state.dateSelected)
 	    fetch('http://206.189.35.130:4000/food/add', {
 	    	method: 'POST',
 	    	headers: {
@@ -77,7 +113,7 @@ class Food extends Component {
           		barn_name: this.state.barnNo,
           		amount: food.amount,
           		food_type: food.food_type,
-	    		
+          		selected_date: this.state.dateSelected	    		
 	    	}),
 	    })
 
@@ -85,7 +121,7 @@ class Food extends Component {
 	    	response.json().then((data) => {
 	    		if(data == 1) {
 	    			noti('success','ให้อาหาร','เก็บข้อมูลสำเร็จ');
-	    			this.getFood();
+	    			this.getFoodByDate(this.state.dateSelected);
 
 	    		} else {
 	    			noti('error','ให้อาหาร','เก็บข้อมูลไม่สำเร็จ');
@@ -100,7 +136,7 @@ class Food extends Component {
 }
  
 	render() {
-		let {foodList} = this.state;
+		let {foodList, dateIsSelected} = this.state;
 		let {barnNumber} = this.props.location;
 		let {barnNo} = this.state;
 		return(
@@ -109,17 +145,18 @@ class Food extends Component {
 			<div>
 				<Header thisPage={"เล้า " + barnNumber}/>
 				<div className="myBody">
-					<Collapse bordered={false} style={{marginBottom:20}}>
+					<div className="mySelect">
+						<DatePicker onChange={this.onChange} placeholder="เลือกวันที่"/>
+	      			</div>
+					<Collapse bordered={false} style={{marginBottom:10}}>
 						<Panel header="เพิ่ม" key="2" style={customPanelStyle} className="myBigFont">
 							<Add onAdd={this.onAdd}/>
 						</Panel>
 					</Collapse>
-					<div className="mySelect">
-						<DatePicker onChange={this.onChange}/>
-	      			</div>
+					
 
 
-					<Show foodList={foodList}/>
+					<Show foodList={foodList} dateIsSelected={dateIsSelected}/>
 				</div>
 				<Footer/>
 			</div>

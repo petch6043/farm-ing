@@ -59,59 +59,55 @@ class myForm extends Component {
 		var openBarn = []
 		var i
 		for (i = 0; i < data.length; i++) {
-		    if(data[i].active==1){
-		    	openBarn.push(data[i].name)
-		    }
+			if(data[i].active==1){
+				openBarn.push(data[i].name)
+			}
 		}
 		closedBarn = arr_diff(allBarn,openBarn)
-		//console.log(closedBarn)
-		//console.log('barnList: '+data) 
-    	const formItemLayout = {
-      labelCol: { span: 6 },
-      wrapperCol: { span: 14 },
-    };
-    return (
+		const formItemLayout = {
+			labelCol: { span: 6 },
+			wrapperCol: { span: 14 },
+		};
 
-
-
-      <Form onSubmit={this.handleSubmit}>
-        <FormItem
-          {...formItemLayout}
-          hasFeedback
-        >
-          {getFieldDecorator('name', {
-            rules: [
-              { required: true, message: 'กรุณาเลือกเล้า!' },
-            ],
-          })(
-
-
-            <Select placeholder="เลือกเล้า" className="myBigFont">
-
-            {  
-     	
-     	
-          closedBarn.map((x) =>
-
-   			<Option value={x} key={x}><div className="myBigFont">เล้า {x}</div></Option>
-          
-         
-        )}
-              
-            </Select>
-          )}
-        </FormItem>
-        <FormItem className="myFormItem">
-					{getFieldDecorator('open_age', {
-					rules: [{ required: true, message: 'กรุณาใส่อายุย้ายเข้า!' }],
-					})(<Input placeholder="อายุย้ายเข้า" className="myBigFont"/>)}
+	    return (
+	    	<Form onSubmit={this.handleSubmit}>
+		        <FormItem
+		          {...formItemLayout}
+		          className="myFormItem"
+		        >
+		        	<div className="myInput">
+			          	{
+			          		getFieldDecorator('name', {
+					            rules: [{required: true, message: 'กรุณาเลือกเล้า!' }]
+					        })
+					        (
+					        	<Select placeholder="เลือกเล้า" className="myBigFont">
+							        {  
+							        	closedBarn.map((x) =>
+							        		<Option value={x} key={x}><div className="myBigFont">เล้า {x}</div></Option>
+							        	)
+							        }
+					        	</Select>
+					        )
+					    }
+	          		</div>
+	        	</FormItem>
+	        	<FormItem className="myFormItem">
+					{
+						getFieldDecorator('open_age', {
+							rules: [{ required: true, message: 'กรุณาใส่อายุย้ายเข้า!' }]
+						})
+						(
+							<div className="myInput">
+								<Input placeholder="อายุย้ายเข้า" className="myBigFont"/>
+							</div>
+						)
+					}
 				</FormItem>
-				
+					
 				<FormItem>
-
 					<Button type="primary" ghost htmlType="submit" className="login-form-button mySubmitButton">ยืนยัน</Button>
-
-				</FormItem>
+					</FormItem>
 			</Form>
 		)
 	}

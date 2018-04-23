@@ -13,11 +13,11 @@ const SELECT_ALL_PEN_QUERY = 'SELECT * FROM pen';
 const SELECT_ALL_VACCINE_QUERY = 'SELECT * FROM vaccine';
 const SELECT_ALL_VACCINEPEN_QUERY = 'SELECT * FROM vaccine_pen';
 const SELECT_ALL_REPORT_QUERY = 'SELECT * FROM report';
-const SELECT_ALL_FOOD_REPORT_QUERY = "SELECT * FROM report_list WHERE type = 'transfer'";
+const SELECT_ALL_FOOD_REPORT_QUERY = "SELECT * FROM report_list WHERE type = 'transfer' ORDER BY id DESC";
 const SELECT_ALL_VACCINETYPE_QUERY = 'SELECT * FROM vaccine_type';
 const SELECT_ALL_BARN_QUERY = 'SELECT * FROM barn ORDER BY name';
 const SELECT_ALL_PENCOUNT_QUERY = 'SELECT * FROM transfer';
-const SELECT_ALL_FOOD_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM food";
+const SELECT_ALL_FOOD_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%d/%m/%Y %k:%i') AS time FROM food";
 const SELECT_ALL_VACCINEPROGRAM_QUERY ='SELECT age, vac_name, vac_id FROM vaccine WHERE required=1';
 const SELECT_ALL_VACCINEURGENT_QUERY ='SELECT vac_name ,vac_id FROM vaccine WHERE required=0';
 
@@ -171,7 +171,7 @@ app.get('/transfer/:barn_name', (req, res) =>{
 		}
 		else{
 			barn_id = results[0].barn_id
-			const SELECT_TRANSFER_BY_BARN_QUERY = "SELECT *,DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM transfer WHERE barn_id="+barn_id;
+			const SELECT_TRANSFER_BY_BARN_QUERY = "SELECT *,DATE_FORMAT(date,'%d/%m/%Y') AS time FROM transfer WHERE barn_id="+barn_id;
 			connection.query(SELECT_TRANSFER_BY_BARN_QUERY, (err,results) =>{
 				if (err) {
 					return res.send(err)
@@ -198,7 +198,7 @@ app.get('/transfer/:barn_name/:selected_date', (req, res) =>{
 		}
 		else{
 			barn_id = results[0].barn_id
-			const SELECT_TRANSFER_BY_BARN_QUERY = "SELECT *,DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM transfer WHERE barn_id = " + barn_id + " AND DATE(timestamp) = '" + selected_date +"'";
+			const SELECT_TRANSFER_BY_BARN_QUERY = "SELECT *,DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM transfer WHERE barn_id = " + barn_id + " AND DATE(date) = '" + selected_date +"'";
 			connection.query(SELECT_TRANSFER_BY_BARN_QUERY, (err,results) =>{
 				if (err) {
 					return res.send(err)
@@ -236,6 +236,7 @@ app.post('/transfer/add', function(req, res) {
 	var barn_name = req.body.barn_name;
 	var from_barn_name = req.body.from_barn_name;
 	var barn_id, from_barn_id;
+	var selected_date = req.body.selected_date;
 	const GET_BARN_ID_QUERY = 'SELECT A.barn_id AS barn_id, B.barn_id AS from_barn_id FROM barn A, barn B WHERE A.name = '+barn_name+' AND B.name ='+from_barn_name+' AND A.active = 1 AND B.active = 1'
 	connection.query(GET_BARN_ID_QUERY, (err,results) =>{
 		if (err) {
@@ -245,7 +246,12 @@ app.post('/transfer/add', function(req, res) {
 			barn_id = results[0].barn_id
 			from_barn_id = results[0].from_barn_id
 			console.log(barn_id)
-			const INSERT_PRODUCTS_QUERY = 'INSERT INTO transfer (barn_id, type, value, from_barn_id, user_id) VALUES('+barn_id+', "'+type+'", '+value+', '+from_barn_id+', '+user_id+')';
+			if (selected_date==""){
+				selected_date=moment().format('YYYY-MM-DD')
+			}
+
+
+			const INSERT_PRODUCTS_QUERY = 'INSERT INTO transfer (barn_id, type, value, from_barn_id, user_id, date) VALUES('+barn_id+', "'+type+'", '+value+', '+from_barn_id+', '+user_id+',"'+ selected_date+'")';
 			connection.query(INSERT_PRODUCTS_QUERY, (err,results) =>{
 				if (err) {
 					return res.send(err);
@@ -299,7 +305,7 @@ app.get('/food/:barn_name', (req, res) =>{
 		}
 		else{
 			barn_id = results[0].barn_id
-			const SELECT_FOOD_BY_BARN_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM food WHERE barn_id="+barn_id;
+			const SELECT_FOOD_BY_BARN_QUERY = "SELECT *, DATE_FORMAT(date,'%d/%m/%Y') AS time FROM food WHERE barn_id="+barn_id;
 			connection.query(SELECT_FOOD_BY_BARN_QUERY, (err,results) =>{
 				if (err) {
 					return res.send(err)
@@ -326,7 +332,7 @@ app.get('/food/:barn_name/:selected_date', (req, res) =>{
 		}
 		else{
 			barn_id = results[0].barn_id
-			const SELECT_FOOD_BY_BARN_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM food WHERE barn_id=" + barn_id + " AND DATE(timestamp) = '" + selected_date+"'";
+			const SELECT_FOOD_BY_BARN_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM food WHERE barn_id=" + barn_id + " AND DATE(date) = '" + selected_date+"'";
 			connection.query(SELECT_FOOD_BY_BARN_QUERY, (err,results) =>{
 				if (err) {
 					return res.send(err)
@@ -382,6 +388,7 @@ app.post('/food/add', function(req, res) {
 	var food_type = req.body.food_type;
 	var user_id = req.body.user_id;
 	var barn_id;
+	var selected_date = req.body.selected_date;
 	const GET_BARN_ID_QUERY = 'SELECT barn_id FROM barn WHERE name='+barn_name+' AND active=1'
 	connection.query(GET_BARN_ID_QUERY, (err,results) =>{
 		if (err) {
@@ -390,7 +397,11 @@ app.post('/food/add', function(req, res) {
 		else{
 			barn_id = results[0].barn_id
 			console.log(barn_id)
-			const INSERT_FOOD_QUERY = 'INSERT INTO food (barn_id, amount, food_type, user_id) VALUES('+barn_id+', '+amount+', '+food_type+', '+user_id+')';
+			if (selected_date==""){
+				selected_date=moment().format('YYYY-MM-DD')
+			}
+			console.log(selected_date)
+			const INSERT_FOOD_QUERY = 'INSERT INTO food (barn_id, amount, food_type, user_id, date) VALUES('+barn_id+', '+amount+', "'+food_type+'", '+user_id+',"'+selected_date+'")';
 			connection.query(INSERT_FOOD_QUERY, (err,results) =>{
 				if (err) {
 					return res.send(err)
@@ -405,7 +416,23 @@ app.post('/food/add', function(req, res) {
 
 /*-------------------------- REPORT --------------------------*/
 app.get('/report/get/food', (req, res) =>{
+	var selected_date = req.params.selected_date;
 	connection.query(SELECT_ALL_FOOD_REPORT_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			return res.json({
+				data: results
+			})
+		}
+	});
+});
+
+app.get('/report/get/food/:selected_date', (req, res) =>{
+	var selected_date = req.params.selected_date;
+	const SELECT_REPORT_BY_DATE_QUERY = "SELECT * FROM report_list WHERE report_date = '" + selected_date+"' ORDER BY id DESC"; 
+	connection.query(SELECT_REPORT_BY_DATE_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
 		}
@@ -425,7 +452,7 @@ app.get('/report/food', (req, res) =>{
 		} else {
 			var type = "Food";
 			var dir = "./term/public/reports/";
-			var dir2 = "/term/public/reports/";
+			var dir2 = "/reports/";
 			var name = moment().format("DDMMMYYYY") + "-Daily" + type + "Report" + ".csv";
 			var ws = fs.createWriteStream(dir + name, { encoding: 'utf-8'} );
 			var report = [];
@@ -442,7 +469,7 @@ app.get('/report/food', (req, res) =>{
 			csv.write(report, { headers: true })
 			.pipe(ws)
 			.on("finish", function(){
-				var n = 'รายงานประจำวัน ' + moment().format("DD MM YYYY");
+				var n = 'รายงานประจำวัน ' + moment().format("DD-MM-YYYY");
 				var p = dir2 + name;
 				var d = moment().format("YYYY-MM-DD")
 				var t = "transfer";
@@ -452,6 +479,8 @@ app.get('/report/food', (req, res) =>{
  					if (err) {
 						return res.send(err);
 					} else {
+						return res.send("DONE");
+						/*
 						var transporter = nodemailer.createTransport({
 							service: 'gmail',
 							auth: {
@@ -482,6 +511,7 @@ app.get('/report/food', (req, res) =>{
 							if(err) return res.send(err)
 							else return res.send(info)
 						});
+						*/
 					}
  				});
 
