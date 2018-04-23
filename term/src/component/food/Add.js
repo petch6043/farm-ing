@@ -27,6 +27,7 @@ class myForm extends Component {
 		return(
 			<Form onSubmit={this.handleSubmit} className="login-form">
 				<FormItem className="myFormItem">
+					<div className="myInput">
           			{
           				getFieldDecorator('food_type', {
           					rules: [{required: true, message: 'กรุณาใส่ประเภท!' }]
@@ -39,8 +40,14 @@ class myForm extends Component {
 				   					<Option value='430'><div className="myBigFont">430</div></Option>
 			            		</Select>
 		            		</div>
+		            		<Select placeholder="เลือกประเภท" className="myBigFont">
+			   					<Option value='310'><div className="myBigFont">310</div></Option>
+			   					<Option value='320'><div className="myBigFont">320</div></Option>
+			   					<Option value='430'><div className="myBigFont">430</div></Option>
+		            		</Select>
           				)
           			}
+          			</div>
         		</FormItem>
 
 				<FormItem className="myFormItem">

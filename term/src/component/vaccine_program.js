@@ -138,7 +138,7 @@ class vaccine_program extends Component {
 						<DatePicker onChange={onChange} placeholder="เลือกวันที่"/>
 					</div>
 					<div className="mySelect myBigFont">
-						<Select placeholder="เลือกคอก" style={{ width: 190 }} onChange={this.handleChange} className="myBigFont">
+						<Select placeholder="เลือกคอก" style={{ width: 200 }} onChange={this.handleChange} className="myBigFont">
 	    					<Option value='1'><div className="myBigFont">คอก 1</div></Option>
 	    					<Option value='2'><div className="myBigFont">คอก 2</div></Option>
 	    					<Option value='3'><div className="myBigFont">คอก 3</div></Option>
