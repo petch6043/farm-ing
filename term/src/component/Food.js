@@ -39,7 +39,8 @@ class Food extends Component {
 		this.state = {
 			foodList: [],
 			barnNo: props.location.barnNumber,
-			dateIsSelected: false
+			dateIsSelected: false,
+			dateSelected: ""
 		}
 		this.onAdd = this.onAdd.bind(this);
 		this.onChange = this.onChange.bind(this);
@@ -57,9 +58,15 @@ class Food extends Component {
        	.then(response => this.setState({ foodList: response.data}))
        	.catch(err => console.error(err))
  	}
+ 	getFoodByDate(dateSelected){
 
+		fetch("http://206.189.35.130:4000/food/" + this.state.barnNo + "/" + dateSelected)
+	    .then(response => response.json())
+	    .then(response => this.setState({ foodList: response.data}))
+	    .catch(err => console.error(err))
+	}
 	onChange(date, dateString) {
- 		fetch("http://206.189.35.130:4000/food/"+this.state.barnNo + "/" + dateString)
+ 		/*fetch("http://206.189.35.130:4000/food/"+this.state.barnNo + "/" + dateString)
        	.then(response => response.json())
        	.then(response => {
 	    	if(dateString!=""){
@@ -71,7 +78,25 @@ class Food extends Component {
 	    	}
 	    	this.setState({ foodList: response.data })
 	    })
-       	.catch(err => console.error(err))
+       	.catch(err => console.error(err))*/
+       	this.setState({dateSelected:dateString})
+		console.log("xxxx"+this.state.dateSelected)
+		console.log(date, dateString)
+		console.log("http://206.189.35.130:4000/food/" + this.state.barnNo + "/" + dateString);
+		fetch("http://206.189.35.130:4000/food/" + this.state.barnNo + "/" + dateString)
+	    .then(response => response.json())
+	    .then(response => {
+	    	if(dateString!=""){
+	    		console.log("selected date")
+	    		this.setState({dateIsSelected: true})
+	    	}else{
+	    		console.log("deselected date")
+	    		this.setState({dateIsSelected: false})
+	    	}
+	    	this.setState({ foodList: response.data })
+	    
+	    })
+	    .catch(err => console.error(err))
 	}
 
 	//posting data to the database named food
@@ -95,7 +120,7 @@ class Food extends Component {
 	    	response.json().then((data) => {
 	    		if(data == 1) {
 	    			noti('success','ให้อาหาร','เก็บข้อมูลสำเร็จ');
-	    			this.getFood();
+	    			this.getFoodByDate();
 
 	    		} else {
 	    			noti('error','ให้อาหาร','เก็บข้อมูลไม่สำเร็จ');
@@ -119,14 +144,15 @@ class Food extends Component {
 			<div>
 				<Header thisPage={"เล้า " + barnNumber}/>
 				<div className="myBody">
+					<div className="mySelect">
+						<DatePicker onChange={this.onChange} placeholder="เลือกวันที่"/>
+	      			</div>
 					<Collapse bordered={false} style={{marginBottom:10}}>
 						<Panel header="เพิ่ม" key="2" style={customPanelStyle} className="myBigFont">
 							<Add onAdd={this.onAdd}/>
 						</Panel>
 					</Collapse>
-					<div className="mySelect">
-						<DatePicker onChange={this.onChange} placeholder="เลือกวันที่"/>
-	      			</div>
+					
 
 
 					<Show foodList={foodList} dateIsSelected={dateIsSelected}/>

@@ -396,6 +396,9 @@ app.post('/food/add', function(req, res) {
 		else{
 			barn_id = results[0].barn_id
 			console.log(barn_id)
+			if (selected_date==""){
+				selected_date=moment().format('YYYY-MM-DD')
+			}
 			const INSERT_FOOD_QUERY = 'INSERT INTO food (barn_id, amount, food_type, user_id) VALUES('+barn_id+', '+amount+', '+food_type+', '+user_id+')';
 			connection.query(INSERT_FOOD_QUERY, (err,results) =>{
 				if (err) {
