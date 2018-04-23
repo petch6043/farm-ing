@@ -42,11 +42,6 @@ class myForm extends Component {
 				   					<Option value='440(1)'><div className="myBigFont">440(1)</div></Option>
 			            		</Select>
 		            		</div>
-		            		<Select placeholder="เลือกประเภท" className="myBigFont">
-			   					<Option value='310'><div className="myBigFont">310</div></Option>
-			   					<Option value='320'><div className="myBigFont">320</div></Option>
-			   					<Option value='430'><div className="myBigFont">430</div></Option>
-		            		</Select>
           				)
           			}
           			</div>
