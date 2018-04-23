@@ -479,6 +479,8 @@ app.get('/report/food', (req, res) =>{
  					if (err) {
 						return res.send(err);
 					} else {
+						return res.send("DONE");
+						/*
 						var transporter = nodemailer.createTransport({
 							service: 'gmail',
 							auth: {
@@ -509,6 +511,7 @@ app.get('/report/food', (req, res) =>{
 							if(err) return res.send(err)
 							else return res.send(info)
 						});
+						*/
 					}
  				});
 
