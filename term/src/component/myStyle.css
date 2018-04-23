@@ -1,3 +1,12 @@
+@font-face {
+	font-family: Kanit;
+	src: url(Kanit-Regular.ttf);
+}
+
+html,body,.ant-list,.ant-collapse,.ant-table,.ant-select,.ant-input {
+	font-family: Kanit !important;
+}
+
 a {
 	color: black;
 }

@@ -11,8 +11,8 @@ class Home extends Component {
 			<div>
 				<div className="myHome">
 				<Row>
-					<Col span={24} align="center" className="myTop" style={{marginBottom:10}}>
-						<div>Farm-ing</div>
+					<Col span={24} align="center" className="" style={{marginBottom:0}}>
+						<div><img src={process.env.PUBLIC_URL + "favicon.png"} style={{width:100}}/></div>
 					</Col>
 					<Col span={12} align="right">
 						<Link to="/transfer_barn_select">
