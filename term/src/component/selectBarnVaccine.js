@@ -6,7 +6,7 @@ import Food from './Food';
 import Header from './Header';
 import Footer from './Footer';
 import { Collapse } from 'antd';
-import { List } from 'antd';
+import { List,Noti } from 'antd';
 const SubMenu = Menu.SubMenu;
 const Panel = Collapse.Panel;
 const customPanelStyle = {
@@ -61,7 +61,7 @@ class SelectBarnVaccine extends Component {
           dataSource={data}
           renderItem={
             item => (
-              <Link to={{pathname : '/vaccine_program' , barnNumber:item.name }}>
+              <Link to={{pathname : '/vaccine_program' , barnNo:item.name }}>
                 <List.Item key={item.barn_id}><div className="myBigFont">เล้า {item.name}</div></List.Item>
               </Link>
             )
