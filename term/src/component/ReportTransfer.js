@@ -48,7 +48,7 @@ class ReportTransfer extends Component {
 	}
 
 	getReport() {
-	    fetch("http://localhost:4000/report/get/food")
+	    fetch("http://206.189.35.130:4000/report/get/food")
 		.then(response => response.json())
 		.then(response => this.setState({ reportList: response.data}))
 		.catch(err => console.error(err))
@@ -58,8 +58,8 @@ class ReportTransfer extends Component {
        	this.setState({dateSelected:dateString})
 		console.log("xxxx"+this.state.dateSelected)
 		console.log(date, dateString)
-		console.log("http://localhost:4000/report/get/food/" + dateString);
-		fetch("http://localhost:4000/report/get/food/" + dateString)
+		console.log("http://206.189.35.130:4000/report/get/food/" + dateString);
+		fetch("http://206.189.35.130:4000/report/get/food/" + dateString)
 	    .then(response => response.json())
 	    .then(response => {
 	    	if(dateString!=""){
