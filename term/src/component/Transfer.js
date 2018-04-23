@@ -33,7 +33,8 @@ class Transfer extends Component {
 		super(props);
 		this.state = {
 			transferList: [],
-			barnNumber: props.location.Barn_no
+			barnNumber: props.location.Barn_no,
+			dateIsSelected: false
 		}
 		this.onAdd = this.onAdd.bind(this);
 		this.onChange = this.onChange.bind(this);
@@ -52,10 +53,20 @@ class Transfer extends Component {
 	}
 
 	onChange(date, dateString) {
+		console.log(date, dateString)
 		console.log("http://206.189.35.130:4000/transfer/" + this.state.barnNumber + "/" + dateString);
 		fetch("http://206.189.35.130:4000/transfer/" + this.state.barnNumber + "/" + dateString)
 	    .then(response => response.json())
-	    .then(response => this.setState({ transferList: response.data}))
+	    .then(response => {
+	    	if(dateString!=""){
+	    		console.log("selected date")
+	    		this.setState({dateIsSelected: true})
+	    	}else{
+	    		console.log("deselected date")
+	    		this.setState({dateIsSelected: false})
+	    	}
+	    	this.setState({ transferList: response.data })
+	    })
 	    .catch(err => console.error(err))
 	}
 
@@ -104,7 +115,7 @@ class Transfer extends Component {
 	
 
 	render() {
-		let {transferList} = this.state;
+		let {transferList, dateIsSelected} = this.state;
 		let {Barn_no} = this.props.location;
 		let {barnNumber} = this.state;
 		// console.log(Barn_no);
@@ -132,7 +143,7 @@ class Transfer extends Component {
 	      				</Popconfirm>
 	      			</div>
 
-					<Show transferList={transferList}/>
+					<Show transferList={transferList} dateIsSelected={dateIsSelected}/>
 				</div>
 				<Footer/>
 			</div>

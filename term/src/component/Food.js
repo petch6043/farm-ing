@@ -38,7 +38,8 @@ class Food extends Component {
 		super(props);
 		this.state = {
 			foodList: [],
-			barnNo: props.location.barnNumber
+			barnNo: props.location.barnNumber,
+			dateIsSelected: false
 		}
 		this.onAdd = this.onAdd.bind(this);
 		this.onChange = this.onChange.bind(this);
@@ -60,7 +61,16 @@ class Food extends Component {
 	onChange(date, dateString) {
  		fetch("http://206.189.35.130:4000/food/"+this.state.barnNo + "/" + dateString)
        	.then(response => response.json())
-       	.then(response => this.setState({ foodList: response.data}))
+       	.then(response => {
+	    	if(dateString!=""){
+	    		console.log("selected date")
+	    		this.setState({dateIsSelected: true})
+	    	}else{
+	    		console.log("deselected date")
+	    		this.setState({dateIsSelected: false})
+	    	}
+	    	this.setState({ foodList: response.data })
+	    })
        	.catch(err => console.error(err))
 	}
 
@@ -100,7 +110,7 @@ class Food extends Component {
 }
  
 	render() {
-		let {foodList} = this.state;
+		let {foodList, dateIsSelected} = this.state;
 		let {barnNumber} = this.props.location;
 		let {barnNo} = this.state;
 		return(
@@ -119,7 +129,7 @@ class Food extends Component {
 	      			</div>
 
 
-					<Show foodList={foodList}/>
+					<Show foodList={foodList} dateIsSelected={dateIsSelected}/>
 				</div>
 				<Footer/>
 			</div>

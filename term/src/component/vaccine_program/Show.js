@@ -51,19 +51,19 @@ class Show extends Component {
 		let {x} = this.props;
 		let {vaccined} = this.props;
 		const data = vaccineprogramList;
-			const columns = [{
-				title: 'อายุแรกเข้า',
-				dataIndex: 'open_age',
-				key: 'open_age',
-			}, {
-				title: 'กำหนดฉีด',
-				dataIndex: 'program_date_formatted',
-				key: 'program_date_formatted',
-			} , {
-				title: 'สถานะ',
-				dataIndex: 'done',
-				key: 'done',
-			}];
+		const columns = [{
+			title: 'อายุแรกเข้า',
+			dataIndex: 'open_age',
+			key: 'open_age',
+		}, {
+			title: 'กำหนดฉีด',
+			dataIndex: 'program_date_formatted',
+			key: 'program_date_formatted',
+		} , {
+			title: 'สถานะ',
+			dataIndex: 'done',
+			key: 'done',
+		}];
 
 		const expandedRowRender = record => <label>{record.type}</label>;
 		let selectedRowKeys = vaccined;
