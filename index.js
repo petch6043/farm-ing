@@ -511,7 +511,7 @@ app.get('/report/food', (req, res) =>{
 							from: 'noreply@farm-ing.co', // sender address
 							to: 'suppakit.neno@gmail.com, goodkavin@gmail.com, nattapol.puttasuntithum@gmail.com, pasithtommy@gmail.com', // list of receivers
 							subject: 'Farm-ing Daily report', // Subject line
-							html: '<p>Please view reports</p>', // plain text body
+							html: '<p>Please view a ' + moment().format("Do MMM YYYY") + ' report.</p><br><p>This report is auto-generated at ' + moment().format("Do MMMM YYYY, kk:mm:ss") + '</p>', // plain text body
 							attachments: [
 							    {
 							        filename: filename,
@@ -994,7 +994,7 @@ app.get('/email', function(req, res) {
 		from: 'noreply@farm-ing.co', // sender address
 		to: 'suppakit.neno@gmail.com, goodkavin@gmail.com, nattapol.puttasuntithum@gmail.com, pasithtommy@gmail.com', // list of receivers
 		subject: 'Farm-ing Daily report', // Subject line
-		html: '<p>Please view reports</p>', // plain text body
+		html: '<p>Please view a ' + moment().format("Do MMM YYYY") + ' report.</p><br><p>This report is auto-generated at ' + moment().format("Do MMMM YYYY, kk:mm:ss") + '</p>', // plain text body
 		attachments: [
 		    {
 		        filename: filename,
@@ -1069,7 +1069,7 @@ var job = new CronJob('00 00 22 * * 1-7',
 						from: 'noreply@farm-ing.co', // sender address
 						to: 'suppakit.neno@gmail.com, goodkavin@gmail.com, nattapol.puttasuntithum@gmail.com, pasithtommy@gmail.com', // list of receivers
 						subject: 'Farm-ing Daily report', // Subject line
-						html: '<p>Please view reports</p><br><p>This report is auto-generated at ' + moment().format("Do MMMM YYYY, k:m:s") + '</p>', // plain text body
+						html: '<p>Please view a ' + moment().format("Do MMM YYYY") + ' report.</p><br><p>This report is auto-generated at ' + moment().format("Do MMMM YYYY, kk:mm:ss") + '</p>', // plain text body
 						attachments: [
 						    {
 						        filename: filename,
