@@ -15,7 +15,7 @@ class Footer extends Component {
 				</Link>
 				<Link to="/notification">
 					<Col span={6} align="center">
-						<Badge count={2} className="myTab">
+						<Badge count={0} className="myTab">
 					      	<Icon type="bell" style={{ fontSize: 22, color: '#000'}} />
 					    </Badge>
 					</Col>

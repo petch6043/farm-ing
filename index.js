@@ -20,7 +20,7 @@ const SELECT_ALL_PENCOUNT_QUERY = 'SELECT * FROM transfer';
 const SELECT_ALL_FOOD_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%d/%m/%Y %k:%i') AS time FROM food";
 const SELECT_ALL_VACCINEPROGRAM_QUERY ='SELECT age, vac_name, vac_id FROM vaccine WHERE required=1';
 const SELECT_ALL_VACCINEURGENT_QUERY ='SELECT vac_name ,vac_id FROM vaccine WHERE required=0';
-const SELECT_PROGRAM_DATE_QUERY = 'SELECT DISTINCT name,pen_id,program_date FROM vaccine_pen NATURAL JOIN barn WHERE barn.active=1 AND done=0 ORDER BY program_date';
+const SELECT_PROGRAM_DATE_QUERY = "SELECT DISTINCT name,DATE_FORMAT(program_date,'%d/%m/%Y') AS program_date_formatted,DATEDIFF(program_date,NOW()) as due FROM vaccine_pen NATURAL JOIN barn WHERE barn.active=1 AND done=0 ORDER BY program_date";
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
@@ -47,6 +47,20 @@ app.get('/',(req,res) => {
 	res.send('Hello from the farm-ing server!')
 
 });	
+
+/*-------------------------- BARN --------------------------*/
+app.get('/task', (req, res) =>{
+	connection.query(SELECT_PROGRAM_DATE_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			return res.json({
+				data: results
+			})
+		}
+	});
+});
 
 /*-------------------------- BARN --------------------------*/
 app.get('/barn', (req, res) =>{
