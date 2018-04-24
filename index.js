@@ -20,7 +20,7 @@ const SELECT_ALL_PENCOUNT_QUERY = 'SELECT * FROM transfer';
 const SELECT_ALL_FOOD_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%d/%m/%Y %k:%i') AS time FROM food";
 const SELECT_ALL_VACCINEPROGRAM_QUERY ='SELECT age, vac_name, vac_id FROM vaccine WHERE required=1';
 const SELECT_ALL_VACCINEURGENT_QUERY ='SELECT vac_name ,vac_id FROM vaccine WHERE required=0';
-const SELECT_PROGRAM_DATE_QUERY = 'SELECT DISTINCT name,program_date FROM vaccine_pen NATURAL JOIN barn ORDER BY program_date';
+const SELECT_PROGRAM_DATE_QUERY = 'SELECT DISTINCT name,pen_id,program_date FROM vaccine_pen NATURAL JOIN barn WHERE barn.active=1 AND done=0 ORDER BY program_date';
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
