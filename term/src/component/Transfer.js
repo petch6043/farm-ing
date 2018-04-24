@@ -103,10 +103,10 @@ class Transfer extends Component {
 	    .then((response) => {
 	    	response.json().then((data) => {
 	    		if(data == 1) {
-	    			noti('success','Add transfer','Sucessfully saved data.');
+	    			noti('success','เพิ่มการเคลื่อนย้าย','บันทึกข้อมูลสำเร็จ');
 	    			this.getTransfersByDate(this.state.dateSelected);
 	    		} else {
-	    			noti('error','Add transfer','Unable to save data.');
+	    			noti('error','เพิ่มการเคลื่อนย้าย','บันทึกข้อมูลล้มเหลว');
 	    		}
            	});
 	    })
