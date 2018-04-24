@@ -127,8 +127,13 @@ h2 {
 
 .ant-select-selection__rendered {
 	line-height: 40px;
+	width: 215px;
+}
+
+.ant-select-selection {
+	width: 215px;
 }
 
 .ant-calendar-picker-input {
-	width: 200px;
+	width: 215px;
 }
