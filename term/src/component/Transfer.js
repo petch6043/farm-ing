@@ -36,6 +36,7 @@ class Transfer extends Component {
 		this.onAdd = this.onAdd.bind(this);
 		this.onChange = this.onChange.bind(this);
 		this.closeBarn = this.closeBarn.bind(this);
+		this.onDelete = this.onDelete.bind(this);
 	}
 
 	componentDidMount(){
@@ -121,6 +122,23 @@ class Transfer extends Component {
 	    .then(response => this.setState({ transferList: response.data}))
 	    .catch(err => console.error(err))
 	}
+
+	onDelete(tran_id) {
+			fetch('http://farm-ing.co:4000/transfer/delete/'+tran_id)
+		    .then((response) => {
+	    	response.json().then((data) => {
+	    		if(data == 1) {
+	    			noti('success','ลบรายการ','บันทึกข้อมูลสำเร็จ');
+	    			this.getTransfersByDate(this.state.dateSelected);
+	    		} else {
+	    			noti('error','ลบรายการ','บันทึกข้อมูลล้มเหลว');
+	    		}
+           	});
+	    })
+	    .catch(err => {
+	    	noti('error','Add transfer',err);
+	    })
+	}
 	
 
 	render() {
@@ -150,7 +168,7 @@ class Transfer extends Component {
 						</Panel>
 					</Collapse>
 
-					<Show transferList={transferList} dateIsSelected={dateIsSelected}/>
+					<Show transferList={transferList} dateIsSelected={dateIsSelected} onDelete={this.onDelete}/>
 				</div>
 				<Footer/>
 			</div>

@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
 import ShowItem from './ShowItem';
-import { Table, Icon, Divider } from 'antd';
+import { Table, Icon, Divider, Button, Popconfirm } from 'antd';
 
 class Show extends Component {
-	// dateIsSelected(){
-	// 	if()
-	// }
+	constructor (props){
+		super(props)
+		this.state = {
+		}
+		this.deleteClick = this.deleteClick.bind(this);
+	}
+
+	deleteClick(tran_id) {
+		let {onDelete} = this.props;
+		onDelete(tran_id);
+	}
 
 	render() {
 		let {transferList, dateIsSelected} = this.props;
@@ -32,8 +40,13 @@ class Show extends Component {
 			title: 'จำนวน',
 			dataIndex: 'value',
 			key: 'value',
+
 		}];
-		const expandedRowRender = record => <label>ใส่เมื่อ: {record.time}</label>;
+		const expandedRowRender = (record,row,index) => <label>ใส่เมื่อ: {record.time} 
+		<Popconfirm placement="bottomLeft" title="คุณแน่ใจหรือไม่ว่าจะลบรายการนี้" onConfirm={() => this.deleteClick(record.tran_id)} okText="ยืนยัน" cancelText="ยกเลิก">
+			<Button style={{marginLeft: 10}} type='danger'>ลบ</Button>
+		</Popconfirm>
+		</label>;
 
 		return(
 			

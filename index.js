@@ -163,6 +163,18 @@ app.get('/transfer', (req, res) =>{
 	});
 });
 
+app.get('/transfer/delete/:tran_id', function(req, res) {
+	var tran_id = req.params.tran_id;
+	const DELETE_TRANSFER_QUERY = 'DELETE FROM `transfer` WHERE tran_id='+tran_id;
+	connection.query(DELETE_TRANSFER_QUERY, (err,results) =>{
+		if (err) {
+					return res.send(err);
+				} else {
+					return res.send("1")
+		}
+	});
+});
+
 //select transfer by barn name
 app.get('/transfer/:barn_name', (req, res) =>{
 	var barn_name = req.params.barn_name;
