@@ -114,7 +114,7 @@ app.get('/barn/close/:barn_name', (req, res) =>{
 					return res.send(err)
 				}
 				else{
-					return res.send('barn '+barn_name+'(ID: '+barn_id+') closed')
+					return res.send('1')
 				}
 			});
 		}
