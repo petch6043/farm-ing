@@ -86,10 +86,10 @@ class Vaccine extends Component {
 		    .then((response) => {
 	    	response.json().then((data) => {
 	    		if(data == 1) {
-	    			noti('success','Add vaccine','Sucessfully saved data.');
+	    			noti('success','เพิ่มการวัคซีน','บันทึกข้อมูลสำเร็จ');
 	    			this.getVaccinePen();
 	    		} else {
-	    			noti('error','Add vaccine','Unable to save data.');
+	    			noti('error','เพิ่มการวัคซีน','บันทึกข้อมูลล้มเหลว');
 	    		}
            	});
 	    })

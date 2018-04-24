@@ -103,10 +103,10 @@ class Transfer extends Component {
 	    .then((response) => {
 	    	response.json().then((data) => {
 	    		if(data == 1) {
-	    			noti('success','Add transfer','Sucessfully saved data.');
+	    			noti('success','เพิ่มการเคลื่อนย้าย','บันทึกข้อมูลสำเร็จ');
 	    			this.getTransfersByDate(this.state.dateSelected);
 	    		} else {
-	    			noti('error','Add transfer','Unable to save data.');
+	    			noti('error','เพิ่มการเคลื่อนย้าย','บันทึกข้อมูลล้มเหลว');
 	    		}
            	});
 	    })
@@ -137,7 +137,7 @@ class Transfer extends Component {
 
 					<div className="mySelect">
 						<DatePicker onChange={this.onChange} placeholder="เลือกวันที่"/>
-						<Popconfirm placement="bottomLeft" title="คุณแน่ใจหรือไม่ว่าจะปิดเล้านี้" onConfirm={this.closeBarn} okText="Yes" cancelText="No">
+						<Popconfirm placement="bottomLeft" title="คุณแน่ใจหรือไม่ว่าจะปิดเล้านี้" onConfirm={this.closeBarn} okText="ยืนยัน" cancelText="ยกเลิก">
 		       				<Button style={{marginLeft: 15, height:42}}>ปิดเล้า</Button>
 	      				</Popconfirm>
 	      			</div>

@@ -20,7 +20,7 @@ const SELECT_ALL_PENCOUNT_QUERY = 'SELECT * FROM transfer';
 const SELECT_ALL_FOOD_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%d/%m/%Y %k:%i') AS time FROM food";
 const SELECT_ALL_VACCINEPROGRAM_QUERY ='SELECT age, vac_name, vac_id FROM vaccine WHERE required=1';
 const SELECT_ALL_VACCINEURGENT_QUERY ='SELECT vac_name ,vac_id FROM vaccine WHERE required=0';
-
+const SELECT_PROGRAM_DATE_QUERY = 'SELECT DISTINCT name,program_date FROM vaccine_pen NATURAL JOIN barn ORDER BY program_date';
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
@@ -483,7 +483,7 @@ app.get('/report/food', (req, res) =>{
 						return res.send(err);
 					} else {
 						return res.send("DONE");
-						/*
+						
 						var transporter = nodemailer.createTransport({
 							service: 'gmail',
 							auth: {
@@ -514,7 +514,7 @@ app.get('/report/food', (req, res) =>{
 							if(err) return res.send(err)
 							else return res.send(info)
 						});
-						*/
+						
 					}
  				});
 
@@ -773,7 +773,7 @@ app.get('/vaccine_pen/:barn_name', (req, res) =>{
 app.get('/vaccine_pen2/:barn_name', (req, res) =>{
 	var barn_name = req.params.barn_name;
 	
-	const SELECT_VACCINEBARN_QUERY = "SELECT DISTINCT open_age,DATE_FORMAT(program_date,'%d/%m/%Y') AS program_date_formatted FROM vaccine_pen NATURAL JOIN barn WHERE barn.active=1 AND name="+barn_name+'';
+	const SELECT_VACCINEBARN_QUERY = "SELECT DISTINCT open_age, DATE_FORMAT(program_date,'%d/%m/%Y') AS open_date_formatted, DATE_FORMAT(program_date,'%d/%m/%Y') AS program_date_formatted FROM vaccine_pen NATURAL JOIN barn WHERE barn.active=1 AND name="+barn_name+'';
 		connection.query(SELECT_VACCINEBARN_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)

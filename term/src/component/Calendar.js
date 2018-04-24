@@ -19,11 +19,12 @@ class CalendarPage extends Component {
   render() {
     return (
     	<div>
-    		<Header thisPage="ปฏิทิน"/>
-    			<div align='center' className="myCalendar">
-					<div style={{ width: 300, border: '1px solid #d9d9d9', borderRadius: 4}}>
+    		<Header thisPage="แบบประเมิน"/>
+    			<div>
+					{/*<div style={{ width: 300, border: '1px solid #d9d9d9', borderRadius: 4}}>
 					    <Calendar fullscreen={false} onPanelChange={onPanelChange} />
-					</div>
+					</div>*/}
+					<iframe src="https://docs.google.com/forms/d/e/1FAIpQLScyVRDFaDcqJqSzvbUWtgVGOal9xLOvGW2IEG7YoB5WGNCrXA/viewform?embedded=true" width="100%" height="2000" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
 				</div>
 			<Footer/>
 		</div>	

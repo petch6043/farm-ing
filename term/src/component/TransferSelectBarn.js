@@ -73,9 +73,9 @@ class TransferSelectBarn extends Component {
 	    	response.json().then((data) => {
 	     		if(data == 1) {
 	     			this.getBarn();
-	     			noti('success','Add Barn','Sucessfully saved data.');
+	     			noti('success','เปิดเล้า','การบันทึกข้อมูลสำเร็จ');
 	     		} else {
-	     			noti('error','Add Barn','Unable to save data.');
+	     			noti('error','เปิดเล้า','การบันทึกข้อมูลล้มเหลว');
 	     		}
      	    });
 	    })

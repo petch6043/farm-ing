@@ -38,6 +38,8 @@ class myForm extends Component {
             					<Option value='ขาย'><div className="myBigFont">ขาย</div></Option>
 			   					<Option value='ตาย'><div className="myBigFont">ตาย</div></Option>
 			   					<Option value='ป่วย'><div className="myBigFont">ป่วย</div></Option>
+			   					<Option value='แกร็น'><div className="myBigFont">แกร็น</div></Option>
+			   					<Option value='พิการ'><div className="myBigFont">พิการ</div></Option>
 			   				</Select>
 			   			)
             		}
