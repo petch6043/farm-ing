@@ -4,6 +4,13 @@ import Footer from './Footer';
 import MoveOut from './Transfer/MoveOut';
 import MoveIn from './Transfer/MoveIn';
 import Show from './Transfer/Show';
+import {
+	BrowserRouter as Router,
+	Link,
+	Route,
+	Redirect,
+	Switch,
+} from 'react-router-dom';
 import { Popconfirm, Button, notification, Collapse, DatePicker } from 'antd';
 
 
@@ -30,7 +37,8 @@ class Transfer extends Component {
 			transferList: [],
 			barnNumber: props.location.Barn_no,
 			dateIsSelected: false,
-			dateSelected: ""
+			dateSelected: "",
+			redirect: false
 
 		}
 		this.onAdd = this.onAdd.bind(this);
@@ -118,8 +126,15 @@ class Transfer extends Component {
 
 	closeBarn() {
 	    fetch("http://206.189.35.130:4000/barn/close/"+this.state.barnNumber)
-	    .then(response => response.json())
-	    .then(response => this.setState({ transferList: response.data}))
+	   	.then((response) => {
+	    	response.json().then((data) => {
+	    		if(data == 1) {
+	    			this.setState({ redirect: true })
+	    		} else {
+	    			noti('error','ปิดเล้า','บันทึกข้อมูลล้มเหลว');
+	    		}
+	    	})
+        })
 	    .catch(err => console.error(err))
 	}
 
@@ -144,6 +159,11 @@ class Transfer extends Component {
 	render() {
 		let {transferList, dateIsSelected} = this.state;
 		let {Barn_no} = this.props.location;
+		const { redirect } = this.state;
+
+		if (redirect) {
+	    	return <Redirect to='/transfer/select'/>;
+	    }
 		// console.log(Barn_no);
 		return(
 
