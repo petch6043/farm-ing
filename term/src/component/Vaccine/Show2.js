@@ -59,8 +59,8 @@ class Show2 extends Component {
 				key: 'open_age',
 			}, {
 				title: 'วันเปิดเล้า',
-				dataIndex: 'open_date',
-				key: 'open_date',
+				dataIndex: 'open_date_formatted',
+				key: 'open_date_formatted',
 			},
 			{
 				title: 'กำหนดฉีด',
