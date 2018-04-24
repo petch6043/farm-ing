@@ -67,9 +67,12 @@ app.post('/barn/open', function(req, res) {
 	var name = req.body.name;
 	var user_id = req.body.user_id;
 	var active = req.body.active;
-	var open_date = 'CURDATE()';
+	var open_date = req.body.open_date;
 	var open_age = req.body.open_age;
-	const INSERT_BARN_QUERY = 'INSERT INTO barn (name, open_date, open_age, user_id, active) VALUES("'+name+'",'+open_date+', '+open_age+', '+user_id+', '+active+')';
+		if (open_date==""){
+			open_date=moment().format('YYYY-MM-DD')
+		}
+	const INSERT_BARN_QUERY = 'INSERT INTO barn (name, open_date, open_age, user_id, active) VALUES("'+name+'","'+open_date+'", '+open_age+', '+user_id+', '+active+')';
 	const GET_CURRENT_ID = 'SELECT AUTO_INCREMENT as barn_id FROM information_schema.TABLES WHERE TABLE_SCHEMA = "react_sql" AND TABLE_NAME = "barn"';
 	connection.query(INSERT_BARN_QUERY, (err,results) =>{
 		if (err) {
@@ -479,7 +482,6 @@ app.get('/report/food', (req, res) =>{
  					if (err) {
 						return res.send(err);
 					} else {
-						return res.send("DONE");
 						
 						var transporter = nodemailer.createTransport({
 							service: 'gmail',

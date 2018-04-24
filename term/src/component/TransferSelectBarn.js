@@ -33,8 +33,10 @@ class TransferSelectBarn extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			BarnList: []
+			BarnList: [],
+			dateSelected : ""
 		}
+		this.onChange = this.onChange.bind(this);
 		this.onAdd = this.onAdd.bind(this);
 	}
 
@@ -46,6 +48,10 @@ class TransferSelectBarn extends Component {
 	    .then(response => response.json())
 	    .then(response => this.setState({ BarnList: response.data}))
 	    .catch(err => console.error(err))
+	}
+	onChange(date, dateString) {
+		this.setState({dateSelected:dateString})
+		console.log("xxxx"+this.state.dateSelected)
 	}
 
 	onAdd(barn) {
@@ -59,6 +65,7 @@ class TransferSelectBarn extends Component {
 	    		name: barn.name,
 	    		open_age: barn.open_age,
 	    		user_id: 1,
+	    		open_date: this.state.dateSelected,
 	    		active: 1
 	    	}),
 	    })
@@ -91,6 +98,11 @@ class TransferSelectBarn extends Component {
 
 					<Collapse bordered={false} style={{marginTop:10}}>
 						<Panel header="เปิดเล้า" key="2" style={customPanelStyle} className="myBigFont ">
+							
+							
+							<div className="myInput">
+								<DatePicker onChange={this.onChange} placeholder="เลือกวันที่"/>
+							</div>
 							<Add onAdd={this.onAdd} BarnList={BarnList}/>
 						</Panel>
 					</Collapse>
