@@ -15,7 +15,7 @@ const SELECT_ALL_VACCINEPEN_QUERY = 'SELECT * FROM vaccine_pen';
 const SELECT_ALL_REPORT_QUERY = 'SELECT * FROM report';
 const SELECT_ALL_FOOD_REPORT_QUERY = "SELECT * FROM report_list WHERE type = 'transfer' ORDER BY id DESC";
 const SELECT_ALL_VACCINETYPE_QUERY = 'SELECT * FROM vaccine_type';
-const SELECT_ALL_BARN_QUERY = 'SELECT * FROM barn ORDER BY name';
+const SELECT_ALL_BARN_QUERY = 'SELECT * FROM barn ORDER BY ABS(name)';
 const SELECT_ALL_PENCOUNT_QUERY = 'SELECT * FROM transfer';
 const SELECT_ALL_FOOD_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%d/%m/%Y %k:%i') AS time FROM food";
 const SELECT_ALL_VACCINEPROGRAM_QUERY ='SELECT age, vac_name, vac_id FROM vaccine WHERE required=1';
