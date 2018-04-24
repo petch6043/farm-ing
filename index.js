@@ -308,6 +308,17 @@ app.get('/food/:barn_id', (req, res) =>{
 	});
 });
 */
+app.get('/food/delete/:food_id', function(req, res) {
+	var food_id = req.params.food_id;
+	const QUERY = 'DELETE FROM `food` WHERE food_id='+food_id;
+	connection.query(QUERY, (err,results) =>{
+		if (err) {
+					return res.send(err);
+				} else {
+					return res.send("1")
+		}
+	});
+});
 
 //select food by barn name
 app.get('/food/:barn_name', (req, res) =>{

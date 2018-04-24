@@ -3,10 +3,7 @@ import Header from './Header';
 import Footer from './Footer';
 import Add from './Food/Add';
 import Show from './Food/Show';
-import { Collapse } from 'antd';
-import { notification } from 'antd';
-import { DatePicker } from 'antd';
-
+import { Collapse, notification, DatePicker} from 'antd';
 
 const noti = (type, msg, desc) => {
 	notification[type]({
@@ -36,6 +33,7 @@ class Food extends Component {
 		}
 		this.onAdd = this.onAdd.bind(this);
 		this.onChange = this.onChange.bind(this);
+		this.onDelete = this.onDelete.bind(this);
 	}
 
 
@@ -125,7 +123,24 @@ class Food extends Component {
 	    	noti('error','ให้อาหาร','Failed to connect to database.');
 	    })
 
-}
+	}
+
+	onDelete(food_id) {
+			fetch('http://farm-ing.co:4000/food/delete/'+food_id)
+		    .then((response) => {
+	    	response.json().then((data) => {
+	    		if(data == 1) {
+	    			noti('success','ลบรายการ','บันทึกข้อมูลสำเร็จ');
+	    			this.getFoodByDate(this.state.dateSelected);
+	    		} else {
+	    			noti('error','ลบรายการ','บันทึกข้อมูลล้มเหลว');
+	    		}
+           	});
+	    })
+	    .catch(err => {
+	    	noti('error','Delete food',err);
+	    })
+	}
  
 	render() {
 		let {foodList, dateIsSelected} = this.state;
@@ -147,7 +162,7 @@ class Food extends Component {
 					
 
 
-					<Show foodList={foodList} dateIsSelected={dateIsSelected}/>
+					<Show foodList={foodList} dateIsSelected={dateIsSelected} onDelete={this.onDelete}/>
 				</div>
 				<Footer/>
 			</div>

@@ -151,7 +151,7 @@ class Transfer extends Component {
            	});
 	    })
 	    .catch(err => {
-	    	noti('error','Add transfer',err);
+	    	noti('error','Delete transfer',err);
 	    })
 	}
 	

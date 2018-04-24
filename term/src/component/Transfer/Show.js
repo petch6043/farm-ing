@@ -55,7 +55,7 @@ class Show extends Component {
 				{dateIsSelected ? (
 			    	<Table expandedRowRender={expandedRowRender} columns={columns2} dataSource={data}/>
 			    ) : (
-			        <Table columns={columns1} dataSource={data}/>
+			        <Table expandedRowRender={expandedRowRender} columns={columns1} dataSource={data}/>
 			    )}
 			</div>
 		);
