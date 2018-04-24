@@ -97,7 +97,7 @@ app.post('/barn/open', function(req, res) {
 					return res.send(err)
 				} else {
 					barn_id = results[0].barn_id - 1;
-					const INSERT_PEN_QUERY = 'INSERT INTO pen (pen_id, barn_id) VALUES(1, '+barn_id+'),(2, '+barn_id+'),(3, '+barn_id+'),(4, '+barn_id+'),(5, '+barn_id+')'
+					const INSERT_PEN_QUERY = 'INSERT INTO pen (pen_id, barn_id) VALUES(1, '+barn_id+'),(2, '+barn_id+'),(3, '+barn_id+'),(4, '+barn_id+'),(5, '+barn_id+'),(6, '+barn_id+'),(7, '+barn_id+'),(8, '+barn_id+'),(9, '+barn_id+'),(10, '+barn_id+'),(11, '+barn_id+'),(12, '+barn_id+'),(13, '+barn_id+'),(14, '+barn_id+'),(15, '+barn_id+'),(16, '+barn_id+'),(17, '+barn_id+'),(18, '+barn_id+'),(19, '+barn_id+'),(20, '+barn_id+'),(21, '+barn_id+'),(22, '+barn_id+'),(23, '+barn_id+'),(24, '+barn_id+'),(25, '+barn_id+'),(26, '+barn_id+'),(27, '+barn_id+'),(28, '+barn_id+'),(29, '+barn_id+'),(30, '+barn_id+')'
 					connection.query(INSERT_PEN_QUERY, (err,results) =>{
 						if (err) {
 							return res.send(err);
