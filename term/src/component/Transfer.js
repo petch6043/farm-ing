@@ -137,7 +137,7 @@ class Transfer extends Component {
 
 					<div className="mySelect">
 						<DatePicker onChange={this.onChange} placeholder="เลือกวันที่"/>
-						<Popconfirm placement="bottomLeft" title="คุณแน่ใจหรือไม่ว่าจะปิดเล้านี้" onConfirm={this.closeBarn} okText="Yes" cancelText="No">
+						<Popconfirm placement="bottomLeft" title="คุณแน่ใจหรือไม่ว่าจะปิดเล้านี้" onConfirm={this.closeBarn} okText="ยืนยัน" cancelText="ยกเลิก">
 		       				<Button style={{marginLeft: 15, height:42}}>ปิดเล้า</Button>
 	      				</Popconfirm>
 	      			</div>
