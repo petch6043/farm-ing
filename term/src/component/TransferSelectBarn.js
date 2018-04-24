@@ -99,7 +99,6 @@ class TransferSelectBarn extends Component {
 					<Collapse bordered={false} style={{marginTop:10}}>
 						<Panel header="เปิดเล้า" key="2" style={customPanelStyle} className="myBigFont ">
 							
-							
 							<div className="myInput">
 								<DatePicker onChange={this.onChange} placeholder="เลือกวันที่"/>
 							</div>
