@@ -200,7 +200,7 @@ app.get('/transfer/:barn_name', (req, res) =>{
 		}
 		else{
 			barn_id = results[0].barn_id
-			const SELECT_TRANSFER_BY_BARN_QUERY = "SELECT *,DATE_FORMAT(date,'%d/%m/%Y') AS time FROM transfer WHERE barn_id="+barn_id;
+			const SELECT_TRANSFER_BY_BARN_QUERY = "SELECT *,DATE_FORMAT(date,'%d/%m/%Y') AS time, DATE_FORMAT(timestamp,'%d/%m/%Y %k:%i') AS timestamp_formatted FROM transfer WHERE barn_id="+barn_id+" ORDER BY DATE(date) DESC";
 			connection.query(SELECT_TRANSFER_BY_BARN_QUERY, (err,results) =>{
 				if (err) {
 					return res.send(err)
