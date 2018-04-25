@@ -264,16 +264,16 @@ app.post('/transfer/add', function(req, res) {
 	var value = req.body.value;
 	var barn_name = req.body.barn_name;
 	var from_barn_name = req.body.from_barn_name;
-	var barn_id, from_barn_id;
+	var barn_id;
+	var from_barn_id = from_barn_name;
 	var selected_date = req.body.selected_date;
-	const GET_BARN_ID_QUERY = 'SELECT A.barn_id AS barn_id, B.barn_id AS from_barn_id FROM barn A, barn B WHERE A.name = '+barn_name+' AND B.name ='+from_barn_name+' AND A.active = 1 AND B.active = 1'
+	const GET_BARN_ID_QUERY = 'SELECT barn_id FROM barn WHERE name = '+barn_name+' AND active = 1'
 	connection.query(GET_BARN_ID_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
 		}
 		else{
 			barn_id = results[0].barn_id
-			from_barn_id = results[0].from_barn_id
 			console.log(barn_id)
 			if (selected_date==""){
 				selected_date=moment().format('YYYY-MM-DD')
