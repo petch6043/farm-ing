@@ -500,7 +500,7 @@ app.get('/report/food', (req, res) =>{
 				report = ["Nothing to report"];
 			} else {
 				report.push([ type + " report " + moment().format("DD MMM YYYY")]);
-				report.push(["Barn", "Date of open barn","Age(Day)", "Current pig", "Cumulative Food(Kg)", "FPP", "Target FPP", "Move in", "Move out", "sold", "die", "sick", "defect", "dwarf"]);
+				report.push(["Barn", "Date of open barn","Age(Day)", "Current pig", "Cumulative Food(Kg)", "FPP", "Target FPP", "Move in", "Move out", "Sold", "Die", "Sick", "Defect", "Dwarf"]);
 				results[0].forEach(function(item) {
 					report.push([item.barn_id, moment(item.open_date).format("DD MMM YYYY"), item.age, item.current_pig, item.cumulative_food, item.fpp, item.target_fpp, item.move_in, item.move_out, item.sold, item.die, item.sick, item.defect, item.dwarf]);
 				});
