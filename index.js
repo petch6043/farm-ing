@@ -488,7 +488,12 @@ app.get('/report/food', (req, res) =>{
 				report.push([ type + " report " + moment().format("DD MMM YYYY")]);
 				report.push(["Barn id", "Barn name", "Date of open barn","Date of close barn","Age(Day)", "Current pig", "Cumulative Food(Kg)", "FPP", "Target FPP", "Move in", "Move out", "Sold", "Die", "Sick", "Defect", "Dwarf"]);
 				results[0].forEach(function(item) {
-					report.push([item.barn_id, item.barn_name, item.open_date, item.close_date, item.age, item.current_pig, item.cumulative_food, item.fpp, item.target_fpp, item.move_in, item.move_out, item.sold, item.die, item.sick, item.defect, item.dwarf]);
+					if(item.close_date == "ACTIVE") {
+						item.close_date = "ACTIVE";
+					} else {
+						item.close_date = moment(item.close_date).format("DD MMM YYYY");
+					}
+					report.push([item.barn_id, item.barn_name, moment(item.open_date).format("DD MMM YYYY"), item.close_date, item.age, item.current_pig, item.cumulative_food, item.fpp, item.target_fpp, item.move_in, item.move_out, item.sold, item.die, item.sick, item.defect, item.dwarf]);
 				});
 			}
 			
@@ -1024,7 +1029,12 @@ var job = new CronJob('00 00 20 * * 1-7',
 					report.push([ type + " report " + moment().format("DD MMM YYYY")]);
 					report.push(["Barn id", "Barn name", "Date of open barn","Date of close barn","Age(Day)", "Current pig", "Cumulative Food(Kg)", "FPP", "Target FPP", "Move in", "Move out", "Sold", "Die", "Sick", "Defect", "Dwarf"]);
 					results[0].forEach(function(item) {
-						report.push([item.barn_id, item.barn_name, item.open_date, item.close_date).format("DD MMM YYYY"), item.age, item.current_pig, item.cumulative_food, item.fpp, item.target_fpp, item.move_in, item.move_out, item.sold, item.die, item.sick, item.defect, item.dwarf]);
+						if(item.close_date == "ACTIVE") {
+							item.close_date = "ACTIVE";
+						} else {
+							item.close_date = moment(item.close_date).format("DD MMM YYYY");
+						}
+						report.push([item.barn_id, item.barn_name, moment(item.open_date).format("DD MMM YYYY"), item.close_date, item.age, item.current_pig, item.cumulative_food, item.fpp, item.target_fpp, item.move_in, item.move_out, item.sold, item.die, item.sick, item.defect, item.dwarf]);
 					});
 				}
 				
