@@ -790,6 +790,19 @@ app.get('/vaccine_pen', (req, res) =>{
 	});
 });
 
+//reset all vacine
+app.get('/vaccine_pen/delete/:barn_name', function(req, res) {
+	var barn_name = req.params.barn_name;
+	const QUERY = 'UPDATE vaccine_pen NATURAL JOIN barn SET done = 0 WHERE barn.name='+barn_name;
+	connection.query(QUERY, (err,results) =>{
+		if (err) {
+					return res.send(err);
+				} else {
+					return res.send("1")
+		}
+	});
+});
+
 app.get('/vaccine_pen/:barn_name', (req, res) =>{
 	var barn_name = req.params.barn_name;
 	
