@@ -160,6 +160,7 @@ class Vaccine extends Component {
     				</Select>*/}
     				<Show2 onAdd={this.onAdd} vaccineprogramList2={vaccineprogramList2}/>
     				<Show  onAdd={this.onAdd} vaccineprogramList={vaccineprogramList} barnNo={barnNo} />
+    				{/*<Button type='danger' style={{align:right}}>รีเซ็ททั้งหมด</Button>*/}
     			</div>
     			<Footer/>
     		</div>

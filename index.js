@@ -776,6 +776,19 @@ app.get('/vaccine_pen', (req, res) =>{
 	});
 });
 
+//reset all vacine
+app.get('/vaccine_pen/delete/:barn_name', function(req, res) {
+	var barn_name = req.params.barn_name;
+	const QUERY = 'UPDATE vaccine_pen NATURAL JOIN barn SET done = 0 WHERE barn.name='+barn_name;
+	connection.query(QUERY, (err,results) =>{
+		if (err) {
+					return res.send(err);
+				} else {
+					return res.send("1")
+		}
+	});
+});
+
 app.get('/vaccine_pen/:barn_name', (req, res) =>{
 	var barn_name = req.params.barn_name;
 	
@@ -795,7 +808,7 @@ app.get('/vaccine_pen/:barn_name', (req, res) =>{
 app.get('/vaccine_pen2/:barn_name', (req, res) =>{
 	var barn_name = req.params.barn_name;
 	
-	const SELECT_VACCINEBARN_QUERY = "SELECT DISTINCT open_age, DATE_FORMAT(program_date,'%d/%m/%Y') AS open_date_formatted, DATE_FORMAT(program_date,'%d/%m/%Y') AS program_date_formatted FROM vaccine_pen NATURAL JOIN barn WHERE barn.active=1 AND name="+barn_name+'';
+	const SELECT_VACCINEBARN_QUERY = "SELECT DISTINCT open_age, DATE_FORMAT(open_date,'%d/%m/%Y') AS open_date_formatted, DATE_FORMAT(program_date,'%d/%m/%Y') AS program_date_formatted FROM vaccine_pen NATURAL JOIN barn WHERE barn.active=1 AND name="+barn_name+'';
 		connection.query(SELECT_VACCINEBARN_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
