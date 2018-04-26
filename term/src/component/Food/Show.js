@@ -38,7 +38,7 @@ class Show extends Component {
     dataIndex: 'amount',
     key: 'amount',
    }];
-   const expandedRowRender = (record,row,index) => <label>ใส่เมื่อ: {record.time} {record.food_id} 
+   const expandedRowRender = (record,row,index) => <label>ใส่เมื่อ: {record.timestamp_formatted} {record.food_id} 
     <Popconfirm placement="bottomLeft" title="คุณแน่ใจหรือไม่ว่าจะลบรายการนี้" onConfirm={() => this.deleteClick(record.food_id)} okText="ยืนยัน" cancelText="ยกเลิก">
       <Button style={{marginLeft: 10}} type='danger'>ลบ</Button>
     </Popconfirm>
