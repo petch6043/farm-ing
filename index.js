@@ -186,7 +186,7 @@ app.get('/transfer/:barn_name', (req, res) =>{
 		}
 		else{
 			barn_id = results[0].barn_id
-			const SELECT_TRANSFER_BY_BARN_QUERY = "SELECT *,DATE_FORMAT(date,'%d/%m/%Y') AS time, DATE_FORMAT(timestamp,'%k:%i') AS timestamp_formatted FROM transfer WHERE barn_id="+barn_id+" ORDER BY DATE(date) DESC";
+			const SELECT_TRANSFER_BY_BARN_QUERY = "SELECT *,DATE_FORMAT(date,'%d/%m/%Y') AS time, DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS timestamp_formatted FROM transfer WHERE barn_id="+barn_id+" ORDER BY DATE(date) DESC";
 			connection.query(SELECT_TRANSFER_BY_BARN_QUERY, (err,results) =>{
 				if (err) {
 					return res.send(err)
@@ -213,7 +213,7 @@ app.get('/transfer/:barn_name/:selected_date', (req, res) =>{
 		}
 		else{
 			barn_id = results[0].barn_id
-			const SELECT_TRANSFER_BY_BARN_QUERY = "SELECT *,DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM transfer WHERE barn_id = " + barn_id + " AND DATE(date) = '" + selected_date +"'";
+			const SELECT_TRANSFER_BY_BARN_QUERY = "SELECT *,DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS timestamp_formatted FROM transfer WHERE barn_id = " + barn_id + " AND DATE(date) = '" + selected_date +"'";
 			connection.query(SELECT_TRANSFER_BY_BARN_QUERY, (err,results) =>{
 				if (err) {
 					return res.send(err)
@@ -331,7 +331,7 @@ app.get('/food/:barn_name', (req, res) =>{
 		}
 		else{
 			barn_id = results[0].barn_id
-			const SELECT_FOOD_BY_BARN_QUERY = "SELECT *, DATE_FORMAT(date,'%d/%m/%Y') AS time FROM food WHERE barn_id="+barn_id;
+			const SELECT_FOOD_BY_BARN_QUERY = "SELECT *, DATE_FORMAT(date,'%d/%m/%Y') AS time,DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS timestamp_formatted FROM food WHERE barn_id="+barn_id;
 			connection.query(SELECT_FOOD_BY_BARN_QUERY, (err,results) =>{
 				if (err) {
 					return res.send(err)
@@ -358,7 +358,7 @@ app.get('/food/:barn_name/:selected_date', (req, res) =>{
 		}
 		else{
 			barn_id = results[0].barn_id
-			const SELECT_FOOD_BY_BARN_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%k:%i') AS timestamp_formatted FROM food WHERE barn_id=" + barn_id + " AND DATE(date) = '" + selected_date+"'";
+			const SELECT_FOOD_BY_BARN_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS timestamp_formatted FROM food WHERE barn_id=" + barn_id + " AND DATE(date) = '" + selected_date+"'";
 			connection.query(SELECT_FOOD_BY_BARN_QUERY, (err,results) =>{
 				if (err) {
 					return res.send(err)
