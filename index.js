@@ -477,7 +477,7 @@ app.get('/report/food', (req, res) =>{
 			return res.send(err)
 		} else {
 			var type = "Food";
-			var dir = "./term/public/reports/";
+			var dir = "./term/build/reports/";
 			var dir2 = "/reports/";
 			var name = moment().format("DDMMMYYYY") + "-Daily" + type + "Report" + ".csv";
 			var ws = fs.createWriteStream(dir + name, { encoding: 'utf-8'} );
@@ -997,7 +997,7 @@ app.get('/email', function(req, res) {
 			return res.send(err)
 		} else {
 			var type = "Food";
-			var dir = "./term/public/reports/";
+			var dir = "./term/build/reports/";
 			var name = moment().format("DDMMMYYYY") + "-Daily" + type + "Report" + ".csv";
 			var ws = fs.createWriteStream(dir + name, { encoding: 'utf-8'} );
 			var report = [];
@@ -1076,7 +1076,7 @@ var job = new CronJob('00 00 20 * * 1-7',
 				return res.send(err)
 			} else {
 				var type = "Food";
-				var dir = "./term/public/reports/";
+				var dir = "./term/build/reports/";
 				var name = moment().format("DDMMMYYYY") + "-Daily" + type + "Report" + ".csv";
 				var ws = fs.createWriteStream(dir + name, { encoding: 'utf-8'} );
 				var report = [];
