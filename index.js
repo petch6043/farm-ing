@@ -476,7 +476,7 @@ app.get('/report/food', (req, res) =>{
 		if (err) {
 			return res.send(err)
 		} else {
-			var type = "Food";
+			var type = "FoodAndTransfer";
 			var dir = "./term/build/reports/";
 			var dir2 = "/reports/";
 			var name = moment().format("DDMMMYYYY") + "-Daily" + type + "Report" + ".csv";
@@ -486,9 +486,9 @@ app.get('/report/food', (req, res) =>{
 				report = ["Nothing to report"];
 			} else {
 				report.push([ type + " report " + moment().format("DD MMM YYYY")]);
-				report.push(["Barn", "Date of open barn","Age(Day)", "Current pig", "Cumulative Food(Kg)", "FPP", "Target FPP", "Move in", "Move out", "Sold", "Die", "Sick", "Defect", "Dwarf"]);
+				report.push(["Barn id", "Barn name", "Date of open barn","Date of close barn","Age(Day)", "Current pig", "Cumulative Food(Kg)", "FPP", "Target FPP", "Move in", "Move out", "Sold", "Die", "Sick", "Defect", "Dwarf"]);
 				results[0].forEach(function(item) {
-					report.push([item.barn_id, moment(item.open_date).format("DD MMM YYYY"), item.age, item.current_pig, item.cumulative_food, item.fpp, item.target_fpp, item.move_in, item.move_out, item.sold, item.die, item.sick, item.defect, item.dwarf]);
+					report.push([item.barn_id, item.barn_name, moment(item.open_date).format("DD MMM YYYY"), moment(item.close_date).format("DD MMM YYYY"), item.age, item.current_pig, item.cumulative_food, item.fpp, item.target_fpp, item.move_in, item.move_out, item.sold, item.die, item.sick, item.defect, item.dwarf]);
 				});
 			}
 			
@@ -989,68 +989,6 @@ app.get('/report/test', function(req, res) {
 	});
 });
 */
-
-app.get('/email', function(req, res) {
-	const SELECT_ALL_REPORT2_QUERY = 'CALL generate_report()'
-	connection.query(SELECT_ALL_REPORT2_QUERY, (err,results) =>{
-		if (err) {
-			return res.send(err)
-		} else {
-			var type = "Food";
-			var dir = "./term/build/reports/";
-			var name = moment().format("DDMMMYYYY") + "-Daily" + type + "Report" + ".csv";
-			var ws = fs.createWriteStream(dir + name, { encoding: 'utf-8'} );
-			var report = [];
-			if(results[0].legnth == 0) {
-				report = ["Nothing to report"];
-			} else {
-				report.push([ type + " report " + moment().format("DD MMM YYYY")]);
-				report.push(["Barn", "Date of open barn","Age(Day)", "Current pig", "Cumulative Food(Kg)", "FPP", "Target FPP", "Move in", "Move out", "Sold", "Die", "Sick", "Defect", "Dwarf"]);
-				results[0].forEach(function(item) {
-					report.push([item.barn_id, moment(item.open_date).format("DD MMM YYYY"), item.age, item.current_pig, item.cumulative_food, item.fpp, item.target_fpp, item.move_in, item.move_out, item.sold, item.die, item.sick, item.defect, item.dwarf]);
-				});
-			}
-			
-			csv.write(report, { headers: true })
-			.pipe(ws)
-			.on("finish", function(){
-
-				var transporter = nodemailer.createTransport({
-					service: 'gmail',
-					auth: {
-				    	user: 'farm.ingbkk@gmail.com',
-				    	pass: 'farming2018'
-					}
-				});
-
-				//var filename = "19Apr2018-DailyFoodReport.csv";
-				var filename = name;
-				//var path = "./term/public/reports/19Apr2018-DailyFoodReport.csv";
-				var path = dir + name;
-				const mailOptions = {
-					from: 'noreply@farm-ing.co', // sender address
-					to: 'suppakit.neno@gmail.com, goodkavin@gmail.com, nattapol.puttasuntithum@gmail.com, pasithtommy@gmail.com', // list of receivers
-					subject: 'Farm-ing Daily report', // Subject line
-					html: '<p>Please view a ' + moment().format("Do MMM YYYY") + ' report.</p><br><p>This report is auto-generated at ' + moment().format("Do MMMM YYYY, kk:mm:ss") + '</p>', // plain text body
-					attachments: [
-					    {
-					        filename: filename,
-					        path: path,
-					        content: 'csv'
-					    },
-					]
-				};
-
-				transporter.sendMail(mailOptions, function (err, info) {
-					if(err) return res.send(err)
-					else return res.send(info)
-				});
-
-		   	});
-		}
-	});
-});
-
 // Report time trigger
 /*
 var job = new CronJob('00 00 12 * * 1-7',
@@ -1075,7 +1013,7 @@ var job = new CronJob('00 00 20 * * 1-7',
 			if (err) {
 				return res.send(err)
 			} else {
-				var type = "Food";
+				var type = "FoodAndTransfer";
 				var dir = "./term/build/reports/";
 				var name = moment().format("DDMMMYYYY") + "-Daily" + type + "Report" + ".csv";
 				var ws = fs.createWriteStream(dir + name, { encoding: 'utf-8'} );
@@ -1084,9 +1022,9 @@ var job = new CronJob('00 00 20 * * 1-7',
 					report = ["Nothing to report"];
 				} else {
 					report.push([ type + " report " + moment().format("DD MMM YYYY")]);
-					report.push(["Barn", "Date of open barn","Age(Day)", "Current pig", "Cumulative Food(Kg)", "FPP", "Target FPP", "Move in", "Move out", "Sold", "Die", "Sick", "Defect", "Dwarf"]);
+					report.push(["Barn id", "Barn name", "Date of open barn","Date of close barn","Age(Day)", "Current pig", "Cumulative Food(Kg)", "FPP", "Target FPP", "Move in", "Move out", "Sold", "Die", "Sick", "Defect", "Dwarf"]);
 					results[0].forEach(function(item) {
-						report.push([item.barn_id, moment(item.open_date).format("DD MMM YYYY"), item.age, item.current_pig, item.cumulative_food, item.fpp, item.target_fpp, item.move_in, item.move_out, item.sold, item.die, item.sick, item.defect, item.dwarf]);
+						report.push([item.barn_id, item.barn_name, moment(item.open_date).format("DD MMM YYYY"), moment(item.close_date).format("DD MMM YYYY"), item.age, item.current_pig, item.cumulative_food, item.fpp, item.target_fpp, item.move_in, item.move_out, item.sold, item.die, item.sick, item.defect, item.dwarf]);
 					});
 				}
 				
