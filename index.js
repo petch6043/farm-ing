@@ -776,19 +776,6 @@ app.get('/vaccine_pen', (req, res) =>{
 	});
 });
 
-//reset all vacine
-app.get('/vaccine_pen/delete/:barn_name', function(req, res) {
-	var barn_name = req.params.barn_name;
-	const QUERY = 'UPDATE vaccine_pen NATURAL JOIN barn SET done = 0 WHERE barn.name='+barn_name;
-	connection.query(QUERY, (err,results) =>{
-		if (err) {
-					return res.send(err);
-				} else {
-					return res.send("1")
-		}
-	});
-});
-
 app.get('/vaccine_pen/:barn_name', (req, res) =>{
 	var barn_name = req.params.barn_name;
 	
@@ -808,7 +795,7 @@ app.get('/vaccine_pen/:barn_name', (req, res) =>{
 app.get('/vaccine_pen2/:barn_name', (req, res) =>{
 	var barn_name = req.params.barn_name;
 	
-	const SELECT_VACCINEBARN_QUERY = "SELECT DISTINCT open_age, DATE_FORMAT(open_date,'%d/%m/%Y') AS open_date_formatted, DATE_FORMAT(program_date,'%d/%m/%Y') AS program_date_formatted FROM vaccine_pen NATURAL JOIN barn WHERE barn.active=1 AND name="+barn_name+'';
+	const SELECT_VACCINEBARN_QUERY = "SELECT DISTINCT open_age, DATE_FORMAT(program_date,'%d/%m/%Y') AS open_date_formatted, DATE_FORMAT(program_date,'%d/%m/%Y') AS program_date_formatted FROM vaccine_pen NATURAL JOIN barn WHERE barn.active=1 AND name="+barn_name+'';
 		connection.query(SELECT_VACCINEBARN_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
@@ -1037,7 +1024,7 @@ var job = new CronJob('00 00 20 * * 1-7',
 					report.push([ type + " report " + moment().format("DD MMM YYYY")]);
 					report.push(["Barn id", "Barn name", "Date of open barn","Date of close barn","Age(Day)", "Current pig", "Cumulative Food(Kg)", "FPP", "Target FPP", "Move in", "Move out", "Sold", "Die", "Sick", "Defect", "Dwarf"]);
 					results[0].forEach(function(item) {
-						report.push([item.barn_id, item.barn_name, item.open_date, item.close_date, item.age, item.current_pig, item.cumulative_food, item.fpp, item.target_fpp, item.move_in, item.move_out, item.sold, item.die, item.sick, item.defect, item.dwarf]);
+						report.push([item.barn_id, item.barn_name, item.open_date, item.close_date).format("DD MMM YYYY"), item.age, item.current_pig, item.cumulative_food, item.fpp, item.target_fpp, item.move_in, item.move_out, item.sold, item.die, item.sick, item.defect, item.dwarf]);
 					});
 				}
 				
