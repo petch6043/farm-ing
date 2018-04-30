@@ -119,7 +119,7 @@ class Show extends Component {
 
 		return(
 			<div>
-				<Col span={24} align="center" style={{marginBottom:50}}>
+				<Col span={24} align="center" style={{marginBottom:100}}>
 				<Table  columns={columns} dataSource={data}/>
 				
 				{/*rowSelection={rowSelection}*/}
