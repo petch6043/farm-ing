@@ -149,7 +149,6 @@ class Vaccine extends Component {
 				<Header thisPage={"วัคซีนโปรแกรมของเล้าที่ : "+ barnNo}/>
 				<div className="myBody">
 					<div className="mySelect myBigFont">
-						<DatePicker placeholder="เลือกวันที่"/>
 					</div>
 					{/*<Select placeholder="เลือกคอก" style={{ width: 120 }} onChange={this.handleChange} className="myBigFont">
     					<Option value='1'><div className="myBigFont">คอก 1</div></Option>
@@ -159,6 +158,7 @@ class Vaccine extends Component {
     					<Option value='5'><div className="myBigFont">คอก 5</div></Option>
     				</Select>*/}
     				<Show2 onAdd={this.onAdd} vaccineprogramList2={vaccineprogramList2}/>
+    				<div style={{marginTop:15, marginBottom:15}}>ฉีดวันที่ <DatePicker placeholder="เลือกวันที่"/></div>
     				<Show  onAdd={this.onAdd} vaccineprogramList={vaccineprogramList} barnNo={barnNo} />
     				{/*<Button type='danger' style={{align:right}}>รีเซ็ททั้งหมด</Button>*/}
     			</div>

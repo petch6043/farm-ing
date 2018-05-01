@@ -1012,14 +1012,14 @@ var job = new CronJob('00 00 12 * * 1-7',
 var job = new CronJob('00 00 20 * * 1-7',
 	function() {
 		// Runs every day at 20:00:00
-  		console.log("Generating report...");
-  		const SELECT_ALL_REPORT2_QUERY = 'CALL generate_report()'
+		const SELECT_ALL_REPORT2_QUERY = 'CALL generate_report()'
 		connection.query(SELECT_ALL_REPORT2_QUERY, (err,results) =>{
 			if (err) {
 				return res.send(err)
 			} else {
 				var type = "FoodAndTransfer";
 				var dir = "./term/build/reports/";
+				var dir2 = "/reports/";
 				var name = moment().format("DDMMMYYYY") + "-Daily" + type + "Report" + ".csv";
 				var ws = fs.createWriteStream(dir + name, { encoding: 'utf-8'} );
 				var report = [];
@@ -1041,37 +1041,50 @@ var job = new CronJob('00 00 20 * * 1-7',
 				csv.write(report, { headers: true })
 				.pipe(ws)
 				.on("finish", function(){
+					var n = 'รายงานประจำวัน ' + moment().format("YYYY-MM-DD");
+					var p = dir2 + name;
+					var d = moment().format("YYYY-MM-DD")
+					var t = "transfer";
+					const INSERT_REPORT_QUERY = "INSERT INTO report_list (report_name, report_path, report_date, type) VALUES('" + n + "','" + p + "','" + d + "','" + t + "')";
+	 				//const INSERT_REPORT_QUERY = "INSERT INTO report_list (report_name, report_path, report_date, type) VALUES('รายงานประจำวัน 20-01-61','/reports/20Apr2018-DailyFoodReport.csv','2018-04-20 00:00:00','transfer')";
+	 				connection.query(INSERT_REPORT_QUERY, (err,results) =>{
+	 					if (err) {
+							return res.send(err);
+						} else {
+							
+							var transporter = nodemailer.createTransport({
+								service: 'gmail',
+								auth: {
+							    	user: 'farm.ingbkk@gmail.com',
+							    	pass: 'farming2018'
+								}
+							});
 
-					var transporter = nodemailer.createTransport({
-						service: 'gmail',
-						auth: {
-					    	user: 'farm.ingbkk@gmail.com',
-					    	pass: 'farming2018'
+							//var filename = "19Apr2018-DailyFoodReport.csv";
+							var filename = name;
+							//var path = "./term/public/reports/19Apr2018-DailyFoodReport.csv";
+							var path = dir + name;
+							const mailOptions = {
+								from: 'noreply@farm-ing.co', // sender address
+								to: 'suppakit.neno@gmail.com, goodkavin@gmail.com, nattapol.puttasuntithum@gmail.com, pasithtommy@gmail.com, pramote.ku.eng@gmail.com', // list of receivers
+								subject: 'Farm-ing Daily report', // Subject line
+								html: '<p>Please view a ' + moment().format("Do MMM YYYY") + ' report.</p><br><p>This report is auto-generated at ' + moment().format("Do MMMM YYYY, kk:mm:ss") + '</p>', // plain text body
+								attachments: [
+								    {
+								        filename: filename,
+								        path: path,
+								        content: 'csv'
+								    },
+								]
+							};
+
+							transporter.sendMail(mailOptions, function (err, info) {
+								if(err) return res.send(err)
+								else return res.send(info)
+							});
+							
 						}
-					});
-
-					//var filename = "19Apr2018-DailyFoodReport.csv";
-					var filename = name;
-					//var path = "./term/public/reports/19Apr2018-DailyFoodReport.csv";
-					var path = dir + name;
-					const mailOptions = {
-						from: 'noreply@farm-ing.co', // sender address
-						to: 'suppakit.neno@gmail.com, goodkavin@gmail.com, nattapol.puttasuntithum@gmail.com, pasithtommy@gmail.com', // list of receivers
-						subject: 'Farm-ing Daily report', // Subject line
-						html: '<p>Please view a ' + moment().format("Do MMM YYYY") + ' report.</p><br><p>This report is auto-generated at ' + moment().format("Do MMMM YYYY, kk:mm:ss") + '</p>', // plain text body
-						attachments: [
-						    {
-						        filename: filename,
-						        path: path,
-						        content: 'csv'
-						    },
-						]
-					};
-
-					transporter.sendMail(mailOptions, function (err, info) {
-						if(err) return res.send(err)
-						else return res.send(info)
-					});
+	 				});
 
 			   	});
 			}
