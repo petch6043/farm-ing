@@ -108,7 +108,7 @@ app.get('/barn/close/:barn_name', (req, res) =>{
 		}
 		else{
 			barn_id = results[0].barn_id
-			const SELECT_TRANSFER_BY_BARN_QUERY = 'UPDATE barn SET active=0 WHERE barn_id='+barn_id;
+			const SELECT_TRANSFER_BY_BARN_QUERY = 'UPDATE barn SET active=0, close_date=CURRENT_DATE WHERE barn_id='+barn_id;
 			connection.query(SELECT_TRANSFER_BY_BARN_QUERY, (err,results) =>{
 				if (err) {
 					return res.send(err)
@@ -725,18 +725,18 @@ app.get('/report2', (req, res) =>{
 */
 
 /*-------------------------- VACCINE --------------------------*/
-app.get('/vaccine', (req, res) =>{
-	connection.query(SELECT_ALL_VACCINE_QUERY, (err,results) =>{
-		if (err) {
-			return res.send(err)
-		}
-		else{
-			return res.json({
-				data: results
-			})
-		}
-	});
-});
+// app.get('/vaccine', (req, res) =>{
+// 	connection.query(SELECT_ALL_VACCINE_QUERY, (err,results) =>{
+// 		if (err) {
+// 			return res.send(err)
+// 		}
+// 		else{
+// 			return res.json({
+// 				data: results
+// 			})
+// 		}
+// 	});
+// });
 
 /*app.get('/vaccine/add', (req, res) =>{
 	var vac_id = 0;
@@ -754,40 +754,39 @@ app.get('/vaccine', (req, res) =>{
 });
 */
 
-app.post('/vaccine/add', function(req, res) {
+// app.post('/vaccine/add', function(req, res) {
     
-	var vac_name = req.body.vac_name;
-	var type_id = req.body.type_id;
-	var age = req.body.age;
-	var required = req.body.required;
+// 	var vac_name = req.body.vac_name;
+// 	var type_id = req.body.type_id;
+// 	var age = req.body.age;
+// 	var required = req.body.required;
 	
-	const INSERT_VACCINE_QUERY = 'INSERT INTO vaccine ( vac_name, type_id, age, required) VALUES("'+vac_name+'", '+type_id+', '+age+', '+required+')';
-	connection.query(INSERT_VACCINE_QUERY, (err,results) =>{
-		if (err) {
-			return res.send(err)
-		}
-		else{
-			return res.send("1")
-		}
-	});
-});
+// 	const INSERT_VACCINE_QUERY = 'INSERT INTO vaccine ( vac_name, type_id, age, required) VALUES("'+vac_name+'", '+type_id+', '+age+', '+required+')';
+// 	connection.query(INSERT_VACCINE_QUERY, (err,results) =>{
+// 		if (err) {
+// 			return res.send(err)
+// 		}
+// 		else{
+// 			return res.send("1")
+// 		}
+// 	});
+// });
 
-app.get('/vaccine_pen', (req, res) =>{
-	connection.query(SELECT_ALL_VACCINEPEN_QUERY, (err,results) =>{
-		if (err) {
-			return res.send(err)
-		}
-		else{
-			return res.json({
-				data: results
-			})
-		}
-	});
-});
+// app.get('/vaccine_pen', (req, res) =>{
+// 	connection.query(SELECT_ALL_VACCINEPEN_QUERY, (err,results) =>{
+// 		if (err) {
+// 			return res.send(err)
+// 		}
+// 		else{
+// 			return res.json({
+// 				data: results
+// 			})
+// 		}
+// 	});
+// });
 
 app.get('/vaccine_pen/:barn_name', (req, res) =>{
 	var barn_name = req.params.barn_name;
-	
 	const SELECT_VACCINEBARN_QUERY = "SELECT *,DATE_FORMAT(program_date,'%d/%m/%Y') AS program_date_formatted FROM vaccine_pen NATURAL JOIN barn WHERE barn.active=1 AND name="+barn_name+'';
 		connection.query(SELECT_VACCINEBARN_QUERY, (err,results) =>{
 		if (err) {
@@ -803,7 +802,6 @@ app.get('/vaccine_pen/:barn_name', (req, res) =>{
 
 app.get('/vaccine_pen2/:barn_name', (req, res) =>{
 	var barn_name = req.params.barn_name;
-	
 	const SELECT_VACCINEBARN_QUERY = "SELECT DISTINCT open_age, DATE_FORMAT(program_date,'%d/%m/%Y') AS open_date_formatted, DATE_FORMAT(program_date,'%d/%m/%Y') AS program_date_formatted FROM vaccine_pen NATURAL JOIN barn WHERE barn.active=1 AND name="+barn_name+'';
 		connection.query(SELECT_VACCINEBARN_QUERY, (err,results) =>{
 		if (err) {
@@ -866,34 +864,34 @@ app.get('/vaccine_pen/:barn_name/:pen_id/add', (req, res) =>{
 	});
 });
 
-app.get('/vaccine_pen/:barn_name/add', (req, res) =>{
-	var barn_name = req.params.barn_name;
-	const SELECT_VACCINEPENADD_QUERY = 'UPDATE vaccine_pen NATURAL JOIN barn SET done=1 WHERE barn.active=1 AND name='+barn_name+'';
-	connection.query(SELECT_VACCINEPENADD_QUERY, (err,results) =>{
-		if (err) {
-			return res.send(err)
-		}
-		else{
-			return res.send('1')
-		}
-	});
-});
+// app.get('/vaccine_pen/:barn_name/add', (req, res) =>{
+// 	var barn_name = req.params.barn_name;
+// 	const SELECT_VACCINEPENADD_QUERY = 'UPDATE vaccine_pen NATURAL JOIN barn SET done=1 WHERE barn.active=1 AND name='+barn_name+'';
+// 	connection.query(SELECT_VACCINEPENADD_QUERY, (err,results) =>{
+// 		if (err) {
+// 			return res.send(err)
+// 		}
+// 		else{
+// 			return res.send('1')
+// 		}
+// 	});
+// });
 
-app.post('/vaccine_pen/add', function(req, res) {
+// app.post('/vaccine_pen/add', function(req, res) {
     
-	var vac_id = req.body.vac_id;
-	var pen_id = req.body.pen_id;
+// 	var vac_id = req.body.vac_id;
+// 	var pen_id = req.body.pen_id;
 	
-	const INSERT_VACCINEPEN_QUERY = 'INSERT INTO vaccine_pen ( vac_id, pen_id) VALUES('+vac_id+', '+pen_id+')';
-	connection.query(INSERT_VACCINEPEN_QUERY, (err,results) =>{
-		if (err) {
-			return res.send(err)
-		}
-		else{
-			return res.send("1")
-		}
-	});
-});
+// 	const INSERT_VACCINEPEN_QUERY = 'INSERT INTO vaccine_pen ( vac_id, pen_id) VALUES('+vac_id+', '+pen_id+')';
+// 	connection.query(INSERT_VACCINEPEN_QUERY, (err,results) =>{
+// 		if (err) {
+// 			return res.send(err)
+// 		}
+// 		else{
+// 			return res.send("1")
+// 		}
+// 	});
+// });
 
 /*app.get('/vaccine_type/add', (req, res) =>{
 	var type_id = 7;
@@ -911,7 +909,7 @@ app.post('/vaccine_pen/add', function(req, res) {
 	});
 }); */
 
-app.get('/vaccine_program', (req, res) =>{
+/*app.get('/vaccine_program', (req, res) =>{
 	connection.query(SELECT_ALL_VACCINEPROGRAM_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
@@ -923,12 +921,11 @@ app.get('/vaccine_program', (req, res) =>{
 		}
 	});
 });
-
-app.post('/vaccine_program/add', function(req, res) {
+*/
+/*app.post('/vaccine_program/add', function(req, res) {
     
 	var vac_id = req.body.vac_id;
 	var pen_id = req.body.pen_id;
-	
 	const INSERT_VACCINEPEN_QUERY = 'INSERT INTO vaccine_pen ( vac_id, pen_id) VALUES('+vac_id+', '+pen_id+')';
 	connection.query(INSERT_VACCINEPEN_QUERY, (err,results) =>{
 		if (err) {
@@ -938,9 +935,9 @@ app.post('/vaccine_program/add', function(req, res) {
 			return res.send("1")
 		}
 	});
-});
+}); */
 
-app.get('/vaccine_urgent', (req, res) =>{
+/*app.get('/vaccine_urgent', (req, res) =>{
 	connection.query(SELECT_ALL_VACCINEURGENT_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
@@ -983,7 +980,7 @@ app.post('/vaccine_urgent/addurgent', function(req, res) {
 		}
 	});
 });
-
+*/
 /*
 app.get('/report/test', function(req, res) {
 	phantom.create().then(function(ph) {
