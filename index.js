@@ -201,6 +201,21 @@ app.get('/transfer/:barn_name', (req, res) =>{
 	});
 });
 
+app.get('/transfer/current_pig/:barn_name', (req, res) =>{
+	var barn_name = req.params.barn_name;
+	const GET_BARN_ID_QUERY = 'SELECT get_current_pig('+barn_name+') as current_pig'
+	connection.query(GET_BARN_ID_QUERY, (err,results) =>{
+		if (err) {
+			return res.send(err)
+		}
+		else{
+			return res.json({
+				data: results
+			})
+		}
+	});
+});
+
 //select transfer by barn name and date
 app.get('/transfer/:barn_name/:selected_date', (req, res) =>{
 	var barn_name = req.params.barn_name;
