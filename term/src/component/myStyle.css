@@ -137,3 +137,7 @@ h2 {
 .ant-calendar-picker-input {
 	width: 215px;
 }
+
+.ant-list-item:last-child {
+	border-bottom: 0px !important;
+}

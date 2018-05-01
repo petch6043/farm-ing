@@ -31,13 +31,13 @@ class Notification extends Component {
 			{console.log(taskList)}
 				<Header thisPage="แจ้งเตือน"/>
 				<div style={{padding:10}}>
+					<Collapse accordion>
 					{taskList.map((x) =>
-						<Collapse accordion>
-						    <Panel header={'ฉีดวัคซีนให้เล้า '+x.name+' ภายใน '+x.due+' วัน'} key="x">
-						      <p>เล้า {x.name} มีกำหนดฉีดโปรแกรมวัคซีนในวันที่ {x.program_date_formatted} (ภายใน {x.due} วัน)</p>
-						    </Panel>
-						</Collapse>
+					    <Panel header={'ฉีดวัคซีนให้เล้า '+x.name+' ภายใน '+x.due+' วัน'} key={x.name}>
+					      <p>เล้า {x.name} มีกำหนดฉีดโปรแกรมวัคซีนในวันที่ {x.program_date_formatted} (ภายใน {x.due} วัน)</p>
+					    </Panel>
 					 )}
+					</Collapse>
 				</div>
 				<Footer/>
 			</div>	

@@ -101,7 +101,7 @@ class Show2 extends Component {
 				<div>
 
 				<div><h2>วัคซีนโปรแกรม:</h2></div>
-				<Table  columns={columns} dataSource={data}/>
+				<Table  columns={columns} dataSource={data} pagination={false}/>
 				</div>
 				
 				

@@ -87,26 +87,12 @@ app.post('/barn/open', function(req, res) {
 			open_date=moment().format('YYYY-MM-DD')
 		}
 	const INSERT_BARN_QUERY = 'INSERT INTO barn (name, open_date, open_age, user_id, active) VALUES("'+name+'","'+open_date+'", '+open_age+', '+user_id+', '+active+')';
-	const GET_CURRENT_ID = 'SELECT AUTO_INCREMENT as barn_id FROM information_schema.TABLES WHERE TABLE_SCHEMA = "react_sql" AND TABLE_NAME = "barn"';
+	//const GET_CURRENT_ID = 'SELECT AUTO_INCREMENT as barn_id FROM information_schema.TABLES WHERE TABLE_SCHEMA = "react_sql" AND TABLE_NAME = "barn"';
 	connection.query(INSERT_BARN_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
 		} else {
-			connection.query(GET_CURRENT_ID, (err,results) =>{
-				if (err) {
-					return res.send(err)
-				} else {
-					barn_id = results[0].barn_id - 1;
-					const INSERT_PEN_QUERY = 'INSERT INTO pen (pen_id, barn_id) VALUES(1, '+barn_id+'),(2, '+barn_id+'),(3, '+barn_id+'),(4, '+barn_id+'),(5, '+barn_id+'),(6, '+barn_id+'),(7, '+barn_id+'),(8, '+barn_id+'),(9, '+barn_id+'),(10, '+barn_id+'),(11, '+barn_id+'),(12, '+barn_id+'),(13, '+barn_id+'),(14, '+barn_id+'),(15, '+barn_id+'),(16, '+barn_id+'),(17, '+barn_id+'),(18, '+barn_id+'),(19, '+barn_id+'),(20, '+barn_id+'),(21, '+barn_id+'),(22, '+barn_id+'),(23, '+barn_id+'),(24, '+barn_id+'),(25, '+barn_id+'),(26, '+barn_id+'),(27, '+barn_id+'),(28, '+barn_id+'),(29, '+barn_id+'),(30, '+barn_id+')'
-					connection.query(INSERT_PEN_QUERY, (err,results) =>{
-						if (err) {
-							return res.send(err);
-						} else {
-							return res.send("1");
-						}
-					});
-				}
-			});
+			return res.send("1");
 		}
 	});
 });
@@ -122,7 +108,7 @@ app.get('/barn/close/:barn_name', (req, res) =>{
 		}
 		else{
 			barn_id = results[0].barn_id
-			const SELECT_TRANSFER_BY_BARN_QUERY = 'UPDATE barn SET active=0 WHERE barn_id='+barn_id;
+			const SELECT_TRANSFER_BY_BARN_QUERY = 'UPDATE barn SET active=0, close_date=CURRENT_DATE WHERE barn_id='+barn_id;
 			connection.query(SELECT_TRANSFER_BY_BARN_QUERY, (err,results) =>{
 				if (err) {
 					return res.send(err)
@@ -200,7 +186,7 @@ app.get('/transfer/:barn_name', (req, res) =>{
 		}
 		else{
 			barn_id = results[0].barn_id
-			const SELECT_TRANSFER_BY_BARN_QUERY = "SELECT *,DATE_FORMAT(date,'%d/%m/%Y') AS time FROM transfer WHERE barn_id="+barn_id;
+			const SELECT_TRANSFER_BY_BARN_QUERY = "SELECT *,DATE_FORMAT(date,'%d/%m/%Y') AS time, DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS timestamp_formatted FROM transfer WHERE barn_id="+barn_id+" ORDER BY DATE(date) DESC";
 			connection.query(SELECT_TRANSFER_BY_BARN_QUERY, (err,results) =>{
 				if (err) {
 					return res.send(err)
@@ -227,7 +213,7 @@ app.get('/transfer/:barn_name/:selected_date', (req, res) =>{
 		}
 		else{
 			barn_id = results[0].barn_id
-			const SELECT_TRANSFER_BY_BARN_QUERY = "SELECT *,DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM transfer WHERE barn_id = " + barn_id + " AND DATE(date) = '" + selected_date +"'";
+			const SELECT_TRANSFER_BY_BARN_QUERY = "SELECT *,DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS timestamp_formatted FROM transfer WHERE barn_id = " + barn_id + " AND DATE(date) = '" + selected_date +"'";
 			connection.query(SELECT_TRANSFER_BY_BARN_QUERY, (err,results) =>{
 				if (err) {
 					return res.send(err)
@@ -264,16 +250,16 @@ app.post('/transfer/add', function(req, res) {
 	var value = req.body.value;
 	var barn_name = req.body.barn_name;
 	var from_barn_name = req.body.from_barn_name;
-	var barn_id, from_barn_id;
+	var barn_id;
+	var from_barn_id = from_barn_name;
 	var selected_date = req.body.selected_date;
-	const GET_BARN_ID_QUERY = 'SELECT A.barn_id AS barn_id, B.barn_id AS from_barn_id FROM barn A, barn B WHERE A.name = '+barn_name+' AND B.name ='+from_barn_name+' AND A.active = 1 AND B.active = 1'
+	const GET_BARN_ID_QUERY = 'SELECT barn_id FROM barn WHERE name = '+barn_name+' AND active = 1'
 	connection.query(GET_BARN_ID_QUERY, (err,results) =>{
 		if (err) {
 			return res.send(err)
 		}
 		else{
 			barn_id = results[0].barn_id
-			from_barn_id = results[0].from_barn_id
 			console.log(barn_id)
 			if (selected_date==""){
 				selected_date=moment().format('YYYY-MM-DD')
@@ -345,7 +331,7 @@ app.get('/food/:barn_name', (req, res) =>{
 		}
 		else{
 			barn_id = results[0].barn_id
-			const SELECT_FOOD_BY_BARN_QUERY = "SELECT *, DATE_FORMAT(date,'%d/%m/%Y') AS time FROM food WHERE barn_id="+barn_id;
+			const SELECT_FOOD_BY_BARN_QUERY = "SELECT *, DATE_FORMAT(date,'%d/%m/%Y') AS time,DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS timestamp_formatted FROM food WHERE barn_id="+barn_id;
 			connection.query(SELECT_FOOD_BY_BARN_QUERY, (err,results) =>{
 				if (err) {
 					return res.send(err)
@@ -372,7 +358,7 @@ app.get('/food/:barn_name/:selected_date', (req, res) =>{
 		}
 		else{
 			barn_id = results[0].barn_id
-			const SELECT_FOOD_BY_BARN_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS time FROM food WHERE barn_id=" + barn_id + " AND DATE(date) = '" + selected_date+"'";
+			const SELECT_FOOD_BY_BARN_QUERY = "SELECT *, DATE_FORMAT(timestamp,'%d/%m/%Y - %k:%i') AS timestamp_formatted FROM food WHERE barn_id=" + barn_id + " AND DATE(date) = '" + selected_date+"'";
 			connection.query(SELECT_FOOD_BY_BARN_QUERY, (err,results) =>{
 				if (err) {
 					return res.send(err)
@@ -383,7 +369,7 @@ app.get('/food/:barn_name/:selected_date', (req, res) =>{
 					})
 				}
 			});
-		}
+		}x
 	});
 });
 
@@ -490,8 +476,8 @@ app.get('/report/food', (req, res) =>{
 		if (err) {
 			return res.send(err)
 		} else {
-			var type = "Food";
-			var dir = "./term/public/reports/";
+			var type = "FoodAndTransfer";
+			var dir = "./term/build/reports/";
 			var dir2 = "/reports/";
 			var name = moment().format("DDMMMYYYY") + "-Daily" + type + "Report" + ".csv";
 			var ws = fs.createWriteStream(dir + name, { encoding: 'utf-8'} );
@@ -500,16 +486,21 @@ app.get('/report/food', (req, res) =>{
 				report = ["Nothing to report"];
 			} else {
 				report.push([ type + " report " + moment().format("DD MMM YYYY")]);
-				report.push(["Barn", "Date of open barn","Age(Day)", "Move in", "Move out", "Current pig", "Cumulative Food(Kg)", "FPP", "Target FPP"]);
+				report.push(["Barn id", "Barn name", "Date of open barn","Date of close barn","Age(Day)", "Current pig", "Cumulative Food(Kg)", "FPP", "Target FPP", "Move in", "Move out", "Sold", "Die", "Sick", "Defect", "Dwarf"]);
 				results[0].forEach(function(item) {
-					report.push([item.barn_id, moment(item.open_date).format("DD MMM YYYY"), item.age, item.move_in, item.move_out, item.current_pig, item.cumulative_food, item.fpp, item.target_fpp]);
+					if(item.close_date == "ACTIVE") {
+						item.close_date = "ACTIVE";
+					} else {
+						item.close_date = moment(item.close_date).format("DD MMM YYYY");
+					}
+					report.push([item.barn_id, item.barn_name, moment(item.open_date).format("DD MMM YYYY"), item.close_date, item.age, item.current_pig, item.cumulative_food, item.fpp, item.target_fpp, item.move_in, item.move_out, item.sold, item.die, item.sick, item.defect, item.dwarf]);
 				});
 			}
 			
 			csv.write(report, { headers: true })
 			.pipe(ws)
 			.on("finish", function(){
-				var n = 'รายงานประจำวัน ' + moment().format("DD-MM-YYYY");
+				var n = 'รายงานประจำวัน ' + moment().format("YYYY-MM-DD");
 				var p = dir2 + name;
 				var d = moment().format("YYYY-MM-DD")
 				var t = "transfer";
@@ -1000,38 +991,6 @@ app.get('/report/test', function(req, res) {
 	});
 });
 */
-
-app.get('/email', function(req, res) {
-   	var transporter = nodemailer.createTransport({
-		service: 'gmail',
-		auth: {
-	    	user: 'farm.ingbkk@gmail.com',
-	    	pass: 'farming2018'
-		}
-	});
-
-	var filename = "19Apr2018-DailyFoodReport.csv";
-	var path = "./term/public/reports/19Apr2018-DailyFoodReport.csv";
-	const mailOptions = {
-		from: 'noreply@farm-ing.co', // sender address
-		to: 'suppakit.neno@gmail.com, goodkavin@gmail.com, nattapol.puttasuntithum@gmail.com, pasithtommy@gmail.com', // list of receivers
-		subject: 'Farm-ing Daily report', // Subject line
-		html: '<p>Please view a ' + moment().format("Do MMM YYYY") + ' report.</p><br><p>This report is auto-generated at ' + moment().format("Do MMMM YYYY, kk:mm:ss") + '</p>', // plain text body
-		attachments: [
-		    {
-		        filename: filename,
-		        path: path,
-		        content: 'csv'
-		    },
-		]
-	};
-
-	transporter.sendMail(mailOptions, function (err, info) {
-		if(err) return res.send(err)
-		else return res.send(info)
-	});
-});
-
 // Report time trigger
 /*
 var job = new CronJob('00 00 12 * * 1-7',
@@ -1047,17 +1006,17 @@ var job = new CronJob('00 00 12 * * 1-7',
 */
 
 // Report time trigger
-var job = new CronJob('00 00 22 * * 1-7',
+var job = new CronJob('00 00 20 * * 1-7',
 	function() {
-		// Runs every day at 12:00:00
-  		console.log("Generating report...");
-  		const SELECT_ALL_REPORT2_QUERY = 'CALL generate_report()'
+		// Runs every day at 20:00:00
+		const SELECT_ALL_REPORT2_QUERY = 'CALL generate_report()'
 		connection.query(SELECT_ALL_REPORT2_QUERY, (err,results) =>{
 			if (err) {
 				return res.send(err)
 			} else {
-				var type = "Food";
-				var dir = "./term/public/reports/";
+				var type = "FoodAndTransfer";
+				var dir = "./term/build/reports/";
+				var dir2 = "/reports/";
 				var name = moment().format("DDMMMYYYY") + "-Daily" + type + "Report" + ".csv";
 				var ws = fs.createWriteStream(dir + name, { encoding: 'utf-8'} );
 				var report = [];
@@ -1065,46 +1024,64 @@ var job = new CronJob('00 00 22 * * 1-7',
 					report = ["Nothing to report"];
 				} else {
 					report.push([ type + " report " + moment().format("DD MMM YYYY")]);
-					report.push(["Barn", "Date of open barn","Age(Day)", "Move in", "Move out", "Current pig", "Cumulative Food(Kg)", "FPP", "Target FPP"]);
+					report.push(["Barn id", "Barn name", "Date of open barn","Date of close barn","Age(Day)", "Current pig", "Cumulative Food(Kg)", "FPP", "Target FPP", "Move in", "Move out", "Sold", "Die", "Sick", "Defect", "Dwarf"]);
 					results[0].forEach(function(item) {
-						report.push([item.barn_id, moment(item.open_date).format("DD MMM YYYY"), item.age, item.move_in, item.move_out, item.current_pig, item.cumulative_food, item.fpp, item.target_fpp]);
+						if(item.close_date == "ACTIVE") {
+							item.close_date = "ACTIVE";
+						} else {
+							item.close_date = moment(item.close_date).format("DD MMM YYYY");
+						}
+						report.push([item.barn_id, item.barn_name, moment(item.open_date).format("DD MMM YYYY"), item.close_date, item.age, item.current_pig, item.cumulative_food, item.fpp, item.target_fpp, item.move_in, item.move_out, item.sold, item.die, item.sick, item.defect, item.dwarf]);
 					});
 				}
 				
 				csv.write(report, { headers: true })
 				.pipe(ws)
 				.on("finish", function(){
+					var n = 'รายงานประจำวัน ' + moment().format("YYYY-MM-DD");
+					var p = dir2 + name;
+					var d = moment().format("YYYY-MM-DD")
+					var t = "transfer";
+					const INSERT_REPORT_QUERY = "INSERT INTO report_list (report_name, report_path, report_date, type) VALUES('" + n + "','" + p + "','" + d + "','" + t + "')";
+	 				//const INSERT_REPORT_QUERY = "INSERT INTO report_list (report_name, report_path, report_date, type) VALUES('รายงานประจำวัน 20-01-61','/reports/20Apr2018-DailyFoodReport.csv','2018-04-20 00:00:00','transfer')";
+	 				connection.query(INSERT_REPORT_QUERY, (err,results) =>{
+	 					if (err) {
+							return res.send(err);
+						} else {
+							
+							var transporter = nodemailer.createTransport({
+								service: 'gmail',
+								auth: {
+							    	user: 'farm.ingbkk@gmail.com',
+							    	pass: 'farming2018'
+								}
+							});
 
-					var transporter = nodemailer.createTransport({
-						service: 'gmail',
-						auth: {
-					    	user: 'farm.ingbkk@gmail.com',
-					    	pass: 'farming2018'
+							//var filename = "19Apr2018-DailyFoodReport.csv";
+							var filename = name;
+							//var path = "./term/public/reports/19Apr2018-DailyFoodReport.csv";
+							var path = dir + name;
+							const mailOptions = {
+								from: 'noreply@farm-ing.co', // sender address
+								to: 'suppakit.neno@gmail.com, goodkavin@gmail.com, nattapol.puttasuntithum@gmail.com, pasithtommy@gmail.com, pramote.ku.eng@gmail.com', // list of receivers
+								subject: 'Farm-ing Daily report', // Subject line
+								html: '<p>Please view a ' + moment().format("Do MMM YYYY") + ' report.</p><br><p>This report is auto-generated at ' + moment().format("Do MMMM YYYY, kk:mm:ss") + '</p>', // plain text body
+								attachments: [
+								    {
+								        filename: filename,
+								        path: path,
+								        content: 'csv'
+								    },
+								]
+							};
+
+							transporter.sendMail(mailOptions, function (err, info) {
+								if(err) return res.send(err)
+								else return res.send(info)
+							});
+							
 						}
-					});
-
-					//var filename = "19Apr2018-DailyFoodReport.csv";
-					var filename = name;
-					//var path = "./term/public/reports/19Apr2018-DailyFoodReport.csv";
-					var path = dir + name;
-					const mailOptions = {
-						from: 'noreply@farm-ing.co', // sender address
-						to: 'suppakit.neno@gmail.com, goodkavin@gmail.com, nattapol.puttasuntithum@gmail.com, pasithtommy@gmail.com', // list of receivers
-						subject: 'Farm-ing Daily report', // Subject line
-						html: '<p>Please view a ' + moment().format("Do MMM YYYY") + ' report.</p><br><p>This report is auto-generated at ' + moment().format("Do MMMM YYYY, kk:mm:ss") + '</p>', // plain text body
-						attachments: [
-						    {
-						        filename: filename,
-						        path: path,
-						        content: 'csv'
-						    },
-						]
-					};
-
-					transporter.sendMail(mailOptions, function (err, info) {
-						if(err) return res.send(err)
-						else return res.send(info)
-					});
+	 				});
 
 			   	});
 			}
