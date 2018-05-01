@@ -16,8 +16,9 @@ class Show extends Component {
 	}
 
 	render() {
-		let {transferList, dateIsSelected} = this.props;
-		console.log(transferList, dateIsSelected)
+		let {transferList, dateIsSelected, currentPig} = this.props;
+		console.log(currentPig[0].current_pig)
+		const current = currentPig[0].current_pig;
 		const data = transferList;
 		const columns1 = [{
 			title: 'ประเภท',
@@ -52,6 +53,7 @@ class Show extends Component {
 			
 			<div>
 				<h2>รายการเคลื่อนย้าย</h2>
+				<h4>จำนวนปัจจุบัน {current}</h4>
 				{dateIsSelected ? (
 			    	<Table expandedRowRender={expandedRowRender} columns={columns2} dataSource={data}/>
 			    ) : (
