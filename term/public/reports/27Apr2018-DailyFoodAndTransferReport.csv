@@ -1,0 +1,8 @@
+FoodAndTransfer report 27 Apr 2018
+Barn id,Barn name,Date of open barn,Date of close barn,Age(Day),Current pig,Cumulative Food(Kg),FPP,Target FPP,Move in,Move out,Sold,Die,Sick,Defect,Dwarf
+1,15,16 Jul 2017,ACTIVE,356,120,200813,1673.44,543.4,1197,1077,967,41,0,46,23
+2,2,25 Apr 2018,ACTIVE,84,764,4641,6.07,26.6,764,0,0,0,0,0,0
+3,3,26 Apr 2018,ACTIVE,71,0,0,,1.9,0,0,0,0,0,0,0
+4,3,26 Apr 2018,ACTIVE,71,0,0,,1.9,0,0,0,0,0,0,0
+5,3,26 Apr 2018,ACTIVE,83,0,0,,24.7,0,0,0,0,0,0,0
+6,3,25 Apr 2018,ACTIVE,84,0,0,,26.6,0,0,0,0,0,0,0
