@@ -108,7 +108,7 @@ app.get('/barn/close/:barn_name', (req, res) =>{
 		}
 		else{
 			barn_id = results[0].barn_id
-			const SELECT_TRANSFER_BY_BARN_QUERY = 'UPDATE barn SET active=0 WHERE barn_id='+barn_id;
+			const SELECT_TRANSFER_BY_BARN_QUERY = 'UPDATE barn SET active=0, close_date=CURRENT_DATE WHERE barn_id='+barn_id;
 			connection.query(SELECT_TRANSFER_BY_BARN_QUERY, (err,results) =>{
 				if (err) {
 					return res.send(err)
