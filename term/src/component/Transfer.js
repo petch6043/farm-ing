@@ -35,6 +35,9 @@ class Transfer extends Component {
 		super(props);
 		this.state = {
 			transferList: [],
+			currentPig: [{
+				"current_pig": 0
+			}],
 			barnNumber: props.location.Barn_no,
 			dateIsSelected: false,
 			dateSelected: "",
@@ -45,10 +48,12 @@ class Transfer extends Component {
 		this.onChange = this.onChange.bind(this);
 		this.closeBarn = this.closeBarn.bind(this);
 		this.onDelete = this.onDelete.bind(this);
+		this.currentPig = this.currentPig.bind(this);
 	}
 
 	componentDidMount(){
 		this.getTransfers();
+		this.currentPig();
 	}
 
 	getTransfers() {
@@ -114,6 +119,7 @@ class Transfer extends Component {
 	    		if(data == 1) {
 	    			noti('success','เพิ่มการเคลื่อนย้าย','บันทึกข้อมูลสำเร็จ');
 	    			this.getTransfersByDate(this.state.dateSelected);
+	    			this.currentPig();
 	    		} else {
 	    			noti('error','เพิ่มการเคลื่อนย้าย','บันทึกข้อมูลล้มเหลว');
 	    		}
@@ -145,6 +151,7 @@ class Transfer extends Component {
 	    		if(data == 1) {
 	    			noti('success','ลบรายการ','บันทึกข้อมูลสำเร็จ');
 	    			this.getTransfersByDate(this.state.dateSelected);
+	    			this.currentPig();
 	    		} else {
 	    			noti('error','ลบรายการ','บันทึกข้อมูลล้มเหลว');
 	    		}
@@ -154,10 +161,17 @@ class Transfer extends Component {
 	    	noti('error','Delete transfer',err);
 	    })
 	}
-	
+
+	currentPig() {
+	    fetch("http://206.189.35.130:4000/transfer/current_pig/"+this.state.barnNumber)
+	    .then(response => response.json())
+	    .then(response => this.setState({ currentPig: response.data}))
+	    .catch(err => console.error(err))
+	}
+
 
 	render() {
-		let {transferList, dateIsSelected} = this.state;
+		let {transferList, dateIsSelected, currentPig} = this.state;
 		let {Barn_no} = this.props.location;
 		const { redirect } = this.state;
 
@@ -186,9 +200,10 @@ class Transfer extends Component {
 						<Panel header="ย้ายออก" key="2" style={customPanelStyle} className="myBigFont">
 							<MoveOut onAdd={this.onAdd}/>
 						</Panel>
+
 					</Collapse>
 
-					<Show transferList={transferList} dateIsSelected={dateIsSelected} onDelete={this.onDelete}/>
+					<Show transferList={transferList} dateIsSelected={dateIsSelected} currentPig={currentPig} onDelete={this.onDelete}/>
 				</div>
 				<Footer/>
 			</div>
