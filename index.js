@@ -479,6 +479,7 @@ app.get('/report/food', (req, res) =>{
 			var type = "FoodAndTransfer";
 			var dir = "./term/build/reports/";
 			var dir2 = "/reports/";
+			var dir3 = "./term/public/reports/";
 			var name = moment().format("DDMMMYYYY") + "-Daily" + type + "Report" + ".csv";
 			var ws = fs.createWriteStream(dir + name, { encoding: 'utf-8'} );
 			var report = [];
@@ -500,6 +501,9 @@ app.get('/report/food', (req, res) =>{
 			csv.write(report, { headers: true })
 			.pipe(ws)
 			.on("finish", function(){
+				//copy file
+				fs.createReadStream(dir + name).pipe(fs.createWriteStream(dir3 + name));
+
 				var n = 'รายงานประจำวัน ' + moment().format("YYYY-MM-DD");
 				var p = dir2 + name;
 				var d = moment().format("YYYY-MM-DD")
@@ -1020,6 +1024,7 @@ var job = new CronJob('00 00 20 * * 1-7',
 				var type = "FoodAndTransfer";
 				var dir = "./term/build/reports/";
 				var dir2 = "/reports/";
+				var dir = "./term/public/reports/";
 				var name = moment().format("DDMMMYYYY") + "-Daily" + type + "Report" + ".csv";
 				var ws = fs.createWriteStream(dir + name, { encoding: 'utf-8'} );
 				var report = [];
@@ -1041,6 +1046,9 @@ var job = new CronJob('00 00 20 * * 1-7',
 				csv.write(report, { headers: true })
 				.pipe(ws)
 				.on("finish", function(){
+					//copy file
+					fs.createReadStream(dir + name).pipe(fs.createWriteStream(dir3 + name));
+
 					var n = 'รายงานประจำวัน ' + moment().format("YYYY-MM-DD");
 					var p = dir2 + name;
 					var d = moment().format("YYYY-MM-DD")
